@@ -1,13 +1,20 @@
 use std::fs;
+use std::io::Write;
 
 use anyhow::Result;
-use lsp_server::Connection;
-use lsp_server::Message;
-use lsp_server::Response;
-use lsp_types::ClientCapabilities;
-use lsp_types::GotoDefinitionResponse;
-use lsp_types::InitializeParams;
-use lsp_types::ServerCapabilities;
+use lsp_server::{Connection, Message, Response};
+use lsp_types::{
+    ClientCapabilities, GotoDefinitionResponse, InitializeParams,
+    ServerCapabilities,
+};
+
+fn log<S: AsRef<str>>(x: S) {
+    let mut f = fs::File::options()
+        .append(true)
+        .open("/home/khang/repos/mylsp/log.txt")
+        .unwrap();
+    writeln!(f, "{}", x.as_ref()).unwrap();
+}
 
 fn actual_main() -> Result<()> {
     let (connection, io_threads) = Connection::stdio();
@@ -16,18 +23,18 @@ fn actual_main() -> Result<()> {
     let client_capabilities: ClientCapabilities = init_params.capabilities;
 
     let mut server_capabilities = ServerCapabilities::default();
-    server_capabilities.definition_provider = Some(lsp_types::OneOf::Left(true));
+    server_capabilities.definition_provider =
+        Some(lsp_types::OneOf::Left(true));
 
     let initialize_data = serde_json::json!({
         "capabilities": server_capabilities,
         "serverInfo": {
-            "name": "lsp-server-test",
-            "version": "0.1"
+            "name": "math-lsp",
+            "version": "0.0.1"
         }
     });
 
     connection.initialize_finish(id, initialize_data)?;
-    fs::write("/home/khang/repos/mylsp/log.txt", "Completed init")?;
 
     for msg in &connection.receiver {
         eprintln!("got msg: {msg:?}");
@@ -37,10 +44,14 @@ fn actual_main() -> Result<()> {
                     return Ok(());
                 }
                 if req.method == "textDocument/definition" {
+                    log("asked for def");
                     let resp = Response {
                         id: req.id,
                         result: Some(
-                            serde_json::to_value(GotoDefinitionResponse::Array(vec![])).unwrap(),
+                            serde_json::to_value(
+                                GotoDefinitionResponse::Array(vec![]),
+                            )
+                            .unwrap(),
                         ),
                         error: None,
                     };

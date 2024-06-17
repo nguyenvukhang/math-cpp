@@ -1,3 +1,3 @@
 run:
 	cargo build
-	nvim meme.tex
+	cd /home/khang/repos/math && nvim lib/real_analysis/divergence.tex
