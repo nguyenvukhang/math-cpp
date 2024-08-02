@@ -9,7 +9,7 @@ struct Label {
     char data[7] = {'x', 'x', 'x', 'x', 'x', 'x', 'x'};
     Label() {}
 
-    Label(std::string &&value) { strncpy(data, value.data(), 7); }
+    Label(const std::string &&value) { strncpy(data, value.data(), 7); }
 
     // Convert to LaTeX form.
     //
