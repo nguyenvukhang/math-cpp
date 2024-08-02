@@ -4,6 +4,21 @@
 #include "prelude.h"
 #include "string.h"
 
+class LabelMaker {
+    std::unordered_set<Label> existing;
+
+   public:
+    LabelMaker(const std::vector<Label>&& labels)
+        : existing(labels.begin(), labels.end()) {}
+
+    // Create a fresh label (never-seen-before), and return it.
+    Label fresh() {
+        Label l;
+        while (!existing.insert(l = Label::rand()).second);
+        return l;
+    }
+};
+
 int main(int argc, char* argv[]) {
     std::vector<Label> all_labels;
 
@@ -26,7 +41,10 @@ int main(int argc, char* argv[]) {
             // fwrite("\n", 1, 1, stdout);
         }
     }
-    std::unordered_set<Label> existing(all_labels.begin(), all_labels.end());
-    printf("%lu -> %lu\n", all_labels.size(), existing.size());
+    LabelMaker lm(std::move(all_labels));
+
+    for (int i = 0; i < 5; i++) {
+        std::cout << ':' << lm.fresh() << std::endl;
+    }
     return 0;
 }
