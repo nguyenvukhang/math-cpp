@@ -6,9 +6,11 @@
 #include "fs.h"
 #include "label.h"
 
-int main(int argc, char *argv[]) {
-    printf("HI\n");
-    string buf = read_file("lib/uatfo/mod.tex");
-    printf("%s\n", buf.c_str());
+int main(int argc, char* argv[]) {
+    auto tx = tex_files();
+    for (auto& x : tx) {
+        printf("%s\n", x.c_str());
+    }
+    printf("%d\n", tx.size());
     return 0;
 }
