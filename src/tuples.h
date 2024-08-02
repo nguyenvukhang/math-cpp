@@ -1,3 +1,5 @@
+#pragma once
+
 template <typename T1, typename T2>
 struct tup2 {
   T1 v1;

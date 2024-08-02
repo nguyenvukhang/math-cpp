@@ -1,3 +1,5 @@
+#pragma once
+
 #include "prelude.h"
 
 // Reads a file to a `std::string`.

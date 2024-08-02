@@ -1,3 +1,5 @@
+#pragma once
+
 #include "prelude.h"
 
 // An iterator over lines of a string.

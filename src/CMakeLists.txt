@@ -22,9 +22,11 @@ endif()
 message("${Gray}CMake Build Type: [${Cyan}${CMAKE_BUILD_TYPE}${Gray}]${ColourReset}")
 
 set(SOURCE_FILES 
-  label.cc
   fs.cc
+  label.cc
+  project.cc
   string.cc
+  tex.cc
 )
 
 # Test binary builds
