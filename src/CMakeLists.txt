@@ -23,6 +23,7 @@ message("${Gray}CMake Build Type: [${Cyan}${CMAKE_BUILD_TYPE}${Gray}]${ColourRes
 
 set(SOURCE_FILES 
   label.cc
+  fs.cc
 )
 
 # Test binary builds

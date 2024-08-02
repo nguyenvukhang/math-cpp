@@ -3,12 +3,12 @@
 #include <functional>
 #include <string>
 
+#include "fs.h"
 #include "label.h"
-
-using string = std::string;
-namespace fs = std::filesystem;
 
 int main(int argc, char *argv[]) {
     printf("HI\n");
+    string buf = read_file("lib/uatfo/mod.tex");
+    printf("%s\n", buf.c_str());
     return 0;
 }
