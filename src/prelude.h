@@ -14,3 +14,5 @@
 
 namespace fs = std::filesystem;
 using string = std::string;
+
+extern const std::vector<string> MARKS;

@@ -36,17 +36,15 @@ class TexBuf {
 };
 
 // Everything you want to know about one `.tex` file.
-class TexDataBuf {
-    const TexBuf _buf;
+class TexDataBuf : public TexBuf {
     std::vector<Label> _labels;
 
    public:
-    TexDataBuf(const TexBuf &&buf) : _buf(buf) {
+    TexDataBuf(const TexBuf &&buf) : TexBuf(buf) {
         std::optional<std::string_view> label;
-        for (const std::string_view &line : _buf.lines()) {
-            if ((label = parse_label(line))) {
+        for (const std::string_view &line : lines()) {
+            if ((label = parse_label(line)))
                 _labels.emplace_back(label.value());
-            }
         }
     }
 
@@ -54,5 +52,4 @@ class TexDataBuf {
     static std::vector<TexDataBuf> from_bufs(const std::vector<TexBuf> &&bufs);
 
     std::vector<Label> labels() const { return _labels; }
-    TexBuf buffer() const { return _buf; }
 };

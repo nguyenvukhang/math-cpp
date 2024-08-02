@@ -22,6 +22,7 @@ endif()
 message("${Gray}CMake Build Type: [${Cyan}${CMAKE_BUILD_TYPE}${Gray}]${ColourReset}")
 
 set(SOURCE_FILES 
+  consts.cc
   fs.cc
   label.cc
   project.cc
