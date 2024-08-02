@@ -22,12 +22,7 @@ endif()
 message("${Gray}CMake Build Type: [${Cyan}${CMAKE_BUILD_TYPE}${Gray}]${ColourReset}")
 
 set(SOURCE_FILES 
-  consts.cc
   label.cc
-  pdftex.cc
-  project.cc
-  tex.cc
-  utils.cc
 )
 
 # Test binary builds
@@ -47,7 +42,7 @@ if("${CMAKE_BUILD_TYPE}" STREQUAL "Test")
   include(GoogleTest)
   gtest_discover_tests(minimath_test)
 else()
-  add_executable(minimath main.cc cli.cc ${SOURCE_FILES})
+  add_executable(minimath main.cc ${SOURCE_FILES})
   target_include_directories(minimath PRIVATE deps)
 endif()
 
