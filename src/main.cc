@@ -4,21 +4,6 @@
 #include "prelude.h"
 #include "string.h"
 
-class LabelMaker {
-    std::unordered_set<Label> existing;
-
-   public:
-    LabelMaker(const std::vector<Label>&& labels)
-        : existing(labels.begin(), labels.end()) {}
-
-    // Create a fresh label (never-seen-before), and return it.
-    Label fresh() {
-        Label l;
-        while (!existing.insert(l = Label::rand()).second);
-        return l;
-    }
-};
-
 int main(int argc, char* argv[]) {
     std::vector<Label> all_labels;
 
@@ -41,10 +26,10 @@ int main(int argc, char* argv[]) {
             // fwrite("\n", 1, 1, stdout);
         }
     }
-    LabelMaker lm(std::move(all_labels));
+    auto lm = LabelMaker(std::move(all_labels));
 
     for (int i = 0; i < 5; i++) {
-        std::cout << ':' << lm.fresh() << std::endl;
+        std::cout << ':' << lm() << std::endl;
     }
     return 0;
 }

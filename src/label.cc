@@ -3,7 +3,7 @@
 #include <iostream>
 #include <random>
 
-using namespace std;
+#include "prelude.h"
 
 std::seed_seq get_random_seed() {
     std::random_device source;
@@ -18,30 +18,21 @@ static std::default_random_engine rng(seed);
 const char LABEL_CHARS[] = {'a', 'b', 'c', 'd', 'e', 'f', '0', '1',
                             '2', '3', '4', '5', '6', '7', '8', '9'};
 
-string Label::to_tex() {
-    char result[16] = "\\label{_______}";
-    strncpy(&result[7], data, 7);
-    return result;
-}
-
 Label Label::rand() {
     Label label;
     label.data[0] = 'a' + rand5(rng);
-    for (int i = 1; i < 7; i++) label.data[i] = LABEL_CHARS[rand15(rng)];
+    for (int i = 1; i < Label::N; i++) label.data[i] = LABEL_CHARS[rand15(rng)];
     return label;
 }
 
 Label Label::fresh(std::unordered_set<Label> &existing) {
-    Label fresh = Label::rand();
-    while (existing.contains(fresh)) {
-        fresh = Label::rand();
-    }
-    existing.insert(fresh);
-    return fresh;
+    Label l;
+    while (!existing.insert(l = Label::rand()).second);
+    return l;
 }
 
 void inspect(const std::unordered_set<Label> &existing) {
-    cout << '[';
-    for (auto &label : existing) cout << label << ", ";
-    cout << ']' << endl;
+    std::cout << '[';
+    for (auto &label : existing) std::cout << label << ", ";
+    std::cout << ']' << std::endl;
 }

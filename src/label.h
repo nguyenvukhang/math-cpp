@@ -6,15 +6,11 @@
 #include <unordered_set>
 
 struct Label {
-    char data[7] = {'x', 'x', 'x', 'x', 'x', 'x', 'x'};
+    static const int N = 7;
+    char data[N] = {'x', 'x', 'x', 'x', 'x', 'x', 'x'};
     Label() {}
 
     Label(const std::string_view &value) { strncpy(data, value.data(), 7); }
-
-    // Convert to LaTeX form.
-    //
-    // "d5f_ab7d" → "\label{d5f_ab7d}"
-    std::string to_tex();
 
     // Generate a random label.
     static Label rand();
@@ -23,12 +19,12 @@ struct Label {
     // Once found, add to the set of existing labels.
     static Label fresh(std::unordered_set<Label> &existing);
 
-    bool operator==(const Label &x) const { return !strncmp(data, x.data, 7); }
+    bool operator==(const Label &x) const { return !strncmp(data, x.data, N); }
 
-    operator std::string() { return std::string(data, 7); }
+    operator std::string() { return std::string(data, N); }
 
     friend std::ostream &operator<<(std::ostream &os, const Label &obj) {
-        os.write(obj.data, 7);
+        os.write(obj.data, N);
         return os;
     }
 };
@@ -41,3 +37,22 @@ struct hash<Label> {
     }
 };
 }  // namespace std
+
+class LabelMaker {
+    std::unordered_set<Label> existing;
+
+   public:
+    LabelMaker(std::unordered_set<Label> &&labels)
+        : existing(std::move(labels)) {}
+
+    LabelMaker(const std::vector<Label> &&labels)
+        : existing(labels.begin(), labels.end()) {}
+
+    // Create a fresh label (never-seen-before), record it, and return it.
+    Label operator()() {
+        Label::fresh(existing);
+        Label l;
+        while (!existing.insert(l = Label::rand()).second);
+        return l;
+    }
+};
