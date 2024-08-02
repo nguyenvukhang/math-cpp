@@ -5,6 +5,8 @@
 #include "string.h"
 
 int main(int argc, char* argv[]) {
+    std::vector<Label> all_labels;
+
     for (const fs::path& fp : tex_files()) {
         std::string buf = read_file(fp);
         std::istringstream stream(buf);
@@ -14,7 +16,9 @@ int main(int argc, char* argv[]) {
             if (x) {
                 fwrite(x->data(), x->size(), 1, stdout);
                 fwrite("\n", 1, 1, stdout);
+                all_labels.emplace_back(x.value());
             }
+
             // if (x.data()) {
             //     fwrite(x.data(), x.size(), 1, stdout);
             // }
@@ -22,5 +26,7 @@ int main(int argc, char* argv[]) {
             // fwrite("\n", 1, 1, stdout);
         }
     }
+    std::unordered_set<Label> existing(all_labels.begin(), all_labels.end());
+    printf("%lu -> %lu\n", all_labels.size(), existing.size());
     return 0;
 }
