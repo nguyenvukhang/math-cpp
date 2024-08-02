@@ -1,7 +1,11 @@
 #pragma once
 
+#include <dirent.h>
+
 #include <filesystem>
+#include <fstream>
 #include <functional>
+#include <sstream>
 #include <string>
 #include <vector>
 
