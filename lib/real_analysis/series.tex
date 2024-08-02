@@ -1,0 +1,683 @@
+\subsection{Series and convergence tests}\label{d9e402e}
+
+\Theorem{Convergence of the geometric series}\label{fca26f6}
+%+Geometric series converging
+
+Let $a\neq0$ and $r\in\R$. Consider the \href{ae21a85}{geometric series}
+$$
+  \sum_{k=1}^\infty ar^{k-1}=a+ar+ar^2+\ldots
+$$
+
+Then we have
+$$
+  \sum_{k=1}^\infty ar^{k-1}=\begin{cases}
+    \dfrac a{1-r}\text{(\href{f8901df}{converges})} & \text{if }|r|<1    \\[0.8em]
+    \text{diverges}                                 & \text{if }|r|\geq1 \\
+  \end{cases}
+$$
+
+\begin{proof}
+  Let $s_n$ be the \href{a835138}{partial sum} $\displaystyle
+  s_n:=\sum_{k=1}^nar^{k-1}$. Consider $rs_n-s_n$.
+  \begin{align*}
+    rs_n-s_n &=(ar+ar^2+\ldots+ar^n)-(a+ar+\ldots+ar^{n-1}) \\
+             &=ar^n-a
+  \end{align*}
+
+  Which then converts to
+  $$
+    s_n=\frac{a(1-r^n)}{1-r}
+  $$
+
+  This works when $r\neq1$, but when $r=1$, we simply have $s_n=an$. Hence,
+  $$
+    s_n=\begin{cases}
+      \dfrac{a(1-r^n)}{1-r} & \text{if }r\neq1 \\
+      an                    & \text{if }r=1
+    \end{cases}
+  $$
+
+  \begin{itemize}
+    \item When $-1<r<1$, $s_n\to\dfrac a{1-r}$ (converges) as $n\to\infty$.
+    \item When $|r|>1$, $s_n$ diverges because $r^n$ is
+          \href{e4698be}{unbounded} (and diverges).
+    \item When $r=1$, $s_n=an$ diverges as $n\to\infty$.
+    \item When $r=-1$, $s_n=\frac a2[1-(-1)^n]$ diverges.
+  \end{itemize}
+\end{proof}
+
+\Theorem{Linearity of convergent series}\label{f5cf40a}
+
+Let $\displaystyle\sum_{n=1}^\infty a_n$ and $\displaystyle\sum_{n=1}^\infty
+b_n$ be two \href{f8901df}{convergent series}, and let $k\in\R$. Then
+\begin{enumerata}
+  \item The series $\sum_{n=1}^\infty (a_n+b_n)$ is also convergent with
+  $$
+    \sum_{n=1}^\infty (a_n+b_n)=\sum_{n=1}^\infty a_n+\sum_{n=1}^\infty b_n
+  $$
+  \item The series $\sum_{n=1}^\infty ka_n$ is also convergent with
+  $$
+    \sum_{n=1}^\infty ka_n=k\sum_{n=1}^\infty a_n
+  $$
+\end{enumerata}
+
+\begin{proof}
+  \proofp{(a)} For each $n\in\N$, let
+  \begin{align*}
+    s_n &:=a_1+\ldots+a_n             \\
+    t_n &:=b_1+\ldots+b_n             \\
+    r_n &:=(a_1+b_1)+\ldots+(a_n+b_n)
+  \end{align*}
+
+  Since $\sum_{n=1}^\infty a_n$ and $\sum_{n=1}^\infty b_n$ are convergent, we
+  have $\{s_n\}$ and $\{t_n\}$ convergent.
+
+  But since $r_n=s_n+t_n$ for all $n\in\N$, $\{r_n\}$ \href{d13a5e7}{is also
+  convergent} with
+  $$
+    \lim_{n\to\infty}r_n=\lim_{n\to\infty}s_n+\lim_{n\to\infty}t_n
+  $$
+
+  \proofp{(b)} For each $n\in\N$, let
+  $$
+    s_n:=a_1+\ldots+a_n
+  $$
+
+  Since $\sum_{n=1}^\infty a_n$ is convergent, we have that $\{s_n\}$ is
+  convergent. In particular,
+  $$
+    \sum_{n=1}^\infty ka_n
+    =\lim_{n\to\infty}ks_n
+    \href{d13a5e7}{=}k\lim_{n\to\infty}s_n
+  $$
+\end{proof}
+
+\Theorem{Series convergence → sequence goes to 0}\label{a2ca7a8}
+
+If $\sum_{n=1}^\infty a_n$ converges, then
+$\displaystyle\lim_{n\to\infty}a_n=0$.
+
+\begin{proof}
+  Let $s_n=a_1+\ldots+a_n$. \href{f8901df}{Since} $\sum_{n=1}^\infty a_n$
+  converges, $\{s_n\}$ converges to a limit $s$. Now for each $n$,
+  $$
+    s_{n+1}=s_n+a_{n+1},
+  $$
+\end{proof}
+
+\Theorem{The $n$-th term divergence test}\label{fa993a6}
+
+Let $\{a_n\}$ be a \href{b5fa0e4}{sequence}.
+
+\begin{enumerati}
+  \item If $\displaystyle\lim_{n\to\infty}a_n\neq0$ (or does not exist), then
+        $\displaystyle\sum_{n=1}^\infty a_n$ diverges.
+  \item If $\displaystyle\lim_{n\to\infty}a_n=0$, then no conclusions can be
+        drawn for the behavior of $\displaystyle\sum_{n=1}^\infty a_n$.
+\end{enumerati}
+
+\begin{proof}
+  \proofp{(i)} This is the contrapositive of \autoref{a2ca7a8}.
+
+  \proofp{(ii)} Consider the two examples:
+  \begin{enumerata}
+    \item The harmonic series $\sum_{n=1}^\infty\frac1n$ diverges although
+          $\lim_{n\to\infty}\frac1n=0$.
+    \item The geometric series $\sum_{n=1}^\infty2^{-n}$ converges, and
+          $\lim_{n\to\infty}2^{-n}=0$.
+  \end{enumerata}
+
+  Hence no conclusion can be drawn from the information that
+  $\lim_{n\to\infty}a_n=0$. for the behavior of $\displaystyle\sum_{n=1}^\infty
+  a_n$.
+\end{proof}
+
+\Theorem{Cauchy criterion for series}\label{ae59546}
+
+The series $\sum_{n=1}^\infty a_n$ \href{f8901df}{converges} if and only if for
+every $\epsilon>0$, there exists $K=K(\epsilon)\in\N$ such that
+$$
+  |a_{n+1}+a_{n+2}+\ldots+a_m|<\epsilon,\with{\forall m>n\geq K}
+$$
+
+or equivalently,
+$$
+  \biggl|\sum_{n<i\leq m}a_i\biggr|<\epsilon,\with{\forall m>n\geq K}
+$$
+
+\begin{proof}
+  Let $\{s_n\}$ be a sequence of partial sums of $\sum_{n=1}^\infty a_n$. Then
+  \begin{align*}
+    |s_n-s_m|=\biggl|\sum_{i=1}^na_i-\sum_{i=1}^ma_i\biggr|=\biggl|\sum_{n<i\leq m}^na_i\biggr|\Tag{*}
+  \end{align*}
+
+  So then
+  \begin{align*}
+    \sum_{n=1}^\infty a_n\text{ converges}
+     &\href{f8901df}\iff\{s_n\}\text{ converges}                                                  \\
+     &\href{a1534e3}{\iff}\{s_n\}\text{ is \href{a8f670d}{Cauchy}}                                \\
+     &\href{a8f670d}{\iff}\forall\epsilon>0,\ \exists K\in\N:m>n\geq K\implies |s_n-s_m|<\epsilon \\
+     &\iff\forall\epsilon>0,\ \exists K\in\N \text{ such that}                                    \\
+     &\Quad m>n\geq K\implies\biggl|\sum_{n<i\leq m}^na_i\biggr|<\epsilon\desc{from $(*)$}
+  \end{align*}
+\end{proof}
+
+\Theorem{Convergence of non-negative series}\label{a6c7116}
+
+Let $\sum_{n=1}^\infty a_n$ be a \href{b6cffeb}{(eventually) non-negative
+series}. Then $\sum_{n=1}^\infty a_n$ \href{f8901df}{converges} if and only if
+the sequence $\{s_n\}$ of \href{a835138}{partial sums} is
+\href{d5ed299}{bounded above}.
+
+\begin{proof}
+  We may assume without loss of generality that $a_k\geq0$ for all $k$, since
+  whether a series is convergent does not depend on, say, the first 100 terms.
+
+  Now, for each $n\geq1$, let $s_n:=a_1+\ldots+a_n$. Note that $\{s_n\}$ is
+  then the sequence of partial sums of the original series. Since
+  $$
+    s_{n+1}-s_n=a_{n+1}\geq0,
+  $$
+
+  the sequence $\{s_n\}$ is \href{feae1b2}{increasing}. Thus
+  \begin{align*}
+    \sum_{k=1}^\infty a_k &\iff\{s_n\}\text{ converges}\desc{by \href{f8901df}{definition}} \\
+                          &\iff\{s_n\}\text{ is \href{d5ed299}{bounded} above}
+  \end{align*}
+
+  Regarding the last equivalence, convergence $\implies$ bounded from
+  \autoref{d8148e6}. The opposite implication follows from \href{c28d9a9}{MCT}.
+\end{proof}
+
+\Lemma{Convergence of $p$-series, $p>1$}\label{ae42184}
+
+If $p>1$, then the \href{cccc2e8}{$p$-series} converges. That is,
+$$
+  \sum_{n=1}^\infty\frac1{n^p}
+$$
+
+converges.
+
+\begin{proof}
+  First, observe that $\displaystyle\sum_{k=1}^\infty\frac1{k^p}$ is a
+  \href{b6cffeb}{non-negative series}, since each term is positive.
+
+  For each $n\in\N$, let $s_n:=\displaystyle\sum_{k=1}^n\frac1{k^p}$ be the
+  \href{a835138}{partial sum} of the series in question. Since every term is
+  positive, $\{s_n\}$ is an \href{feae1b2}{increasing sequence}.
+
+  Now, we consider the \href{c6b3a49}{subsequence}
+  \begin{equation*}
+    s_{n_k}:=\{s_1,s_3,s_7,\ldots\}\with{(\text{where }\{n_k\}:=2^k-1)}\Tag{*}
+  \end{equation*}
+
+  \paragraph{Claim} The subsequence $\{s_{n_k}\}$ is \href{d5ed299}{bounded above}.
+
+  Let $r:=1/2^{p-1}$. Note that since $p>1$, we have $0<r<1$. Then
+  \begin{alignat*}{2}
+    s_{n_1} & =s_1                                                                                                             \\
+    s_{n_2} & =s_3 &  & =1+\biggl(\frac1{2^p}+\frac1{3^p}\biggr)                                                               \\
+            &      &  & <1+\biggl(\frac1{2^p}+\frac1{2^p}\biggr)                                                               \\
+            &      &  & <1+\frac2{2^p}=1+r                                                                                     \\
+    s_{n_3} & =s_7 &  & =1+\biggl(\frac1{2^p}+\frac1{3^p}\biggr)+\biggl(\frac1{4^p}+\frac1{5^p}+\frac1{6^p}+\frac1{7^p}\biggr) \\
+            &      &  & <1+\biggl(\frac1{2^p}+\frac1{2^p}\biggr)+\biggl(\frac1{4^p}+\frac1{4^p}+\frac1{4^p}+\frac1{4^p}\biggr) \\
+            &      &  & <1+\frac2{2^p}+\frac4{4^p}=1+r+r^2
+  \end{alignat*}
+
+  By induction, we can show that
+  $$
+    s_{n_k}<1+r+r^2+\ldots+r^{k-1}=\frac{1-r^k}{r-1}<\frac1{1-r}
+  $$
+
+  Since $r$ only depends on $p$, which is a constant, this shows that $s_{n_k}$
+  is bounded above, proving the claim.
+
+  Now back to the main problem. We can now show that the original sequence
+  $\{s_k\}$ is bounded above because
+  \begin{align*}
+    s_k &\leq s_{2^k-1}\desc{$\{s_k\}$ is increasing} \\
+        &=s_{n_k}\desc{as defined in $(*)$}           \\
+        &<\frac1{1-r}\desc{from the Lemma}
+  \end{align*}
+
+  So now we have that $\{s_k\}$ is increasing and bounded above. By
+  \href{c28d9a9}{MCT}, it converges.
+\end{proof}
+
+\Theorem{Comparison test}\label{d0856d6}
+
+Consider two (eventually) \href{b6cffeb}{non-negative} series
+$\sum_{k=1}^\infty a_k$ and $\sum_{k=1}^\infty b_k$. Suppose there exists
+$K\in\N$ such that
+$$
+  0\leq a_k\leq b_k\with{\text{for all } k\geq K}
+$$
+
+Then,
+\begin{enumerati}
+  \item If $\sum_{k=1}^\infty b_k$ \href{f8901df}{converges}, then
+        $\sum_{k=1}^\infty a_k$ converges.
+  \item If $\sum_{k=1}^\infty a_k$ diverges, then $\sum_{k=1}^\infty b_k$
+        diverges.
+\end{enumerati}
+
+\begin{proof}
+  (ii) is the contrapositive of (i). Hence they are equivalent and it suffices
+  to prove (i). Without loss of generality, we will assume $0\leq a_n\leq b_k$
+  for all $k\in\N$.
+
+  Consider the \href{a835138}{partial sums} $A_n:=\sum_{k=1}^na_k$, and
+  $B_n:=\sum_{k=1}^nb_k$. Then
+  \begin{equation*}
+    A_n\leq B_n\with{(\forall n\in\N)}\Tag{*}
+  \end{equation*}
+
+  and clearly $\{A_n\}$ and $\{B_n\}$ are \href{feae1b2}{monotone increasing
+  sequences}.
+
+  Suppose $\sum_{k=1}^\infty b_k$ converges. Then by \autoref{a6c7116},
+  $\{B_n\}$ is \href{d5ed299}{bounded above}. Hence $\exists M\in\R$ such that
+  $B_n\leq M$ for all $n\in\N$. By $(*)$, we have $A_n\leq M$ for all $n\in\N$,
+  and so $\{A_n\}$ is also bounded above by $M$. Again by \autoref{a6c7116},
+  $\{A_n\}$ is convergent.
+\end{proof}
+
+\Lemma[Convergence of p-series, p≤1]{Convergence of $p$-series, $p\leq1$}\label{efd3d2d}
+
+If $p\leq1$, then the \href{cccc2e8}{$p$-series} diverges. That is,
+$$
+  \sum_{n=1}^\infty\frac1{n^p}
+$$
+
+diverges.
+
+\begin{proof}
+  Since $p\leq1$, we have $0<n^p\leq n^1=n$ for all $n\in\N$, so
+  $$
+    0<\frac1n<\frac1{n^p}\with{\forall n\in\N}
+  $$
+
+  Since the \href{ffaeb85}{harmonic series diverges}, by the
+  \href{d0856d6}{comparison test}, $\displaystyle\sum_{n=1}^\infty\frac1{n^p}$
+  also diverges.
+\end{proof}
+
+\Theorem{Convergence of the $p$-series}\label{e7faaa4}
+
+Consider the \href{cccc2e8}{$p$-series}
+$$
+  \sum_{n=1}^\infty\frac1{n^p},\with{(p\in\R)}
+$$
+
+It \href{f8901df}{converges} when $p>1$ and diverges when $p\leq1$.
+
+\begin{proof}
+  This follows immediately from \autoref{ae42184} and \autoref{efd3d2d}.
+\end{proof}
+
+\Theorem{Limit comparison test}\label{ea5d3c5}
+
+Let $\sum_{n=1}^\infty a_n$ and $\sum_{n=1}^\infty b_n$ be two (eventually)
+\href{b6cffeb}{non-negative} series. Suppose that the \href{e565120}{limit}
+$$
+  \rho=\lim_{n\to\infty}\frac{a_n}{b_n}
+$$
+
+exists. Then,
+\begin{enumerati}
+  \item If $\rho>0$, then either the two series both \href{f8901df}{converge}
+        or both diverge.
+  \item If $\rho=0$ and $\sum_{n=1}^\infty b_n$ converges, then
+        $\sum_{n=1}^\infty a_n$ converges.
+\end{enumerati}
+
+Note that when $\rho=0$, we have $a_n=\href{ab54b3a}{o(b_n)}$.
+
+\begin{proof}
+  \proofp{(i)} The case when $\rho>0$.
+
+  \href{e565120}{Since} $\displaystyle\lim_{n\to\infty}\frac{a_n}{b_n}=\rho$,
+  there exists $K\in\N$ such that for all $n\geq K$,
+  \begin{align*}
+    \biggl|\frac{a_n}{b_n}-\rho\biggr|<\frac\rho2
+     &\implies-\frac\rho2<\frac{a_n}{b_n}-\rho<\frac\rho2     \\
+     &\implies\frac\rho2<\frac{a_n}{b_n}<\frac{3\rho}2\Tag{*}
+  \end{align*}
+
+  So inferring $a_n<\frac{3\rho}2b_n$ from $(*)$, we have
+  \begin{align*}
+    \sum_{n=1}^\infty b_n\text{ converges}
+     &\implies\frac{3\rho}2\sum_{n=1}^\infty b_n\text{ converges}                          \\
+     &\href{f5cf40a}{\implies}\sum_{n=1}^\infty\frac{3\rho}2b_n\text{ converges}           \\
+     &\implies\sum_{n=1}^\infty a_n\text{ converges}\desc{\href{d0856d6}{comparison test}}
+  \end{align*}
+
+  and inferring $b_n<\frac2\rho a_n$ from $(*)$, we have
+  \begin{align*}
+    \sum_{n=1}^\infty a_n\text{ converges}
+     &\implies\frac2\rho\sum_{n=1}^\infty a_n\text{ converges}                             \\
+     &\href{f5cf40a}{\implies}\sum_{n=1}^\infty\frac2\rho a_n\text{ converges}             \\
+     &\implies\sum_{n=1}^\infty b_n\text{ converges}\desc{\href{d0856d6}{comparison test}}
+  \end{align*}
+
+  Hence $\sum_{n=1}^\infty a_n$ converges if and only if $\sum_{n=1}^\infty
+  b_n$ converges.
+
+  \proofp{(ii)} The case when $\rho=0$.
+
+  \href{e565120}{Since} $\displaystyle\lim_{n\to\infty}\frac{a_n}{b_n}=0$, there
+  exists $K\in\N$ such that for all $n\geq K$,
+  $$
+    \biggl|\frac{a_n}{b_n}\biggr|<\frac\rho2
+    \implies-\frac\rho2<\frac{a_n}{b_n}<\frac\rho2
+    \implies a_n<\frac\rho2b_n
+  $$
+
+  So then
+  \begin{align*}
+    \sum_{n=1}^\infty b_n\text{ converges}
+     &\implies\frac\rho2\sum_{n=1}^\infty b_n\text{ converges}                             \\
+     &\href{f5cf40a}{\implies}\sum_{n=1}^\infty\frac\rho2b_n\text{ converges}              \\
+     &\implies\sum_{n=1}^\infty a_n\text{ converges}\desc{\href{d0856d6}{comparison test}}
+  \end{align*}
+\end{proof}
+
+\Theorem{Ratio test}\label{cb7b15b}
+
+Let $\sum_{n=1}^\infty a_n$ be an (eventually) \href{c09906a}{positive} series
+and suppose that the \href{e565120}{limit}
+$$
+  \rho=\lim_{n\to\infty}\frac{a_{n+1}}{a_n}
+$$
+
+exists. Then
+\begin{enumerati}
+  \item If $\rho<1$, then the series $\sum_{n=1}^\infty a_n$
+        \href{f8901df}{converges}.
+  \item If $\rho>1$, then the series $\sum_{n=1}^\infty a_n$ diverges.
+  \item No conclusion if $\rho=1$.
+\end{enumerati}
+
+\begin{proof}
+  Without loss of generality, we will assume that $a_n>0$ for all $n\in\N$.
+
+  \proofp{(i)} The case when $\rho<1$. For convenience we assign (and fix)
+  \begin{equation*}
+    \epsilon:=\frac{1-\rho}2>0\quad\text{ and }\quad r:=\frac{1+\rho}2<1\Tag{*}
+  \end{equation*}
+
+  By \href{e565120}{definition of limits}, there exists $K\in\N$ such that for
+  all $n\geq K$, one has
+  \begin{align*}
+    \biggl|\frac{a_{n+1}}{a_n}-\rho\biggr|<\epsilon
+     &\implies-\epsilon<\frac{a_{n+1}}{a_n}-\rho<\epsilon                                      \\
+     &\implies0<\frac{a_{n+1}}{a_n}<\rho+\epsilon\desc{``$0<$" because $a_n>0,\forall n\in\N$} \\
+     &\implies0<a_{n+1}<a_nr\desc{from $(*)$}
+  \end{align*}
+
+  It follows that for all $n\geq K$,
+  \begin{gather*}
+    a_n<a_{n-1}r<a_{n-2}r^2<\ldots<a_Kr^{n-K}\\
+    \implies a_n<Cr^n, \text{ where } C:=\frac{a_K}{r_K}
+  \end{gather*}
+
+  Note that $C$ is fixed because $K$ and $r$ are fixed. \href{fca26f6}{Since}
+  $0<r<1$, the \href{ae21a85}{geometric series} $\sum_{n=1}^\infty
+  Cr^n\href{f5cf40a}{=}C\sum_{n=1}^\infty r^n$ converges. And thus by the
+  \href{d0856d6}{comparison test}, $\sum_{n=1}^\infty a_n$ also converges.
+
+  \proofp{(ii)} The case when $\rho>1$. Take $\epsilon:=\rho-1>0$. By
+  \href{e565120}{definition of limits}, there exists $K\in\N$ such that for all
+  $n\geq K$, one has
+  \begin{align*}
+    \biggl|\frac{a_{n+1}}{a_n}-\rho\biggr|<\epsilon
+     &\implies-(\rho-1)<\frac{a_{n+1}}{a_n}-\rho<\rho-1 \\
+     &\implies1<\frac{a_{n+1}}{a_n}                     \\
+     &\implies a_n<a_{n+1}
+  \end{align*}
+
+  It follows that for each $n\geq K$, we have $a_K\leq a_n$. Hence either
+  $\lim_{n\to\infty}a_n$ does not exist, or $0<a_K\leq\lim_{n\to\infty}a_n$.
+  Therefore, by the \href{fa993a6}{$n$-th term test}, the series
+  $\sum_{n=1}^\infty a_n$ diverges.
+
+  \proofp{(iii)} The case when $\rho=1$.
+
+  The \href{ffaeb85}{harmonic series diverges}, and for it, $\rho=1$ because
+  $$
+    \lim_{n\to\infty}\frac{a_{n+1}}{a_n}=\lim_{n\to\infty}\frac{n}{n+1}
+    =\lim_{n\to\infty}1-\frac1{n+1}=1
+  $$
+
+  However, the series \href{e664113}{$\sum_{n\to\infty}\frac1{n^2}$} converges,
+  and for it, $\rho=1$ also.
+  $$
+    \lim_{n\to\infty}\frac{a_{n+1}}{a_n}
+    =\lim_{n\to\infty}\frac{n^2}{(n+1)^2}
+    =\lim_{n\to\infty}\biggl(\frac{n}{n+1}\biggr)^2
+    \href{d13a5e7}{=}\biggl(\lim_{n\to\infty}\frac{n}{n+1}\biggr)^2
+    =1
+  $$
+
+  Hence when $\rho=1$, we have examples of the series converging and diverging,
+  and hence no conclusion can be drawn.
+\end{proof}
+
+\Theorem{Ratio test with limit superior}\label{bac5cd6}
+
+Let $\sum_{n=1}^\infty a_n$ be an (eventually) \href{c09906a}{positive} series
+and suppose that
+$$
+  \rho=\limsup_{n\to\infty}\frac{a_{n+1}}{a_n}<1
+$$
+
+Then $\sum_{n=1}^\infty a_n$ \href{f8901df}{converges}.
+
+Note that this is simply replacing $\lim$ with \href{f4f2af4}{$\limsup$} in the
+convergent variant of the \href{cb7b15b}{Ratio test}.
+
+\begin{proof}
+  Without loss of generality, we will assume that $a_n>0$ for all $n\in\N$. Now,
+  by \href{f4f2af4}{definition},
+  $$
+    \limsup_{n\to\infty}x_n:=\lim_{n\to\infty}\sup\Set{x_k}{k\geq n}
+  $$
+
+  So then
+  $$
+    \limsup_{n\to\infty}\frac{a_{n+1}}{a_n}
+    =\lim_{n\to\infty}\sup\Set{\frac{a_{k+1}}{a_k}}{k\geq n}=\rho
+  $$
+
+  \href{e565120}{That is}, there exists a $K\in\N$ such that for all $n\geq K$,
+  \begin{align*}
+     &\left|\sup\Set{\frac{a_{k+1}}{a_k}}{k\geq n}-\rho\right|<\frac{1-\rho}2\desc{$\frac{1-\rho}2$ is strategically chosen} \\
+     &\implies\sup\Set{\frac{a_{k+1}}{a_k}}{k\geq n}<\frac{1+\rho}2                                                          \\
+     &\implies0<\frac{a_{n+1}}{a_n}<\frac{1+\rho}2\desc{``$0<$" because $a_n>0,\forall n\in\N$}                              \\
+     &\implies a_{n+1}<\frac{1+\rho}2a_n
+  \end{align*}
+
+  Since $a_n>0$ for all $n\in\N$, then we have $\rho>0$, and hence
+  $0<\frac{1+\rho}2<1$. Let $r:=\frac{1+\rho}2$. It follows that for all $n\geq
+  K$,
+  \begin{gather*}
+    a_n<a_{n-1}r<a_{n-2}r^2<\ldots<a_Kr^{n-K}\\
+    \implies a_n<Cr^n, \text{ where } C:=\frac{a_K}{r_K}
+  \end{gather*}
+
+  Note that $C$ is fixed because $K$ and $r$ are fixed. \href{fca26f6}{Since}
+  $0<r<1$, the \href{ae21a85}{geometric series} $\sum_{n=1}^\infty
+  Cr^n\href{f5cf40a}{=}C\sum_{n=1}^\infty r^n$ converges. And thus by the
+  \href{d0856d6}{comparison test}, $\sum_{n=1}^\infty a_n$ also converges.
+\end{proof}
+
+\Remark[Ratio test with limit superior fails if ρ>1]{Ratio test with limit superiors fails if $\rho>1$}\label{cb47926}
+
+If we can replace $\lim$ with $\limsup$ in the \href{cb7b15b}{ratio test} when
+$\rho<1$ as in \autoref{bac5cd6}, can we do the same for $\rho>1$?
+
+Spoiler alert: we can't.
+
+\begin{proof}
+  It suffices to provide a counter example: a convergent series
+  $\sum_{n=1}^\infty a_n$ such that $\limsup_{n\to\infty}\frac{a_{n+1}}{a_n}>1$.
+
+  Firstly, \href{e664113}{we know} that $\sum_{n=1}^\infty\frac1{n^2}$ is a
+  convergent series. We can artificially create a new series $\sum_{n=1}^\infty
+  a_n$ where
+  $$
+    a_n=\begin{cases}
+      \dfrac1{\lceil n/2\rceil^2} & \text{if $n$ is odd}, \\[1em]
+      \dfrac2{\lceil n/2\rceil^2} & \text{if $n$ is even}
+    \end{cases}
+  $$
+
+  Don't let the $\lceil\,\cdot\,\rceil^2$ daunt you. The goal is to create an
+  alternating series from the \href{e664113}{Basel problem}, which then shows
+  that it is convergent:
+  \begin{align*}
+    \sum_{n=1}^\infty a_n &=\frac1{1^2}+\frac2{1^2}+\frac1{2^2}+\frac2{2^2}+\frac1{3^2}+\frac2{3^2}+\ldots                                     \\
+                          &=\biggl(\frac1{1^2}+\frac1{2^2}+\frac1{3^2}+\ldots\biggr)+\biggl(\frac2{1^2}+\frac2{2^2}+\frac2{3^2}+\ldots\biggr)  \\
+                          &=\biggl(\frac1{1^2}+\frac1{2^2}+\frac1{3^2}+\ldots\biggr)+2\biggl(\frac1{1^2}+\frac1{2^2}+\frac1{3^2}+\ldots\biggr) \\
+                          &\href{e664113}{=}3\cdot\frac{\pi^2}6
+  \end{align*}
+
+  and now we consider the subsequence of $\{a_{n+1}/a_n\}$ given by every other
+  term:
+  $$
+    \biggl\{\frac{a_2}{a_1},\frac{a_4}{a_3},\frac{a_6}{a_5},\ldots\biggr\}
+  $$
+
+  By inspection, this sequence is a \href{d661313}{constant sequence} of 2's.
+  This means that $2$ is a subsequential limit of $\{a_{n+1}/a_n\}$. By the
+  alternate definition of \href{f4f2af4}{$\limsup$}, that $\limsup$ is the
+  supremum of the set of all subsequential limits, and hence
+  $$
+    \rho:=\limsup_{n\to\infty}\frac{a_{n+1}}{a_n}\geq2>1
+  $$
+
+  which then implies that $\rho>1$, which completes the validity of our
+  counterexample.
+\end{proof}
+
+\Theorem{Root test}\label{d2ba8bd}
+
+Let $\sum_{n=1}^\infty a_n$ be a \href{b6cffeb}{(eventually) non-negative
+series}, and that $\{a^{1/n}_n\}$ is a \href{d5ed299}{bounded sequence}.
+Suppose that
+$$
+  \rho:=\limsup_{n\to\infty}a^{1/n}_n\desc{see: \href{f4f2af4}{$\limsup$}}
+$$
+
+exists. Then
+\begin{enumerati}
+  \item If $\rho<1$, then the series $\sum_{n=1}^\infty a_n$
+        \href{f8901df}{converges}.
+  \item If $\rho>1$, then the series $\sum_{n=1}^\infty a_n$ diverges.
+  \item No conclusion if $\rho=1$.
+\end{enumerati}
+
+\begin{proof}
+  Without loss of generality, we assume that $a_n\geq0$ for each $n\in\N$.
+
+  \proofp{(i)} The case when $\rho<1$. Take a number $r$ such that $\rho<r<1$.
+  Since $\limsup_{n\to\infty}a^{1/n}_n=\rho<1$, it follows from
+  \autoref{d350704} (using $\epsilon:=r-\rho>0$) that there exists $K\in\N$ such
+  that for all $n\geq K$,
+  \begin{align*}
+    a^{1/n}_n<\rho+\epsilon
+     &\implies a^{1/n}_n<r   \\
+     &\implies 0\leq a_n<r^n
+  \end{align*}
+
+  Since $0<r<1$, the \href{fca26f6}{geometric series} $\sum_{n=1}^\infty r^n$
+  converges. So by the \href{d0856d6}{comparison test}, $\sum_{n=1}^\infty a_n$
+  also converges.
+
+  \proofp{(ii)} The case when $\rho>1$. Since
+  $1<\rho=\limsup_{n\to\infty}a^{1/n}_n$, by \autoref{d350704} (using
+  $\epsilon:=\rho-1$), it follows that there exist infinitely many $n$'s such
+  that $a^{1/n}_n>\rho-\epsilon=1$ (and thus $a_n>1$). Hence, there exists a
+  subsequence $\{a_{n_k}\}$ such that $a_{n_k}>1$.
+
+  If $\lim_{n\to\infty}a_n$ does not exist, then by the \href{fa993a6}{$n$-th
+  term test}, $\sum_{n=1}^\infty a_n$ diverges. Otherwise, if
+  $\lim_{n\to\infty}a_n$ exists, then by \autoref{da6e7f5},
+  $\lim_{k\to\infty}a_{n_k}$ exists and
+  $$
+    \lim_{n\to\infty}a_n=\lim_{k\to\infty}a_{n_k}\geq1\desc{because each $a_{n_k}>1$ and \href{d88455d}{this}}
+  $$
+
+  In particular, this implies that $\lim_{n\to\infty}a_n\neq0$, and by the
+  \href{fa993a6}{$n$-th term test} again, $\sum_{n=1}^\infty a_n$ diverges.
+
+  \proofp{(iii)} The case when $\rho=1$.
+
+  The \href{ffaeb85}{harmonic series diverges}, and
+  \begin{align*}
+    \rho
+     &=\limsup_{n\to\infty}\biggl(\frac1n\biggr)^{1/n} \\
+     &=\limsup_{n\to\infty}\frac1{n^{1/n}}             \\
+    \href{c88c34b}{=}1
+  \end{align*}
+
+  Note that by \autoref{c88c34b} and \autoref{d13a5e7} (for reciprocal),
+  $\lim_{n\to\infty}\frac1{n^{1/n}}$ exists (and $=1$). By \autoref{ccbc3b1}
+  (terms in the \href{c9bddda}{harmonic series} exist in $(0,1]$ and hence is
+  \href{d5ed299}{bounded}), we have
+  $$
+    \limsup_{n\to\infty}\frac1{n^{1/n}}=1
+  $$
+
+  And so
+  $$
+    \rho=\limsup_{n\to\infty}\biggl(\frac1n\biggr)^{1/n}=1
+  $$
+
+  However, we also have an example of a convergent series when $\rho=1$, namely
+  $\sum_{n=1}^\infty\frac1{n^2}$. By \href{e664113}{a known result}, it
+  converges.
+
+  To see why $\rho=1$ for this series, use $\lim_{n\to\infty}n^{1/n}=1$ from
+  \autoref{c88c34b}, and use \autoref{d13a5e7} (iii) and (iv) to arrive at
+  $$
+    \lim_{n\to\infty}\frac1{(n^{1/n})^2}=1
+  $$
+
+  Use \autoref{ccbc3b1} (boundedness comes from observing that
+  $\{1/n^2\}\in(0,1]$) to change $\lim$ to $\limsup$, and we are left with
+  $$
+    \rho=\limsup_{n\to\infty}\biggl(\frac1{n^2}\biggr)^{1/n}=1
+  $$
+\end{proof}
+
+\Corollary{Simplified root test}\label{bffec35}
+
+This is a corollary of the \href{d2ba8bd}{root test}.
+
+Let $\sum_{n=1}^\infty a_n$ be a \href{b6cffeb}{(eventually) non-negative
+series}. Suppose that
+$$
+  \rho:=\lim_{n\to\infty}a^{1/n}_n\desc{see: \href{e565120}{$\lim$}}
+$$
+
+exists. Then
+\begin{enumerati}
+  \item If $\rho<1$, then the series $\sum_{n=1}^\infty a_n$
+        \href{f8901df}{converges}.
+  \item If $\rho>1$, then the series $\sum_{n=1}^\infty a_n$ diverges.
+  \item No conclusion if $\rho=1$.
+\end{enumerati}
+
+Note that this is the same as the root test apart from the dropped constraint
+that $\{a^{1/n}_n\}$ is a \href{d5ed299}{bounded sequence}, and that
+\href{f4f2af4}{$\limsup$} is replaced with $\lim$.
+
+\begin{proof}
+  By \autoref{ea8320c}, if $\lim_{n\to\infty}a^{1/n}_n$ exists, then
+  $\limsup_{n\to\infty}a^{1/n}_n=\lim_{n\to\infty}a^{1/n}_n$. Moreover, by
+  \autoref{d8148e6}, since $\{a^{1/n}_n\}$ is a convergent sequence, it is
+  \href{e4698be}{bounded}.
+
+  Hence, the results follow directly from the \href{d2ba8bd}{root test}.
+\end{proof}

@@ -1,0 +1,159 @@
+\subsection{Span and linear independence}\label{aa87399}
+
+\Lemma{Span is the smallest containing subspace}\label{fc857d6}
+
+The span of a list of vectors in vector space $V$ is the smallest subspace of
+$V$ containing all vectors in the list.
+
+\begin{proof}
+  Suppose $\iter{v_1}{v_n}$ is a list of vectors in $V$.
+
+  First, we will show that $S:=\Span\{\iter{v_1}{v_n}\}$ \href{dea139b}{is a
+  subspace} of $V$. For all $u,w\in S$, we can write $u=\sum_{i=1}^na_iv_i$ and
+  $w=\sum_{i=1}^nb_iv_i$ for some collections of numbers $\iter{a_1}{a_n}$ and
+  $\iter{b_1}{b_n}$.
+  \begin{enumerati}
+    \item Closed under vector addition:
+    \begin{align*}
+      u+w=\sum_{i=1}^n(a_i+b_i)v_i\in S
+    \end{align*}
+    \item Closed under scalar multiplication:
+    \begin{align*}
+      \lambda u=\sum_{i=1}^n(\lambda a_i)v_i\in S\with{(\lambda\in\F)}
+    \end{align*}
+    \item Contains the additive identity:
+    $$
+      0=\sum_{i=1}^n0v_i\in\Span\{\iter{v_1}{v_n}\}
+    $$
+  \end{enumerati}
+
+  Thus, $S$ is a subspace of $V$. Clearly, $v_k\in\Span\{\iter{v_1}{v_n}\}$ for
+  each $k=\iter1n$; so $S$ contains every vector in that list.
+
+  Conversely, because subspaces are closed under vector addition and scalar
+  multiplication, every subspace of $V$ that contains all of $\iter{v_1}{v_n}$
+  will also contain $\Span\{\iter{v_1}{v_n}\}$.
+
+  Thus, $S=\Span\{\iter{v_1}{v_n}\}$ is the smallest subspace of $V$ containing
+  all the vectors $\iter{v_1}{v_n}$.
+\end{proof}
+
+\Lemma{Linear dependence lemma}\label{ba96a6f}
+
+Let $V$ be a vector space, and let $\iter{v_1}{v_m}\in V$ be linearly
+dependent. Then there exists $k\in[1,m]$ such that
+$$
+  v_k\in\Span\{\iter{v_1}{v_{k-1}}\}
+$$
+
+Furthermore, if $k$ satisfies the condition above and the $k$-th term is
+removed from $\iter{v_1}{v_m}$, then the span of the remaining list equals
+$\Span\{\iter{v_1}{v_m}\}$.
+
+\begin{proof}
+  Because $\iter{v_1}{v_m}$ is linearly dependent, there exists numbers
+  $\iter{a_1}{a_m}\in\F$, not all $0$, such that
+  $$
+    a_1v_1+\ldots+a_mv_m=0
+  $$
+
+  Let $k$ be the largest element of $\{\iter1m\}$ such that $a_k\neq0$. Then
+  $$
+    v_k=-\frac{a_1}{a_k}v_1-\ldots-\frac{a_{k-1}}{a_k}v_{k-1}
+  $$
+
+  which shows that $v_k\in\Span\{\iter{v_1}{v_m}\}$, as desired.
+
+  Now, for the second part. Suppose that $k$ is any element in $\{\iter1m\}$
+  such that $v_k\in\Span\{\iter{v_1}{v_m}\}$. Let $\iter{b_1}{b_{k-1}}\in\F$ be
+  such that
+  \begin{equation*}
+    v_k=b_1v_1+\ldots+b_{k-1}v_{k-1}\Tag{*}
+  \end{equation*}
+
+  Let $u\in\Span\{\iter{v_1}{v_m}\}$ be arbitrary. Then there exists
+  $\iter{c_1}{c_m}\in\F$ such that
+  $$
+    u=c_1v_1+\ldots+c_mv_m
+  $$
+
+  But in this equation, we can replace $v_k$ on the RHS with $(*)$, which shows
+  that $u$ is in the span of the list obtained by removing the $k$-term from
+  $\iter{v_1}{v_m}$. Thus, removing the $k$-th term from the list
+  $\iter{v_1}{v_m}$ does not change the span of the list.
+\end{proof}
+
+\Lemma{Length of linearly independent list $≤$ length of spanning list}\label{d8487b6}
+
+In a finite-dimensional vector space, the length of every linearly independent
+list of vectors is equal to or less than the length of every spanning list of
+vectors.
+
+\begin{proof}
+  Suppose that $U:=\iter{u_1}{u_m}$ is linearly independent in $V$, a
+  finite-dimensional vector space. Suppose also that $B:=\iter{w_1}{w_n}$ spans
+  $V$. We need to prove that $m\leq n$. We do so through the process described
+  below with $m$ steps.
+
+  \paragraph{Step 1}
+
+  Prepending $u_1$ to the list $B$ produces a linearly dependent list, since
+  $u_1\in V$ and $B$ spans $V$. So
+  $$
+    S_1^+:=u_1,w_1,\ldots,w_n
+  $$
+
+  is linearly dependent. Thus, by the \href{ba96a6f}{linear dependence lemma},
+  one of the vectors in $S_1^+$ is a linear combination of the previous vectors
+  in $S_1^+$. We know that $u_1\neq0$ (otherwise $U$ is linearly dependent),
+  and thus $u_1$ is not in the span of the previous vectors (The span of the
+  empty list is $\{0\}$). Hence, we can remove one of the $w$'s so that the new
+  list $S_1$ (of length $n$) consisting of $u_1$ and the remaining $w$'s spans
+  $V$.
+
+  \paragraph{Step $k$ (for $k=\iter2m$)}
+
+  The list $S_{k-1}$ (of length $n$) spans $V$. In particular, $u_k\in\Span
+  S_{k-1}$. Thus,
+  $$
+    S_k^+:=u_k\cup S_{k-1}
+  $$
+
+  is linearly dependent. We arrange $S_k^+$ such that the first $k$ elements
+  are $\iter{u_1}{u_k}$. Again by the \href{ba96a6f}{linear dependece lemma},
+  one of the vectors in $S_k^+$ is in the span of the previous ones, and
+  because $\iter{u_1}{u_k}$ is linearly independent, this vector cannot be one
+  of the $u$'s.
+
+  Hence there must still be at least one remaining $w$ at this step. We can
+  remove from $S_k^+$ a $w$ that is a linear combination of the previous
+  vectors in $S_k^+$, to obtain $S_k$ (of length $n$) that spans $V$.
+
+  Now, after step $m$, we have $S_m$ which has length $m$ and contains all the
+  $u$'s. At each step as we add some $u$, the linear dependence lemma
+  guarantees that there is some $w$ to remove. Hence there are at least as many
+  $w$'s as $u$'s.
+\end{proof}
+
+\Proposition{Uniqueness of expression under linear independence}\label{dcafe9d}
+
+Let $V$ be a vector space, and let $U:=\{\iter{u_1}{u_m}\}\subset V$ be
+linearly independent. Then if $w\in\Span U$, there is a unique expression of
+$w$ as a \href{ceb6342}{linear combination} of the vectors in $U$.
+
+\begin{proof}
+  Let $w$ have two representations of vectors in $U$:
+  \begin{align*}
+    w &=a_1u_1+\ldots+a_mu_m \\
+      &=b_1u_1+\ldots+b_mu_m
+  \end{align*}
+
+  where $\iter{a_1}{a_m},\iter{b_1}{b_m}\in\F$. Then we have
+  $$
+    0=w-w=(a_1-b_1)u_1+\ldots+(a_m+b_m)u_m.
+  $$
+
+  Since $U$ is \href{c133a44}{linearly independent}, we must have $a_i-b_i=0$
+  for $i=\iter1m$. So then $a_i=b_i$ for all $i=\iter1m$, and we have that the
+  representation of $w$ in terms of $U$ is unique.
+\end{proof}

@@ -1,0 +1,97 @@
+\chapter{\texttt{core::set\_theory}}\label{f9174c1}
+
+\begin{toc}
+  \citem{e7d2b65} % Logic
+  \citem{a59f15a} % Basics
+\end{toc}
+
+\subsection{Logic}\label{e7d2b65}
+
+\Lemma{Conjuction distributes over disjunction}\label{ea305af}
+
+Let $x,y,z$ be boolean variables. Then
+$$
+  x\lor(y\land z)=(x\land y)\lor(x\lor z)
+$$
+
+\begin{proof}
+  This is directly verifiable by listing all 8 possibilities.
+\end{proof}
+
+\Lemma{Disjunction distributes over conjunction}\label{ddc349a}
+
+Let $x,y,z$ be boolean variables. Then
+$$
+  x\land(y\lor z)=(x\lor y)\land(x\land z)
+$$
+
+\begin{proof}
+  This is directly verifiable by listing all 8 possibilities.
+\end{proof}
+
+\subsection{Basics}\label{a59f15a}
+
+\Lemma{Intersection distributes over union}\label{b34061c}
+
+Let $A,B,C$ be sets. Then
+$$
+  A\cup(B\cap C)=(A\cap B)\cup(A\cup C)
+$$
+
+\begin{proof}
+  Let $t$ be an element. Let $x:=(t\in A),\ y:=(t\in B),\ z:=(t\in C)$. Then we
+  have $t\in A\cup(B\cap C)\iff x\lor(y\land z)\href{ea305af}{\iff}(x\land
+  y)\lor(x\lor z)\iff t\in(A\cap B)\cup(A\cup C)$.
+\end{proof}
+
+\Lemma{Union distributes over intersection}\label{ec55f1d}
+
+Let $A,B,C$ be sets. Then
+$$
+  A\cap(B\cup C)=(A\cup B)\cap(A\cap C)
+$$
+
+\begin{proof}
+  Left as an exercise. Hint: refer to the proof of \autoref{b34061c} and use
+  \autoref{ddc349a} instead.
+\end{proof}
+
+\Lemma{Cartesian product is distributive over intersection}\label{f05f9b8}
+
+We have that $\times$ (Cartesian product) is distributive over $\cap$. That is
+for all sets $A,B,C$,
+$$
+  (A\cap B)\times C=(A\times C)\cap(B\times C)
+$$
+
+Note: $\cap$ is \textbf{not} distributive over $\times$.
+
+\begin{proof}
+  The following statements are all equivalent:
+  \begin{gather*}
+    (x,y)\in(A\cap B)\times C                       \\
+    (x\in A\cap B)\land(y\in C)                     \\
+    (x\in A)\land(y\in C)\land(x\in B)\land(y\in C) \\
+    (x,y)\in A\times C\land(x,y)\in B\times C       \\
+    (x,y)\in A\times C\cap B\times C
+  \end{gather*}
+\end{proof}
+
+\Lemma{Cartesian product of intersections is intersection of a Cartesian products}\label{e2948d3}
+
+Let $U_1,U_2,V_1,V_2$ be sets. Then
+$$
+  (\textcolor{blue}{U_1}\times\textcolor{red}{V_1})\cap(\textcolor{blue}{U_2}\times\textcolor{red}{V_2})
+  =(\textcolor{blue}{U_1}\cap\textcolor{blue}{U_2})\times(\textcolor{red}{V_1}\cap\textcolor{red}{V_2})
+$$
+
+\begin{proof}
+  The following statements are all equivalent:
+  \begin{gather*}
+    (u,v)\in(U_1\times V_1)\cap(U_2\times V_2)                                \\
+    \bigl((u,v)\in U_1\times V_1\bigr)\land\bigl((u,v)\in U_2\times V_2\bigr) \\
+    (u\in U_1)\land(v\in V_1)\land(u\in U_2)\land(v\in V_2)                   \\
+    (u\in U_1\cap U_2)\land(v\in V_1\cap V_2)                                 \\
+    (u,v)\in(U_1\cap U_2)\times(V_1\cap V_2)
+  \end{gather*}
+\end{proof}

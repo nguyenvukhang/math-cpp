@@ -1,0 +1,821 @@
+\chapter{Linear Algebra}\label{f9703fc}
+
+This chapter starts from Brett McInnes. Just to resolve baggage from MA2101.
+Probably not a good read for first-timers. Refer to linear algebra
+\href{d146713}{defs}, \href{d8e4a4e}{core}, and \href{e74b000}{lib} instead.
+
+\begin{toc}
+  \citem{b061bfb} % Introduction
+  \citem{b5f1f8a} % Isomorphisms
+  \citem{c900c55} % Thinking in maps
+  \citem{fb87927} % Kernel and Range
+  \citem{a6723f8} % Dual space: vector space of linear maps
+\end{toc}
+
+\def\F{\mathcal F}
+\def\L{\mathcal L}
+\def\cvn{\texttt{use \href{e8a1c30}{cvn};} }
+
+\subsection{Introduction}\label{b061bfb}
+
+\Notation{Field $\mathcal F$}\label{d029e34}
+
+The term ``scalar" will for now mean a number which can be either real or
+complex. We write $\F$ to mean either $\R$ or $\C$.
+
+\Notation{Compact vector notation}\label{e8a1c30}
+
+For brevity, I will sometimes denote a list of vectors $\{\iter{v_1}{v_n}\}$ by
+$v_i$, where $i$ is the iterating index $i=\iter1n$.
+
+Worse still, if I have a list of scalars $a^i$ (superscript here is index, not
+exponent) and a list of vectors $v_i$, I will denote
+$$
+  a^1v_1+a^2v_2+\ldots+a^nv_n=\sum_{i=1}^n a^iv_i
+$$
+
+with just
+$$
+  a^iv_i
+$$
+
+So every time there is a same-letter superscript and subscript, the expression
+is summed up over a contextually obvious range of values.
+
+Also, I will use $I^i_j$ to refer to a collection of numbers defined by
+$$
+  I^i_j=\begin{cases}
+    1 & \text{if }i=j     \\
+    0 & \text{if }i\neq j \\
+  \end{cases}
+$$
+
+For the reader's peace of mind, I promise to reference this remark with a
+``\texttt{use \href{e8a1c30}{cvn}}" everytime I make this notation choice.
+
+\subsection{Isomorphisms}\label{b5f1f8a}
+
+\Definition{Vector space homomorphism}\label{eacdfee}
+
+Let $U,V$ be vector spaces. A mapping $\phi:U\to V$ is said to be a vector
+space homomorphism if for all $u,v\in U$ and $a\in\F$,
+\begin{align*}
+  \phi(u+v) &=\phi(u)+\phi(v) \\
+  \phi(au)  &=a\phi(u)
+\end{align*}
+
+\Lemma{Transitivity of vector space homomorphism}\label{ad9a353}
+
+Let $U,V,W$ be vector spaces. If $U$ is homomorphic to $V$ and $V$ is
+homomorphic to $W$, then $U$ is homomorphic to $W$.
+
+Moreover, the compose of the homomorphisms form a homomorphism between $U$ and
+$W$.
+
+\begin{proof}
+  Let $\phi:U\to V$ and $\psi:V\to W$ vector space homomorphisms.
+
+  For all $u_1,u_2\in U$,
+  \begin{align*}
+    (\psi\circ\phi)(u_1+u_2)
+     &=\psi(\phi(u_1+u_2))                                                            \\
+     &=\psi(\phi(u_1)+\phi(u_2))\desc{$\phi$ is a \href{eacdfee}{homomorphism}}       \\
+     &=\psi(\phi(u_1))+\psi(\phi(u_2))\desc{$\psi$ is a \href{eacdfee}{homomorphism}} \\
+     &=(\psi\circ\phi)(u_1)+(\psi\circ\phi)(u_2)
+  \end{align*}
+
+  and for all $u\in U$ with $a\in\F$,
+  \begin{align*}
+    (\psi\circ\phi)(au)
+     &=\psi(\phi(au))                                                \\
+     &=\psi(a\phi(u))\desc{$\phi$ is a \href{eacdfee}{homomorphism}} \\
+     &=a\psi(\phi(u))\desc{$\psi$ is a \href{eacdfee}{homomorphism}} \\
+     &=a(\psi\circ\phi)(u)
+  \end{align*}
+
+  Hence $\psi\circ\phi$ is a vector space homomorphism too.
+\end{proof}
+
+\Definition{Vector space isomorphism}\label{fc59d72}
+
+A \href{eacdfee}{vector space homomorphism} $\phi$ that is
+\href{d205f32}{bijective} is a vector space isomorphism.
+
+If there exists a vector space isomorphism between two vector spaces $U$ and
+$V$, we say that $U$ and $V$ are \textbf{isomorphic}.
+
+\Lemma{Transitivity of vector space isomorphism}\label{b80882d}
+
+Let $U,V,W$ be vector spaces. If $U$ is isomorphic to $V$ and $V$ is isomorphic
+to $W$, then $U$ is isomorphic to $W$.
+
+Moreover, the compose of the isomorphisms form an isomorphism between $U$ and
+$W$.
+
+\begin{proof}
+  Let $\phi:U\to V$ and $\psi:V\to W$ vector space isomorphisms.
+
+  By \autoref{ad9a353}, $\psi\circ\phi$ is a vector space homomorphism, and the
+  \href{c0883e7}{compose of two bijections is a bijection}, so $\psi\circ\phi$
+  is a bijection, and hence is a vector space isomorphism.
+\end{proof}
+
+\Theorem{Inverse of a vector space isomorphism is a vector space isomorphism}\label{d2f7132}
+
+Let $U,V$ be vector spaces, and let $\phi:U\to V$ be a vector space
+isomorphism. Then $\phi^{-1}$ exists and is a vector space isomorphism.
+
+\begin{proof}
+  By a \href{fb1a7df}{known result}, $\phi^{-1}$ exists and is a bijection. It
+  remains to show that $\phi^{-1}$ is a vector space homomorphism.
+
+  Let $v_1,v_2\in V$. Then since $\phi$ is a bijection (in particular a
+  surjection), there exists $u_1,u_2\in U$ such that $\phi(u_1)=v_1$ and
+  $\phi(u_2)=v_2$.
+  \begin{align*}
+    \phi^{-1}(v_1+v_2) &=\phi^{-1}(\phi(u_1)+\phi(u_2))                          \\
+                       &=\phi^{-1}(\phi(u_1+u_2))\desc{$\phi$ is a homomorphism} \\
+                       &=u_1+u_2                                                 \\
+                       &=\phi^{-1}(v_1)+\phi^{-1}(v_2)
+  \end{align*}
+
+  Next, let $v\in V$ and $a\in\F$. Then there exists $u\in U$ such that
+  $\phi(u)=v$.
+  \begin{align*}
+    \phi^{-1}(av) &=\phi^{-1}(a\phi(u))                                \\
+                  &=\phi^{-1}(\phi(au))\desc{$\phi$ is a homomorphism} \\
+                  &=au                                                 \\
+                  &=a\phi^{-1}(v)
+  \end{align*}
+
+  Hence $\phi^{-1}$ is a vector space homomorphism as desired. This completes
+  the proof.
+\end{proof}
+
+\Theorem{Isomorphisms preserve linear independence of a set}\label{a6b2211}
+
+\cvn Let $V,W$ be vector spaces, and let $\phi:V\to W$ be an isomorphism. Then
+any finite subset $U$ of $V$ is linearly independent if and only if the set
+$\phi(U)$ is linearly independent too.
+
+\begin{proof}
+  Let $U=\{\iter{u_1}{u_n}\}$ be linearly independent. Then by
+  \href{c133a44}{definition},
+  \begin{equation*}
+    a^iu_i=0\implies a^i=0,\ \forall i=\iter1n\Tag{*}
+  \end{equation*}
+
+  Now, consider the sum of elements of $\phi(U)$.
+  \begin{align*}
+    0               &=a^i\phi(u_i)                                              \\
+    \pre{\implies}0 &=\phi(a^iu_i)\desc{by \href{d7d1925}{linearity} of $\phi$} \\
+    \pre{\implies}0 &=a^iu_i\desc{\href{c5eb127}{linear maps send $0\to0$}}
+  \end{align*}
+
+  which then by $(*)$ implies that $a_i=0$ for all $i$, hence $\phi(U)$ is
+  linearly independent. The converse follows from reversing this argument.
+\end{proof}
+
+\Lemma{Isomorphisms map subspaces to subspaces}\label{b499a29}
+
+Let $V,W$ be vector spaces, and let $\phi:V\to W$ be a vector space
+isomorphism. Let $U$ be a subspace of $V$. Then $\phi(U)$ is a subspace of $W$.
+
+\begin{proof}
+  Since $\phi$ is surjective, $\phi(V)=W$. Because $U\subset V$, we must have
+  $\phi(U)\subset\phi(V)$ hence $\phi(U)$ is a subset of $W$.
+
+  Since $U$ is a subspace, $0\in U$ and since \href{c5eb127}{linear maps send
+  zeros to zeros}, $0=\phi(0)\in\phi(U)$.
+
+  Let $u,v\in\phi(U)$ and $a\in\mathcal F$. Since $\phi$ is surjective, there
+  exists $\hat u,\hat v$ such that $u=\phi(\hat u)$ and $v=\phi(\hat v)$.
+  $$
+    u+v=\phi(\hat u)+\phi(\hat v)=\phi(\hat u+\hat v)\in\phi(U)\desc{closed under vector addition}
+  $$
+
+  and
+  $$
+    au=a\phi(\hat u)=\phi(a\hat u)\in\phi(U)\desc{closed under scalar multiplication}
+  $$
+
+  Since $\phi(U)$ meets \href{dea139b}{these requirements}, it is a subspace of
+  $W$.
+\end{proof}
+
+\Lemma{Isomorphic $\mathcal F^m$ and $\mathcal F^n$ implies $m=n$}\label{b1d66bb}
+
+\cvn Consider the (finite-dimensional) vector spaces $\mathcal F^m$ and
+$\mathcal F^n$. If they are isomorphic, then $m=n$.
+
+\begin{proof}
+  We will prove by contrapositive.
+
+  Let $m\neq n$, and assume on the contrary that $\F^m$ and $\F^n$ are
+  isomorphic. WLOG, assume that $n<m$. Then there exists a vector space
+  isomorphism $\phi:\F^n\to\F^m$.
+
+  Let $E:=\{\iter{e_1}{e_n}\}\subset\F^n$ be the \href{c01037d}{canonical basis
+  vectors} of $\F^n$, and consider the set of vectors
+  $\phi(E)=\{\iter{\phi(e_1)}{\phi(e_n)}\}$. Observe that every vector in the
+  range of $\phi$ can be written as a linear combination of $\phi(E)$:
+  \begin{equation*}
+    \phi(v)=\phi(a^ie_i)=a^i\phi(e_i)\Tag{*}
+  \end{equation*}
+
+  By \autoref{a6b2211}, $\phi(E)$ is linearly independent. However, since
+  $n<m$, by \href{b0af3c1}{this result}, $\phi(E)$ is not a basis of $\F^m$
+  ($\F^m$'s canonical basis has size $m$). Hence, $\phi(E)$ does not span
+  $\F^m$. That is, there are vectors in $\F^m$ that cannot be written as
+  $\phi(v)$ for some $v\in\F^n$. And so $\phi$ is not surjective, leading to a
+  contradiction.
+
+  Since this holds for any isomorphism $\phi:\F^n\to\F^m$, the vector spaces
+  $\F^n$ and $\F^m$ are not isomorphic.
+\end{proof}
+
+\Proposition{Uniqueness of finite-dimensional isomorphisms}\label{b1b15f9}
+
+Let $V$ be a vector space that is isomorphic to $\F^n$. Then it cannot be
+isomorphic to $\F^m$ where $m\neq n$.
+
+\begin{proof}
+  Suppose that $V$ is isomorphic to both $\F^n$ and $\F^m$. By
+  \href{b80882d}{transitivity} of vector space isomorphisms, $\F^n$ is
+  isomorphic to $\F^m$. But this contradicts the contrapositive of
+  \autoref{b1d66bb}. This completes the proof.
+\end{proof}
+
+\Definition{Dimension of a vector space}\label{ad4a614}
+
+Let $V$ be a vector space, and let it be isomorphic to $\F^n$. Due to
+\autoref{b1b15f9}, this $n$ is unique and hence is a fixed property of $V$. We
+call $n$ the \textbf{dimension} of $V$, and denote it as $\dim V$.
+
+\nextsection
+\subsection{Thinking in maps}\label{c900c55}
+
+\Remark{Basis as a linear map}\label{f62907b}
+
+\cvn On one hand, we can have a basis of a vector space $V$ as a list of vectors
+$z_i$. But on the other hand, think about how we use it: we always need a bunch
+of coefficients $a^i$ and sum them up into $a^iz_i$, obtaining a vector $v\in
+V$.
+
+Since we almost always use a basis this way, let's define a mapping $z:\F^n\to
+V$, where
+$$
+  z(\begin{bmat}a^1 & \ldots & a^n\end{bmat}):=a^iz_i
+$$
+
+So from now on we can write $z(a)$, where $z:\F^n\to V$ and $a\in\F^n$ to mean
+$a^iz_i$.
+
+Some texts get ridiculously lazy and write $za$ but this is where I draw the
+line. This is where things get too ambiguous and dangerously subject to
+hand-waving.
+
+\Lemma{Basis as a linear map is bijective}\label{cb839f5}
+
+\cvn Considering the basis $z:\F^n\to V$ as in \href{f62907b}{here}, we
+can see that it is surjective (every vector $v\in V$ can be represented in terms
+of components $z_i$), and injective (this can be done only in \href{c133a44}{one
+way}, as the basis $z_i$ is linearly independent).
+
+\Lemma{Basis as a linear map is a homomorphism}\label{ef33059}
+
+\cvn Let $z:\F^n\to V$ be a basis (mapping) of vector space $V$. Then
+$z$ is a \href{eacdfee}{vector space homomorphism}.
+
+\begin{proof}
+  For all $a,b\in\F^n$ and $c\in\F$, we have
+  $$
+    z(a+b)=(a^i+b^i)z_i=a^iz_i+b^iz_i=z(a)+z(b)
+  $$
+
+  and also
+  $$
+    z(ca)=(ca^i)z_i=c(a^iz_i)=c(z(a))
+  $$
+\end{proof}
+
+\Theorem{Basis as a linear map is a vector space isomorphism}\label{c328009}
+
+Let $z:\F^n\to V$ be a \href{f62907b}{basis (map)} of vector space $V$. Then
+$z$ is a \href{fc59d72}{vector space isomorphism}.
+
+\begin{proof}
+  This follows from \href{cb839f5}{$z$ being bijective} and \href{ef33059}{$z$
+  being a vector space homomorphism}.
+\end{proof}
+
+\Remark{}\label{c15a2e9}
+
+Note the parallels between \textbf{span} and \textbf{surjectivity} (coverage)
+and \textbf{linear independence} and \textbf{injective} (uniqueness).
+
+\Proposition{Every finite-dimensional vector space has a basis}\label{a6a32d2}
+
+Every finite-dimensional vector space has a basis.
+
+\begin{proof}
+  Let $V$ be a finite-dimensional vector space.
+
+  By \href{c4cd6dd}{definition}, $V$ is isomorphic to $\F^n$ for some $n\in\N$.
+  That is, there exists a vector space isomorphism $z:\F^n\to V$. Observe that
+  $z$ satisfies the properties of a \href{db2477b}{basis}, in that it is
+  \begin{enumerati}
+    \item injective, so all elements in $V$ have a unique representation in
+          $\F^n$ (linear independence); and
+    \item surjective, hence it spans $V$.
+  \end{enumerati}
+\end{proof}
+
+\Remark{Canonical basis under a linear map}\label{bcdfc1a}
+
+\cvn Suppose $z:\F^n\to V$ is the \href{f62907b}{basis (map)} of a vector space
+$V$. Then $z_i=z(e_i)$ for each $i=\iter1n$.
+
+The proof is an exercise of expanding $z(e_i)$ similar to how $z(a)$ expands to
+$a^iz_i$.
+
+\Theorem{}\label{a21cb0d}
+
+The number of vectors in a basis of a finite-dimensional vector space is equal
+to its dimension.
+
+\begin{proof}
+  Let $V$ be isomorphic to $\F^n$. Then by \href{ad4a614}{definition},
+  $\dim V=n$.
+
+  Observe that there are $n$ different vectors $\iter{e_1}{e_n}$ in $\F^n$, so
+  (since $z$ is injective) there are $n$ different vectors $z(e_i)=z_i$ in the
+  basis.
+\end{proof}
+
+\Lemma{Dimension of direct sum is sum of dimensions}\label{b8205cb}
+
+Suppose $U_1$ and $U_2$ are subspaces of a finite-dimensional vector space $V$,
+with intersection consisting only of the zero vector. Then
+$\dim(\href{c67c961}{U_1\oplus U_2})=\dim(U_1)+\dim(U_2)$.
+
+\begin{proof}
+  Let $n=\dim(U_1)$ and $m=\dim(U_2)$, so that $U_1$ is isomorphic to $\F^n$ and
+  $U_1$ is isomorphic to $\F^m$ (by \href{ad4a614}{definition}). Let
+  $\phi:U_1\to\F^n$ and $\psi:U_2\to\F^m$ be isomorphisms.
+
+  Then we will define a new isomorphism $\Phi:U_1\oplus U_2\to\F^{m+n}$. Let
+  $v\in U_1\oplus U_2$ be arbitrary. Then to get the value of $\Phi(v)$, we
+  first \href{d7c30bb}{decompose} $v=u_1+u_2$, where $u_1\in U_1$ and $u_2\in
+  U_2$. Then we define
+  $$
+    \Phi(v):=\begin{bmat}\phi(u_1)\\\psi(u_2)\end{bmat}\in\F^{m+n}
+  $$
+
+  It is left as an exercise for the reader to show
+  \begin{enumerati}
+    \item that $\Phi$ is a vector space \href{eacdfee}{homomorphism}, and
+    \item that $\Phi$ is bijective.
+  \end{enumerati}
+
+  Hence shown that $U_1\oplus U_2$ is isomorphic to $\F^{m+n}$, and therefore
+  they share the same dimension.
+\end{proof}
+
+\Lemma{Internal direct sum commutes with vector space isomorphism}\label{bf5d412}
+
+Let $V$ be a finite-dimensional vector space, and let $\phi:V\to\F^n$ be a
+vector space isomorphism. Let $U,W$ be two subspaces of $V$ such that
+$\href{c67c961}{U\oplus W}=V$. Then
+$$
+  \phi(U)\oplus\phi(W)=\phi(U\oplus W)\with{=\phi(V)=\F^n}
+$$
+
+\begin{proof}
+  Let's \href{d7c30bb}{decompose} the sets. First, we have
+  \begin{align*}
+    \phi(U)\oplus\phi(W)
+     &=\Set{\hat u+\hat w}{\hat u\in\phi(U),\,\hat w\in\phi(W)} \\
+     &=\Set{\phi(u)+\phi(w)}{u\in U,\,w\in W}
+  \end{align*}
+
+  and also
+  $$
+    \phi(U\oplus W)=\Set{\phi(u+w)}{u\in U,\,w\in W}
+  $$
+
+  but since $\phi$ is a vector space isomorphism, in particular it is a
+  \href{eacdfee}{vector space homomorphism}, and hence
+  $$
+    \phi(u+w)=\phi(u)+\phi(w),
+  $$
+
+  making the two sets above the same.
+\end{proof}
+
+\Proposition{Removing a subspace gives a new subspace}\label{ad97a8e}
+
+Suppose $U$ is a subspace of a finite-dimensional vector space $V$. Then $V$
+has another subspace $W$, such that $V=U\oplus W$.
+
+\begin{proof}
+  Since $V$ is finite-dimensional, it is isomorphic to $\F^n$ for some
+  $n\in\N_0$. Hence there is an isomorphism $\phi:V\to\F^n$.
+
+  Now consider $\phi(U)$. By \autoref{b499a29}, it is a subspace of $\F^n$. By
+  \href{d7186eb}{this result}, we can choose an arbitrary \href{cebd07a}{inner
+  product} and obtain $X:=\phi(U)^\perp$, the \href{c3c519f}{orthogonal
+  complement} of $\phi(U)$ and also a subspace of $\F^n$.
+
+  By \href{e77e5ea}{this result}, $\F^n=\phi(U)\oplus X$. By \autoref{d2f7132},
+  $\phi^{-1}:\F^n\to V$ is also a vector space isomorphism, and so
+  \begin{align*}
+    \phi^{-1}(\F^n) &=\phi^{-1}(\phi(U)\oplus X)                                      \\
+    V               &=\phi^{-1}(\phi(U))\oplus\phi^{-1}(X)\desc{by \autoref{bf5d412}} \\
+                    &=U\oplus\phi^{-1}(X)
+  \end{align*}
+
+  So then we simply choose $W:=\phi^{-1}(X)$.
+\end{proof}
+
+\Remark{}\label{d94b18e}
+
+The basis of a finite-dimensional vector space $V$ \href{f62907b}{in the sense
+of a mapping} is an element of $\L(\F^n,V)$.
+
+\Remark{Change of basis}\label{ede31d2}
+
+Suppose $z$ and $y$ are both bases of an $n$-dimensional vector space $V$.
+Then, $z$ \href{d2f7132}{has an inverse} $z^{-1}:V\to\F^n$ that is also a
+vector space isomorphism. Therefore $P:=z^{-1}\circ y$ is a linear map from
+$\F^n$ to itself. \href{b80882d}{Clearly}, $P$ is a vector space isomorphism
+from $\F^n$ to itself.
+
+In other words, if $z$ is a basis, then all other bases can be expressed as
+$z\circ P$, where $P$ is any isomorphism from $\F^n$ to itself.
+
+\subsection{Kernel and Range}\label{fb87927}
+
+\Theorem{Rank-Nullity Theorem*}\label{ee102e4}
+
+Let $T\in\L(V,W)$, where $V,W$ are finite-dimensional vector spaces. Then
+$$
+  \dim V=\Null T+\Rank T
+$$
+
+\begin{proof}
+  Since $\ker T$ is a subspace of $V$, by \autoref{ad97a8e}, there exists a
+  subspace $U$ of $V$ such that
+  \begin{equation*}
+    V=\href{c67c961}{\ker T\oplus U}\Tag{*}
+  \end{equation*}
+
+  By \autoref{b8205cb}, we have
+  $$
+    \dim V=\Null T+\dim U
+  $$
+
+  Now if $U$ is isomorphic to $\range T$, then by \href{ad4a614}{definition of
+  dimensions} we have
+  $$
+    \dim V=\Null T+\dim(\range T)
+  $$
+
+  and we are done. Hence, we aim to show this isomorphism, specifically
+  $T:U\to\range T$.
+
+  By linearity, $T$ is a \href{eacdfee}{vector space homomorphism}, so it
+  suffices to show that $T$ is a bijective map from $U$ to $\range T$.
+
+  Every vector in $\range T$ can be expressed as $T(v)$, for some $v\in V$. But
+  by $(*)$, there exists $k\in\ker T$ and $u\in U$ such that $v=k+u$. So then
+  $$
+    T(v)=T(k+u)=T(k)+T(u)=T(u)
+  $$
+
+  So everything in the range can be expressed as $T(u)$, and hence $T$ is a
+  surjective map from $U$ to $\range T$.
+
+  Now suppose $T(u_1)=T(u_2)$ for some $u_1,u_2\in U$. Then $T(u_1-u_2)=0$,
+  which then means that $u_1-u_2$ is in the kernel. But since $U$ is a
+  subspace, it is also in $U$. Hence by definition of the \href{c67c961}{direct
+  sum}, we must have $u_1-u_2=0$ and so $T$ is an injective map from $U$ to
+  $\range T$.
+
+  Hence $T$ is a bijection, making it a vector space isomorphism, completing
+  the proof.
+\end{proof}
+
+\subsection{Dual space: vector space of linear maps}\label{a6723f8}
+
+\Definition{Dual space (Brett's)}\label{cb9eede}
+
+Let $V$ be a finite-dimensional vector space. Then the set
+\href{ab1f2fb}{$\L(V,\F)$} is called the \textit{dual space} to $V$. We denote
+it as $\hat V$.
+
+\Remark{}\label{a7619ae}
+
+For $V=\F^n$, row vectors can be considered as the elements of the dual space.
+For each row vector $r$, we can define a mapping $R:V\to\F$ by
+$$
+  R(v):=rv\desc{normal matrix product}
+$$
+
+Note that $rv\in\F$. Clearly, $R$ is a \href{d7d1925}{linear map} because it
+\href{dcae040}{behaves the same way as the standard dot product} and hence
+$R\in\href{ab1f2fb}{\L(V,\F)}$.
+
+\Remark{Vectors are linear maps}\label{bdff7c3}
+
+Let $V$ be a finite-dimensional vector space over $\F$, and fix some $v\in V$.
+Then the mapping $\phi_v:\F\to V$ given by
+$$
+  \phi_v(k):=kv
+$$
+
+is obviously \href{d7d1925}{linear}. So for each $v\in V$, we can define a
+corresponding $\phi_v\in\L(\F,V)$.
+
+\Remark{Linear maps from vector space to its dual space}\label{d5ae44c}
+
+Can we define a \href{d7d1925}{linear map} from $\F^n$ to
+\href{cb9eede}{$\hat{\F^n}$}? Sure we can. First, observe that
+$\hat{\F^n}=\L(\F^n,\F)$ \href{e257b42}{can be made} into a vector space. This
+means that we're looking for a linear map for one vector space ($\F^n$) to
+another ($\hat{\F^n}$).
+
+Consider $\Delta:\F^n\to\hat{\F^n}$, given by $\Delta(u):=(v\mapsto u\cdot v)$.
+(Read: $\Delta(u):=$ a function that maps $v\in\F^n$ to $u\cdot v\in\F$). By
+\href{dcae040}{this result}, $\Delta(u)$ is a linear map for all $u\in\F^n$.
+
+Now, is $\Delta$ itself a linear map? To prove this, we need to show that
+\begin{gather*}
+  \Delta(u_1+u_2)\equiv\Delta(u_1)+\Delta(u_2)\with{(u_1,u_2\in\F^n)} \\
+  \Delta(au)\equiv a\Delta(u)\with{(a\in\F,\,u\in\F^n)}
+\end{gather*}
+
+And sure enough, for all $v\in V$,
+\begin{align*}
+  [\Delta(u_1+u_2)](v) &=(u_1+u_2)\cdot v\desc{by defn. of $\Delta$} \\
+                       &=u_1\cdot v+u_2\cdot v                       \\
+                       &=\Delta(u_1)v+\Delta(u_2)v
+\end{align*}
+
+and $[\Delta(au)](v)=(au)\cdot v=a(u\cdot v)=a[\Delta(u)](v)$, hence $\Delta$
+is a linear map and we write
+$$
+  \Delta\in\L(\F^n,\hat{\F^n})
+$$
+
+\Definition{Dual basis vectors}\label{b5a6327}
+
+\cvn Given any basis $z_i$ of a finite-dimensional vector space $V$, we denote
+(for each value of $i$) dual vectors as $\zeta^i$.
+
+For all $v\in V$, we have $v=a^iz_i$. We define $\zeta^i$ as the linear map
+such that
+$$
+  \zeta^i(v):=a^i
+$$
+
+i.e. $\zeta^i$ is a function that extracts the $i$-th component of any vector
+with respect to basis $z_i$.
+
+By linearity, this requirement is reduced to the following equivalent
+definition: that $\zeta^i$ are linear maps that all satisfy
+$\zeta^i(z_j)=I^i_j$.
+
+Note that at this point we have not shown that it is in fact a basis of $\hat
+V$ yet. That will come \href{b527a74}{later}.
+
+\Proposition{Dual basis vectors are linear maps}\label{a484f61}
+
+\cvn Let $z_i$ be a basis of a finite-dimensional vector space $V$, and let
+$\zeta^i$ be the \href{b5a6327}{dual basis vectors}.
+
+Then $\zeta^i$ are \href{d7d1925}{linear maps}.
+
+\begin{proof}
+  For all $u,v\in V$, and $c\in\F$, we can write $u=a^jz_j$ and $v=b^jz_j$ for
+  some collections of numbers $a^j$ and $b^j$. Now,
+  \begin{align*}
+    \zeta^i(u+v) &=\zeta^i(a^jz_j+b^jz_j) \\
+                 &=\zeta^i((a^j+b^j)z_j)  \\
+                 &=a^i+b^i                \\
+                 &=\zeta^i(u)+\zeta^i(v)
+  \end{align*}
+
+  and
+  \begin{align*}
+    \zeta^i(cu) &=\zeta^i(c(a^jz_j)) \\
+                &=\zeta^i((ca^j)z_j) \\
+                &=ca^i               \\
+                &=c\zeta^i(u)
+  \end{align*}
+\end{proof}
+
+\Proposition{Dual basis vectors are linearly independent}\label{c0b06bb}
+
+\cvn Let $z_i$ be a basis of a finite-dimensional vector space $V$, and let
+$\zeta^i$ be the \href{b5a6327}{dual basis vectors}.
+
+Then $\zeta^i$ are linearly independent.
+
+\begin{proof}
+  Let
+  $$
+    p_i\zeta^i\equiv 0
+  $$
+
+  where $p_i\in\F$ is a collection of numbers, and 0 is the zero vector of
+  $\hat V$ (the \href{dc79809}{additive identity of $\hat V$}). By letting this
+  dual vector act on each $z_j$, we see that
+  \begin{align*}
+    p_i\zeta^i(z_j) &= 0(z_j) \\
+    p_iI^i_j        &= 0      \\
+    p_j             &= 0
+  \end{align*}
+
+  That is, for all $j$, we have $p_j=0$, and hence $\zeta^i$ is linearly
+  independent.
+\end{proof}
+
+\Proposition{Dual basis vectors span the dual space}\label{a6b219f}
+
+\cvn Let $z_i$ be a basis of a finite-dimensional vector space $V$, and let
+$\zeta^i$ be the \href{b5a6327}{dual basis vectors}.
+
+Then $\zeta^i$ spans \href{cb9eede}{$\hat V$}.
+
+\begin{proof}
+  Suppose that $\alpha\in\hat V$ is any dual vector. Consider the dual vector
+  $\beta\in\hat V$ given by
+  $$
+    \beta\equiv\alpha(z_i)\zeta^i
+  $$
+
+  Let this vector act on $z_j$:
+  \begin{align*}
+    \beta(z_j) &=\alpha(z_i)\zeta^i(z_j) \\
+               &=\alpha(z_i)I^i_j        \\
+               &=\alpha(z_j)
+  \end{align*}
+
+  Hence $\alpha$ and $\beta$ agree when acting on every element of the basis
+  $z_i$. By linearity, this means that $\alpha(v)=\beta(v)$ for every $v\in V$.
+
+  So then $\alpha\equiv\beta$, and we've just shown that every $\alpha\in\hat
+  V$ can be written as a linear combination of $\zeta^i$:
+  $$
+    \alpha\equiv\alpha(z_i)\zeta^i
+  $$
+
+  (Note that $\alpha(z_i)$ is simply a collection of numbers, and hence the
+  coefficients of the linear combination of $\zeta^i$.)
+\end{proof}
+
+\Proposition{Dual basis vectors form a basis for the dual space}\label{b527a74}
+
+\cvn Let $z_i$ be a basis of a finite-dimensional vector space $V$, and let
+$\zeta^i$ be the \href{b5a6327}{dual basis vectors}.
+
+Then $\zeta^i$ form a basis of $\hat V$.
+
+\begin{proof}
+  Since $\zeta^i$ \href{a484f61}{are linear maps} that take vectors from $V$ to
+  $\F$, they live in $\L(V,\F)=\hat V$.
+
+  By \autoref{c0b06bb}, they are linearly independent, and by \autoref{a6b219f}
+  they span $\hat V$. Hence $\zeta^i$ form a basis of $\hat V$.
+\end{proof}
+
+\Corollary{Dual space has same dimension as base space}\label{a36df48}
+
+\cvn Let $z_i$ be a basis of a $n$-dimensional vector space $V$, and let
+$\zeta^i$ be the \href{b5a6327}{dual basis vectors}.
+
+By construction, since there are $n$ different $z_i$, then there are $n$
+different $\zeta^i$ too. Since $\zeta^i$ form a basis of $\hat V$, we have
+$\dim\hat V=n=\dim V$.
+
+\Theorem{Dual basis is unique to the original basis}\label{f7fa762}
+
+\cvn Let $z_i$ be a basis of a finite-dimensional vector space $V$. Then the
+\href{b5a6327}{dual basis vectors} are unique to $z_i$.
+
+\begin{proof}
+  Suppose both  $\alpha^i$ and $\beta^i$ are the dual basis vectors, then for
+  each $z_j$,
+  \begin{align*}
+    \alpha^i(z_j)=I^i_j=\beta^i(z_j)
+  \end{align*}
+
+  So each of $\alpha^i$ and $\beta^i$ agree when acting on every $z_j$. By
+  linearity, they agree when acting on every $v\in V$. Hence they are the same.
+\end{proof}
+
+\Remark{Duality in component extraction}\label{f1ba086}
+
+\cvn Let $z_i$ be a basis of a finite-dimensional vector space $V$, and let
+$\zeta^i$ be the \href{b5a6327}{dual basis vectors}.
+
+Every vector $v\in V$ can be written as $a^iz_i$. To extract $a_j$, we do
+$$
+  \zeta^j(a^iz_i)=a^j\desc{by \href{b5a6327}{definition}}
+$$
+
+Similarly, every vector $\hat v\in\hat V$ can be written as $p_i\zeta^i$. To
+extract $p_j$, we do
+$$
+  p_i\zeta^i(z_j)=p_iI^i_j=p_j
+$$
+
+Both bases are useful in extracting elements relative to the other.
+
+\Remark{Dual basis as a linear map}\label{d29c8ad}
+
+\cvn Let $z_i$ be a basis of a finite-dimensional vector space $V$, and let
+$\zeta^i$ be the \href{b5a6327}{dual basis vectors}.
+
+Analog to \autoref{f62907b}, we can think of the dual basis $\zeta$ as a linear
+map from $\hat{\F^n}$ to $\hat V$ in the following way:
+
+Let $z:\F^n\to V$ be a \href{f62907b}{basis} of $V$. Let $a\in\F^n$, so that
+$z(a)\in V$.
+
+Now let $\zeta:\hat{\F^n}\to\hat V$ be the dual basis of $z$. Let
+$p\in\hat{\F^n}$, so that $\zeta(p)\in\hat V$.
+
+Then we define $\zeta$ to be the linear map that satisfies
+\begin{equation*}
+  \zeta(p)[z(a)]=p(a)\Tag{*}
+\end{equation*}
+
+For this we will be using two implicit definitions:
+\begin{enumerati}
+  \item We will be using $\zeta^i\equiv\zeta(\epsilon^i)$, where $\epsilon^i$
+        are the canonical basis' dual vectors,
+  \item and $p(a)$ as the sum $p_ia^i$.
+\end{enumerati}
+
+So breaking apart $\zeta(p)$,
+\begin{align*}
+  \zeta(p) &\equiv\zeta(p_i\epsilon^i)                     \\
+           &\equiv p_i\zeta(\epsilon^i)\desc{by linearity} \\
+           &\equiv p_i\zeta^i
+\end{align*}
+
+and then applying to $z(a)$ as in $(*)$:
+\begin{align*}
+  \zeta(p)[z(a)] &=p_i\zeta^i[z(a)]                                \\
+                 &=p_i\zeta^i(a^jz_j)                              \\
+                 &=p_ia^j\zeta^i(z_j)\desc{by linearity}           \\
+                 &=p_ia^jI^i_j\desc{by \href{b5a6327}{definition}} \\
+                 &=p_ia^i                                          \\
+                 &=p(a)
+\end{align*}
+
+\Definition{Transpose of a linear map}\label{c26d929}
+
+Let $V$ be a finite-dimensional vector space. Let $v\in V$ and $a\in\hat V$.
+Then for each linear map $T:V\to V$, we can define a corresponding linear map
+$\hat T:\hat V\to\hat V$ given by
+$$
+  \hat T(\alpha)(v):=\alpha(T(v))
+$$
+
+$\hat T$ is called the \textit{transpose} of $T$.
+
+To transpose is to switch, and indeed, we swap the order of execution of
+$\alpha$ and $v$.
+\begin{enumerati}
+  \item With $\alpha(T(v))$, we operate on $v$ first, then operate that result
+        with $\alpha$.
+  \item With $\hat T(\alpha)(v)$, we operate on $\alpha$ first, then operate
+        that result with $v$.
+\end{enumerati}
+
+\Proposition{Transpose of a linear map is linear}\label{bb62764}
+
+Let $V$ be a finite-dimensional vector space. Let $T:V\to V$ be a linear map.
+Let $\hat T$ be the \href{c26d929}{transpose} of $T$. Then $\hat T$ is a linear
+map too.
+
+\begin{proof}
+  Let $\alpha,\beta\in\hat V$, and $c\in\F$.
+  \begin{align*}
+    \hat T(\alpha+\beta)(v)            &=(\alpha+\beta)(T(v))\desc{by \href{c26d929}{definition}}          \\
+                                       &=\alpha(T(v))+\beta(T(v))\desc{\href{dc79809}{adding linear maps}} \\
+                                       &=\hat T(\alpha)(v)+\hat T(\beta)(v)                                \\
+    \pre{\implies}\hat T(\alpha+\beta) &\equiv\hat T(\alpha)+\hat T(\beta)
+  \end{align*}
+
+  and
+  \begin{align*}
+    \hat T(c\alpha)(v)            &=(c\alpha)(T(v))       \\
+                                  &=c\alpha(T(v))         \\
+                                  &=c\hat T(\alpha)(v)    \\
+    \pre{\implies}\hat T(c\alpha) &\equiv c\hat T(\alpha)
+  \end{align*}
+\end{proof}

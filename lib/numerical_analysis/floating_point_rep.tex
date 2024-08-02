@@ -1,0 +1,46 @@
+\subsection{Floating point representations}\label{e5cedb7}
+
+\Remark{Computer representation of real numbers}\label{ede07b3}
+
+Any $x\in\R$ is accurately representable by an infinite sequence of digits.
+This comes from \href{bb3cf6b}{$\Q$ being dense in $\R$}, so any $x\in\R$ can
+be approached to arbitrary accuracy by a sequence of rational numbers.
+
+Thus, we can write
+$$
+  x=\pm(1.d_1d_2\ldots d_t\ldots)\times2^e
+$$
+
+where $e$ is the integer \textit{exponent}. Each $d_i$ can be either 0 or 1.
+
+\Definition{Floating point systems}\label{de15ad9}
+
+A floating point system can be characterized by four values $(\beta,t,L,U)$,
+where
+\begin{itemize}
+  \item $\beta$ is the base of the number system,
+  \item $t$ is the precision (number of digits),
+  \item $L$ is the lower bound on exponent $e$,
+  \item $U$ is the upper bound on exponent $e$.
+\end{itemize}
+
+We can then generalize the binary representation in \autoref{ede07b3} by
+$$
+  \fl(x)=\pm\left(
+  \frac{\tilde d_0}{\beta^0}+\frac{\tilde d_1}{\beta^1}+\ldots
+  \frac{\tilde d_{t-1}}{\beta^{t-1}}\right)\times\beta^e
+$$
+
+with the constraint that $L\leq e\leq U$.
+
+\Remark{Rounding unit}\label{e4a24af}
+
+For a general floating point system $(\beta,t,L,U)$ the rounding unit is
+$$
+  \eta=\frac12\beta^{1-t}.
+$$
+
+We use this to bound the relative error:
+$$
+  \text{relative error}=\frac{|x-\fl(x)|}{|x|}\leq\eta
+$$

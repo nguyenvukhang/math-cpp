@@ -1,0 +1,297 @@
+\subsection{Continuous random variables}\label{a629967}
+
+\Definition{Continuous random variable}\label{bdb1e15}
+
+A continuous random variable is a \href{b96960b}{random variable} whose range
+is an uncountable subset of $\R$ (usually an interval).
+
+\Definition{Probability density function}\label{cb9d3f0}
+
+The probability density function (p.d.f.) $f_X$ of a \href{bdb1e15}{continuous
+random variable} $X$ is defined such that for all $U\subset\R$,
+$$
+  P(X\in U)=\int_Uf_X(x)\,dx
+$$
+
+This is commonly expressed as
+$$
+  P(a\leq X\leq b)=\int_a^bf_X(x)\,dx
+$$
+
+This is analog of to the \href{bcef5f1}{p.m.f.} of
+\href{f831030}{\textit{discrete}} random variables.
+
+Note that the p.d.f. cannot return negative values, since that might allow for
+negative probabilities.
+
+\Definition{Cumulative distribution function (continuous)}\label{ad1290d}
+
+This is an extension of the \href{f05a29d}{c.d.f. of discrete random
+variables}. The cumulative distribution function of a random variable $X$
+(continuous or discrete) is defined as
+$$
+  F_X(x):=P(X\leq x)=\int_{-\infty}^xf_X(u)\,du
+$$
+
+Note that by the \href{b869dc0}{fundamental theorem of calculus}, we have the
+relation
+$$
+  f_X(x)=\frac{d}{dx}F_X(x)
+$$
+
+\Definition{Expectation of a random variable (continuous)}\label{d13ac42}
+
+Suppose $X$ is a \href{bdb1e15}{continuous random variable} with
+\href{cb9d3f0}{p.d.f.} $f_X$. Then the \textit{expectation} of $X$ is defined
+as
+$$
+  E[X]:=\int_{-\infty}^{\infty}xf(x)\,dx
+$$
+
+This is analog to the \href{ecb2162}{discrete version of expectation}.
+
+\Lemma{Expectation of a random variable (continuous)*}\label{a997b34}
+
+For a non-negative \href{bdb1e15}{continuous random variable} $X$ with
+\href{cb9d3f0}{p.d.f.} $f_X$,
+$$
+  E[X]=\int_0^\infty P(X>x)\,dx
+$$
+
+\begin{proof}
+  Note that since $X$ is non-negative, we have $P(X<0)=0$, and so $f_X(x)=0$ for
+  all $x<0$.
+  \begin{align*}
+    \int_0^\infty P(X>x)\,dx
+     &=\int_0^\infty\int_x^\infty f_X(u)\,du\,dx\desc{\href{ad1290d}{c.d.f.}} \\
+     &=\int_0^\infty\int_0^uf_X(u)\,dx\,du\desc{change of integration order}  \\
+     &=\int_0^\infty uf_X(u)\,du                                              \\
+     &=\int_{-\infty}^\infty uf_X(u)\,du\desc{since $f_X(x)=0,\forall x<0$}   \\
+     &=E[X]\desc{by \href{d13ac42}{defnition}}
+  \end{align*}
+\end{proof}
+
+\Proposition{Expectation of a function of a continuous random variable}\label{b79a73c}
+
+Let $X$ be a \href{bdb1e15}{continuous random variable} with
+\href{cb9d3f0}{p.d.f.} $f_X$. Then, for any $g:\R\to\R$, we have
+$$
+  E[g(X)]=\int_{-\infty}^\infty g(x)f_X(x)\,dx
+$$
+
+\begin{proof}
+  Let $Y$ be a continuous random variable (which we will later use as $g(X)$).
+  Firstly we have
+  \begin{align*}
+    \int_0^\infty P(Y>y)\,dy
+     &=\int_0^\infty\int_y^\infty f_Y(x)\,dx\,dy\desc{\href{ad1290d}{c.d.f.}} \\
+     &=\int_0^\infty\int_0^xf_Y(x)\,dy\,dx\desc{change of integration order}  \\
+     &=\int_0^\infty xf_Y(x)\,dx\Tag{*}
+  \end{align*}
+
+  and similarly we have that
+  \begin{align*}
+    \int_0^\infty P(Y<-y)\,dy
+     &=\int_0^\infty\int_{-\infty}^{-y}f_Y(x)\,dx\,dy\desc{\href{ad1290d}{c.d.f.}} \\
+     &=\int_{-\infty}^0\int_0^{-x}f_Y(x)\,dy\,dx\desc{change of integration order} \\
+     &=\int_{-\infty}^0-xf_Y(x)\,dx\Tag{**}
+  \end{align*}
+
+  By \href{d13ac42}{defnition} and using $(*)$ and $(**)$, we have
+  \begin{align*}
+    E[Y] &\href{d13ac42}{:=}\int_{-\infty}^\infty xf_Y(x)\,dx            \\
+         &=\int_0^\infty P(Y>y)\,dy-\int_0^\infty P(Y<-y)\,dy\Tag{*{*}*}
+  \end{align*}
+
+  Almost there. Now, we inspect the first integral term more closely, using
+  $Y:=g(X)$.
+  \begin{align*}
+    \int_0^\infty P(g(X)>y)\,dy
+     &=\int_0^\infty\int_{x:g(x)>y}f_X(x)\,dx\,dy \\
+     &=\int_{x:g(x)>0}\int_0^{g(x)}f_X(x)\,dy\,dx \\
+     &=\int_{x:g(x)>0}g(x)f_X(x)\,dx
+  \end{align*}
+
+  Similarly, for the second integral term we have
+  \begin{align*}
+    \int_0^\infty P(g(X)<-y)\,dy
+     &=\int_0^\infty\int_{x:g(x)<-y}f_X(x)\,dx\,dy \\
+     &=\int_{x:g(x)<0}\int_0^{-g(x)}f_X(x)\,dy\,dx \\
+     &=\int_{x:g(x)<0}-g(x)f_X(x)\,dx
+  \end{align*}
+
+  Putting all these back into $(*{*}*)$ yields
+  \begin{align*}
+    E[g(X)] &=\int_{x:g(x)>0}g(x)f_X(x)\,dx-\int_{x:g(x)<0}-g(x)f_X(x)\,dx \\
+            &=\int_{-\infty}^\infty g(x)f_X(x)\,dx
+  \end{align*}
+
+  Thus completing the proof.
+\end{proof}
+
+\Definition{Uniform random variable}\label{cc74e75}
+
+We say that a \href{bdb1e15}{continuous random variable} $X$ is a
+\textit{uniform random variable} on the interval $(a,b)$ if the
+\href{cb9d3f0}{p.d.f.} of $X$ is given by
+$$
+  f_X(x)=\begin{cases}
+    \dfrac1{b-a} & \text{if }a<x<b  \\
+    0            & \text{otherwise}
+  \end{cases}
+$$
+
+The \href{ad1290d}{c.d.f.} of the uniform random variable is given by
+$$
+  F_X(x)=\begin{cases}
+    0                & x\leq a         \\
+    \dfrac{x-a}{b-a} & \text{if }a<x<b \\
+    1                & b\leq x
+  \end{cases}
+$$
+
+It can be shown that $E[X]=\frac12(a+b)$ and $\Var(X)=\frac1{12}(b-a)^2$.
+
+\Definition{Normal random variable}\label{c41e979}
+
+We say that $X$ is a \textit{normal random variable}, or simply that $X$ is
+normally distributed, with parameters $\mu$ and $\sigma^2$ if the
+\href{cb9d3f0}{density} of $X$ is given by
+$$
+  f(x)=\frac1{\sqrt{2\pi}\sigma}\exp\biggl(\frac{-(x-\mu)^2}{2\sigma^2}\biggr)\with{(x\in\R)}
+$$
+
+We express this fact with $X\sim N(\mu,\sigma^2)$. It can be shown that
+$E[X]=\mu$ and $\Var(X)=\sigma^2$.
+
+\Proposition{Properties of normal random variable}\label{b6873d0}
+
+Let $X\sim\href{c41e979}{N(\mu,\sigma^2)}$. Then for any $a,b\in\R$, if we let
+$Y:=aX+b$, we have $Y\sim N(a\mu+b,a^2\sigma^2)$.
+
+A common application of this is to normalize a normal random variable $X\sim
+N(\mu,\sigma^2)$ to $Z\sim N(0,1)$ using
+$$
+  Z:=\frac{X-\mu}\sigma
+$$
+
+This is how we can use an $N(0,1)$ table to evaluate any normal
+\href{ad1290d}{c.d.f.}. If we had $X\sim N(\mu,\sigma^2)$, then
+$$
+  F_X(a)
+  =P(X\leq a)
+  =P\biggl(\frac{X-\mu}\sigma\leq\frac{a-\mu}\sigma\biggr)
+  =P\biggl(Z\leq\frac{a-\mu}\sigma\biggr)
+$$
+
+\Result{Normal approximation to the binomial distribution}\label{b1678f4}
+
+If $S_n\sim\href{bc8d330}{B(n,p)}$, then
+$S_n\sim\href{c41e979}{N}(np,\,np(1-p))$ approximately if $n$ is large. This is
+a special case of the Central Limit Theorem.
+
+\Definition{Exponential random variable}\label{cad638e}
+
+A \href{bdb1e15}{continuous random variable} $X$ whose \href{cb9d3f0}{p.d.f.}
+is given, for some $\lambda>0$, by
+$$
+  f_X(x)=\begin{cases}
+    \lambda e^{-\lambda x} & \text{if }x\geq0 \\
+    0                      & \text{if }x<0
+  \end{cases}
+$$
+
+is said to be an \textit{exponential} random variable with parameter $\lambda$.
+We write $X\sim\mathrm{Exp}(\lambda)$.
+
+The \href{ad1290d}{c.d.f.} $F_X$ is given by
+$$
+  F_X(x)=1-e^{-\lambda x}\with{(x\geq0)}
+$$
+
+It can be shown that $E[X]=1/\lambda$ and $\Var(X)=1/\lambda^2$.
+
+\Definition{Memoryless property}\label{b367a24}
+
+A non-negative \href{bdb1e15}{continuous random variable} $X$ is memoryless if
+$$
+  P(X>s+t|X>t)=P(X>s)\with{(\forall s,t>0)}
+$$
+
+\Lemma{Condition for memoryless random variable}\label{f050f91}
+
+Let $X$ be a non-negative \href{bdb1e15}{continuous random variable}. If
+$$
+  P(X>s+t)=P(X>s)P(X>t)\with{(\forall s,t>0)}
+$$
+
+then $X$ is \href{b367a24}{memoryless}.
+
+\begin{proof}
+  \begin{align*}
+    P(X>s+t|X>t) &=\frac{P(\{X>s+t\}\cap\{X>t\})}{P(X>t)}                        \\
+                 &=\frac{P(X>s+t)}{P(X>t)}\desc{since $\{X>s+t\}\subset\{X>t\}$} \\
+                 &=P(X>s)\desc{by assumption}
+  \end{align*}
+\end{proof}
+
+\Proposition{Exponential random variable is memoryless}\label{d666af3}
+
+The \href{cad638e}{exponential random variable} is \href{b367a24}{memoryless}.
+
+\begin{proof}
+  Let $X\sim\mathrm{Exp}(\lambda)$. Then
+  $$
+    P(X>s)=\int_s^\infty\lambda e^{-\lambda x}\,dx=\bigl[-e^{-\lambda x}\bigr]_s^\infty=e^{-\lambda s}
+  $$
+
+  and hence
+  $$
+    P(X>s+t)=e^{-\lambda(s+t)}=e^{-\lambda s}e^{-\lambda t}=P(X>s)P(X>t)
+  $$
+
+  Since $X$ is clearly non-negative, by \autoref{f050f91}, $X$ is memoryless.
+\end{proof}
+
+\Definition{Gamma random variable}\label{a4b5cdb}
+
+A \href{bdb1e15}{continuous random variable} X is said to have a gamma
+distribution with parameters $(\alpha,\lambda)$, where $\alpha>0,\lambda>0$, if
+its density function is given by
+$$
+  f(x)=\begin{cases}
+    \dfrac{\lambda e^{-\lambda x}(\lambda x)^{\alpha-1}}{\Gamma(\alpha)} & \text{if }x\geq0 \\
+    0                                                                    & \text{if }x<0
+  \end{cases}
+$$
+
+where $\Gamma$ is the \href{ce1fa3f}{gamma function}. It can be shown that
+$E[X]=\alpha/\lambda$ and $\Var(X)=\alpha/\lambda^2$. We write
+$X\sim\mathrm{Gamma}(\alpha,\lambda)$.
+
+\Lemma{Exponential RV is Gamma RV with $\alpha=1$}\label{af98a66}
+
+Let $X\sim\href{a4b5cdb}{\mathrm{Gamma}}(\alpha,\lambda)$. If $\alpha=1$, then
+$X\sim\href{cad638e}{\mathrm{Exp}}(\lambda)$.
+
+\begin{proof}
+  This follows from a direct substitution of $\alpha=1$ into the p.d.f. of the
+  \href{a4b5cdb}{Gamma random variable}.
+\end{proof}
+
+\Lemma{Gamma RV and the Poisson RV}\label{de11b28}
+
+Let events occur under \href{d544278}{these assumptions} ($\lambda$ is defined
+there). Let $T$ the amount of time one has to wait until $n$ events occur. Then
+$T\sim\href{a4b5cdb}{\mathrm{Gamma}}(n,\lambda)$.
+
+Note that in contrast, the \href{fc4dd45}{Poisson} random variable comments on
+how many events occur in a fixed time interval $t$.
+
+\Lemma{Gamma RV and sum of Exponential RVs}\label{ba003c7}
+
+Let $\iter{X_1}{X_n}$ be independent random variables with
+$X_i\sim\href{cad638e}{\mathrm{Exp}}(\lambda)$ for $i=\iter1n$, then
+$$
+  X_1+\ldots+X_n\sim\href{a4b5cdb}{\mathrm{Gamma}}(n,\lambda)
+$$

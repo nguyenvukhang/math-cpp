@@ -1,0 +1,20 @@
+\subsection{Inner product}\label{a79966a}
+
+\Lemma{Inner products with zero goes to zero}\label{f9096e1}
+
+Let $V$ be an \href{b9935c8}{inner product space}. Then for all $v\in V$, we
+have
+$$
+  \inner0v=\inner v0=0
+$$
+
+\begin{proof}
+  Since $0+0=0$ in all vector spaces, we have
+  \begin{align*}
+    \inner0v &=\inner{0+0}v                                 \\
+             &=\inner0v+\inner0v\desc{linearity in 1st arg}
+  \end{align*}
+
+  And hence $\inner 0v=0$. By conjugate symmetry of inner products, we also
+  have $\inner v0=0$.
+\end{proof}

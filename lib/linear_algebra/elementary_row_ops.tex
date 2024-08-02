@@ -1,0 +1,141 @@
+\subsection{Elementary row operations}\label{d3c48fe}
+
+\Proposition{Row-switching transformations are invertible}\label{fcfa388}
+
+Let $A\in\F^{n\times n}$. Let $E,B\in\F^{n\times n}$ be such that $B$ is the
+matrix produced by swapping the $i$-th and $j$-th rows of $A$ (see:
+\href{d7fc6d0}{row switching}), and $B=EA$. Then $E$ is
+\href{ce4daa8}{invertible}.
+
+\begin{proof}
+  Recall \href{a9e7369}{this picture} when looking at matrix multiplication:
+  that row $j$ of $B=EA$ is a linear combination of the rows of $A$, with
+  coefficients coming from row $j$ of $E$.
+
+  Since our goal is to swap the $i$-th row with the $j$-row of $A$, we can do
+  this by setting $E$ to
+  $$
+    E=\begin{bmat}
+      1 &        &                  &        &                   &        &   \\[-0.1em]
+        & \ddots &                  &        &                   &        &   \\[-0.1em]
+        &        & \textcolor{red}0 &        & \textcolor{blue}1 &        &   \\[-0.1em]
+        &        &                  & \ddots &                   &        &   \\[-0.1em]
+        &        & \textcolor{red}1 &        & \textcolor{blue}0 &        &   \\[-0.1em]
+        &        &                  &        &                   & \ddots &   \\[-0.1em]
+        &        &                  &        &                   &        & 1 \\
+    \end{bmat}
+  $$
+
+  where the two columns highlighted are the $i$-th and $j$-th column
+  respectively.
+
+  By direct verification, the \href{ce4daa8}{inverse} of $E$ is itself. (and
+  hence $E$ is invertible)
+\end{proof}
+
+\Proposition{Row-multiplying transformations are invertible}\label{cb17e62}
+
+Let $A\in\F^{n\times n}$. Let $E,B\in\F^{n\times n}$ be such that $B$ is the
+matrix produced by scaling the $i$-th row of $A$ by some $k\neq0$ (see:
+\href{d7fc6d0}{row multiplication}), and $B=EA$. Then $E$ is
+\href{ce4daa8}{invertible}.
+
+\begin{proof}
+  Recall \href{a9e7369}{this picture} when looking at matrix multiplication:
+  that row $j$ of $B=EA$ is a linear combination of the rows of $A$, with
+  coefficients coming from row $j$ of $E$.
+
+  Then clearly we can set $E$ to the \href{dcfd9cd}{identity matrix}, with the
+  $i$-th row scaled by $k$. By direct verification, the \href{ce4daa8}{inverse}
+  of $E$ is the identity matrix, with the $i$-th row scaled by $1/m$. (and
+  hence $E$ is invertible)
+\end{proof}
+
+\Proposition{Row-adding transformations are invertible}\label{bea73b6}
+
+Let $A\in\F^{n\times n}$. Let $E,B\in\F^{n\times n}$ be such that $B$ is the
+matrix produced by adding $k$ times $j$-th row of $A$ to the $i$-th row of $A$,
+with $i\neq j$ (see: \href{d7fc6d0}{row addition}), and $B=EA$. Then $E$ is
+\href{ce4daa8}{invertible}.
+
+\begin{proof}
+  Recall \href{a9e7369}{this picture} when looking at matrix multiplication:
+  that row $j$ of $B=EA$ is a linear combination of the rows of $A$, with
+  coefficients coming from row $j$ of $E$.
+
+  Then clearly we can set $E$ to the \href{dcfd9cd}{identity matrix}, with the
+  element at the $i$-row and $j$-th column set to $k$.
+
+  By direct verification, the \href{ce4daa8}{inverse} of $E$ is the identity
+  matrix, with the element at the $i$-th row and $j$-th column set to $-k$.
+  (and hence $E$ is invertible)
+\end{proof}
+
+\Theorem{Elementary row transformations are invertible}\label{bd1dfdd}
+
+Let $A_0,A_1\in\F^{n\times n}$, where $A_1$ is produced by applying an
+\href{d7fc6d0}{elementary row operation} on $A_0$. Then there exists
+$E\in\F^{n\times n}$ such that
+$$
+  A_1=EA_0
+$$
+
+and $E$ is invertible.
+
+\begin{proof}
+  This is a direct combination of \autoref{fcfa388}, \autoref{cb17e62}, and
+  \autoref{bea73b6}.
+\end{proof}
+
+\Proposition{Elementary row operations and solution invariance}\label{fd54a50}
+
+Let $Ax=b$ represent a system of equations. Then the \href{d7fc6d0}{elementary
+row operations}
+\begin{enumerati}
+  \item multiplication of a row by a constant,
+  \item adding/subtracting a multiple of one row from another,
+  \item row interchanges,
+\end{enumerati}
+
+do not affect the solution to the problem.
+
+\begin{proof}
+  Simply recall that $Ax=b$ is a concise form for the system of equations
+  \begin{align*}
+    a_{11}x_1+a_{12}x_2+\ldots+a_{1n}x_n &=b_1 \\
+    a_{21}x_1+a_{22}x_2+\ldots+a_{2n}x_n &=b_2 \\
+    \vdots\quad\quad\quad\quad\quad      &     \\
+    a_{n1}x_1+a_{n2}x_2+\ldots+a_{nn}x_n &=b_n
+  \end{align*}
+
+  Observe that:
+  \begin{enumerati}
+    \item $x\in\R^n$ satisfies a equation if and only if it satisfies that same
+    equation multiplied by a constant.
+    \item Let $x\in\R^n$ such that it satisfies two different equations:
+    \begin{align*}
+      a_1x_1+a_2x_2+\ldots+a_nx_n &=b_1\Tag{1} \\
+      c_1x_1+c_2x_2+\ldots+c_nx_n &=b_2\Tag{2}
+    \end{align*}
+
+    Then for all $k\in\R$, if we form a new equation
+    \begin{equation*}
+      (a_1+kc_1)x_1+(a_2+kc_2)x_2+\ldots+(a_n+kc_n)x_n=b_1+kb_2\Tag{3}
+    \end{equation*}
+
+    Clearly (3) will be satisfied, since
+    $$
+      (a_1x_1+a_2x_2+\ldots+a_nx_n)+k(c_1x_1+c_2x_2+\ldots+c_nx_n)=b_1+kb_2
+    $$
+
+    And note that if (2) and (3) are satisfied, then by a very similar
+    argument, (1) and (2) are satisfied. Hence,
+    $$
+      (1),(2)\text{ satisfied}\iff(2),(3)\text{ satisfied}
+    $$
+    \item $x\in\R^n$ satisfies equations $E_1$ and $E_2$ if and only if it
+    satisfies equations $E_2$ and $E_1$.
+  \end{enumerati}
+
+  Hence shown that the solution is invariant under the three operations.
+\end{proof}

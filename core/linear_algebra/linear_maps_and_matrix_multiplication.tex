@@ -1,0 +1,90 @@
+\subsection{Linear maps through matrix multiplication}\label{b9542d8}
+
+\Definition{Matrix of a vector}\label{fc5a127}
+
+Suppose $v\in V$ and $\iter{v_1}{v_n}$ is a basis of (finite-dimensional)
+vector space $V$. The matrix of $v$ with respect to this basis is the
+$n\times1$ matrix
+$$
+  \mathcal M(v):=\begin{bmat}b_1\\\vdots\\b_n\end{bmat}
+$$
+
+where $\iter{b_1}{b_n}\in\F$ such that $v=b_1v_1+\ldots+b_nv_n$.
+
+\Proposition{Turning a vector into a matrix is an isomorphic operation}\label{d637076}
+
+Let $V$ be a finite-dimensional vector space with \href{cd4284b}{dimension}
+$n$. Then $\mathcal M:V\to\F^n$ is a \href{d0ad6cb}{vector space isomorphism}.
+
+\begin{proof}
+  It is left as an exercise for the reader to show that $\mathcal M$ is
+  \href{d7d1925}{linear}, and that it is \href{ac44d1d}{injective} and
+  \href{bd75843}{surjective}. Showing that $\mathcal M$ is a bijective linear
+  map completes the proof.
+\end{proof}
+
+\Proposition{Columns of $\mathcal M(T)$ come from $\mathcal M(T(v_k))$}\label{ec0cf28}
+
+Let $V,W$ be finite-dimensional vector spaces, and let $T\in\L(V,W)$. Then
+$$
+  \mathcal M(T)_{\cdot,k}=\mathcal M(T(v_k))\with{k=\iter1n}
+$$
+
+where $n:=\dim V$.
+
+\begin{proof}
+  This results follows almost immediately from the definition of the
+  \href{c70dad0}{matrix of a linear map} and the \href{fc5a127}{matrix of a
+  vector}.
+\end{proof}
+
+\Proposition{Linear maps act like matrix multiplication}\label{e48294c}
+
+\texttt{\href{d76dfe6}{use notation};} Let $V,W$ be finite-dimensional vector
+spaces, and let $T\in\L(V,W)$, $v\in V$. Then
+$$
+  \mathcal M(T(v))=\mathcal M(T)\mathcal M(v)
+$$
+
+\begin{proof}
+  Suppose $\iter{v_1}{v_n}$ is a basis of $V$, and let $v=b_1v_1+\ldots+b_nv_n$
+  for some collection $\iter{b_1}{b_n}\in\F$. Then by \href{d7d1925}{linearity}
+  of $T$,
+  $$
+    T(v)=b_1T(v_1)+\ldots+b_nT(v_n)
+  $$
+
+  and now by linearity of $\mathcal M$, we have
+  \begin{align*}
+    \mathcal M(T(v)) &=b_1\mathcal M(T(v_1))+\ldots+b_n\mathcal M(T(v_n))                                                      \\
+                     &=b_1\mathcal M(T)_{\cdot,1}+\ldots+b_n\mathcal M(T)_{\cdot,n}\desc{by \autoref{ec0cf28}}                 \\
+                     &=\mathcal M(T)\begin{bmat}b_1\\\vdots\\b_n\end{bmat}\desc{\href{be0cc53}{linear combination of columns}} \\
+                     &=\mathcal M(T)\mathcal M(v)\desc{by \href{fc5a127}{definition}}
+  \end{align*}
+\end{proof}
+
+\Proposition{Rank of $T$ equals rank of $\mathcal M(T)$}\label{b2759d6}
+
+Suppose $V,W$ are finite-dimensional vector spaces and $T\in\L(V,W)$. Then
+\href{ca0f3c2}{$\Rank T$} equals the \href{ecd3948}{rank of $\mathcal M(T)$}.
+
+\begin{proof}
+  Suppose $\iter{v_1}{v_n}$ is a basis of $V$, and that $\iter{w_1}{w_m}$ is a
+  basis of $W$. The linear map that takes $w\in W$ to \href{fc5a127}{$\mathcal
+  M(w)$} is an isomorphism (by \autoref{d637076}) from $W$ to $\F^m$.
+
+  The restriction of this isomorphism to $\range T$ (which
+  \href{d91179c}{equals} $\Span\{\iter{T(v_1)}{T(v_n)}\}$) is an isomorphism
+  from $\range T$ onto $\Span\{\iter{\mathcal M(T(v_1))}{\mathcal
+  M(T(v_n))}\}$.
+
+  For each $k=\iter1n$, the matrix $\mathcal M(T(v_k))\in\F^{m}$
+  \href{ec0cf28}{equals} column $k$ of $\mathcal M(T)$, and thus
+  $$
+    \dim\range T=\text{\href{bc27a95}{column rank} of }\mathcal M(T)
+  $$
+
+  The proof is complete upon seeing that $\dim\range T=\Rank T$ (by definition)
+  and that rank of a matrix is the column rank of that matrix (also by
+  definition).
+\end{proof}

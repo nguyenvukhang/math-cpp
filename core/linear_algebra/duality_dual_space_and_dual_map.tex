@@ -1,0 +1,422 @@
+\subsection{Duality: Dual space and dual map}\label{b2f82d2}
+
+\Proposition{$\dim V'=\dim V$}\label{eae973c}
+
+Suppose $V$ is a finite-dimensional vector space. Then $V'$ is also
+finite-dimensional, and
+$$
+  \dim V'=\dim V
+$$
+
+\begin{proof}
+  By \autoref{eb3bad0}, we have
+  $$
+    \dim V'=\dim\L(V,F)=(\dim V)(\dim\F)=\dim V
+  $$
+
+  as desired.
+\end{proof}
+
+\Definition{Dual basis}\label{f56d946}
+
+\texttt{\href{beaa574}{use notation};} Let $\iter{z_1}{z_n}$ be a basis of
+vector space $V$. Then the \textit{dual basis} of $\{\iter{z_1}{z_n}\}$ is the
+list $\{\iter{\zeta^1}{\zeta^n}\}\subset V'$, where each $\zeta^i$ is the
+\href{b0b1db8}{linear functional} on $V$ such that
+$$
+  \zeta^i(z_j)=I^i_j\desc{notation \href{beaa574}{here}}
+$$
+
+\Proposition{Dual basis gives coefficients for linear combination}\label{c157fd5}
+
+Suppose $\iter{z_1}{z_n}$ is a basis of $V$, and $\iter{\zeta^1}{\zeta^n}$ is
+its \href{f56d946}{dual basis}. Then
+$$
+  v=\zeta^1(v)z_1+\ldots+\zeta^n(v)z_n
+$$
+
+for each $v\in V$.
+
+\begin{proof}
+  Suppose $v\in V$. Then there exist $\iter{a^1}{a^n}\in\F$ such that
+  \begin{equation*}
+    v=a^1z_1+\ldots+a^nz_n\Tag{*}
+  \end{equation*}
+
+  Then, for each $j=\iter1n$, applying $\zeta^j$ to both sides of $(*)$ gives
+  $$
+    \zeta^j(v)=a^j
+  $$
+
+  Substituting each $a^j$ back into $(*)$ gives the equation in the claim.
+\end{proof}
+
+\Proposition{Dual basis is the basis of the dual space}\label{f9d48fe}
+
+Suppose $V$ is finite-dimensional. Then the dual basis of any basis of $V$ is a
+basis of $V'$.
+
+\begin{proof}
+  Suppose $\iter{z_1}{z_n}$ is a basis of $V$. Let $\iter{\zeta^1}{\zeta^n}$
+  denote its dual basis. Our goal is to show that $\iter{\zeta^1}{\zeta^n}$ is
+  \href{c133a44}{linearly independent}.
+
+  Suppose $\iter{a_1}{a_n}\in\F$ such that
+  \begin{equation*}
+    \sum_{j=1}^na_j\zeta^j=0\Tag{*}
+  \end{equation*}
+
+  Note that in this equation, both sides are elements of $V'=\L(V,\F)$. Hence
+  in this case, they are functions that send all $v\in V$ to $0\in\F$.
+
+  Applying this \href{b0b1db8}{linear functional} to each basis vector $z_i$,
+  we have
+  \begin{align*}
+    \biggl(\sum_{j=1}^na_j\zeta^j\biggr)(z_i)
+     &=\sum_{j=1}^na_j\zeta^j(z_i)\desc{by \href{d7d1925}{linearity} of each $\zeta^j$} \\
+     &= a^j\desc{using \href{f56d946}{this}}
+  \end{align*}
+
+  But then this means that $a^j=0$ for all $j\in\iter1n$, and hence
+  $\iter{\zeta^1}{\zeta^n}$ is linearly independent.
+
+  Since $\iter{\zeta^1}{\zeta^n}$ is linearly independent list whose length
+  equals $\dim V'$ (by \autoref{eae973c}), we \href{e3d5b2a}{can conclude} that
+  it is a basis of $V'$.
+\end{proof}
+
+\Definition{Dual map}\label{d80860c}
+
+Let $V,W$ be finite-dimensional vector spaces, and let $T\in\L(V,W)$. The
+\textit{dual map} of $T$ is the \href{d7d1925}{linear map} $T'\in\L(W',V')$
+such that
+$$
+  T'(\alpha)=\alpha\circ T\with{(\alpha\in W')}
+$$
+
+\Proposition{Algebraic properties of dual maps}\label{bd9eccc}
+
+Let $U,V,W$ be finite-dimensional vector spaces, and let $T\in\L(V,W)$. Then
+\begin{enumerata}
+  \item $(S+T)'=S'+T'$ for all $S\in\L(V,W)$.
+  \item $(\lambda T)'=\lambda T'$ for all $\lambda\in\F$.
+  \item $(ST)'=T'S'$ for all $S\in\L(W,U)$
+\end{enumerata}
+
+\begin{proof}
+  \proofp{(a)} To show $(S+T)'=S'+T'$, we have to show that they agree when
+  acting on any $\alpha\in W'$. But they ($(S+T)'(\alpha)$ and
+  $S'(\alpha)+T'(\alpha)$) are functions on $V\to W$, and so we have to show
+  that \textit{they} agree on all $v\in V$. So let $\alpha\in W'$ and $v\in V$.
+  Then
+  \begin{align*}
+    [(S+T)'(\alpha)](v)           &=[\alpha\circ(S+T)](v)\desc{by \href{d80860c}{defintion}}                 \\
+                                  &=\alpha((S+T)(v))                                                         \\
+                                  &=\alpha(S(v)+T(v))\desc{\href{e257b42}{adding linear maps}}               \\
+                                  &=\alpha(S(v))+\alpha(T(v))\desc{by \href{d7d1925}{linearity} of $\alpha$} \\
+                                  &=\alpha\circ S(v)+\alpha\circ T(v)                                        \\
+                                  &=S'(\alpha)(v)+T'(\alpha)(v)                                              \\
+    \pre{\implies} (S+T)'(\alpha) &=S'(\alpha)+T'(\alpha)                                                    \\
+    \pre{\implies} (S+T)'         &=S'+T'
+  \end{align*}
+
+  The proof for (b) uses the same idea of showing that they agree on all
+  $\alpha\in W'$ and $v\in V$.
+
+  \proofp{(c)} Note that for this entire proof we will be manipulating
+  functions, not vectors nor numbers. For all $\alpha\in U'$,
+  \begin{align*}
+    (ST)'(\alpha) &=\alpha\circ(ST)\desc{by \href{d80860c}{defintion}}                               \\
+                  &=\alpha\circ(S\circ T)\desc{by \href{a6afdc2}{definition}}                        \\
+                  &=(\alpha\circ S)\circ T\desc{function composition is \href{ecb536b}{associative}} \\
+                  &=T'(\alpha\circ S)                                                                \\
+                  &=T'(S'(\alpha))
+  \end{align*}
+\end{proof}
+
+\Definition{Annihilator, $U^0$}\label{af14470}
+
+Let $U$ be a subspace of vector space $V$. Then the \textit{annihilator} of
+$U$, denoted by $U^0$, is defined by
+$$
+  U^0:=\set{\alpha\in \href{c6cc6ea}{V'}}{\alpha(u)=0,\ \forall u\in U}
+$$
+
+Note that $U^0\subset V'$ by construction. Informally, $U^0$ is the set of
+linear functionals on $V$ that send all elements in $U$ to zero.
+
+\Proposition{The annihilator is a subspace}\label{b53cbdf}
+
+Let $U$ be a subspace of vector space $V$. Then \href{af14470}{$U^0$} is a
+subspace of \href{c6cc6ea}{$V'$}.
+
+\begin{proof}
+  We will use \href{dea139b}{these conditions} to show that $U^0$ is a subspace
+  of $V'$.
+
+  Note that $0\in U^0$ because the zero linear functional applied to every
+  $u\in U$ is $0\in\F$ (see: \href{dc79809}{additive identity of linear maps}).
+
+  Now, for closure under addition. Suppose $\alpha,\beta\in U^0$. Then for all
+  $u\in U$,
+  \begin{align*}
+    (\alpha+\beta)(u) &=\alpha(u)+\beta(u)\desc{\href{e257b42}{adding linear maps}} \\
+                      &=0+0                                                         \\
+                      &=0
+  \end{align*}
+
+  And thus $\alpha+\beta\in U^0$. Next: closure under scalar multiplication.
+  Suppose also that $\lambda\in\F$. Then for all $u\in U$,
+  \begin{align*}
+    (\lambda\alpha)(u) &=\lambda\alpha(u)\desc{\href{e257b42}{scaling linear maps}} \\
+                       &=\lambda\cdot 0                                             \\
+                       &= 0
+  \end{align*}
+
+  and thus $\lambda\alpha\in U^0$. This completes the proof.
+\end{proof}
+
+\Proposition{Dimension of the annihilator}\label{cbf151f}
+
+Suppose $V$ is finite-dimensional and $U$ is a subspace of $V$. Then
+$$
+  \dim U+\dim\href{af14470}{U^0}=\dim V
+$$
+
+\begin{proof}
+  Let $i\in\L(U,V)$ be the inclusion map defined by $i(u):=u$ for each $u\in
+  U$. \href{d80860c}{Thus}, $i'\in\L(V',U')$. Using the
+  \href{e83dffc}{fundamental theorem of linear maps} on $i'$, we have
+  \begin{equation*}
+    \dim V'=\Rank i'+\Null i'\Tag{*}
+  \end{equation*}
+
+  Observe that $\ker i'=U^0$, since
+  \begin{align*}
+    \ker i' &=\Set{\alpha\in V'}{i'(\alpha)=0\in U'}\desc{\href{c494931}{kernel} definition}      \\
+            &=\Set{\alpha\in V'}{\alpha\circ i=0\in U'}\desc{\href{d80860c}{dual map} definition} \\
+            &=\Set{\alpha\in V'}{(\alpha\circ i)(u)=0\in\F,\ \forall u\in U}                      \\
+            &=\Set{\alpha\in V'}{\alpha(u)=0,\ \forall u\in U}                                    \\
+            &=U^0
+  \end{align*}
+
+  and $\dim V'=\dim V$ (by \autoref{eae973c}), so sending these into $(*)$, we
+  have
+  \begin{equation*}
+    \Rank i'+\dim U^0=\dim V\Tag{**}
+  \end{equation*}
+
+  Now, each $\alpha\in U'$ \href{ebbd7cd}{can be extended} to a linear
+  functional $\beta\in V'$. Note that this extension has the property that
+  $$
+    \beta(u)=\alpha(u)\with{(\forall u\in U)}
+  $$
+
+  Then
+  $$
+    i'(\beta)=\beta\circ i=\alpha\circ i=\alpha
+  $$
+
+  Note that in the equation above, we are talking about linear functionals, and
+  their equalities hold because they agree when acting on any $u\in U$.
+
+  So then $\alpha\in\range i'$, which implies that $U'\subset\range i'$. But
+  this means that $i'$ is surjective and so $U'=\range i'$. Hence
+  $$
+    \Rank i'=\dim U'=\dim U
+  $$
+
+  Substituting this into $(**)$ we obtain
+  $$
+    \dim U+\dim U^0=\dim V
+  $$
+
+  as desired.
+\end{proof}
+
+\Proposition{Condition for annihilator to equal $\{0\}$ or whole subspace}\label{c38f2c0}
+
+Suppose $V$ is finite-dimensional and $U$ is a subspace of $V$. Then
+\begin{enumerata}
+  \item $U^0=\{0\}\iff U=V$, and
+  \item $U^0=V'\iff U=\{0\}$.
+\end{enumerata}
+
+\begin{proof}
+  \proofp{(a)}
+  \begin{align*}
+    U^0=\{0\} &\iff\dim U^0=0                               \\
+              &\iff\dim U=\dim V\desc{by \autoref{cbf151f}} \\
+              &\iff U=V\desc{by \autoref{ed8951d}}
+  \end{align*}
+
+  \proofp{(b)}
+  \begin{align*}
+    U^0=V' &\iff\dim U^0=\dim V'\desc{by \autoref{ed8951d}} \\
+           &\iff\dim U^0=\dim V\desc{by \autoref{eae973c}}  \\
+           &\iff\dim U=0\desc{by \autoref{cbf151f}}         \\
+           &\iff U=\{0\}
+  \end{align*}
+\end{proof}
+
+\Proposition{Kernel of $T'$}\label{fa7a408}
+
+Suppose $V,W$ are vector spaces, and $T\in\L(V,W)$. Then
+$$
+  \ker T'=(\range T)^0
+$$
+
+That is, the \href{c494931}{kernel} of $T'$ is the \href{af14470}{annihilator}
+of $\range T$.
+
+\begin{proof}
+  Suppose $\alpha\in\ker T'$. Then $0=T'(\alpha)=\alpha\circ T$. Hence for all
+  $v\in V$,
+  $$
+    0=(\alpha\circ T)(v)=\alpha(T(v))
+  $$
+
+  Thus $\alpha\in(\range T)^0$, and we have $\ker T'\subset(\range T)^0$.
+
+  To prove inclusion in the opposite direction, suppose $\alpha\in(\range
+  T)^0$. Thus $\alpha(T(v))=0$ for every $v\in V$. Hence $0=\alpha\circ
+  T=T'(\alpha)$. In other words, $\alpha\in\ker T'$, which shows that $(\range
+  T^0)\subset\ker T'$.
+
+  Thus, we have $\ker T'=(\range T)^0$, completing the proof.
+\end{proof}
+
+\Proposition{Nullity of $T'$}\label{a44efb3}
+
+Suppose $V,W$ are finite-dimensional vector spaces, and $T\in\L(V,W)$. Then
+$$
+  \Null T'=\Null T+\dim W-\dim V
+$$
+
+\begin{proof}
+  \begin{align*}
+    \dim\ker T' &=\dim (\range T)^0\desc{by \autoref{fa7a408}}                          \\
+                &=\dim W-\dim\range T\desc{by \autoref{cbf151f}}                        \\
+                &=\dim W-(\dim V-\dim\ker T)\desc{\href{e83dffc}{Rank-Nullity Theorem}} \\
+                &=\dim W-\dim V+\Null T
+  \end{align*}
+\end{proof}
+
+\Proposition{$T$ surjective is equivalent to $T'$ injective}\label{dc4d419}
+
+Suppose $V$ and $W$ are finite-dimensional and $T\in\href{ab1f2fb}{\L(V,W)}$.
+Then
+$$
+  T\text{ is \href{bd75843}{surjective}}\iff T'\text{ is \href{ac44d1d}{injective}}
+$$
+
+\begin{proof}
+  \begin{align*}
+    T\in\L(V,W)\text{ is surjective} &\iff\range T=W\desc{by \autoref{a41ddec}}              \\
+                                     &\iff(\range T)^0=\{0\}\desc{by \autoref{c38f2c0}}      \\
+                                     &\iff\ker T'=\{0\}\desc{by \autoref{fa7a408}}           \\
+                                     &\iff T'\text{ is injective}\desc{by \autoref{f68db52}}
+  \end{align*}
+\end{proof}
+
+\Proposition{Range of $T'$}\label{f24806d}
+
+Suppose $V$ and $W$ are finite-dimensional and $T\in\href{ab1f2fb}{\L(V,W)}$.
+Then
+\begin{enumerata}
+  \item $\dim\range T'=\dim\range T$, and
+  \item $\range T'=(\ker T)^0$. That is, the \href{a3ef003}{range} of $T'$ is
+  the \href{af14470}{annihilator} of $\ker T$.
+\end{enumerata}
+
+\begin{proof}
+  \proofp{(a)} Recall that $T'\in\L(W',V')$, and so
+  \begin{align*}
+    \dim\range T' &=\dim W'-\dim\ker T'\desc{\href{e83dffc}{Rank-Nullity Theorem}} \\
+                  &=\dim W-\dim\ker T'\desc{\autoref{eae973c}}                     \\
+                  &=\dim W-\dim(\range T)^0\desc{\autoref{a44efb3}}                \\
+                  &=\dim\range T\desc{\autoref{cbf151f}}
+  \end{align*}
+
+  \proofp{(b)} Suppose that $\alpha\in\range T'$. Thus there exists $\beta\in
+  W'$ such that $\alpha=T'(\beta)$. If $v\in\ker T$, then
+  \begin{align*}
+    \alpha(v) &=[T'(\beta)](v)                                                     \\
+              &=(\beta\circ T)(v)\desc{by \href{d80860c}{definition} of dual maps} \\
+              &=\beta(T(v))                                                        \\
+              &=\beta(0)\desc{since $v\in\ker T$}                                  \\
+              &=0\desc{\href{c5eb127}{linear maps take 0 to 0}}
+  \end{align*}
+
+  Hence $\alpha\in(\ker T)^0$ since it sends all elements of $\ker T$ to 0.
+  This implies that $\range T'\subset(\ker T)^0$.
+
+  Since both \href{b53cbdf}{$(\ker T)^0$} and \href{d0afc28}{$\range T'$} are
+  subspaces of $V'$, this implies that $\range T'$ is a subspace of $(\ker
+  T)^0$. Therefore, it remains to show that $\dim\range T'=\dim(\ker T)^0$.
+  \begin{align*}
+    \dim\range T' &=\dim\range T\desc{from (a)}                                  \\
+                  &=\dim V-\dim\ker T\desc{\href{e83dffc}{Rank-Nullity Theorem}} \\
+                  &=\dim(\ker T)^0\desc{\autoref{cbf151f}}
+  \end{align*}
+\end{proof}
+
+\Proposition{$T$ injective is equivalent to $T'$ surjective}\label{f15b5a8}
+
+Suppose $V$ and $W$ are finite-dimensional and $T\in\href{ab1f2fb}{\L(V,W)}$.
+Then
+$$
+  T\text{ is \href{ac44d1d}{injective}}\iff T'\text{ is \href{bd75843}{surjective}}
+$$
+
+\begin{proof}
+  \begin{align*}
+    T\text{ is injective} &\iff\ker T=\{0\}\desc{\autoref{f68db52}}             \\
+                          &\iff(\ker T)^0=V'\desc{\autoref{c38f2c0}}            \\
+                          &\iff\range T'=V'\desc{\autoref{f24806d}}             \\
+                          &\iff T'\text{ is surjective}\desc{\autoref{a41ddec}}
+  \end{align*}
+\end{proof}
+
+\Proposition{Matrix of $T'$ is tranpose of matrix of $T$}\label{d5cb407}
+
+\texttt{\href{beaa574}{use notation};} Suppose $V$ and $W$ are
+finite-dimensional and $T\in\href{ab1f2fb}{\L(V,W)}$. Let $\iter{z_1}{z_n}$ be a
+basis of $V$ and let $\iter{\zeta^1}{\zeta^n}$ be its \href{f56d946}{dual
+basis}. Let $\iter{w_1}{w_m}$ be a basis of $W$ and let its dual basis be
+$\iter{\psi^1}{\psi^m}$.
+Then
+$$
+  \mathcal M(T')=(\mathcal M(T))^T
+$$
+
+where $\mathcal M(T)$ is computed with the stated bases and $\mathcal M(T')$ is
+computed with the stated dual bases.
+
+\begin{proof}
+  Let $A:=\mathcal M(T)$ and $B:=\mathcal M(T')$. \href{cd4284b}{Recall} that
+  $n=\dim V$ and $m=\dim W$. The rest of this proof will be statements for all
+  $i=\iter1n$ and $j=\iter1m$.
+
+  By \href{c70dad0}{definition} of $\mathcal M(T')$, we have
+  $$
+    T'(\psi^j)=C_{1,j}\zeta^1+\ldots+C_{n,j}\zeta^n
+  $$
+
+  The LHS of the equation above \href{d80860c}{equals} $\psi^j\circ T$. Thus,
+  applying both sides of the equation above to each $z_i$ gives
+  \begin{align*}
+    (\psi^j\circ T)(z_i) &=(C_{1,j}\zeta^1+\ldots+C_{n,j}\zeta^n)(z_i)               \\
+                         &=C_{i,j}\desc{by \href{f56d946}{definition} of dual basis}
+  \end{align*}
+
+  But we also have
+  \begin{align*}
+    (\psi^j\circ T)(z_i) &=\psi^j(T(z_i))                                                                    \\
+                         &=\psi^j(A_{1,i}w_1+\ldots+A_{m,i}w_m)\desc{\href{c70dad0}{matrix of a linear map}} \\
+                         &=A_{j,i}\desc{\href{f56d946}{dual basis} again}
+  \end{align*}
+
+  So then we have $A_{j,i}=C_{i,j}$, and thus $C=A^T$. This completes the
+  proof.
+\end{proof}

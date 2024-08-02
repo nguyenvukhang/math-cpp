@@ -1,0 +1,123 @@
+\subsection{Advanced unsorted}\label{b14088f}
+
+\Theorem{Riesz representation theorem (general)}\label{d9bde94}
+
+Let $H$ be a \href{b8c0fec}{Hilbert space} over the field $\F$ whose
+\href{cebd07a}{inner product} $\inner xy$ is \href{d7d1925}{linear} in its
+\textit{first} argument and \href{a93c786}{antilinear} in its second argument.
+
+For every continuous \href{b0b1db8}{linear functional} $\varphi\in H^*$ (where
+$H^*$ is the \href{c6cc6ea}{dual space} of $H$, so $\varphi:H\to\F$), there
+exists a unique vector $f_\varphi\in H$, called the \textbf{Riesz
+Representation} of $\varphi$, such that
+\begin{equation*}
+  \varphi(x)=\inner x{f_\varphi}\with{(\forall x\in H)}\Tag{*}
+\end{equation*}
+
+Importantly, for complex Hilbert spaces (when $\F:=\C$), $f_\varphi$ is always
+located in the \textit{antilinear} coordinate of the inner product in $(*)$.
+
+Furthermore, the length of the representation vector $f_\varphi$ is equal to
+the norm of the functional $\varphi$:
+$$
+  \norm{f_\varphi}_H=\norm\varphi_{H^*}
+$$
+
+and $f_\varphi$ is the unique vector $f_\varphi\in(\ker\varphi)^\perp$ with
+$\varphi(f_\varphi)=\norm{\varphi}^2$. It is also the unique element of minimum
+norm in $C:=\varphi^{-1}(\norm{\varphi}^2)\subseteq H$. That is, $f_\varphi$ is
+the unique element of $C$ satisfying $\norm{f_\varphi}=\inf_{c\in C}\norm c$.
+
+Moreover, any non-zero $q\in\ker(\varphi)^\perp$ can be written as
+$q=\bigl(\norm q^2/\,\overline{\varphi(q)}\bigr)f_\varphi$.
+
+\Theorem{Hahn-Banach dominated extension theorem (for real linear functionals)}\label{c5ab4df}
+
+A real-valued function $f:M\to\R$ defined on a subset $M$ of a
+\href{fc83050}{vector space} $V$ is said to be \textit{dominated above} by a
+function $p:V\to\R$ if $f(m)\leq p(m)$ for every $m\in M$.
+
+If $p:V\to\R$ is a \href{af3e040}{sublinear function} defined on a real vector
+space $V$, then any \href{b0b1db8}{linear functional} defined on a
+\href{a0f0f06}{vector subspace} $U$ of $V$ that is dominated above by $p$ has
+at least one \href{c4fd746}{linear extension} to all of $V$ that is also
+dominated above by $p$.
+
+\Lemma{One-dimensional dominated extension theorem (sublinear)}\label{cb1fa48}
+
+Let $p:V\to\R$ be a \href{af3e040}{sublinear function} on a real vector space
+$V$, let $f:U\to\R$ be a \href{b0b1db8}{linear functional} on a proper
+\href{a0f0f06}{vector subspace} $U\subsetneq V$ such that $f\leq p$ on $U$
+(meaning $f(u)\leq p(u)$ for all $u\in U$). Let $v\in V$ be a vector
+\textit{not} in $U$. Then there exists a \href{c4fd746}{linear extension}
+$F:U\href{c67c961}{\oplus}\R v\to\R$ of $f$ such that $F\leq p$ on $U\oplus\R
+v$.
+
+\begin{proof}
+  \def\U{U\oplus\R v}
+  Given any $k\in\R$, the map $F_k:\U\to\R$ defined by
+  $$
+    F_k(u+\lambda v):=f(u)+\lambda k\with{(\lambda\in\R)}
+  $$
+
+  is always a linear extension of $f$ to $\U$ but it might not satisfy $F_k\leq
+  p$ on $\U$. We will show that $k$ can always be chosen so as to guarantee
+  that $F_k\leq p$, which will complete the proof.
+
+  If $u,v,w\in U$, then
+  \begin{align*}
+    f(u)-f(w) &=f(u-w)\desc{\href{d7d1925}{linearity} of $f$}                \\
+              &\leq p(u-w)\desc{since $p$ dominates $f$ on $U$}              \\
+              &=p(u+v-v-w)                                                   \\
+              &\leq p(u+v)+p(-v-w)\desc{\href{af3e040}{sublinearity} of $p$}
+  \end{align*}
+
+  which implies
+  $$
+    -p(-w-v)-f(w)\leq p(u+v)-f(u)
+  $$
+
+  so define
+  $$
+    a:=\sup_{v\in U}\bigl[-p(-w-v)-f(w)\bigr]\quad\text{and}\quad
+    c:=\inf_{v\in U}\bigl[p(u+v)-f(u)\bigr]
+  $$
+
+  where $a\leq c$ are real numbers. To guarantee $F_k\leq p$, it suffices that
+  $a\leq k\leq c$, because then $k$ satisfies the decisive inequality
+  $$
+    -p(-w-v)-f(w)\leq k\leq p(u+v)-f(u)
+  $$
+
+  To see that $F_k\leq p$ on $\U$ follows, assume $\lambda\neq0$ and substitute
+  $\frac1\lambda u$ in for both $u$ and $w$ to obtain
+  \begin{equation*}
+    -p(-\tfrac1\lambda u-v)-f(\tfrac1\lambda u)\leq k\leq p(\tfrac1\lambda u+v)-f(\tfrac1\lambda u)\Tag{*}
+  \end{equation*}
+
+  If $\lambda>0$, then by the \href{af3e040}{sublinearity} of $p$ the right
+  hand side equals
+  $$
+    \tfrac1\lambda\bigl[p(u+\lambda v)-f(u)\bigr]
+  $$
+
+  and so multiplying all by $\lambda$ we obtain
+  \begin{align*}
+    f(u)+\lambda k            &\leq p(u+\lambda v)                \\
+    \pre\iff F_k(u+\lambda v) &\leq p(u+\lambda v)\with{(u\in U)} \\
+    \pre\iff F_k              &\leq p\with{(\text{on }\U)}
+  \end{align*}
+
+  The case for when $\lambda<0$ is left as an exercise (hint: use LHS of $(*)$
+  with sublinearity of $p$).
+\end{proof}
+
+\Lemma{One-dimensional dominated extension theorem (convex)}\label{b96b92e}
+
+Let $p:V\to\R$ be a \href{a114065}{convex function} on a real vector space $V$,
+let $f:U\to\R$ be a \href{b0b1db8}{linear functional} on a proper
+\href{a0f0f06}{vector subspace} $U\subsetneq V$ such that $f\leq p$ on $U$
+(meaning $f(u)\leq p(u)$ for all $u\in U$). Let $v\in V$ be a vector
+\textit{not} in $U$. Then there exists a \href{c4fd746}{linear extension}
+$F:U\href{c67c961}{\oplus}\R v\to\R$ of $f$ such that $F\leq p$ on $U\oplus\R
+v$.

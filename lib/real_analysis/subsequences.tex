@@ -1,0 +1,463 @@
+\subsection{Subsequences}\label{ca43129}
+
+\Theorem{Monotone Convergence Theorem}\label{cc11aa4}
+
+If $\{x_n\}$ is \href{feae1b2}{monotone} and bounded, then $\{x_n\}$
+\href{de3e28a}{converges}. In this case,
+$$
+  \lim_{n\to\infty}x_n=\begin{cases}
+    \sup\set{x_n}{n\in\N} & \text{if $\{x_n\}$ is increasing} \\[0.5em]
+    \inf\set{x_n}{n\in\N} & \text{if $\{x_n\}$ is decreasing}
+  \end{cases}
+$$
+
+\begin{proof}
+  \def\limn{\displaystyle\lim_{n\to\infty}}
+
+  \paragraph{Case 1: $\{x_n\}$ is increasing and bounded.} Let
+  $S:=\set{x_n}{n\in\N}$. Then $S\neq0$ and $S$ is bounded above. Thus by the
+  \href{f330cf9}{supremum property} of $\R$, $x:=\sup S$ exists. We shall prove
+  that $\limn x_n=x$.
+
+  Let $\epsilon>0$ be given. Since $x=\sup S$, $x-\epsilon$ is not an upper
+  bound of $S$. So there exists $x_K\in S$ ($K\in\N$) such that
+  $x_K>x-\epsilon$. Thus $0\leq x-x_K<\epsilon$.
+
+  Since $\{x_n\}$ is increasing, $x_K\leq x_n$ for all $n\geq K$. It follows
+  that for all $n\geq K$, we have
+  $$
+    0\leq x-x_n\leq x-x_K<\epsilon
+  $$
+
+  So $|x-x_n|<\epsilon$ for all $n\geq K$, and this says that $\limn x_n=x$.
+
+  \paragraph{Case 2: $\{x_n\}$ is decreasing and bounded.}
+
+  Use similar reasoning or consider the sequence $\{-x_n\}$
+\end{proof}
+
+\Corollary{Monotone Convergence Theorem*}\label{c28d9a9}
+%+Limit of bounded increasing sequence is its supremum
+%+Limit of bounded decreasing sequence is its infimum
+
+\begin{enumerati}
+  \def\limn{\displaystyle\lim_{n\to\infty}}
+  \item If $\{x_n\}$ is \href{feae1b2}{increasing} and \href{d5ed299}{bounded
+        above}, then $\{x_n\}$ \href{de3e28a}{converges} and
+  $$
+    \limn x_n=\sup\set{x_n}{n\in\N}
+  $$
+  \item If $\{x_n\}$ is decreasing and bounded below, then $\{x_n\}$ converges
+        and
+  $$
+    \limn x_n=\inf\set{x_n}{n\in\N}
+  $$
+\end{enumerati}
+
+\begin{proof}
+  Refer to the proof of the \href{cc11aa4}{theorem} to which this is a corollary of.
+\end{proof}
+
+\Proposition{Basic properties of subsequences}\label{bfa595b}
+
+\begin{enumerati}
+  \item If $\{y_k\}=\{x_{n_k}\}$ is a \href{c6b3a49}{subsequence} of $\{x_n\}$,
+        then $k\leq n_k$.
+  \item If $\{y_k\}=\{x_{n_k}\}$ is a subsequence of $\{x_n\}$ and
+        $\{z_\ell\}=\{y_{k_\ell}\}$ is a subsequence of $\{y_k\}$, then
+        $\{z_\ell\}$ is a subsequence of $\{x_n\}$.
+  $$
+    z_\ell=x_{n_{k_\ell}}
+  $$
+
+  (A subsequence of a subsequence is still a subsequence of the original
+  sequence)
+\end{enumerati}
+
+\Theorem{Subsequence convergence}\label{da6e7f5}
+%+Convergence of subsequences
+
+If $\{x_n\}$ \href{de3e28a}{converges} to $x$, then any
+\href{c6b3a49}{subsequence} also converges to $x$.
+
+Formally, if $\{x_{n_k}\}$ is a subsequence of $\{x_n\}$, then
+$$
+  \lim_{n\to\infty}x_n=x\implies\lim_{k\to\infty}x_{n_k}=x
+$$
+
+\begin{proof}
+  Let $\epsilon>0$ be given. Since $x_n\to x$, there exists $K\in\N$ such that
+  \begin{equation*}
+    |x_n-x|<\epsilon,\with{\forall n\geq K}\Tag{*}
+  \end{equation*}
+
+  Since $\{x_{n_k}\}$ is a subsequence of $\{x_n\}$, we have $k\leq n_k$ for
+  all $k\in\N$. Thus
+  $$
+    k\geq K\implies n_k\geq K\stackrel{(*)}{\implies}|x_{n_k}-x|<\epsilon
+  $$
+\end{proof}
+
+\Corollary{Subsequence convergence*}\label{b3182b1}
+%+Convergence of subsequences*
+
+\begin{enumerati}
+  \item If $\{x_n\}$ has a \href{c6b3a49}{subsequence} which is divergent, then
+        $\{x_n\}$ diverges.
+  \item If $\{x_n\}$ has two subsequences whose limits are not equal, then
+        $\{x_n\}$ diverges.
+\end{enumerati}
+
+\begin{proof}
+  These are contrapositive statements of \autoref{da6e7f5}.
+\end{proof}
+
+\Theorem{Monotone Subsequence Theorem}\label{dddb70e}
+
+Every \href{b5fa0e4}{sequence} has a \href{feae1b2}{monotone}
+\href{c6b3a49}{subsequence}.
+
+\begin{proof}
+  \def\xn{\{x_n\}}
+
+  Let $\xn$ be a sequence. We call a term $x_p$ a \textbf{peak term} of $\xn$
+  if
+  $$
+    x_p\geq x_n\quad(\forall n\geq p)
+  $$
+
+  That is, all terms after $x_p$ never go above $x_p$ again. Then there are
+  only two cases:
+
+  \paragraph{Case 1: $\xn$ has infinitely many peak terms.}
+
+  Then the subsequence formed by all the peak terms form a decreasing
+  subsequence of $\xn$.
+
+  \paragraph{Case 2: $\xn$ has finitely many peak terms.}
+
+  Let $x_{p_1},x_{p_2},\ldots,x_{p_j}$ be \textbf{all} the peak terms.
+
+  Let $n_1=p_j+1$ be the first term after the last peak term.
+
+  Since $x_{n_1}$ is not a peak term. $\implies\exists n_2>n_1$ such that
+  $x_{n_1}<x_{n_2}$.
+
+  Since $x_{n_2}$ is not a peak term, $\implies\exists n_3>n_2$ such that
+  $x_{n_2}<x_{n_3}$.
+
+  Continuing indefinitely, we can form an increasing subsequence $\{x_{n_k}\}$.
+\end{proof}
+
+\Theorem{Bolzano-Weierstrass Theorem}\label{d277ad0}
+
+Every \href{d5ed299}{bounded sequence} has a \href{de3e28a}{convergent}
+\href{c6b3a49}{subsequence}.
+
+\begin{proof}
+  \def\xn{\{x_n\}}
+  \def\xnk{\{x_{n_k}\}}
+
+  Let $\xn$ be a bounded sequence. By the \href{dddb70e}{Monotone Subsequence
+  Theorem}, $\xn$ has a monotone subsequence $\xnk$.
+
+  Since $\xn$ is bounded, so is $\xnk$.
+
+  Since $\xnk$ is both monotone and bounded, it follows from the
+  \href{cc11aa4}{Monotone Convergence Theorem} that $\xnk$ converges.
+\end{proof}
+
+\Theorem{}\label{d350704}
+
+Let $\{x_n\}$ be a bounded sequence and let
+$M:=\displaystyle\limsup_{n\to\infty}x_n$ (see: \href{f4f2af4}{$\limsup$}).
+
+\begin{enumerati}
+  \item For each $\epsilon>0$, there are at most finitely many $n$'s such that
+        $x_n\geq M+\epsilon$.
+
+  Equivalently, for each $\epsilon>0$, there exists $K=K(\epsilon)\in\N$ such
+  that
+  $$
+    x_n<M+\epsilon,\with{\forall n\geq K}
+  $$
+
+  \item For each $\epsilon>0$, there are infinitely many $n$'s such that
+        $x_n>M-\epsilon$.
+\end{enumerati}
+
+(We state \href{b4ab746}{here} that the converse of this theorem is also true.)
+
+\begin{proof}
+  \def\X{\Set{x_k}{k\geq n}}
+
+  First, we will write proofs based on the main definition of $\limsup$.
+
+  Define the sequence $\{y_n\}$ by $y_n:=\sup\X$.
+
+  \proofp{(i)} Since $M=\displaystyle\lim_{n\to\infty}y_n$, given any
+  $\epsilon>0$, there exists $K\in\N$ such that for all $n\geq K$, we have
+  $$
+    |y_n-M|<\epsilon,
+  $$
+
+  which implies
+  $$
+    y_n-M<\epsilon\implies y_n<M+\epsilon
+  $$
+
+  And from the definition of $y_n$, clearly $x_n\leq y_n$, since $x_n\in\X$.
+  Hence we have
+  $$
+    x_n<M+\epsilon
+  $$
+
+  \proofp{(ii)} Since $M=\displaystyle\lim_{n\to\infty}y_n$, given any
+  $\epsilon>0$, there exists $K\in\N$ such that for all $n\geq K$, we have
+  $$
+    |y_n-M|<\epsilon,
+  $$
+
+  which implies
+  $$
+    -(y_n-M)<\epsilon\implies y_n>M-\epsilon
+  $$
+
+  Hence $M-\epsilon$ is not an upper bound for $\X$, since $y_n$ is its lowest
+  upper bound. Hence, for each $n\geq K$ there exists $\bar
+  x\in\X\subseteq\Set{x_n}{n\in\N}$ such that $\bar x>M-\epsilon$.
+
+  ---
+
+  Next, we will write proofs based on the alternative definition of $\limsup$.
+  We first define $S(x_n)$ to be the set of all subsequential limits of
+  $\{x_n\}$.
+
+  \proofp{(i)} Suppose (i) is false. Then there exists $\epsilon>0$ such that
+  there are infinitely many $n$'s such that $x_n\geq M+\epsilon$. We now choose
+  a subsequence $\{x_{n_k}\}$ from these terms. Then
+  $$
+    x_{n_k}\geq M+\epsilon,\with{\forall k\in\N}
+  $$
+
+  Since $\{x_{n_k}\}$ is bounded, by \href{d277ad0}{Bolzano-Weierstrass}, it
+  has a convergent subsequence $x_{n_{k_\ell}}\to x$, for some $x\in\R$. Note
+  that $x\geq M+\epsilon$, since \href{d88455d}{$\geq$ is preserved} upon
+  taking limits.
+
+  But this is saying that $x\in S(x_n)$, but also that $x>M=\sup S(x_n)$. This
+  contradicts the property that $\sup S(x_n)$ is an upper bound of $S(x_n)$.
+  This proves (i).
+
+  \proofp{(ii)} Suppose (ii) is false. Then there exists $\epsilon>0$ such that
+  there are only finitely many $n$'s such that $x_n>M-\epsilon$. Equivalently,
+  this means that there exists $K\in\N$ such that $x_n\leq M-\epsilon$ for all
+  $n\geq K$.
+
+  It follows readily that all subsequential limits are $\leq M-\epsilon$. So
+  $M-\epsilon$ is an upper bound for $S(x_n)$, but this contradicts the
+  property that $\sup S(x_n)$ is the least upper bound for $S(x_n)$. This
+  proves (ii).
+\end{proof}
+
+\Theorem{}\label{b4ab746}
+
+The converse of \autoref{d350704} is true: if $M\in\R$ satisfies conditions (i)
+and (ii), then $M=\displaystyle\limsup_{n\to\infty}x_n$ (see:
+\href{f4f2af4}{$\limsup$}).
+
+\begin{proof}
+  Let $\epsilon>0$ be arbitrary. Since $M$ satisfies (i), there exists
+  $K_1\in\N$ such that
+  $$
+    n\geq K_1\implies x_n<M+\epsilon
+  $$
+
+  Since $M$ satisfies (ii), there exists $K_2\in\N$ such that
+  $$
+    n\geq K_2\implies x_n>M-\epsilon
+  $$
+
+  So we can pick $K:=\max\{K_1,K_2\}$, so that we have for all $n\geq K$,
+  $$
+    -\epsilon<x_n-M<\epsilon\implies|x_n-M|<\epsilon
+  $$
+
+  which says that $\displaystyle\lim_{n\to\infty}x_n=M$.
+
+  Hence every subsequence of $\{x_n\}$ goes to $M$ (\autoref{da6e7f5}).
+  Therefore the set of subsequential limits of $\{x_n\}$ is a singleton
+  $\{M\}$, and finally $M=\displaystyle\limsup_{n\to\infty}x_n$ by
+  \href{f4f2af4}{definition}.
+\end{proof}
+
+\Theorem{}\label{ea49e1a}
+
+Let $\{x_n\}$ be a \href{d5ed299}{bounded sequence} and let
+$m:=\displaystyle\liminf_{n\to\infty}x_n$ (see: \href{f4f2af4}{$\liminf$}).
+
+\begin{enumerati}
+  \item For each $\epsilon>0$, there are at most finitely many $n$'s such that
+        $x_n\leq m-\epsilon$.
+
+  Equivalently, for each $\epsilon>0$, there exists $K=K(\epsilon)\in\N$ such
+  that
+  $$
+    x_n>m-\epsilon,\with{\forall n\geq K}
+  $$
+
+  \item For each $\epsilon>0$, there are infinitely many $n$'s such that
+        $x_n<m+\epsilon$.
+\end{enumerati}
+
+\begin{proof}
+  Similar to \autoref{d350704}.
+\end{proof}
+
+\Lemma{Existence of limit on limsup and liminf}\label{ea8320c}
+
+If the \href{b5fa0e4}{sequence} $\{x_n\}$ \href{de3e28a}{converges} to a
+\href{e565120}{limit} $\bar x$, then
+$$
+  \limsup_{n\to\infty}x_n=\liminf_{n\to\infty}x_n=\bar x\desc{see: \href{f4f2af4}{$\liminf$/$\limsup$}}
+$$
+
+\begin{proof}
+  If $x_n\to\bar x$, then by \autoref{da6e7f5}, every
+  \href{c6b3a49}{subsequence} of $\{x_n\}$ also converges to $\bar x$.
+
+  Hence the set of all subsequential limits of $\{x_n\}$ is a singleton,
+  $\{\bar x\}$, and the supremum and infimum of this set is clearly $\bar x$.
+  It follows from \href{f4f2af4}{definition} that
+  $$
+    \limsup_{n\to\infty}x_n=\liminf_{n\to\infty}x_n=\bar x
+  $$
+\end{proof}
+
+\Theorem{Coincidence of limit, limsup, and liminf}\label{ccbc3b1}
+
+Let $\{x_n\}$ be a \href{d5ed299}{bounded sequence}. Then it converges (to
+$\bar x$) if and only if
+$$
+  \limsup_{n\to\infty}x_n=\liminf_{n\to\infty}x_n(=\bar x)\desc{see: \href{f4f2af4}{$\liminf$/$\limsup$}}
+$$
+
+In short, $\displaystyle\lim_{n\to\infty}x_n=\bar x
+\iff\limsup_{n\to\infty}=\liminf_{n\to\infty}=\bar x$
+
+\begin{proof}
+  ($\implies$) This follows from \autoref{ea8320c}.
+
+  ($\impliedby$) Let $\displaystyle\bar x=
+  \limsup_{n\to\infty}x_n=\liminf_{n\to\infty}x_n$. Let $\epsilon>0$ be given.
+
+  By \autoref{d350704} and \autoref{ea49e1a}, there exist $K_1,K_2\in\N$ such
+  that
+  \begin{gather*}
+    n\geq K_1\implies x_n<\bar x+\epsilon\text{, and} \\
+    n\geq K_2\implies x_n>\bar x-\epsilon
+  \end{gather*}
+
+  Put $K:=\max\{K_1,K_2\}$. Then for all $n\geq K$, we enjoy both results:
+  $$
+    \bar x-\epsilon<x_n<\bar x+\epsilon
+  $$
+
+  Which then gives $|x_n-\bar x|<\epsilon$. Hence
+  $\displaystyle\lim_{n\to\infty}x_n=\bar x$.
+\end{proof}
+
+\Theorem{}\label{a19e9f7}
+
+Let $\{x_n\}$ and $\{y_n\}$ be \href{d5ed299}{bounded sequences} such that
+$x_n\leq y_n$ for every $n\in\N$. Then we have
+$$
+  \limsup_{n\to\infty}x_n\leq \limsup_{n\to\infty}y_n\desc{see: \href{f4f2af4}{$\liminf$/$\limsup$}}
+$$
+
+and
+$$
+  \liminf_{n\to\infty}x_n\leq \liminf_{n\to\infty}y_n
+$$
+
+\begin{proof}
+  Let $x$ be a \href{fd942fa}{subsequential limit} of $\{x_n\}$, and let
+  $\{x_{n_k}\}$ be a subsequence of $\{x_n\}$ such that $x_{n_k}\to x$. Consider
+  the corresponding subsequence $\{y_{n_k}\}$ of $\{y_n\}$. Since $\{y_{n_k}\}$
+  is bounded, by \href{d277ad0}{Bolzano-Weierstrass}, it has a convergent
+  subsequence $\{y_{n_{k_\ell}}\}$.
+
+  Then since $\{x_{n_{k_\ell}}\}\leq\{y_{n_{k_\ell}}\}$ for all $\ell$, we have
+  \begin{align*}
+    x &=\lim_{k\to\infty}x_{n_k}\desc{by definition}                                     \\
+      &=\lim_{\ell\to\infty}x_{n_{k_\ell}}\desc{\href{da6e7f5}{subsequence convergence}} \\
+      &\leq\lim_{\ell\to\infty}y_{n_{k_\ell}}\desc{\href{d88455d}{$\leq$ preserved}}     \\
+      &\leq\limsup_{n\to\infty}y_n\desc{\href{f4f2af4}{by definition}}
+  \end{align*}
+
+  Since $x$ was arbitrarily chosen, we have just shown that
+  $\displaystyle\limsup_{n\to\infty}y_n$ is an upper bound for the $S(x_n)$,
+  the set of all subsequential limits of $\{x_n\}$. It follows that
+  $\displaystyle\limsup_{n\to\infty}x_n\leq\limsup_{n\to\infty}y_n$.
+
+  The proof of the remaining inequality is left as an exercise.
+\end{proof}
+
+\Result{$\limsup$ and $\liminf$ of a bounded sequence}\label{d98d9e2}
+
+Let $\{x_n\}$ be a \href{d5ed299}{bounded sequence}.
+
+\begin{enumerati}
+  \item There exists a subsequence of $\{x_n\}$ which converges to
+        $\displaystyle\limsup_{n\to\infty}x_n$.
+  \item There exists a subsequence of $\{x_n\}$ which converges to
+        $\displaystyle\liminf_{n\to\infty}x_n$.
+\end{enumerati}
+
+\begin{proof}
+  \proofp{(i)} Let $M:=\displaystyle\limsup_{n\to\infty}x_n$. Let $\epsilon_1>0$
+  be given. Then by \autoref{d350704}, there exists $K_1\in\N$ such
+  that
+  $$
+    n\geq K_1\implies x_n<M+\epsilon_1
+  $$
+
+  But by \autoref{d350704}, there are infinitely many $n$'s such that
+  $M-\epsilon_1<x_n$. Fix one such $n_1\in\N$ such that $n_1>K_1$, and now we
+  have
+  $$
+    M-\epsilon_1<x_{n_1}<M+\epsilon_1\implies|x_{n_1}-M|<\epsilon_1
+  $$
+
+  What we've just done was to show a method to pick a term $x_{n_1}$ based on
+  $\epsilon_1$. with the property $|x_{n_1}-M|<\epsilon_1$.
+
+  Using this method, we can have a sequence $\{\epsilon_k\}$ chosen to be
+  $$
+    \{\epsilon_k\}:=\left\{1,\frac12,\frac14,\ldots\right\}
+  $$
+
+  which determines the sequence
+  $$
+    \{x_{n_k}\}:=\left\{x_{n_1},x_{n_2},\ldots\right\}
+  $$
+
+  chosen using the method above. Observe that this sequence has two properties:
+  \begin{enumerati}
+    \item it is a subsequence of $\{x_n\}$.
+    \item it converges to $M$. By construction we have
+          $M-\epsilon_k<x_{n_k}<M+\epsilon_k$, and by choice of
+          $\{\epsilon_k\}$ we have
+    $$
+      \lim_{k\to\infty}M-\epsilon_k=\lim_{k\to\infty}M+\epsilon_k=M
+    $$
+
+    so by the \href{c3364d9}{Squeeze Theorem}, we have
+    $$
+      \lim_{k\to\infty}x_{n_k}=M
+    $$
+  \end{enumerati}
+
+  Hence we've just found a subsequence $\{x_{n_k}\}$ of $\{x_n\}$ that
+  converges to $M=\displaystyle\limsup_{n\to\infty}x_n$.
+\end{proof}

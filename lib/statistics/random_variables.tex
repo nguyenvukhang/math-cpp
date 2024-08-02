@@ -1,0 +1,183 @@
+\subsection{Random Variables}\label{bde41e4}
+
+\Definition{Random variable}\label{b96960b}
+
+Let $S$ be a sample space. A random variable $X$ is a function $X:S\to\R$.
+
+For a set $U\subset\R$, we define the notation
+$$
+  P(X\in U):=P(\Set{s\in S}{X(s)\in U})
+$$
+
+where $P$ is the \href{fa898fb}{probability function}. In the case where $U$ is
+a singleton:
+$$
+  P(X=a):=P(\Set{s\in S}{X(s)=a})
+$$
+
+\Definition{Discrete random variable}\label{f831030}
+
+A discrete random variable is a \href{b96960b}{random variable} whose range is
+a countable subset of $\R$.
+
+Examples include:
+\begin{itemize}
+  \item Number of bowling pins knocked down in a 10-frame game.
+  \item Number of overtakes completed in an F1 grand prix.
+  \item Number of seconds a front lever is held.
+\end{itemize}
+
+\Definition{Probability mass function}\label{bcef5f1}
+
+The probability mass function (p.m.f.) of a \href{f831030}{discrete random
+variable} $X$ is defined as
+$$
+  p(a):=P(X=a)
+$$
+
+\Definition{Cumulative distribution function (discrete)}\label{f05a29d}
+
+The cumulative distribution function (c.d.f.) of a \href{f831030}{discrete
+random variable} $X$ is defined as
+$$
+  F(a):=P(X\leq a)=\sum_{z\leq a}p(z)
+$$
+
+where $p$ is the \href{bcef5f1}{p.m.f.} of $X$.
+
+\Definition{Expectation of a random variable (discrete)}\label{ecb2162}
+
+Let $X$ be a discrete random variable with \href{bcef5f1}{p.m.f.} $p$. Suppose
+$X$ have (finitely many) possible inputs $x_1,x_2,\ldots$ with respective
+probabilities $p(x_1),p(x_2),\ldots$, then the expectation of $X$ is defined by
+$$
+  E[X]:=\sum_{i}x_ip(x_i)=\sum_{i}x_iP(X=x_i)
+$$
+
+\Definition{Function of a random variable}\label{a2ccee7}
+
+Let $X$ be a discrete random variable, and let $f:\R\to\R$.
+
+Then we define $f(X)$ as the \href{b96960b}{random variable} such that
+$$
+  P(f(X)\in U):=P(\Set{s\in S}{f(X(s))\in U})
+$$
+
+\Theorem{Expectation of a function of a discrete random variable}\label{e9b530c}
+
+If $X$ is a discrete random variable with \href{bcef5f1}{p.m.f.} $p$, which has
+a finite set of possible values $\{x_1,x_2,\ldots x_n\}$ and respective
+probabilities $p(x_1),p(x_2),\ldots p(x_n)$, for any $f:\R\to\R$ we have
+$$
+  E[f(X)]=\sum_{i=1}^nf(x_i)p(x_i)
+$$
+
+\begin{proof}
+  Note that since $X$ is discrete, the set $\Set{f(x_i)}{i\in\{\iter1n\}]}$ is
+  finite. Let $m$ be the size of this set. Clearly, $m\leq n$. Let $y_j$ be the
+  $j$-th element of this set.
+
+  Now, let's regroup the original sum into buckets formed by this new set:
+  \begin{equation*}
+    \sum_{i=1}^nf(x_i)p(x_i)
+    =\sum_{j=1}^m\sum_{i:f(x_i)=y_j}f(x_i)p(x_i)
+  \end{equation*}
+
+  and we continue with
+  \begin{align*}
+    \sum_{i=1}^nf(x_i)p(x_i)
+     &=\sum_{j=1}^m\sum_{i:f(x_i)=y_j}y_jp(x_i)                \\
+     &=\sum_{j=1}^my_j\sum_{i:f(x_i)=y_j}p(x_i)                \\
+     &=\sum_{j=1}^my_j\sum_{i:f(x_i)=y_j}P(X=x_i)              \\
+     &=\sum_{j=1}^my_jP(f(X)=y_j)\desc{from \autoref{dfbba22}} \\
+     &=E[f(X)]
+  \end{align*}
+
+  Critically,
+  $$
+    \sum_{i:f(x_i)=y_j}P(X=x_i)=P(f(X)=y_j)
+  $$
+
+  because the event $f(X)=y_j$ is a union of mutually exclusive events on the
+  LHS.
+\end{proof}
+
+\Corollary{Expectation of a discrete random variable under affine transform}\label{ec9df73}
+
+If $X$ is a discrete random variable with \href{bcef5f1}{p.m.f.} $p$, which has
+a finite set of possible values $\{x_1,x_2,\ldots\}$ and respective
+probabilities $p(x_1),p(x_2),\ldots$, we have
+$$
+  E[aX+b]=aE[X]+b
+$$
+
+\begin{proof}
+  This follows from applying \autoref{e9b530c} with $f$ defined as
+  $f:x\mapsto ax+b$, like so.
+  \begin{align*}
+    E[aX+b] &=\sum_{i}(ax_i+b)p(x_i)             \\
+            &=\sum_{i}ax_ip(x_i)+\sum_{i}bp(x_i) \\
+            &=a\sum_{i}x_ip(x_i)+b               \\
+            &=aE[X]+b
+  \end{align*}
+\end{proof}
+
+\Definition{Variance of a random variable}\label{ddd95d5}
+
+Let $X$ be a discrete random variable with \href{bcef5f1}{p.m.f.} $p$. Suppose
+$X$ have (finitely many) possible inputs $x_1,x_2,\ldots$ with respective
+probabilities $p(x_1),p(x_2),\ldots$, then the \textit{variation} of $X$ is
+defined by
+$$
+  \Var(X):=E[(X-\mu)^2]
+$$
+
+where $\mu=E[X]$.
+
+\Proposition{Computing variance}\label{f178eb7}
+
+Let $X$ be a random variable. Then we have
+$$
+  \Var(X)=E[X^2]-[E[X]]^2
+$$
+
+\begin{proof}
+  Let $\mu:=E[X]$. Then
+  \begin{align*}
+    \Var(X) &=E[(X-\mu)^2]\desc{by \href{ddd95d5}{definition}} \\
+            &=\sum_x(x-\mu)^2p(x)\desc{\autoref{e9b530c}}      \\
+            &=\sum_x(x^2-2x\mu+\mu^2)p(x)                      \\
+            &=\sum_xx^2p(x)-2\mu\sum_xxp(x)+\mu^2\sum_xp(x)    \\
+            &=E[X^2]-2\mu^2+\mu^2                              \\
+            &=E[X^2]-[E[X]]^2
+  \end{align*}
+\end{proof}
+
+\Proposition{Properties of variance}\label{c9586b8}
+
+Let $X,Y$ be random variables, and let $a,b\in\R$. Then
+\begin{enumerata}
+  \item $\Var(X+a)=\Var(X)$
+  \item $\Var(aX)=a^2\Var(X)$
+  \item $\Var(aX+bY)=a^2\Var(X)+b^2\Var(Y)+2ab\href{d43f610}{\Cov}(X,Y)$
+  \item $\Var(\sum X_i)=\sum\Var(X_i)$ if the $X_i$'s are \href{f0da4c0}{independent}.
+\end{enumerata}
+
+\Corollary{Variance of a random variable under affine transform}\label{b340cf6}
+
+If $a,b\in\R$, and $X$ a random variable, we have
+$$
+  \Var(aX+b)=a^2\Var(b)
+$$
+
+\begin{proof}
+  Let $\mu:=E[X]$. Then
+  \begin{align*}
+    \Var(aX+b)
+     &= E[((aX+b)-E[aX+b])^2]\desc{by \href{ddd95d5}{definition}} \\
+     &= E[(aX+b-a\mu-b)^2]\desc{by \autoref{ec9df73}}             \\
+     &= E[(aX-a\mu)^2]                                            \\
+     &= E[a^2(X-\mu)^2]                                           \\
+     &= a^2E[(X-\mu)^2]\desc{by \autoref{ec9df73}}
+  \end{align*}
+\end{proof}

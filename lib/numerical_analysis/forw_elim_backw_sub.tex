@@ -1,0 +1,89 @@
+\subsection{Forward elimination and backward substitution}\label{bc48480}
+
+\Definition{Backward substitution}\label{a0fa0a9}
+
+This is what we do when solving linear equations when the coefficient matrix
+$A$ is in \href{c39b6bf}{upper triangular} form.
+$$
+  A=\begin{pmat}
+    a_{11} & a_{12} & \ldots & a_{1n} \\
+           & a_{22} & \ddots & a_{2n} \\
+           &        & \ddots & \vdots \\
+           &        &        & a_{nn} \\
+  \end{pmat}
+$$
+
+To solve the system $Ax=b$, we do the following:
+\begin{enumerati}
+  \item The last row reads $a_{nn}x_n=b_n$. Hence we have
+  $$
+    x_n=\frac{b_n}{a_{nn}}
+  $$
+  \item The second-last row reads $a_{n-1,n-1}x_{n-1}+a_{n-1,n}x_n=b_{n-1}$.
+        Hence we have
+  $$
+    x_{n-1}=\frac{b_{n-1}-a_{n-1,n}x_n}{a_{n-1,n-1}}
+  $$
+  \item We do the same pattern and yield $x_{n-2}$, and so on.
+\end{enumerati}
+
+Note the zero-division when 0's occur on the diagonal.
+
+Using this, we obtain the \textit{backward substitution} algorithm.
+
+\Algorithm{Backward substitution}\label{fe9f7f5}
+
+Given an \href{c39b6bf}{upper triangular} matrix $A$ and a right hand-side $b$,
+we can obtain the solution to $Ax=b$ by
+
+\begin{pseudocode}
+  \For $k=n:-1:1$ \\
+  \tab $x_k:=\dfrac1{a_{kk}}\left(b_k-\sum_{j=k+1}^na_{kj}x_j\right)$ \\
+  \End
+\end{pseudocode}
+
+Note that this algorithm is well-defined only when the diagonal elements of $A$
+are non-zero. Also, note that there are no zeros on the diagonal if and only if
+the upper triangular matrix $A$ is invertible.
+
+\Definition{Floating point operations}\label{e6258dc}
+
+A floating point operation or \textit{flop} is any operation that involves
+taking two floating point numbers and returning a new one. This is a unit of
+measurement of compute.
+
+\Remark{Cost of backward substitution}\label{b6da5de}
+
+The number of \href{e6258dc}{flops} required for \href{fe9f7f5}{backward
+substitution} is
+$$
+  1+\sum_{k=1}^{n-1}\bigl((n-k)+(n-k)+1\bigr)
+$$
+
+where the 1 is the last row operation $x_n:=\frac{b_{nn}}{a_{nn}}$ and the rest
+of the rows has has $n-k$ additions and $n-k-1$ multiplications, followed by
+one subtraction (from $b_k$) and one division (by $a_{kk})$.
+
+\Definition{Forward substitution}\label{a181277}
+
+This is what we do when solving linear equations when the coefficient matrix
+$A$ is in \href{ce94591}{lower triangular} form.
+
+This is the analog to \href{a0fa0a9}{backward substitution}, but for lower
+triangular matrices.
+
+\Algorithm{Forward substitution}\label{aa9af77}
+
+Given an \href{ce94591}{lower triangular} matrix $A$ and a right hand-side $b$,
+we can obtain the solution to $Ax=b$ by
+
+\begin{pseudocode}
+  \For $k=n:1$ \\
+  \tab $x_k:=\dfrac1{a_{kk}}\left(b_k-\sum_{j=1}^{k-1}a_{kj}x_j\right)$ \\
+  \End
+\end{pseudocode}
+
+\Remark{Cost of forward substitution}\label{eab27ba}
+
+The cost of forward substitution is the same as \href{b6da5de}{that of backward
+substitution}.

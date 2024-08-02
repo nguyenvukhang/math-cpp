@@ -1,0 +1,475 @@
+\subsection{Building up}\label{f357ec2}
+
+\Theorem{The infimum property of $\mathbb R$}\label{ab2a2fe}
+
+Every non-empty subuset of $\R$ which is \href{e4698be}{bounded below} has an
+\href{ff16df6}{infimum} in $\R$.
+
+\begin{proof}
+  Let $E\subseteq\R$ be non-empty and bounded below by $b\in\R$. Let
+  $A:=\set{-x}{x\in E}$. Then $A\subseteq\R$ and is non-empty. For all $x\in
+  E$, $b\leq x$ and hence $-x\leq-b$. And so $-b$ is an upper bound for $A$.
+
+  Since $A$ is non-empty and bounded above, by the \href{f330cf9}{supremum
+  property of $\R$}, $A$ has a supremum $M\in\R$. We claim that
+  \begin{equation*}
+    \inf E=-\sup A=-M.\Tag{*}
+  \end{equation*}
+
+  Since $M$ is an upper bound for $A$,
+  \begin{align*}
+    -x &\leq M,\with{\forall{-x}\in A} \\
+    -x &\leq M,\with{\forall{x}\in E}  \\
+    -M &\leq x,\with{\forall{x}\in E}
+  \end{align*}
+
+  Hence $-M$ is a lower bound for $E$.
+
+  Now let $m$ be another lower bound of $E$. Then $-m$ is an upper bound of
+  $A$. Since $M=\sup A$, we have $M\leq-m$. So $m\leq-M$. Hence $-M$ is indeed
+  the greatest lower bound of $E$. This proves $(*)$.
+\end{proof}
+
+\Result{}\label{f426fd0}
+
+Let $A,B\subseteq\R$ be non-empty sets, and let
+$$
+  C:=\set{a+b}{a\in A,\ b\in B}
+$$
+
+Then $\href{e6981e1}{\sup}C=\sup A+\sup B$.
+
+\begin{proof}
+  Let $c\in C$. Then $c=a+b$ for some $a\in A$ and $b\in B$. Now since
+  $a\leq\sup A$ and $b\leq\sup B$, we have
+  $$
+    c=a+b\leq\sup A+\sup B.
+  $$
+
+  Hence $\sup A+\sup B$ is an \href{e4698be}{upper bound} of $C$.
+
+  Next, let $M$ be an upper bound of $C$. Then for all $a\in A$ and $b\in B$,
+  $$
+    a+b\leq M
+  $$
+
+  and thus $a\leq M-b$. So then for each $b\in B$, $M-b$ is an upper bound for
+  $A$. Consequently, $\sup A\leq M-b$, and we have
+  $$
+    b\leq M-\sup A,\with{\forall b\in B}
+  $$
+
+  Which now implies that $M-\sup A$ is an upper bound for $B$, so
+  $$
+    \sup B\leq M-\sup A
+  $$
+
+  and thus
+  $$
+    \sup A+\sup B\leq M
+  $$
+
+  Showing that $\sup A+\sup B$ is indeed the least upper bound for $C$. Hence
+  $\sup C=\sup A+\sup B$.
+\end{proof}
+
+\Theorem{Archimedean property of $\mathbb R$}\label{fbc2289}
+
+For any $x\in\R$, there exists $n_x\in\N$ such that $x<n_x$.
+
+Alternatively, any $x\in\R$ is not an \href{e4698be}{upper bound} for $\N$.
+
+In other words, $\N$ is not bounded above in $\R$.
+
+\begin{proof}
+  Suppose on the contrary that the Archimedean property of $\R$ does not hold.
+
+  Then there exists some $x\in\R$ such that $n\leq x$ for all $n\in\N$. That
+  is, the non-empty set $\N$ is bounded above.
+
+  By the \href{f330cf9}{completeness property of $\R$}, $M=\sup\N$ exists.
+
+  By \autoref{f77f162} (using $\epsilon:=1$), there exists $\bar n\in\N$ such
+  that $M-1<\bar n$. Then $M<\bar n+1$. But $\bar n+1\in\N$. This contradicts
+  that $M$ is an upper bound of $\N$.
+\end{proof}
+
+\Corollary{Archimedean property of $\mathbb R$*}\label{d845856}
+
+Let $A\subseteq\R$ be given by $A:=\set{\dfrac1n}{n\in\N}$. Then
+\begin{enumerati}
+  \item $\inf A=0$, and
+  \item given any $\epsilon>0$, there exists $n_\epsilon\in\N$ such that
+        $0<\dfrac1{n_\epsilon}<\epsilon$.
+\end{enumerati}
+
+Note that (ii) is significant because it claims that for any positive real
+number, there exists a \textit{rational} number between it and zero.
+
+\begin{proof}
+  \proofp{(i)} For any $x\in A$, $x=\frac1n$ for some $n\in\N$, and thus $x>0$.
+  Thus $0$ is a lower bound of $A$. Now suppose $m'$ is another lower bound for
+  $A$. Then
+  \begin{equation*}
+    m'\leq\frac1n,\with{\forall n\in\N}\Tag{*}
+  \end{equation*}
+
+  If $m'>0$, then $1/m'>0$. By the \href{fbc2289}{Archimedean property of
+  $\R$}, there exists $\bar n\in\N$ such that
+  $$
+    \frac1{m'}<\bar n\implies\frac1{\bar n}<m'
+  $$
+
+  which contradicts $(*)$. Hence we must have $m'\leq0$, which implies that 0
+  is the greatest lower bound of $A$.
+
+  \proofp{(ii)} from (i) since $\epsilon>0=\inf A$, $\epsilon$ is not a lower
+  bound of $A$. That is, there is an element of $A$ smaller than $\epsilon$:
+  $$
+    \exists n_\epsilon\in\N:\ \frac1{n_\epsilon}<\epsilon
+  $$
+
+  This completes the proof.
+\end{proof}
+
+\Corollary{Existence of the floor of a real number}\label{abc7dbd}
+
+Let $x\in\R$. Then there exists a unique $m\in\Z$ such that
+$$
+  m\leq x<m+1
+$$
+
+We denote $m$ by $\floor x$.
+
+\begin{proof}
+  For this proof, we shall consider two cases:
+
+  Case 1: $x\geq 1$. Consider the set
+  $$
+    S:=\set{n\in\N}{n>x-1}\subseteq\N
+  $$
+
+  We claim that $\floor x$ is minimum of this set.
+
+  By the \href{fbc2289}{Archimedean property of $\R$}, we know that $S$ is
+  non-empty. Then by the \href{cd7c4d1}{well-ordering property of $\N$}, it
+  follows that $S$ has a minimum element, which we denote by $m$. Since $m\in
+  S$, it follows that $m\in\N$ and
+  \begin{equation*}
+    m>x-1\implies x<m+1\Tag{*}
+  \end{equation*}
+
+  Next we show that $m\leq x$. Suppose on the contrary that $m>x$. Then
+  \begin{align*}
+    m>x\geq1
+     &\implies m-1>0\quad\text{and}\quad m-1>x-1    \\
+     &\implies m-1\in\N\quad\text{and}\quad m-1>x-1 \\
+     &\implies m-1\in S
+  \end{align*}
+
+  But this contradicts that $m=\min S$. Hence $m\leq x$. Together with $(*)$,
+  we have
+  $$
+    m\leq x<m+1.
+  $$
+
+  Case 2: $x<1$. It follows from the \href{fbc2289}{Archimedean property of
+  $\R$} that there exists $k\in\N$ such that
+  $$
+    1-x<k
+  $$
+
+  which implies that $x+k>1$. Then from Case 1 applied to $x+k$, there exists
+  $m'\in\Z$ such that
+  $$
+    m'\leq x+k<m'+1
+  $$
+
+  which is then
+  $$
+    m'-k\leq x<m'-k+1
+  $$
+
+  Let $m:=m'-k\in\Z$. then we have $m\leq x<m+1$. Thus we have proved
+  existence.
+
+  Next, on to uniqueness. Let $m_1,m_2\in\Z$ be such that
+  $$
+    m_1\leq x<m_1+1\quad\text{and}\quad m_2\leq x<m_2+1
+  $$
+
+  Then we have
+  $$
+    m_1\leq x<m_2+1 \implies m_1-m_2<1
+  $$
+
+  and by symmetry, $m_2-m_1<1$. Hence
+  $$
+    -1<m_1-m_2<1
+  $$
+
+  But since $m_1,m_2\in\Z$, we have $m_1-m_2\in\Z$ and thus $m_1-m_2=0$. Hence
+  $m_1=m_2$ and this completes the proof for uniqueness.
+\end{proof}
+
+\Lemma{}\label{b88beb7}
+
+There exists a unique positive real number $a$ such that $a^2=2$, without
+assuming the existence of $\sqrt2\in\R$.
+
+\begin{proof}
+  \textit{(Existence)} Consider the set
+  $$
+    S:=\set{x\in\R}{x\geq0\text{ and }x^2<2}\subseteq\R
+  $$
+
+  We claim that $(\sup S)^2=2$.
+
+  $S$ is non-empty since $1\in S$. Also, $S$ is bounded above (by 2, for
+  instance). Hence by the \href{f330cf9}{completeness property of $\R$}, $\sup
+  S$ exists in $\R$. Let $a:=\sup S\in\R$.
+
+  We know that $a>0$ since $1\in S$, and hence $a$ is positive, as desired.
+
+  It remains to show that $a^2=2$. By the \href{d49c63e}{trichotomy property of
+  $\R$}, we just have to exclude the possibilities
+  $$
+    \text{Case 1: }a^2<2\quad\text{and}\quad\text{Case 2: }a^2>2
+  $$
+
+  \paragraph{Case 1: $a^2<2$.}
+
+  We will argue that there exists some $n\in\N$ such that $(a+\frac1n)^2<2$,
+  which implies that $(a+\frac1n)^2\in S$, which then implies that $a=\sup S$
+  is not an upper bound of $S$.
+
+  Observe that
+  \begin{equation*}
+    \Bigl(a+\frac1n\Bigr)^2=a^2+\frac{2a}n+\frac1{n^2}\leq
+    a^2+\frac{2a}n+\frac1n=a^2+\frac{2a+1}n\Tag{1}
+  \end{equation*}
+
+  since $\dfrac1{n^2}\leq\dfrac1n$ for any $n\in\N$. As $a^2<2$, we have
+  \begin{equation*}
+    a^2+\frac{2a+1}n<2\iff n>\frac{2a+1}{2-a^2}\Tag{2}
+  \end{equation*}
+
+  Since $a^2<2$, we have $\dfrac{2a+1}{2-a^2}\in\R$. Thus by the
+  \href{fbc2289}{Archimedean property of $\R$}, there exists $n\in\N$
+  satisfying
+  $$
+    n>\frac{2a+1}{2-a^2}.
+  $$
+
+  Fixing this $n$, and together with (2) and then (1), we have
+  $(a+\frac1{n})^2<2$. Hence Case 1 is not possible.
+
+  \paragraph{Case 2: $a^2>2$.}
+
+  We claim that there exists some $n\in\N$ such that $a-\frac1n$ is an upper
+  bound of $S$, breaking the fact that $a$ is the least upper bound of $S$. We
+  proceed by
+  \begin{enumerati}
+    \item Find $n\in\N$ such that $(a-\frac1n)^2>2$.
+    \item Show that $x\leq a-\frac1n$ for all $x\in S$.
+  \end{enumerati}
+
+  Step (i): Note that
+  \begin{equation*}
+    \Bigl(a-\frac1n\Bigr)^2=a^2-\frac{2a}n+\frac1{n^2}>a^2-\frac{2a}n\Tag{3}
+  \end{equation*}
+
+  On the other hand, we have
+  \begin{equation*}
+    a^2-\frac{2a}n>2\iff\frac1n<\frac{a^2-2}{2a}\Tag{4}
+  \end{equation*}
+
+  Since $a^2>2$ and $a>0$, we have $\dfrac{a^2-2}{2a}>0$, and by
+  \autoref{d845856}, there exists $n\in\N$ such that
+  $\dfrac1n<\dfrac{a^2-2}{2a}$.
+
+  Fixing this $n$, and together with (4) and then (3), we have
+  $(a-\frac1n)^2>2$
+
+  Step (ii): For all $x\in S$, we have $x\geq0$ and $x^2<2$. Thus,
+  \begin{equation*}
+    \Bigl(a-\frac1n\Bigr)^2-x^2>2-2=0\implies\Bigl(a-\frac1n+x\Bigr)\Bigl(a-\frac1n-x\Bigr)>0
+  \end{equation*}
+
+  Note that $a>1$, $\frac1n\leq 1$, $x>0$, and thus $a-\dfrac1n+x>0$. Hence we
+  must have
+  $$
+    a-\frac1n-x>0
+  $$
+
+  and thus $x<a-\frac1n$. This completes the contradiction of Case 2.
+
+  Hence we must have $a^2=2$.
+
+  \textit{(Uniqueness)} Suppose $a,b\in\R$ with $a>0$ and $b>0$ such that
+  $a^2=2$ and $b^2=2$. Then
+  \begin{equation*}
+    a^2-b^2=2-2=0\implies(a-b)(a+b)=0
+  \end{equation*}
+
+  Since $a>0$ and $b>0$, it follows that $a+b>0$ and in particular $a+b\neq0$.
+  Hence we must have $a-b=0$, which means that $a=b$.
+\end{proof}
+
+\Theorem{Existence of the positive $k$-th root of a positive real number}\label{c70a9ac}
+
+Let $c>0$ and $k\in\N$. Then there exists a unique $a\in\R$ with $a^k=c$.
+
+\begin{proof}
+  The proof is similar to the \href{b88beb7}{square root case}. Let
+  $$
+    S:=\set{t\in\R}{t>0\text{ and }t^k<c}
+  $$
+
+  Then one can show that $1\in S$ if $c>1$, and $\frac c2\in S$ if $c\leq1$
+  (hence $S$ is non-empty). Moreover, $c$ is an upper bound of $S$ if $c>1$,
+  and 1 is an upper bound of $S$ if $c\leq1$ (hence $S$ is bounded above). By
+  the \href{f330cf9}{supremum property of $\R$}, $a=\sup S$ exists. We claim
+  that $a^k=c$. To justify this claim, one shows that it is impossible to have
+  $a^k<c$ or $a^k>c$. Again, refer to the \href{b88beb7}{square root case} for
+  inspiration.
+\end{proof}
+
+\Theorem{Density Theorem}\label{d0c9c52}
+
+For any $x,y\in\R$ satisfying $x<y$, there exists a $r\in\Q$ such that
+$$
+  x<r<y
+$$
+
+\begin{proof}
+  Since $x<y$, we have $y-x>0$ and thus by \autoref{d845856}, there exists
+  $n\in\N$ such that
+  \begin{align*}
+    y-x>\frac1n &\implies ny-nx>1        \\
+                &\implies nx+1<ny\Tag{*}
+  \end{align*}
+
+  Then by \autoref{abc7dbd}, the floor $\floor{nx}\in\Z$ exists and it
+  satisfies
+  $$
+    \floor{nx}\leq nx <\floor{nx}+1\implies nx<\floor{nx}\leq nx+1
+  $$
+
+  Together with $(*)$, we have
+  $$
+    nx<\floor{nx}+1<ny
+  $$
+
+  and thus
+  $$
+    x<\frac{\floor{nx}+1}{n}<y
+  $$
+
+  Hence by setting $r:=\dfrac{\floor{nx}+1}{n}$, we have
+  $$
+    r\in\Q\text{ and }x<r<y
+  $$
+\end{proof}
+
+\Result{Supremum of a set strictly bounded above}\label{ade99b7}
+
+Let $E:=\set{x\in\Q}{x<\sqrt3}$. Then $\sup E=\sqrt3$.
+
+\begin{proof}
+  By definition of $E$, $x\leq\sqrt3$ for all $x\in E$. Thus, $E$ is bounded
+  above (by $\sqrt3$). Also, since $0\in E$, $E$ is non-empty. Thus by the
+  \href{f330cf9}{completeness property of $\R$}, $\sup E$ exists in $\R$.
+
+  Since $\sqrt3$ is an upper bound of $E$, we must have $\sup E\leq\sqrt3$.
+
+  Suppose that $\sup E\neq\sqrt3$. Then $\sup E<\sqrt3$. By the
+  \href{d0c9c52}{Density Theorem}, there exists $r\in\Q$ such that
+  \begin{equation*}
+    \sup E<r<\sqrt3\Tag{*}
+  \end{equation*}
+
+  Since $r\in\Q$ and $r<\sqrt3$, it follows that $r\in E$. But this and $(*)$
+  contradicts the fact that $\sup E$ is an upper bound for $E$.
+
+  Hence we must have $\sup E=\sqrt3$.
+\end{proof}
+
+\Corollary{}\label{d4d76b6}
+
+Let $\alpha\in\R$, and let
+$$
+  E_\alpha:=\set{x\in\Q}{x<\alpha}\subseteq\Q
+$$
+
+Then $\sup E_\alpha=\alpha$.
+
+\begin{proof}
+  Exercise. (Similar to \autoref{ade99b7})
+\end{proof}
+
+\Corollary{}\label{b0d86cf}
+
+If $a,b\in\R$ such that $a<b$, then there exists $x\in\R\setminus\Q$ such that
+$a<x<b$.
+
+\begin{proof}
+  If $a<b$, then $a<\dfrac{a+b}2<b$ and thus
+  $$
+    \frac a{\sqrt2}<\frac{a+b}{2\sqrt2}<\frac b{\sqrt2}
+  $$
+
+  By the \href{d0c9c52}{density theorem}, there exist $r_1,r_2\in\Q$ such that
+  $$
+    \frac a{\sqrt2}<r_1<\frac{a+b}{2\sqrt2}<r_2<\frac b{\sqrt2}
+  $$
+
+  At least one of $r_1,r_2$ is non-zero. Call it $r$. Then we have
+  $r\in\Q\sans0$ and
+  $$
+    \frac a{\sqrt2}<r<\frac b{\sqrt2}
+  $$
+
+  Hence we have $a<r\sqrt2<b$. $r\sqrt2$ is because $\sqrt2$ is irrational (by
+  \autoref{c2585a1}), and by a \href{d9d3f10}{known result}, the product of a
+  rational number and an irrational number is irrational.
+\end{proof}
+
+\Corollary{}\label{e43d143}
+
+If an interval $I\subset\R$ has at least two elements, then $I$ contains
+infinitely many rational numbers and infinitely many irrational numbers.
+
+\begin{proof}
+  \def\all{\iter{x_1}{x_n}}
+
+  Assume that $I$ contains finitely many rational numbers. Enumerate all of
+  them by $\all\in I$ in order of increasing value:
+  $$
+    x_1<x_2<\ldots<x_n.
+  $$
+
+  Also, by assumption we have $n\geq2$.
+
+  By the \href{d0c9c52}{density theorem}, there exists $r\in\Q$ such that
+  $$
+    x_1<r<x_2
+  $$
+
+  Note that since $I$ is an interval, we have $r\in I$. But clearly $r$ is not
+  equal to any of the $\all$ previously identified. This contradicts the
+  assumption that $\all$ are all the numbers in $I$.
+
+  Hence $I$ must contain infinitely many rational numbers.
+
+  The case with irrational numbers is completely analog to this, but instead of
+  the density theorem we use \autoref{b0d86cf}.
+\end{proof}
+
+\Remark{}\label{bb3cf6b}
+
+\begin{enumerati}
+  \item By the \href{d0c9c52}{density theorem}, $\Q$ is \href{e929c5e}{dense}
+        in $\R$.
+  \item By \autoref{b0d86cf}, $\R\setminus\Q$ is dense in $\R$.
+\end{enumerati}

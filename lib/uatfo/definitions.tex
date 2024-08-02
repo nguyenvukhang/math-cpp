@@ -1,0 +1,64 @@
+\subsection{Definitions}\label{e9f040b}
+
+\Definition{Sigmoidal function}\label{cf39bf4}
+
+A function $\sigma:\R\to\R$ is called a sigmoidal function if it satisfies
+$$
+  \lim_{x\to L}\sigma(x)=\begin{cases}
+    0 & \text{if } L=-\infty \\
+    1 & \text{if } L=\infty  \\
+  \end{cases}
+$$
+
+\Definition{Tauber-Wiener function}\label{e65fc0e}
+
+If a function $g:\R\to\R$ satisfies that all the linear combinations
+$$
+  \sum_{i=1}^Nc_ig(\lambda_ix+\theta_i)\with{(\lambda_i,\theta_i,c_i\in\R,\ i=\iter1N)}
+$$
+
+are \href{e14819a}{dense} in every $C[a,b]$, then $g$ is called a
+\textbf{Tauber-Wiener} function. We will subsequently write $g\in\TW$.
+
+\Remark{Compact set in a Banach space}\label{afe68fa}
+
+Suppose that $(X,\norm{\,\cdot\,}_X)$ is a \href{f894cb0}{Banach space}. Then
+$V\subseteq X$ is a compact set in $X$ if for every sequence $\{x_n\}_{n\in\N}$
+with all $x_n\in V$, there is a subsequence $\{x_{n_k}\}$ which converges to
+some element $x\in V$.
+
+It is well known that if $V\subseteq X$ is a compact set in $X$, then for any
+$\delta>0$, there is a $\delta$-net $N(\delta)=\{\iter{x_1}{x_{n(\delta)}}\}$
+which converges to some element $x\in V$, with all $x_i\in V$ for all
+$i=\iter1{n(\delta)}$.
+
+% Should it be for every x in V?
+% We'll wait to see this being used in the proofs.
+That is, for every $x\in X$, there is some $x_i\in N(\delta)$ such that
+$\norm{x_i-x}_X<\delta$.
+
+\Notation{Paper-specific notation}\label{aa7beb7}
+
+For the rest of this paper's analysis, we will use these global variables:
+\begin{itemize}
+  \item $X:=$ \href{f894cb0}{Banach space} over the field $\R$ with norm
+        $\norm{\,\cdot\,}_X$, where $\norm{\,\cdot\,}_X:X\to\R$.
+  \item $K:=$ a compact set.
+  \item $C(K):=$ the Banach space of all continuous functions defined on $K$,
+        with norm
+        $$
+          \norm{f}_{C(K)}:=\max_{x\in K}|f(x)|
+        $$
+
+        That is, if $f\in C(K)$, then $f:K\to\R$ is continuous.
+  \item $\TW:=$ set of all \href{e65fc0e}{Tauber-Wiener} functions.
+  \item $\mathcal S(\R^n):=$ Schwartz functions in tempered distribution theory.
+        (i.e. rapidly decreasing and infinitely differentiable functions)
+  \item $\mathcal S'(\R^n):=$ Tempered distributions. (i.e. linear continuous
+        functionals defined on $\mathcal S(\R^n)$)
+  \item $C^\infty(\R^n)$:= Infinitely differentiable functions.
+  \item $C^\infty_c(\R^n):=$ Infinitely differentiable functions with compact
+        support in $\R^n$.
+  \item $C_p[-1,1]^n:=$ All periodic functions with period two with respect
+        to every variable $x_i$, with $i=\iter1n$.
+\end{itemize}

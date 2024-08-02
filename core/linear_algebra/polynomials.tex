@@ -1,0 +1,62 @@
+\subsection{Polynomials}\label{de73d11}
+
+\Proposition{Each zero of a polynomial corresponds to a degree-1 factor}\label{ecf3af6}
+
+Suppose $m$ is a positive integer and $p\in\mathcal P(\F)$ is a
+\href{df84c07}{polynomial} of degree $m$. Suppose $\lambda\in\F$. Then
+$p(\lambda)=0$ if and only if there exists a polynomial $q\in\mathcal P(\F)$ of
+degree $m-1$ such that
+$$
+  p(z)=(z-\lambda)q(z)
+$$
+
+for every $z\in\F$.
+
+\begin{proof}
+  First, suppose that $p(\lambda)=0$. Let $\iter{a_0}{a_m}\in\F$ be such that
+  $$
+    p(z)=a_0+a_az+\ldots+a_mz^m\with{(z\in\F)}
+  $$
+
+  Then
+  \begin{align*}
+    p(z) &=p(z)-p(\lambda)                                 \\
+         &=a_1(z-\lambda)+\ldots+a_m(z^m-\lambda^m)\Tag{*}
+  \end{align*}
+
+  For each $k=\iter1m$, the equation
+  $$
+    z^k-\lambda^k=(z-\lambda)\sum_{i=1}^k\lambda^{i-1}z^{k-i}
+  $$
+
+  shows that $z^k-\lambda^k$ equals $z-\lambda$ times some polynomial of degree
+  $k-1$. Thus $(*)$ shows that $p(z)$ equals $z-\lambda$ times some polynomial
+  of degree $m-1$, as desired.
+
+  To prove the implication in the other direction, now suppose that there is a
+  polynomial $q\in\mathcal P(\F)$ such that $p(z)=(z-\lambda)q(z)$ for every
+  $z\in\F$. Then $p(\lambda)=(\lambda-\lambda)q(\lambda)=0$, as desired.
+\end{proof}
+
+\Proposition{Degree $m$ implies at most $m$ zeros}\label{e6cd8e6}
+
+Suppose that $m$ is a positive integer and $p\in\mathcal P(\F)$ is a
+\href{df84c07}{polynomial} of degree $m$. Then $p$ has at most $m$
+\href{addeddc}{zeros} in $\F$.
+
+\begin{proof}
+  We will use induction on $m$. The desired result holds with $m=1$ because if
+  $a_1\neq0$ then the polynomial $a_0+a_1z$ has only one zero at $-a_0/a_1$.
+  Thus assume that $m>1$ and the desired result holds for $m-1$.
+
+  If $p$ has no zeros in $\F$, then the desired result holds and we are done.
+  Thus suppose that $p$ has a zero $\lambda\in\F$. By \autoref{ecf3af6}, there
+  is a polynomial $q\in\mathcal P(\F)$ of degree $m-1$ such that
+  $$
+    p(z)=(z-\lambda)q(z)
+  $$
+
+  Our induction hypothesis implies that $q$ has at most $m-1$ zeros in $\F$.
+  The equation above shows that the zeros of $p$ in $\F$ are exactly the zeros
+  of $q$ in $F$ along with $\lambda$. Thus $p$ has at most $m$ zeros in $\F$.
+\end{proof}

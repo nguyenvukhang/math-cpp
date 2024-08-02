@@ -1,0 +1,1710 @@
+\chapter{Complex Analysis}\label{f28d4dc}
+
+\subsection{Basics}\label{b2a0add}
+
+\Definition{General terminology}\label{d508dc8}
+
+\textcolor{white}{.}
+
+\textbf{Entire function} is a complex-valued function that is holomorphic on
+$\C$.
+
+A \textbf{real-valued} function is any function $f:X\to\R$.
+
+A \textbf{complex-valued} function is any function $f:X\to\C$.
+
+A subset of $\R^n$ or $\C^n$ is called \textbf{compact} if it is closed and
+bounded.
+
+The $C^n$ notation:
+\begin{itemize}
+  \item $C^0$ : continuous
+  \item $C^1$ : continuously differentiable
+  \item $C^2$ : twice continuously differentiable
+\end{itemize}
+
+\Theorem{Conventional notation}\label{d1055b9}
+
+For this chapter on Complex Analysis.
+
+Let $U\subseteq\C$ be an open set.
+
+Let $D(P,r)$ be the open disc centered at $P$ with radius $r$. Then
+\begin{enumerati}
+  \item $\partial D(P,r)$ is the (closed) curve at the border of $D(P,r)$
+  \item $\overline D(P,r)$ is the closed disc centered at $P$ with
+  radius $r$.
+\end{enumerati}
+
+\Result{Basic complex arithmetic}\label{adebe9e}
+
+\begin{align*}
+  |z|^2           &=z\bar z                       \\
+  |zw|^2          &=|z|^2|w|^2                    \\
+  |z+w|^2         &=|z|^2+|w|^2+\Re(z\cdot\bar w) \\
+  |z+w|^2+|z-w|^2 &=2|z|^2+2|w|^2
+\end{align*}
+
+\begin{proof}
+  Let $z:=x+iy$, and $w:=u+iv$.
+  $$
+    |z|^2=x^2+y^2=(x+iy)(x-iy)=z\bar z
+  $$
+
+  \begin{align*}
+    |zw|^2
+     &= (xu-yv)^2+(xv+yu)^2                        \\
+     &=(x^2u^2-2xyvu+y^2v^2)+(x^2v^2+2xyvu+y^2u^2) \\
+     &=x^2u^2+y^2v^2+x^2v^2+y^2u^2                 \\
+     &=(x^2+y^2)(u^2+v^u)                          \\
+     &=|z|^2|w|^2
+  \end{align*}
+\end{proof}
+
+\Theorem{Complex differentiability}\label{d1d5d93}
+
+A complex function $f(z):=u(z)+iv(z)$ is complex-differentiable at $z_0$ if and
+only if $u$ and $v$ satisfy the \href{fb10fd3}{Cauchy-Riemann Equations} at
+$z_0$.
+
+To say a function is \href{e1e08f7}{\textbf{holomorphic}} is much stronger,
+since a holomorphic function is complex-differentiable at every point of some
+open subset of the complex plane $\C$.
+
+\Definition{Complex Partials}\label{ffea0ed}
+
+\begin{gather*}
+  \frac{\partial f}{\partial z}\equiv\frac12\left(\frac{\partial}{\partial x}-i\frac{\partial}{\partial y}\right)f \\[1em]
+  \frac{\partial f}{\partial\bar z}\equiv\frac12\left(\frac{\partial}{\partial x}+i\frac{\partial}{\partial y}\right)f
+\end{gather*}
+
+\Definition{Holomorphic functions}\label{e1e08f7}
+
+Let $U\subseteq\C$ be open. Let $f:U\to\C$ be in $C^1(U)$. $f$ is said to be
+\textit{holomorphic} if
+$$
+  \frac{\partial f}{\partial\bar z}=0
+$$
+
+\paragraph{Properties of holomorphic functions}
+
+If $f$ and $g$ are holomorphic in a domain $U$, then so are $f+g$, $f-g$, $fg$,
+and $f\circ g$.
+
+Additionally, if $g$ has no zeros in $U$, then $f/g$ is holomorphic too.
+
+\paragraph{Examples of holomorphic functions}
+
+Here are some building blocks to get started (remember that you can use these
+with the properties above to show that other more complicated functions are
+holomorphic too):
+\begin{enumerati}
+  \item $f(z)=1/z$ on $\C\sans{0}$
+  \item $f(z)=1/p(z)$ on $\C$ where $p(z)\neq0$
+  \item $f(z)=z$ on $\C$
+\end{enumerati}
+
+All these can be proved using a destructuring of $z:=x+iy$ and using
+\autoref{ffea0ed}.
+
+Here are some functions that are not holomorphic:
+\begin{enumerati}
+  \item $f(z)=\bar z$
+  \item $f(z)=|z|$
+\end{enumerati}
+
+\paragraph{Showing that a function is holomorphic}
+
+If we can write $f\equiv u+iv$, and $u$ and $v$ have \textbf{continuous} first
+partial derivatives and satisfy the \href{fb10fd3}{Cauchy-Riemann equations},
+then $f$ is holomorphic.
+
+\Definition{Cauchy-Riemann Equations}\label{fb10fd3}
+
+If $f(z) = u(z) + iv(z)$ is \href{e1e08f7}{holomorphic}, then
+$$
+  \frac{\partial u}{\partial x}=\frac{\partial v}{\partial y}
+  \quad\text{and}\quad
+  \frac{\partial u}{\partial y}=-\frac{\partial v}{\partial x}
+$$
+
+\Proposition{}\label{d507f47}
+
+If $f:U\to\C$ is $C^1$ and $f$ satisfies the Cauchy-Riemann equations, then
+$$
+  \frac{\partial f}{\partial z}=\frac{\partial f}{\partial x}=
+  -i\frac{\partial f}{\partial y}
+$$
+
+\Definition{Harmonic functions}\label{d53f60f}
+
+Let $U\subseteq\C$ be open. Let $f:U\to\C$ be in $C^2(U)$. $f$ is said to be
+\textit{harmonic} if
+$$
+  \frac{\partial^2f}{\partial x^2}+\frac{\partial^2f}{\partial y^2}=0
+$$
+
+The operator
+$$
+  \frac{\partial^2}{\partial x^2}+\frac{\partial^2}{\partial y^2}
+$$
+
+is called the \textit{Laplace operator}, or \textit{Laplacian}, and is denoted
+by $\Delta$. We write
+$$
+  \Delta f=\frac{\partial^2f}{\partial x^2}+\frac{\partial^2f}{\partial y^2}
+$$
+
+\Theorem{}\label{fdd4521}
+
+Let $f,g\in C^1(U)$ where
+$$
+  U:=\{ (x,y)\in\R^2:|x-a|<\delta,\ |y-b|<\epsilon \}
+$$
+
+and let $\displaystyle\frac{\partial f}{\partial y}=\frac{\partial g}{\partial
+x}$ on $U$. Then there exists a function $h\in C^2(U)$ such that
+$$
+  \frac{\partial h}{\partial x}=f
+  \quad\text{and}\quad
+  \frac{\partial h}{\partial y}=g
+$$
+
+on $U$. If $f$ and $g$ are real-valued, then we may take $h$ to be real-valued
+also.
+
+\Theorem{}\label{e7808d1}
+
+Let $U\subseteq\C$ be either an open rectangle or open disc, and let $F$ be
+holomorphic on $U$. Then there exists a holomorphic function $H$ on $U$ such
+that
+$$
+  \frac{\partial H}{\partial z}=F
+$$
+
+on $U$.
+
+\Definition{Bounded $C^1$ functions}\label{c1f6d35}
+
+A function $\phi:[a,b]\to\R$ is continuously differentiable (and we write
+$\phi\in C^1([a,b])$) if
+
+\begin{enumerata}
+  \item $\phi$ is continuous on $[a,b]$
+  \item $\phi'$ exists on $(a,b)$
+  \item $\phi'$ has a continuous extension to $[a,b]$
+\end{enumerata}
+
+In other words, for (c) we require that
+$$
+  \lim_{t\to a^+}\phi'(t)\quad\text{and}\quad\lim_{t\to b^-}\phi'(t)
+$$
+
+both exist.
+
+The motivation for this definition is so if $\phi\in C^1([a,b])$, then we have
+\begin{align*}
+  \phi(b)-\phi(a)
+   &=\lim_{\epsilon\to0^+}\bigl(\phi(b-\epsilon)-\phi(a+\epsilon)\bigr) \\
+   &=\lim_{\epsilon\to0^+}\int_{a+\epsilon}^{b-\epsilon}\phi'(t)\,dt    \\
+   &=\int_a^b\phi'(t)\,dt
+\end{align*}
+
+and hence have the \href{b869dc0}{fundamental theorem of calculus} hold for
+$\phi\in C^1([a,b])$.
+
+\Definition{Continuous complex curve}\label{e4132bc}
+
+Let $\gamma:[a,b]\to\C$ be defined by $\gamma(t):=\gamma_1(t) + i\gamma_2(t)$.
+
+Then $\gamma$ is said to be continuous on $[a,b]$ if both $\gamma_1$ and
+$\gamma_2$ are.
+
+The curve $\gamma$ is $C^1([a,b])$ if $\gamma_1$ and $\gamma_2$ are
+continuously differentiable on $[a,b]$. Under these circumstances we will write
+$$
+  \gamma'(t)=\frac{d\gamma}{dt}=\frac{d\gamma_1}{dt}+i\frac{d\gamma_2}{dt}
+$$
+
+\Definition{Complex integration}\label{c511702}
+
+Let $\psi:[a,b]\to\C$ be continous on $[a,b]$. Write
+$\psi(t)=\psi_1(t)+i\psi_2(t)$. Then we define
+$$
+  \int_a^b\psi(t)\,dt:=\int_a^b\psi_1(t)\,dt+i\int_a^b\psi_2(t)\,dt
+$$
+
+Using this definition along with Definitions \autoref{c1f6d35} and
+\autoref{e4132bc}, we have that if $\gamma\in C^1([a,b])$ is complex-valued,
+then
+$$
+  \gamma(b)-\gamma(a)=\int_a^b\gamma'(t)\,dt
+$$
+
+\Proposition{}\label{f37b676}
+
+Let $U\subseteq\C$ be open and let $\gamma:[a,b]\to U$ be a $C^1$ curve. If
+$f:U\to\R$ and $f\in C^1(U)$ and we write
+\begin{gather*}
+  f:x+iy\mapsto f(x+iy) \\
+  \gamma(t)=\gamma_1(t)+i\gamma_2(t)
+\end{gather*}
+
+then
+\begin{align*}
+  f(\gamma(b))-f(\gamma(a))
+   &=\int_a^b (f\circ\gamma)'(t)\,dt \\
+   &=\int_a^b\left(
+  \frac{\partial f}{\partial x}(\gamma(t))\cdot\frac{d\gamma_1}{dt}+
+  \frac{\partial f}{\partial y}(\gamma(t))\cdot\frac{d\gamma_2}{dt}
+  \right)\,dt                        \\
+   &=\int_a^b
+  f_x(\gamma(t))\cdot\gamma_1'(t)+f_y(\gamma(t))\cdot\gamma_2'(t)
+  \,dt
+\end{align*}
+
+This follows from \autoref{c511702} and the \href{d969d46}{chain rule}.
+
+(the lack of an $i$ term is intentional. Remember that
+$f\circ\gamma:\R\to\R$)
+
+\Definition{Complex line integral}\label{b1e96fc}
+
+Let $U\subseteq\C$ open, $F:U\to\C$ continuous on $U$, and let $\gamma:[a,b]\to
+U$ be a $C^1$ curve. Then we define the complex line integral
+$$
+  \oint_\gamma F(z)\,dz:=\int_a^bF(\gamma(t))\cdot\frac{d\gamma}{dt}\,dt
+$$
+
+\Proposition{Holomorphic line integral}\label{c526c09}
+
+Let $U\subseteq\C$ open, $F:U\to\C$ continuous on $U$, and let $\gamma:[a,b]\to
+U$ be a $C^1$ curve. If $f$ is a holomorphic function on $U$, then
+$$
+  f(\gamma(b))-f(\gamma(a))=\oint_\gamma\frac{\partial f}{\partial z}(z)\,dz
+$$
+
+\Definition{Complex antiderivative}\label{cf21af2}
+
+A function $f$ has an antiderivative $F$ if and only if, for every
+$\gamma:[a,b]\to\C$,
+$$
+  \oint_\gamma f(z)\,dz=F(\gamma(b))-F(\gamma(a))
+$$
+
+This comes from using a holomorphic function on \autoref{f37b676}, and then
+applying \autoref{b1e96fc}.
+
+\Proposition{Moving $||$ into integral}\label{bcec8b1}
+
+Let $\phi:[a,b]\to\C$ be continuous. Then
+$$
+  \left|\int_a^b\phi(t)\,dt\right|\leq\int_a^b|\phi(t)|\,dt
+$$
+
+\Proposition{Upper bound of line integral}\label{faf3f86}
+
+Let $U\subseteq\C$ be open and $f\in C^0(U)$. Let $\gamma:[a,b]\to U$ be a
+$C^1$ curve, and let $\ell(\gamma)$ be given by
+$$
+  \ell(\gamma):=\int_a^b\left|\frac{d\gamma}{dt}(t)\right|\,dt
+$$
+
+Then we have
+$$
+  \left|\oint_\gamma f(z)\,dz\right|\leq
+  \Bigl(\sup_{t\in[a,b]}|f(\gamma(t))|\Bigr)\cdot\ell(\gamma)
+$$
+
+(Note that $\ell(\gamma)$ is the length of $\gamma$.)
+
+\Proposition{Parameterization-independence of line integrals}\label{f74efcb}
+
+Let $U\subseteq\C$ be open and $f:U\to\C$ be a continuous function. Let
+$\gamma:[a,b]\to U$ be a $C^1$ curve. Suppose that $\phi:[c,d]\to[a,b]$ is a
+bijective increasing $C^1$ with a $C^1$ inverse.
+
+% Is the inverse of a continuous bijective function continuous?
+% NO.
+% https://math.stackexchange.com/questions/368824/is-the-inverse-of-a-continuous-bijective-function-also-continuous
+
+Let $\tilde\gamma=\gamma\circ\phi$. Then
+$$
+  \oint_{\tilde\gamma}f(z)\,dz=\oint_\gamma f(z)\,dz
+$$
+
+The proof involves the standard change of variable formula from calculus.
+
+\Theorem{Existence of $f'$ on holomorphic $f$}\label{f75e43c}
+
+Let $U\subseteq\C$ be open and let $f$ be holomorphic on $U$. Then $f'$ exists
+at each point of $U$ and
+$$
+  f'(z)=\frac{\partial f}{\partial z}
+$$
+
+for all $z\in U$.
+
+As a result of this theorem, we often will write $f'=\dfrac{\partial
+f}{\partial z}$ when $f$ is holomorphic.
+
+\Theorem{Holomorphic by existence of derivative}\label{d037b0f}
+
+Let $U\subseteq\C$ be open. If $f\in C^1(U)$ and $f$ has a complex derivative
+at each point of $U$, then $f$ is holomorphic on $U$.
+
+In other words, if a continuous, complex-valued function $f$ on $U$ has a
+complex derivative at each point and if $f'$ is continuous on $U$, then $f$ is
+holomorphic on $U$.
+
+\Theorem{Holomorphism and directional derivatives}\label{c41052e}
+
+Let $f$ be holomorphic in a neighborhood $P\in\C$. Let $w_1,w_2\in\C$ have unit
+modulus. Consider the directional derivatives
+\begin{align*}
+  D_{w_1}f(P) &:=\lim_{t\to0}\frac{f(P+tw_1)-f(P)}t \\
+  D_{w_2}f(P) &:=\lim_{t\to0}\frac{f(P+tw_2)-f(P)}t
+\end{align*}
+
+Then
+\begin{enumerata}
+  \item $|D_{w_1}f(P)|=|D_{w_2}f(P)|$
+  \item if $|f'(P)|\neq0$, then the directed angle from $w_1$ to $w_2$ equals
+        the directed angle from $D_{w_1}f(P)$ to $D_{w_2}f(P)$.
+\end{enumerata}
+
+Note:
+\begin{itemize}
+  \item (a) alone implies that $f$ is holomorphic.
+  \item (b) alone implies that $f$ is holomorphic.
+\end{itemize}
+
+\Lemma{}\label{f8abd8b}
+
+Let $(\alpha,\beta)\subseteq\R$ be an open interval and let
+$H,F:(\alpha,\beta)\to\R$ be continuous functions. Let $p\in(\alpha,\beta)$ and
+suppose that $dH/dx$ exists and equals $F(x)$ for all
+$x\in(\alpha,\beta)\sans{p}$. Then $(dH/dx)(p)$ exists and $(dH/dx)(x)=F(x)$
+for all $x\in(\alpha,\beta)$.
+$$
+  \forall_{x\in(\alpha,\beta)\sans{p}}:\frac{dH}{dx}(x)=F(x)\implies
+  \forall_{x\in(\alpha,\beta)}:\frac{dH}{dx}(x)=F(x)
+$$
+
+It's as if the continuity fills in the gap at $p$.
+
+\Theorem{}\label{f017dd0}
+
+Let $U\subseteq\C$ be either an open rectangle or an open disc and let $P\in
+U$. Let $f$ and $g$ be continuous, real-valued functions on $U$ which are
+continuously differentiable on $U\sans{P}$. Suppose further that
+$$
+  \frac{\partial f}{\partial y}=\frac{\partial g}{\partial x}
+  \quad\text{on }U\sans{P}
+$$
+
+Then there exists a $C^1$ function $h:U\to\R$ such that
+$$
+  \frac{\partial h}{\partial x}=f,\quad
+  \frac{\partial h}{\partial y}=g
+$$
+
+at every point of $U$ (including $P$).
+
+\Theorem{Existence of holomorphic antiderivative}\label{b2d9d89}
+
+Let $U\subseteq\C$ be either an open rectangle or an open disc. Let $P\in U$ be
+fixed. Suppose that $F$ is continuous on $U$ and holomorphic on $U\sans{P}$.
+Then there is a holomorphic $H$ on $U$ such that $\partial H/\partial z=F$.
+
+Note that since $H$ is holomorphic, by \autoref{f75e43c}, we can write $H'=F$.
+
+\Lemma{}\label{c6c594a}
+
+Let $\gamma$ be the boundary of a disc $D(z_0,r)$ in the complex plane,
+equipped with the counterclockwise orientation. Let $z$ be a point inside the
+circle $\partial D(z_0,r)$. Then
+$$
+  \frac1{2\pi i}\oint_\gamma\frac1{\zeta-z}\,d\zeta=1
+$$
+
+The proof involves considering the function
+$$
+  I(z):=\oint_\gamma\frac1{\zeta-z}\,d\zeta
+$$
+
+and showing that $I(z)$ is independent of $z$, and that $I(z_0)=2\pi i$.
+
+\Theorem{Cauchy integral formula}\label{e50677f}
+
+Suppose that $U\subseteq\C$ is open and that $f$ is a holomorphic function on
+$U$. Let $z_0\in U$ and let $r>0$ such that $\overline D(z_0,r)\subseteq U$ .
+Let $\gamma:[0,1]\to\C$ be the $C^1$ curve $\gamma(t)=z_0+r\cos(2\pi
+t)+ir\sin(2\pi t)$. Then, for each $z\in D(z_0,r)$,
+$$
+  f(z)=\frac1{2\pi i}\oint_\gamma\frac{f(\zeta)}{\zeta-z}\,d\zeta
+$$
+
+The converse of this theorem is true too: if $f$ is given by the Cauchy
+integral formula, then $f$ is holomorphic.
+
+\Example{Examples with Cauchy integral formula}\label{da0d68d}
+
+Here's some ground-truth computations to get started. (Almost all problems in
+MATH 466 can be re-routed back to these)
+$$
+  \oint_\gamma\zeta^k\,d\zeta=\begin{cases}
+    0      & \text{if }k\neq-1 \\
+    2\pi i & \text{if }k=-1
+  \end{cases}\with{(k\in\Z)}
+$$
+
+\Theorem{Cauchy integral theorem}\label{fb87a78}
+
+If $f$ is a holomorphic function on an open disc $U\subseteq\C$, and if
+$\gamma:[a,b]\to U$ is a $C^1$ curve in $U$ with $\gamma(a)=\gamma(b)$, then
+$$
+  \oint_\gamma f(z)\,dz=0
+$$
+
+Note that this implies that the \href{e50677f}{Cauchy integral formula} gives a
+zero whenever $z$ does not lie in the contour $\gamma$, since the integrand is
+holomorphic. (Integrand is holomorphic because numerator is assumed to be
+holomorphic, and the denominator is never zero.)
+
+\begin{proof}
+  By \autoref{e7808d1}, there is a holomorphic function
+  $G:U\to\C$ with $G'=f$ on $U$. Since $\gamma(a)=\gamma(b)$, we have
+  that
+  $$
+    0=G(\gamma(b))-G(\gamma(a))
+  $$
+
+  By \autoref{c526c09}, this equals
+  $$
+    \oint_\gamma G'(z)\,dz=\oint_\gamma f(z)\,dz
+  $$
+
+  (Reminder that since $G$ is holomorphic, $G'=\dfrac{\partial G}{\partial z}$
+  by \autoref{f75e43c})
+\end{proof}
+
+\Definition{Piecewise $C^1$ curve}\label{baf22ac}
+
+A piecewise $C^1$ curve $\gamma:[a,b]\to\C$ is a continuous function such that
+there exists a finitne set of numbers $a_1\leq a_2\leq\ldots\leq a_k$
+satisfying $a_1=a$ and $a_k=b$, and with the property that for every $i\leq
+j\leq k-1,\ \gamma|_{[a_j,a_{j+1}]}$ is a $C^1$ curve.
+
+$\gamma$ is a piecewise $C^1$ curve in an open set $U$ if
+$\gamma([a,b])\subseteq U$.
+
+Note that while joining $C^1(\R)$ curves may not lead to a piecewise $C^1(\R)$
+curve, doing it in $\C$ somehow works.
+
+\Definition{Integrating over a piecewise $C^1$ curve}\label{a99ad34}
+
+If $U\subseteq\C$ is open and $\gamma:[a,b]\to U$ is a piecewise $C^1$ curve in
+$U$ and if $f:U\to\C$ is a continuous function on $U$, then
+$$
+  \oint_\gamma f(z)\,dz:=\sum_{j=1}^k\oint_{\gamma|_{[a_j,a_{j+1}]}}
+  f(z)\,dz
+$$
+
+where $a_1,a_2,\ldots,a_k$ are as in \autoref{baf22ac}.
+
+\Lemma{}\label{b6b6d51}
+
+Let $U\subseteq\C$ be open. Let $\gamma:[a,b]\to U$ be a piecewise $C^1$ curve.
+Let $\phi:[c,d]\to[a,b]$ be a piecewise $C^1$ strictly monotone increasing
+function with $\phi(c)=a$ and $\phi(d)=b$. Let $f:U\to\C$ be a continuous
+function on $U$. Then the function $\gamma\circ\phi:[c,d]\to U$ is a piecewise
+$C^1$ curve and
+$$
+  \oint_\gamma f(z)\,dz=\oint_{\gamma\circ\phi}f(z)\,dz
+$$
+
+(Really, $\{\gamma(t)\mid t\in[a,b]\}=\{(\gamma\circ\phi)(s)\mid s
+\in[c,d]\}$, and there are no added crossovers on the parameterization
+of $\gamma\circ\phi$ because $\phi$ is strictly monotone increasing.)
+
+\Lemma{}\label{cd28a8f}
+
+Let $U\subseteq\C$ be open, $f:U\to\C$ a holomorphic function and
+$\gamma:[a,b]\to U$ a piecewise $C^1$ curve. Then
+$$
+  f(\gamma(b))-f(\gamma(a))=\oint_\gamma f'(z)\,dz
+$$
+
+(This is really just \autoref{c526c09} restated
+with a piecewise $C^1$ version of $\gamma$)
+
+\Proposition{}\label{b52bca5}
+
+If $f:\C\sans{0}\to\C$ is a holomorphic function, and if $\gamma_r$ describes
+the circle of radius $r$ around $0$, tranversed once around counterclockwise,
+then, for any two positive numbers $r_1<r_2$,
+$$
+  \oint_{\gamma_{r_1}}f(z)\,dz=\oint_{\gamma_{r_2}}f(z)\,dz
+$$
+
+\Proposition{}\label{ecbc559}
+
+Let $0<r<R<\infty$ and define the annulus $\mathcal A:=\{z\in\C:r<|z|<R\}$. Let
+$f:\mathcal A\to\C$ be a holomorphic function. If $r<r_1<r_2<R$ and if for each
+$j$ the curve $\gamma_{r_j}$ describes the circle of radius $r_j$ around 0,
+traversed once counterclockwise, then we have
+$$
+  \oint_{\gamma_{r_1}}f(z)\,dz=\oint_{\gamma_{r_2}}f(z)\,dz
+$$
+
+(On this annulus (donut), integrating a holomorphic $f$ along any two
+circles centered at zero will yield the same value.)
+
+\Theorem{Cauchy integral formula and theorem: general form}\label{be5c80c}
+
+Let $U\subseteq\C$ be open. Let $f:U\to\C$ be holomorphic. Then
+$$
+  \oint_\gamma f(z)\,dz=0
+$$
+
+for any piecewise $C^1$ closed curve $\gamma$ in $U$ that can be deformed in
+$U$ through closed curves to a closed curve lying entirely in a disc contained
+in $U$.
+
+In addition, suppose that $\overline D(z,r)\subseteq U$. Then
+$$
+  \frac1{2\pi i}\oint_\gamma\frac{f(\zeta)}{\zeta-z}\,d\zeta=f(z)
+$$
+
+for any piecewise $C^1$ closed curve $\gamma$ in $U\sans{z}$ that can be
+continuously deformed in $U\sans{z}$ to $\partial D(z,r)$ equipped with
+counterclockwise orientation.
+
+\Theorem{Analyticity of holomorphic functions}\label{e20a4ed}
+
+Let $U\subseteq\C$ be open and let $f$ be a holomorphic on $U$. Then $f\in
+C^\infty(U)$. Moreover, if $\overline D(P,r)\subseteq U$ and $z\in D(P,r)$,
+then
+$$
+  \left(\frac\partial{\partial z}\right)^kf(z)=\frac{k!}{2\pi i}
+  \oint_{|\zeta-P|=r}\frac{f(\zeta)}{(\zeta-z)^{k+1}}\,d\zeta
+$$
+
+for all $k\in\mathbb{N}_0$.
+
+\Corollary{Derivative of a holomorphic function is holomorphic}\label{ee189cf}
+
+Let $U\subseteq\C$ be open. If $f:U\to\C$ is holomorphic, then $f':U\to\C$ is
+holomorphic.
+
+\Theorem{}\label{c056da0}
+
+If $\phi$ is a continuous function on $\{\zeta:|\zeta-P|=r\}$, then the
+function $f$ given by
+$$
+  f(z):=\frac1{2\pi i}\oint_{|\zeta-P|=r}\frac{\phi(\zeta)}{\zeta-z}\,d\zeta
+$$
+
+is defined and holomorphic on $D(P,r)$.
+
+This theorem induces a very strong way to create a holomorphic function.
+Instead of differentiability, we only need a continuous $\phi$ to build a
+holomorphic $f$.
+
+\Theorem{Morera's Theorem}\label{f378992}
+
+Let $U\subseteq\C$ be open. Let $f:U\to\C$ be a continuous function on a
+connected open subset $U$ of $\C$. Suppose that for every closed, piecewise
+$C^1$ curve $\gamma:[0,1]\to U$, with $\gamma(0)=\gamma(1)$, we have
+$$
+  \oint_\gamma f(\zeta)\,d\zeta=0
+$$
+
+Then $f$ is holomorphic on $U$.
+
+\Lemma{}\label{db44655}
+
+The sequence $\{a_k\in\C\}$ converges to a limit if and only if for each
+$\epsilon>0$ there is an $N_0$ such that $j,k\geq N_0$ implies that
+$|a_j-a_k|<\epsilon$.
+
+\Definition{Complex power series}\label{b9a7c59}
+
+Let $P\in\C$ be fixed. A \textit{complex power series} (centered at $P$) is an
+expression of the form
+$$
+  \sum_{k=0}^\infty a_k(z-P)^k
+$$
+
+where $a_k$ for $k=\iter0\infty$ are complex constants.
+
+Note that this power series expansion is only a formal expression. It may or
+may not converge.
+
+A \textit{necessary} condition for $\sum a_k(z-P)^k$ to converge is that
+$a_k(z-P)^k\to0$.
+
+\Lemma{Abel's Theorem}\label{d5d5bdc}
+
+If $\sum_{k=0}^\infty a_k(z-P)^k$ converges at some $z$, then the series
+converges at each $w\in D(P,r)$, where $r=|z-P|$.
+
+\Definition{Radius of convergence of power series}\label{da6e337}
+
+Let $\sum_{k=0}^\infty a_k(z-P)^k$ be a power series. Then
+$$
+  r:=\sup\Set{|w-P|}{\sum_{k=0}^\infty a_k(w-P)^k\text{ converges}}
+$$
+
+is called the \textit{radius of convergence} of the power series. We will call
+$D(P,r)$ the disc of convergence.
+
+\Lemma{}\label{c7d0e1d}
+
+If $\sum_{k=0}^\infty a_k(z-P)^k$ is a power series with radius of convergence
+$r$, then the series converges for each $w\in D(P,r)$ and diverges for each $w$
+such that $|w-P|>r$.
+
+Note that the convergence or divergence question for $|w-P|=r$ is left open.
+
+\Lemma{Computing radius of convergence}\label{a9ba20f}
+
+Using
+$$
+  \ell:\limsup_{k\to+\infty}|a_k|^{1/k},
+$$
+
+the radius of convergence $r$ of the power series $\sum_{k=0}^\infty
+a_k(z-P)^k$ is given by
+\begin{equation*}
+  r=\begin{cases}
+    1/\ell  & \text{if } \ell>0 \\
+    +\infty & \text{if } \ell=0 \\
+  \end{cases}
+\end{equation*}
+
+\Definition{Uniform convergence of complex functions}\label{bba67e4}
+
+A series $\sum_{k=0}^\infty f_k(z)$ of functions $f_k(z)$ converges uniformly
+on a set $E$ to the function $g(z)$ if for each $\epsilon>0$ there is an $N_0$
+such that if $N\geq N_0$, then
+$$
+  \left|g(z)-\sum_{k=0}^N f_k(z)\right|<\epsilon\with{\forall z\in E}
+$$
+
+The point is that $N_0$ does not depend on $z\in E$: There is, for each
+$\epsilon$, an $N_0$ depending on $\epsilon$ (but not on $z$) that works for
+all $z\in E$.
+
+\Definition{Uniformly Cauchy series}\label{bfe260e}
+
+Let $\sum_{k=0}^\infty f_k(z)$ be a series of functions on a set $E$. The
+series is said to be \textit{uniformly Cauchy} if, for any $\epsilon>0$, there
+is a positive integer $N_0$ such that if $m\geq j\geq N_0$, then
+$$
+  \left|\sum_{k=j}^mf_k(z)\right|<\epsilon\with{\forall z\in E}
+$$
+
+If a series is uniformly Cauchy on a set $E$, then it converges uniformly on
+$E$ to some limit function. From this it follows that if $\sum|f_k(z)|$ is
+uniformly convergent, then $\sum f_k(z)$ is uniformly convergent (to some limit
+function).
+
+\Proposition{}\label{ec076c1}
+
+Let $\sum_{k=0}^\infty a_k(z-P)^k$ be a power series with radius of convergence
+$r$. Then, for any number $R$ with $0\leq R<r$, the series
+$\sum_{k=0}^\infty|a_k(z-P)^k|$ \href{bba67e4}{converges uniformly} on
+$\overline D(P,R)$.
+
+In particular, the series $\sum_{k=0}^{+\infty}a_k(z-P)^k$ converges uniformly
+and absolutely on $\overline D(P,R)$.
+
+\Lemma{}\label{ccf2595}
+
+If a power series
+\begin{equation*}
+  \sum_{j=0}^\infty a_j(z-P)^j\Tag{*}
+\end{equation*}
+
+has a radius of convergence $r>0$, then the series defines a $C^\infty$
+function $f(z)$ on $D(P,r)$. The function $f$ is holomorphic on $D(P,r)$. The
+series obtained by termwise differentiation $k$ times of $(*)$,
+$$
+  \sum_{j=k}^\infty\Bigl[j(j-1)\ldots(j-k+1)\Bigr]a_j(z-P)^{j-k}
+$$
+
+converges on $D(P,r)$, and its sum is $[\partial/\partial z]^kf(z)$ for each
+$z\in D(P,r)$.
+
+\Proposition{}\label{ea8c930}
+
+If both series $\sum_{j=0}^\infty a_j(z-P)^j$ and $\sum_{j=0}^\infty
+b_j(z-P)^j$ converge on a disc $D(P,r)$, $r>0$, and if
+$$
+  \sum_{j=0}^\infty a_j(z-P)^j=\sum_{j=0}^\infty b_j(z-P)^j
+$$
+
+on $D(P,r)$, then $a_j=b_j$ for every $j$.
+
+\Theorem{Power series of a holomorphic function}\label{b43209d}
+
+Let $U\subseteq\C$ be open and let $f$ be holomorphic on $U$. Let $P\in U$ and
+suppose that $D(P,r)\subseteq U$. Then the complex power series
+$$
+  \sum_{k=0}^\infty\frac1{k!}\biggl[\frac{\partial^kf}{\partial z^k}(P)\biggr](z-P)^k
+$$
+
+has radius of convergence at least $r$. It converges to $f(z)$ on $D(P,r)$.
+
+\Theorem{The Cauchy estimates}\label{a2d8611}
+
+Let $U\subseteq\C$ be open and $f:U\to\C$ be holomorphic. Let $P\in U$ and
+assume that the closed disc $\overline D(P,r)$, $r>0$, is contained in $U$. Set
+$$
+  M:=\sup_{z\in\overline D(P,r)}|f(z)|.
+$$
+
+Then for $k=1,2,3\ldots$ we have
+$$
+  \left|\frac{\partial^kf}{\partial z^k}(P)\right|\leq\frac{Mk!}{r^k}
+$$
+
+\Lemma{}\label{c2c7fd1}
+
+Let $U\subseteq\C$ be open and connected and $f:U\to\C$ be holomorphic. If
+$\partial f/\partial z=0$ on $U$, then $f$ is constant on $U$.
+
+\begin{proof}
+  Since $f$ is holomorphic, $\partial f/\partial\bar z=0$. But we have assumed
+  that $\partial f/\partial z=0$. Thus $\partial f/\partial x=\partial f/\partial
+  y=0$. So $f$ is constant.
+\end{proof}
+
+\Theorem{Liouville's Theorem}\label{cf6d8a9}
+
+A bounded \href{d508dc8}{entire} function is constant.
+
+\begin{proof}
+  Let $f$ be entire and assume that $|f(z)|\leq M$ for all $z\in\C$. Fix a
+  $P\in\C$ and let $r>0$. We apply the \href{a2d8611}{Cauchy estimate} for $k=1$
+  on $\overline D(P,r)$. The result is
+  $$
+    \left|\frac{\partial f}{\partial z}(P)\right|\leq\frac Mr
+  $$
+
+  Since this inequality holds for all $r>0$, we can blow it up to $+\infty$ and
+  conclude that
+  $$
+    \frac{\partial f}{\partial z}(P)=0
+  $$
+
+  But since $P$ is arbitrary, we conclude that
+  $$
+    \frac{\partial f}{\partial z}\equiv0
+  $$
+
+  By \autoref{c2c7fd1}, the proof is complete.
+\end{proof}
+
+\Theorem{}\label{db4ce28}
+
+If $f:\C\to\C$ is an entire function and if for some real number $C$ and some
+positive integer $k$ it holds that
+$$
+  |f(z)|\leq C|z|^k
+$$
+
+for all $z\in\C$ with $|z|>1$, then $f$ is a polynomial in $z$ of degree at
+most $k$.
+
+\Theorem{}\label{ae3b10d}
+
+Let $p(z)$ be a non-constant (holomorphic) polynomial. Then $p$ has a root.
+That is, there exists an $\alpha\in\C$ such that $p(\alpha)=0$.
+
+This is in fact the fundamental theorem of algebra, and one of the most elegant
+applications of \href{cf6d8a9}{Liouville's Theorem}.
+
+\begin{proof}
+  Suppose there isn't an $\alpha\in\C$ such that $p(\alpha)=0$. Then
+  $$
+    g(z):=\frac1{p(z)}
+  $$
+
+  is entire. Notice that as $|z|\to\infty$, $|p(z)|\to+\infty$. Thus
+  $1/|p(z)|\to0$ as $|z|\to\infty$ and hence $g$ is bounded. By Liouville's
+  Theorem, $g$ is constant; hence $p$ is constant. Contradiction!
+\end{proof}
+
+\Corollary{}\label{cae4be0}
+
+If $p(z)$ is a holomorphic polynomial of degree $k$, then there are $k$ complex
+numbers $\alpha_1,\ldots,\alpha_k$ (not necessarily distinct) and a non-zero
+constant $C$ such that
+$$
+  p(z)=C(z-\alpha_1)\ldots(z-\alpha_k)
+$$
+
+\Theorem{}\label{c4e6d08}
+
+Let $U\subseteq\C$ be an open set. Let $f_j:U\to\C$, $j=1,2,3\ldots$ be a
+sequence of holomorphic functions. Suppose that there is a function $f:U\to\C$
+such that, for each compact subset $E$ of $U$, the sequence $f_j|_E$ converges
+uniformly to $f|_E$. Then $f$ is holomorphic on $U$. (In particular, $f\in
+C^\infty(U)$)
+
+\Corollary{}\label{f5163f1}
+
+If $f_j,f,U$ are as defined in \autoref{c4e6d08}, then for any integer
+$k\in\{0,1,2\ldots\}$ we have
+$$
+  \left(\frac\partial{\partial z}\right)^kf_j(z)\to\left(\frac\partial{\partial z}\right)^kf(z)
+$$
+
+uniformly on compact sets.
+
+\Theorem{}\label{bdc2857}
+
+Let $U\subseteq\C$ be a connected open set and let $f:U\to\C$ be holomorphic.
+Let $\mathbf Z:=\Set{z\in U}{f(z)=0}$. If there is a $z_0\in\mathbf Z$ and a
+sequence $\{z_j\}\subseteq\mathbf Z\sans{z_0}$ such that $z_j\to z_0$, then
+$f\equiv0$.
+
+\Corollary{}\label{b919101}
+
+Let $U\subseteq\C$ be connected and open, and $D(P,r)\subseteq U$ . If $f$ is
+holomorphic on $U$ and $f|_{D(P,r)}\equiv0$, then $f\equiv0$ on $U$.
+
+Note the strength of this statement. As long as $f$ is holomorphic, if it's
+zero on just a tiny $D(P,r)$, then it is zero on the entire domain.
+
+\Corollary{}\label{ac6f6ea}
+
+Let $U\subseteq\C$ be connected and open. Let $f,g$ be holomorphic on $U$. If
+$\Set{z\in U}{f(z)=g(z)}$ has an \href{b0219cd}{accumulation point} in $U$,
+then $f\equiv g$.
+
+\Corollary{}\label{faf57f7}
+
+Let $U\subseteq\C$ be connected and open and let $f,g$ be holomorphic on $U$.
+If $f\cdot g\equiv0$ on $U$, then either $f\equiv0$ on $U$ or $g\equiv0$ on
+$U$.
+
+\Corollary{}\label{dccfe6b}
+
+Let $U\subseteq\C$ be connected and open and let $f$ be holomorphic on $U$. If
+there is a $P\in U$ such that
+$$
+  \left(\frac\partial{\partial z}\right)^jf(P)=0
+$$
+
+for every $j$, then $f\equiv0$.
+
+\Corollary{}\label{bd8ae3b}
+
+If $f$ and $g$ are entire holomorphic functions and if $f(x)=g(x)$ for all
+$x\in\R\subseteq\C$, then $f\equiv g$.
+
+\Definition{Types of singularities}\label{a7f062e}
+
+Let $U\subseteq\C$ be open and $P\in U$. Suppose that $f:U\sans P\to\C$ is
+holomorphic.
+
+There are three possibilities for the behavior of $f$ near $P$:
+\begin{enumerati}
+  \item \textit{(Removable singularity)} $|f(z)|$ is bounded on $D(P,r)\sans{P}$
+  for some $r>0$ with $D(P,r)\subseteq U$.
+  \item \textit{(Pole)} $\lim_{z\to P}|f(z)|=+\infty$.
+  \item \textit{(Essential singularity)} Neither (i) nor (ii) applies.
+\end{enumerati}
+
+\Theorem{The Riemann removable singularities theorem}\label{f42a663}
+
+Let $f:D(P,r)\sans P\to\C$ be holomorphic and bounded. Then
+\begin{enumerata}
+  \item $\lim_{z\to P}f(z)$ exists
+  \item the function $\hat f:D(P,r)\to\C$ defined by
+  $$
+    \hat f(z)=\begin{cases}
+      f(z)                                   & \text{if }z\neq P \\
+      \displaystyle\lim_{\zeta\to P}f(\zeta) & \text{if }z=P
+    \end{cases}
+  $$
+
+  is holomorphic
+\end{enumerata}
+
+Notice that, a priori, it is not even clear that $\lim_{z\to P}f(z)$ exists,
+or, even if it does, that the function $\hat f$ has any regularity at $P$
+beyond just continuity.
+
+\Theorem{Casorati-Weierstrass}\label{da8365b}
+
+If $f:D(P,r_0)\sans P\to\C$ is holomorphic and $P$ is an essential singularity
+of $f$, then $f(D(P,r)\sans P)$ is \href{e14819a}{dense} in $\C$ for any
+$0<r<r_0$.
+
+\Definition{Laurent series}\label{cb20929}
+
+A Laurent series on $D(P,r)$ is a (formal) expression of the form
+$$
+  \sum_{j=-\infty}^{+\infty} a_j(z-P)^j
+$$
+
+where $j$ are integer indices.
+
+We say that the infinite series $\sum_{j=-\infty}^{+\infty}\alpha_j$ converges
+if $\sum_{j=0}^{+\infty}\alpha_j$ and $\sum_{j=1}^{+\infty}\alpha_{-j}$
+converge. In this case, we set
+$$
+  \sum_{j=-\infty}^{+\infty}\alpha_j=
+  \biggl(\sum_{j=0}^{+\infty}\alpha_j\biggr)+
+  \biggl(\sum_{j=1}^{+\infty}\alpha_{-j}\biggr)
+$$
+
+This doubly infinite series converges to a complex number $\sigma$ if and only
+if for each $\epsilon>0$ there is an $N>0$ such that if $\ell\geq N$ and $k\geq
+N$, then $|\sigma-\sum_{j=-k}^\ell\alpha_j|<\epsilon$.
+
+It is important to realize that $\ell$ and $k$ are independent here. In
+particular, the existence of the limit
+$\lim_{k\to+\infty}\sum_{j=-k}^{+k}\alpha_j$ does not imply in general that
+$\sum_{j=-\infty}^{+\infty}\alpha_j$ converges.
+% though as I'm writing this I have no idea why Greene would claim this.
+% Apparently it's only clear in an Exercise.
+
+\Lemma{}\label{d5253d9}
+
+This is the analogue for Laurent series for \autoref{d5d5bdc}.
+
+If $\sum_{j=-\infty}^{+\infty}a_j(z-P)^j$ converges at $z_1\neq P$ and at
+$z_2\neq P$ and if $|z_1-P|<|z_2-P|$, then the series converges for all $z$
+with $|z_1-P|<|z-P|<|z_2-P|$.
+
+\Lemma{}\label{a9a7710}
+
+This is the analogue for Laurent series for \autoref{c7d0e1d}. Let
+$$
+  \sum_{j=-\infty}^{+\infty}a_j(z-P)^j
+$$
+
+converge at (at least) one point $z_0$. There are unique non-negative numbers
+$r_1$ and $r_2$ ($r_1$ or $r_2$ may be $+\infty$) such that the series
+converges absolutely for all $z$ with
+$$
+  r_1<|z-P|<r_2
+$$
+
+and diverges for all $z$ with
+$$
+  |z-P|<r_1\quad\text{or}\quad r_2<|z-P|
+$$
+
+\Proposition{Uniqueness of Laurent expansion}\label{eafd61e}
+
+Let $0\leq r_1<r_2\leq\infty$. If the Laurent series
+$\sum_{j=-\infty}^{+\infty}a_j(z-P)^j$ converges on $D(P,r_2)\setminus\overline
+D(P,r_1)$ to a function $f$, then, for any $r\in(r_1,r_2)$ and each $j\in\Z$,
+we have
+$$
+  a_j=\frac1{2\pi i}\oint_{|\zeta-P|=r}\frac{f(\zeta)}{(\zeta-P)^{j+1}}\,d\zeta
+$$
+
+In particular, the $a_j$'s are uniquely determined by $f$.
+
+\Theorem{The Cauchy integral formula for an annulus}\label{ca5d89e}
+
+This references the \href{e50677f}{Cauchy integral formula}.
+
+Suppose that $0\leq r_1<r_2\leq+\infty$ and that $f:D(P,r_2)\setminus\overline
+D(P,r_1)\to\C$ is holomorphic. Then, for each $s_1,s_2$ such that
+$r_1<s_1<s_2<r_2$ and each $z\in D(P,s_2)\setminus\overline D(P,s_1)$, it holds
+that
+$$
+  f(z)=\frac1{2\pi i}\oint_{|\zeta-P|=s_2}\frac{f(\zeta)}{\zeta-z}\,d\zeta
+  -\frac1{2\pi i}\oint_{|\zeta-P|=s_1}\frac{f(\zeta)}{\zeta-z}\,d\zeta
+$$
+
+\Theorem{The existence of Laurent expansions}\label{cd93e84}
+
+If $0\leq r_1<r_2\leq+\infty$ and $f:D(P,r_2)\setminus\overline D(P,r_1)\to\C$
+is holomorphic, then there exist complex numbers $a_j$ such that
+$$
+  \sum_{j=-\infty}^{+\infty}a_j(z-P)^j
+$$
+
+converges on $D(P,r_2)\setminus\overline D(P,r_1)$ to $f$. If
+$r_1<s_1<s_2<r_2$, then the series converges absolutely and uniformly on
+$D(P,s_2)\setminus\overline D(P,s_1)$.
+
+\Proposition{Laurent expansion of holomorphic functions}\label{e7fa5f8}
+
+If $f:D(P,r)\sans P\to\C$ is holomorphic, then $f$ has a unique Laurent series
+expansion.
+$$
+  f(z)=\sum_{j=-\infty}^{+\infty}a_j(z-P)^j
+$$
+
+which converges absolutely for $z\in D(P,r)\sans P$. The convergence is uniform
+on compact subsets of $D(P,r)\sans P$. The coefficients are given by
+$$
+  a_j=\frac1{2\pi i}\oint_{\partial D(P,s)}\frac{f(\zeta)}{(\zeta-P)^{j+1}}\,d\zeta
+$$
+
+for any $0<s<r$.
+
+There are three mutually exclusive possibilities for the Laurent series of this
+proposition:
+\begin{enumerati}
+  \item $a_j=0$ for all $j<0$;
+  \item for some $k>0$, $a_j=0$ for all $-\infty<j<-k$
+  \item neither (i) nor (ii) applies
+\end{enumerati}
+
+These three cases correspond exactly to the \href{a7f062e}{three types of
+isolated singularities}: (i) $\iff P$ is a removable singularity; (ii) $\iff P$
+is a pole; (iii) $\iff P$ is an essential singularity.
+
+\Proposition{}\label{c1d2d0c}
+
+Let $f$ be holomorphic on $D(P,r)\sans P$ and suppose that $f$ has a pole of
+order $k$ at $P$. Then the Laurent series coefficients $a_j$ of $f$ expanded
+about $P$, for $j=-k,-k+1,-k+2\ldots$, are given by the formula
+$$
+  a_j=\frac1{(k+j)!}\left(\frac\partial{\partial z}\right)^{k+j}
+  \bigl((z-P)^k\cdot f\bigr)\Bigg|_{z=P}
+$$
+
+\Definition{Holomorphically simply connected (HSC)}\label{d20898f}
+
+An open set $U\subseteq\C$ is holomorphically simply connected if $U$ is
+connected and if, for each holomorphic function $f:U\to\C$, there is a
+holomorphic function $F:U\to\C$ such that $F'\equiv f$.
+
+\Lemma{}\label{f3a867e}
+
+A connected open set $U$ is holomorphically simply connected if and only if for
+each holomorphic function $f:U\to\C$ and each piecewise $C^1$ closed curve
+$\gamma$ in $U$,
+$$
+  \oint_\gamma f(z)\,dz=0.
+$$
+
+\Definition{Residue of a function at a point}\label{ea3ff58}
+
+The \textbf{residue} of a function $f$ at point $P$ is denoted by $\Res_f(P)$,
+and is the coefficient of $(z-P)^{-1}$ in the \href{e7fa5f8}{Laurent expansion}
+of $f$ about $P$.
+
+In particular, if $f$ is holomorphic, then $\Res_f(P)$ is given by
+$$
+  \Res_f(P)=\frac1{2\pi i}\oint_\gamma f(\zeta)\,d\zeta
+$$
+
+where $\gamma$ is a counterclockwise simply closed curve around $P$ and not
+including any other singularities inside the curve.
+
+\Theorem{Residue theorem}\label{e1efb5a}
+
+Suppose that $U\subseteq\C$ is a \href{d20898f}{HSC} open set, and that
+$\iter{P_1}{P_n}$ are distinct points of $U$. Suppose that
+$f:U\sans{\iter{P_1}{P_n}}\to\C$ is a holomorphic function and $\gamma$ is a
+closed, piecewise $C^1$ curve in $U\sans{\iter{P_1}{P_n}}$.
+
+Set $R_j$ to be the coefficient of $(z-P_j)^{-1}$ in the Laurent expansion of
+$f$ about $P_j$.
+
+Then
+$$
+  \oint_\gamma f(z)\,dz=\sum_{j=1}^nR_j\cdot\left(\oint_\gamma\frac1{\zeta-P_j}\,d\zeta\right)
+$$
+
+Using the notation of \href{ea3ff58}{$\Res_f$} and
+\href{bfdcc82}{$\Ind_\gamma$}, we can rewrite this as
+$$
+  \oint_\gamma f(z)\,dz=2\pi i\sum_{j=1}^n\Res_f(P_j)\cdot\Ind_\gamma(P_j)
+$$
+
+\Definition{Index of a curve}\label{bfdcc82}
+
+Let $\gamma:[a,b]\to\C$ be a piecewise $C^1$ closed curve. Suppose
+$P\notin\gamma([a,b])$. Then the \textbf{index} of $\gamma$ with respect to
+$P$, is defined as
+$$
+  \Ind_\gamma(P):=\frac1{2\pi i}\oint_\gamma\frac1{\zeta-P}\,d\zeta
+$$
+
+The index is also sometimes called the ``winding number of $\gamma$ about $P$".
+As we will see later, $\Ind_\gamma(P)$ coincides with the number of times
+$\gamma$ winds about $P$, counting orientation.
+
+\Lemma{Index of a curve is an integer}\label{ff34baf}
+
+Let $\gamma:[a,b]\to\C$ be a piecewise $C^1$ closed curve. Suppose $P$ is a
+point not on the image of that curve, then
+$$
+  \frac1{2\pi i}\oint_\gamma\frac1{\zeta-P}\,d\zeta
+  \equiv
+  \frac1{2\pi i}\int_a^b\frac{\gamma'(t)}{\gamma(t)-P}\,dt
+$$
+
+is an integer.
+
+\Proposition{}\label{a264ecd}
+
+Let $f$ be a function with a pole of order $k$ at $P$. Then
+$$
+  \Res_f(P)=\frac1{(k-1)!}\left(\frac\partial{\partial z}\right)^{k-1}
+  \Bigl((z-P)^kf(z)\Bigr)\Bigg|_{z=P}
+$$
+
+\begin{proof}
+  This is the case $j=-1$ of \autoref{c1d2d0c}.
+\end{proof}
+
+\Definition{Discrete sets}\label{d1b9ae6}
+
+A set $S\in\C$ is discrete if and only if for each $z\in S$ there is a positive
+number $r$ (depending on $S$ and $z$) such that
+$$
+  S\cap D(z,r)=\{z\}
+$$
+
+We also say in this circumstance that $S$ consists of isolated points.
+
+\Definition{Meromorphic functions}\label{cfba843}
+
+A meromorphic function $f$ on an open set $U\subseteq\C$ with singular (as in
+``singularity") set $S$ is a function $f:U\setminus S\to\C$ such that
+\begin{enumerata}
+  \item the set $S$ is closed in $U$ and is \href{d1b9ae6}{discrete},
+  \item the function $f$ is holomorphic on $U\setminus S$ (note that
+        $U\setminus S$ is necessarily open in $\C$),
+  \item for each $z\in S$ and $r>0$ such that $D(z,r)\subseteq U$ and $S\cap
+        D(z,r)=\{z\}$, the function
+  $$
+    f|_{D(z,r)\sans z}
+  $$
+
+  has a (finite order) pole at $z$.
+\end{enumerata}
+
+\Lemma{Reciprocal of a holomorphy with zeros is meromorphic}\label{e672e2a}
+
+Let $U\subseteq\C$ be connected and open, and let $f:U\to\C$ be a holomorphic
+function with $f\not\equiv0$, then the function
+$$
+  F:U\setminus\Set{z}{f(z)=0}\to\C
+$$
+
+defined by $F(z)=1/f(z)$, is a meromorphic function on $U$ with singular set
+(or pole set) equal to $\Set{z\in U}{f(z)=0}$.
+
+\Definition{}\label{f4cee1f}
+
+Let $U\subseteq\C$ be open, and let $f:U\to\C$ be a holomorphic function.
+Suppose that for some $R>0$, we have $\set{z\in U}{|z|>R}\subseteq U$. Define
+$G:\set{z\in U}{0<|z|<1/R}\to\C$ by $G(z)=f(1/z)$. Then we say that
+\begin{enumerati}
+  \item $f$ has a removable singularity at $\infty$ if $G$ has a removable
+  singularity at $0$.
+  \item $f$ has a pole at $\infty$ if $G$ has a pole at $0$.
+  \item $f$ has an essential singularity at $\infty$ if $G$ has an essential
+  singularity at $0$.
+\end{enumerati}
+
+\Remark{Singularities and Laurent Expansions}\label{eb529b9}
+
+Building on \autoref{f4cee1f}, let the Laurent expansion of $G$ around $0$ be
+$$
+  G(z)=\sum_{-\infty}^{+\infty}a_nz^n
+$$
+
+Then we have the \textit{Laurent expansion of $f$ around $\infty$} as
+$$
+  f(z)=G(\tfrac1z)=\sum_{-\infty}^{+\infty}a_{-n}z^n
+$$
+
+\begin{enumerati}
+  \item $f$ has a removable singularity at $\infty$ if and only if the Laurent
+  series has no positive powers of $z$ with non-zero coefficients:
+  $$
+    f(z)=\biggl(\sum_{-\infty}^0a_{-n}z^n\biggr)+0z+0z^2+\ldots
+  $$
+  \item $f$ has a pole at $\infty$ if and only if the series has only a finite
+  number of positive powers of $z$ with non-zero coefficients.
+  \item $f$ has an essential singularity at $\infty $ if and only if the series
+  has infinitely many positive powers.
+\end{enumerati}
+
+\Theorem{}\label{cabe102}
+
+Suppose that $f:\C\to\C$ is an entire function. Then
+$\lim_{|z|\to\infty}|f(z)|=+\infty$ (i.e. $f$ has a pole at $\infty$) if and
+only if $f$ is a non-constant polynomial.
+
+Then function $f$ has a removable singularity at $\infty$ if and only if $f$ is
+a constant.
+
+\Definition{}\label{e315122}
+
+Suppose that $f$ is a meromorphic function defined on an open set
+$U\subseteq\C$ such that, for some $R>0$, we have $\set{z\in U}{|z|>R}\subseteq
+U$. We say that $f$ is meromorphic at $\infty$ if the function $G(z)\equiv
+f(1/z)$ is meromorphic in the usual sense on $\set{z}{|z|<1/R}$.
+
+\Theorem{}\label{d0f6c9d}
+
+A meromorphic function $f$ on $\C$ which is also meromorphic at $\infty$ must
+be a rational function (i.e. a quotient of polynomials in $z$). Conversely,
+every rational function is meromorphic on $\C$ and at $\infty$.
+
+\paragraph{Remark}
+
+It is conventional to rephrase the theorem by saying that the only functions
+that are meromorphic in the ``extended plane" are rational functions.
+
+\Lemma{}\label{bfaa6bf}
+
+If $f$ is holomorphic on a neighborhood of a disc $\overline D(z_0,r)$ and has
+a zero of order $n$ at $z_0$ and no other zeros in the closed disc, then
+$$
+  \frac1{2\pi i}\oint_{\partial D(z_0,r)}\frac{f'(\zeta)}{f(\zeta)}\,d\zeta=n
+$$
+
+% page 160(179 on PDF) of chapter 5, (*) is a result of recursion on Lemma 5^1^1
+
+\Proposition{}\label{fb7bf08}
+
+Suppose that $f:U\to\C$ is holomorphic on an open set $U\subseteq\C$ and that
+$\overline D(P,r)\subseteq U$. Suppose that $f$ is non-vanishing on $\partial
+D(P,r)$ and that $\iter{z_1}{z_k}$ are the zeros of $f$ in the interior of the
+disc. Let $n_\ell$ be the order of the zero of $f$ at $z_\ell$. Then
+$$
+  \frac1{2\pi i}\oint_{|\zeta-P|=r}\frac{f'(\zeta)}{f(\zeta)}\,d\zeta=\sum_{\ell=1}^kn_\ell
+$$
+
+% add this proof from the textbook by Greene.
+
+\Lemma{}\label{fb96cf1}
+
+This is the analogue of \autoref{bfaa6bf} for a pole.
+
+If $f:U\sans Q\to\C$ is a nowhere zero holomorphic function on $U\sans Q$ with
+a pole of order $n$ at $Q$ and $\overline D(Q,r)\subseteq U$, then
+$$
+  \frac1{2\pi i}\oint_{\partial D(Q,r)}\frac{f'(\zeta)}{f(\zeta)}\,d\zeta=-n
+$$
+
+\Theorem{Argument principle for meromorphic functions}\label{b8c772b}
+
+This is \autoref{bfaa6bf} and \autoref{fb96cf1} put together.
+
+Suppose $f$ is a meromorphic function on an open set $U\subseteq\C$, that
+$\overline D(P,r)\subseteq U$ and that $f$ has neither poles nor zeros on
+$\partial D(P,r)$. Then
+$$
+  \frac1{2\pi i}\oint_{\partial D(P,r)}\frac{f'(\zeta)}{f(\zeta)}\,d\zeta=
+  \sum_{j=1}^pn_j-\sum_{k=1}^pm_k
+$$
+
+where $\iter{n_1}{n_p}$ are the multiplicities of the zeros $\iter{z_1}{z_p}$
+of $f$ in $D(P,r)$, and $\iter{m_1}{m_p}$ are the orders of the poles
+$\iter{w_1}{w_p}$ of $f$ in $D(P,r)$.
+
+\Theorem{The open mapping theorem}\label{e5ecb18}
+
+If $f:U\to\C$ is a non-constant holomorphic function on a connected open set
+$U$, then $f(U)$ is an open set in $\C$.
+
+\Theorem{}\label{a98fb27}
+
+Suppose that $f:U\to\C$ is a non-constant holomorphic function on a connected
+open set $U$ such that $P\in U$ and $f(P)=Q$ with order $k$. Then there are
+numbers $\delta,\epsilon>0$ such that each $q\in D(Q,\epsilon)\sans Q$ has
+exactly $k$ distinct preimages in $D(P,\delta)$ and each preimage a simple
+point of $f$.
+
+\Lemma{}\label{ab74e2a}
+
+Let $f:U\to\C$ be a non-constant holomorphic function on a connected open set
+$U\subseteq\C$. Then the multiple points of $f$ in $U$ are isolated.
+
+\begin{proof}
+  Since $f$ is non-constant, the holomorphic function $f'$ is not identically
+  zero. But then \autoref{bdc2857} tells us that the zeros of $f'$
+  are isolated. Since any multiple point $p$ of $f$ has the property that
+  $f'(p)=0$, it follows that the multiple points are isolated.
+\end{proof}
+
+\Theorem{Rouché's Theorem}\label{bf9c04f}
+
+Suppose that $f,g:U\to\C$ are holomorphic functions on an open set
+$U\subseteq\C$. Suppose also that $\overline D(P,r)\subseteq U$ and that, for
+each $\zeta\in\partial D(P,r)$,
+\begin{equation*}
+  |f(\zeta)-g(\zeta)|<|f(\zeta)|+|g(\zeta)|\Tag{*}
+\end{equation*}
+
+Then
+$$
+  \frac1{2\pi i}\oint_{\partial D(P,r)}\frac{f'(\zeta)}{f(\zeta)}\,d\zeta
+  =\frac1{2\pi i}\oint_{\partial D(P,r)}\frac{g'(\zeta)}{g(\zeta)}\,d\zeta
+$$
+
+That is, the number of zeros of $f$ in $D(P,r)$ counting multiplicities equals
+the number of zeros of $g$ in $D(P,r)$ counting multiplicities.
+
+\paragraph{Remark}
+
+Note that the inequality $(*)$ implies that neither $f(\zeta)$ nor $g(\zeta)$
+can vanish on $\partial D(P,r)$. In particular, neither $f$ nor $g$ vanishes
+identically; moreover, the integral of $f'/f$ and $g'/g$ are defined on
+$\partial D(P,r)$.
+
+\Theorem{Hurwitz's Theorem}\label{a821cfc}
+
+Suppose that $U\subseteq\C$ is a connected open set and that $\{f_j\}$ is a
+sequence of nowhere vanishing holomorphic functions on $U$. If the sequence
+$\{f_j\}$ converges uniformly on compact subsets of $U$ to a (necessarily
+holomorphic) limit function $f$, then either $f$ is nowhere vanishing or
+$f\equiv0$.
+
+\Definition{Domains}\label{f2be1bc}
+
+A \textit{domain} in $\C$ is a connected open set. A \textit{bounded domain} is
+a connected open set $U$ such that there is an $R>0$ with $|z|<R$ for all $z\in
+U$.
+
+\Theorem{The maximum modulus principle}\label{bfc4e84}
+
+Let $U\subseteq\C$ be a \href{f2be1bc}{domain}. Let $f$ be a holomorphic
+function on $U$. If there is a point $P\in U$ such that $|f(z)|\leq |f(P)|$ for
+all $z\in U$, then $f$ is constant.
+
+\begin{proof}
+  Assume that there is such a $P$. If $f$ is not constant, then $f(U)$ is open
+  by the \href{e5ecb18}{open mapping principle}. Hence there are points $\zeta$
+  of $f(U)$ with $|f(P)|<|\zeta|$. This is a contradiction. Hence $f$ is
+  constant.
+\end{proof}
+
+\Corollary{Maximum modulus theorem}\label{befe6f9}
+
+Let $U\subseteq\C$ be a \href{f2be1bc}{bounded domain}. Let $f$ be a continuous
+function on $\overline U$ that is holomorphic on $U$. Then the maximum value of
+$|f|$ on $\overline U$ (which must occur, since $\overline U$ is closed and
+bounded) must occur on $\partial U$.
+
+\begin{proof}
+  Since $|f|$ is a continuous function on the compact set $\overline U$, then it
+  must attain its maximum somewhere.
+
+  If $f$ is constant, then the maximum value of $|f|$ occurs at every point, in
+  which case the conclusion clearly holds. If $f$ is not constant, then the
+  maximum value of $|f|$ on the compact set $\overline U$ cannot occur at $P\in
+  U$, by \autoref{bfc4e84}, and hence the maximum occurs on $\partial U$.
+\end{proof}
+
+\Theorem{Maximum modulus theorem, alt}\label{c3c0370}
+
+Let $U\subseteq\C$ be a domain and let $f$ be a holomorphic function on $U$. if
+there is a point $P\in U$ at which $|f|$ has a local maximum, then $f$ is
+constant.
+
+\Theorem{}\label{dc80ded}
+
+Let $f$ be holomorphic on a \href{f2be1bc}{domain} $U\subseteq\C$. Assume that
+$f$ never vanishes. If there is a point $P\in U$ such that $|f(P)|\leq |f(z)|$
+for all $z\in U$, then $f$ is constant.
+
+\begin{proof}
+  Apply the \href{bfc4e84}{maximum modulus principle} to the function
+  $g(z)=1/f(z)$.
+\end{proof}
+
+\Proposition{Schwarz's Lemma}\label{f0c9fe2}
+
+Let $f$ be holomorphic on the unit disc. Assume that
+\begin{enumerate}
+  \item $|f(z)|\leq1$ for all $z$,
+  \item $f(0)=0$.
+\end{enumerate}
+
+Then $|f(z)|\leq|z|$ and $f'(0)\leq1$.
+
+If either $|f(z)|=|z|$ for some $z\neq0$ or if $|f'(0)|=1$, then $f$ is a
+rotation: $f(z)\equiv\alpha z$ for some complex constant $\alpha$ of unit
+modulus.
+
+\Theorem{Schwarz-Pick}\label{a244534}
+
+Let $f$ be holomorphic on the unit disc with $|f(z)|\leq1$ for all $z\in
+D(0,1)$. Then, for any $a\in D(0,1)$ and with $b\equiv f(a)$, we have the
+estimate
+$$
+  |f'(a)|\leq\frac{1-|b|^2}{1-|a|^2}
+$$
+
+Moreover, if $f(a_1)=b_1$ and $f(a_2)=b_2$, then
+$$
+  \left|\frac{b_2-b_1}{1-\bar b_1b_2}\right|
+  \leq
+  \left|\frac{a_2-a_1}{1-\bar a_1a_2}\right|
+$$
+
+\Definition{Conformal/biholomorphic maps}\label{bbb1df0}
+
+Let $U,V$ be open subsets of $\C$. Let $f:U\to V$ be holomorphic and bijective.
+Such a function $f$ is called a \textit{conformal} or \textit{biholomorphic}
+mapping. $h^{-1}:V\to U$ is necessarily holomorphic.
+
+% Refer to the opening remark of chapter 6 of the textbook
+
+\Definition{Conformal equivalence}\label{ee69976}
+
+Let $U,V\subseteq\C$. We say that $U,V$ are conformally equivalent if there
+exists a \href{bbb1df0}{conformal mapping} $f$ from $U$ to $V$.
+
+\Theorem{}\label{f15ad67}
+
+A function $f:\C\to\C$ is a conformal mapping if and only if there are complex
+numbers $a,b$ with $a\neq0$ such that
+$$
+  f(z)=az+b,\with{z\in\C}
+$$
+
+\Lemma{}\label{af84ffc}
+
+The holomorphic function $f$ satisfies
+$$
+  \lim_{|z|\to\infty}|f(z)|=\infty
+$$
+
+That is, given $\epsilon>0$, there is a number $C>0$ sudh that if $|z|>C$, then
+$|f(z)|>1/\epsilon$.
+
+\Lemma{}\label{f4e6690}
+
+There are numbers $B,D>0$ such that if $|z|>D$, then
+$$
+  |f(z)|<B|z|
+$$
+
+\Lemma{}\label{beabf8e}
+
+A holomorphic function $f:D\to D$ that satisfies $f(0)=0$ is a conformal
+mapping of $D$ onto itself if and only if there is a complex number $\omega$
+with $|\omega|=1$ such that
+$$
+  f(z)\equiv\omega z,\with{\forall z\in D}
+$$
+
+In other words, a conformal self-map of the disc that fixes the origin must be
+a rotation.
+
+\Lemma{Construction of Möbius transformation}\label{e315936}
+
+For $a\in\C$ with $|a|<1$, we define
+$$
+  \phi_a(z):=\frac{z-a}{1-\bar az}
+$$
+
+Then each $\phi_a$ is a conformal self-map of the unit disc.
+
+\Theorem{}\label{a05afc4}
+
+Let $f:D\to D$ be a holomorphic function. Then $f$ is a conformal self-map of
+$D$ if and only if there are complex numbers $a,\omega$ with $|\omega|=1$,
+$|a|<1$ such that for all $z\in D$,
+$$
+  f(z)=\omega\cdot\phi_a(z)
+$$
+
+\Definition{Linear fractional transformations}\label{d5af314}
+
+A function of the form
+$$
+  z\mapsto\frac{az+b}{cz+d},\with{ad-bc\neq0}
+$$
+
+is called a \textit{linear fractional transformation}.
+
+\Definition{Linear fractional transformations over the extended plane}\label{f46e597}
+
+A function $f:\CX\to\CX$ is a linear fractional transformation if there exist
+$a,b,c,d\in\C$, $ad-bc\neq0$, such that either
+\begin{enumerati}
+  \item $c=0$, $f(\infty)=\infty$, and $f(z)=(a/d)z+(b/d)$ for all $z\in\C$
+  \item $c\neq0$, $f(\infty)=a/c$, $f(-d/c)=\infty$, and $f(z)=(az+b)/(cz+d)$
+  for all $z\in\C,z\neq-d/c$
+\end{enumerati}
+
+\Definition{}\label{a2b8117}
+
+A sequence $\{p_k\}$ in $\CX$ converges to $p\in\CX$ if either
+\begin{enumerate}
+  \item $p=\infty$ and $\lim_{k\to+\infty}|p_k|=+\infty$ where the limit in this
+        expression is taken for all $k$ such that $p_k\in\C$; or
+  \item $p\in\C$, all but a finite number of the $p_k$ are in $\C$, and
+        $\lim_{k\to+\infty}|p_k|=p$ in the usual sense of convergence in $\C$.
+\end{enumerate}
+
+\Theorem{}\label{e521731}
+
+If $f:\CX\to\CX$ is a \href{f46e597}{linear fractional transformation}, then
+$f$ is a bijective continuous function. Its inverse is also a linear fractional
+transformation.
+
+\Theorem{}\label{a7b9b92}
+
+A function $\phi$ is a conformal self-mapping of $\CX$ to itself if and only if
+$\phi$ is linear fractional.
+
+\Theorem{The inverse Cayley transform}\label{f17d4d9}
+
+The \href{f46e597}{linear fractional transformation} $z\mapsto (z-i)/(z+i)$
+maps the upper half plane $\set z{\Im z>0}$ conformally to the unit disc
+$D=\set{z}{|z|<1}$.
+
+\Theorem{}\label{d07b1b4}
+
+Let $\mathcal C$ be the set of subsets of $\CX$ consisting of \textbf{(i)}
+circles and \textbf{(ii)} sets of the form $L\cup\{\infty\}$ where $L$ is a
+line in $\C$. Then every \href{f46e597}{linear fractional transformation}
+$\phi$ takes elements of $\mathcal C$ to elements of $\mathcal C$.
+
+Sets consisting of $L\cup\{\infty\}$ are thought of as ``generalized circles".
+Thus the theorem says that linear fractional transformations take circles to
+circles, in the generalized sense of the word.
+
+\Definition{Homeomorphisms}\label{c429605}
+
+Two open sets $U$ and $V$ in $\C$ are \textit{homeomorphic} if there is a
+bijective continuous function $f:U\to V$ with $f^{-1}:V\to U$ also continuous.
+Such a function $f$ is called a \textit{homeomorphism} from $U$ to $V$.
+
+\Theorem{Riemann mapping theorem}\label{faf0cb5}
+
+If $U\subsetneq\C$ is open, and $U$ is homeomorphic to $D$, then $U$ is
+conformally equivalent to the unit disc $D$.
+
+\Definition{}\label{fe96ff9}
+
+A sequence of functions $f_j$ on an open set $U\subseteq\C$ is said to converge
+normally to a limit function $f$ on $U$ if $\{f_j\}$ converges to $f$ uniformly
+on compact subsets of $U$.
+
+That is, convergence is normal if for each compact set $K\subseteq U$ and each
+$\epsilon>0$, there is a $J>0$ (depending on $K$ and $\epsilon$) such that
+$$
+  j\geq J\implies|f_j(z)-f(z)|<\epsilon\with{\forall z\in K}
+$$
+
+\Theorem{Montel's theorem, first version}\label{b4a14fe}
+
+Let $\mathcal F=\{f_\alpha\}_{\alpha\in A}$ be a family of holomorphic
+functions on an open set $U\subseteq\C$. Suppose that there is a constant $M>0$
+such that, for all $z\in U$, and all $f_\alpha\in\mathcal F$,
+$$
+  |f_\alpha(z)|\leq M
+$$
+
+Then, for every sequence $\{f_j\}\subseteq\mathcal F$, there is a subsequence
+$\{f_{j_k}\}$ the converges normally on $U$ to a limit (holomorphic) function
+$f$.
+
+\Definition{}\label{f152035}
+
+Let $\mathcal F$ be a family of functions on an open set $U\subseteq\C$. We say
+that $\mathcal F$ is \textit{bounded on compact sets} if for each compact set
+$K\subseteq U$ there is a constant $M=M_K$ such that, for all $f\in\mathcal F$
+and all $z\in K$,
+$$
+  |f(z)|\leq M
+$$
+
+\Theorem{Montel's theorem, second version}\label{ad5126c}
+
+Let $U\subseteq\C$ be an open set and let $\mathcal F$ be a family of
+holomorphic functions on $U$ that is bounded on compact sets. Then for every
+sequence $\{f_j\}\subseteq\mathcal F$ there is a subsequence $\{f_{j_k}\}$ that
+converges normally on $U$ to a limit (necessarily holomorphic) function $f$.
+
+\Proposition{}\label{e7d014b}
+
+Let $U\subseteq\C$ be any open set. Fix a point $P\in U$. Let $\mathcal F$ be a
+family of holomorphic functions from $U$ into the unit disc $D$ that take $P$
+to $0$. Then there is a holomorphic function $f_0:U\to D$ that is the normal
+limit of a sequence $\{f_j\}$, $f_j\in\mathcal F$, such that
+$$
+  |f_0'(P)|\geq|f'(P)|,\with{\forall f\in\mathcal F}
+$$
+
+\Theorem{Riemann mapping theorem: analytic form}\label{bd0fcb9}
+
+If $U$ is a \href{d20898f}{HSC} open set in $\C$, and $U\neq\C$, then $U$ is
+\href{ee69976}{conformally equivalent} to the unit disc.
+
+\Lemma{The holomorphic logarithm lemma}\label{f18ba82}
+
+Let $U$ be a \href{d20898f}{HSC} open set. If $f:U\to\C$ is holomorphic and
+nowhere zero on $U$, then there exists a holomorphic function $h$ on $U$ such
+that
+$$
+  e^h\equiv f\with{\text{on $U$}}
+$$
+
+\Corollary{}\label{bd18e65}
+
+If $U$ is \href{d20898f}{HSC} and $f:U\to\C\sans0$ is holomorphic, then there
+is a function $g:U\to\C\sans0$ such that
+$$
+  f(z)=[g(z)]^2
+$$
+
+for all $z\in U$.
+
+\Theorem{Weierstrass M-test}\label{d4a96c1}
+
+Suppose that $\{f_n\}$ is a sequence of functions with $f_n:U\to\C$ for some
+open set $U\subseteq\C$. Let there be a sequence of non-negative numbers
+$\{M_n\}$ such that
+\begin{itemize}
+  \item $|f_n(x)|\leq M_n$ for all $n\geq1$, $x\in U$, and
+  \item $\sum_{n=1}^\infty M_n$ converges.
+\end{itemize}
+
+Then the series
+\begin{equation*}
+  \sum_{n=1}^\infty f_n(x)
+\end{equation*}
+
+converges absolutely and uniformly on $U$ (to a limit function $f$).
+
+\Definition{Analytic functions}\label{ccd773b}
+
+Let $U\subseteq\C$ be open, and let $f:U\to\C$. $f$ is said to be analytic at
+$P$ if in some open disc centered at $P$ it can be expanded as a convergent
+power series
+$$
+  f(z)=\sum_{n=0}^\infty a_n(z-P)^n
+$$
+
+(this implies that the radius of convergence is positive)
+
+\Theorem{Holomorphic functions are analytic}\label{c1a4a81}
+
+$f$ is holomorphic at $z_0\in\C$ if and only it is analytic at $z_0$.
+
+\Corollary{Singularities and radius of convergence}\label{ddc574e}
+
+Corollary of \href{c1a4a81}{this theorem}.
+
+The \href{da6e337}{radius of convergence} at a point $P$ is the distance
+between $P$ and the nearest non-removable \href{a7f062e}{singularity}.
+
+If there are no singularities (such as when $f$ is an entire function), then
+the radius of convergence is infinite.

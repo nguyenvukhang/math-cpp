@@ -1,0 +1,119 @@
+\subsection{Orthogonality}\label{f90e8d8}
+
+\Proposition{Orthogonal projection onto $\range A$}\label{a879f53}
+
+Let $A\in\R^{m\times n}$ have full rank, and let $v\in\R^m$. To
+\href{fb705a2}{project} $v$ onto the range of $A$, we compute
+$$
+  A(A^TA)^{-1}A^Tv
+$$
+
+\begin{proof}
+  The vector space $\R^m$ \href{e77e5ea}{can be decomposed} as the internal
+  direct sum
+  $$
+    \R^m=\range A\oplus(\range A)^\perp
+  $$
+
+  where we define orthogonality by the standard dot product. So then every
+  vector $v\in\R^m$ can be written as $u+w$ in a \href{ab66b9d}{unique way},
+  where $u\in\range A$ and $w\in(\range A)^\perp$. We want our projection to
+  take in $v$ and return $u$.
+
+  Indeed, for any $u\in\range A$, there exists $x\in\R^m$ such that $u=Ax$.
+  Hence,
+  \begin{align*}
+    A(A^TA)^{-1}A^Tu &=A(A^TA)^{-1}A^TAx \\
+                     &=Ax                \\
+                     &=u
+  \end{align*}
+
+  and for any $w\in(\range A)^\perp$, by \href{b2520ce}{this result} we have
+  $w\in\ker A^T$. So then
+  \begin{align*}
+    A(A^TA)^{-1}A^Tw &=A(A^TA)^{-1}0 \\
+                     &=0
+  \end{align*}
+
+  By linearity, we have $A(A^TA)^{-1}A^Tv=u+0=u$ as desired.
+\end{proof}
+
+\Lemma{Internal direct sum of orthogonal subspaces is the entire subspace}\label{e77e5ea}
+
+Let $\mathcal F^n$ be a finite-dimensional vector space, and let $U$ be a
+subspace of $\mathcal F^n$. Let $U^\perp$ be the \href{c3c519f}{orthogonal
+complement} of $U$ (by an arbitrary inner product
+$\inner{\,\cdot\,}{\,\cdot\,}$). By \href{d7186eb}{this result}, $U^\perp$ is a
+subspace.
+
+Then $\mathcal F^n$ is their \href{c67c961}{direct sum}:
+$$
+  U\oplus U^\perp=\mathcal F^n
+$$
+
+\begin{proof}
+  \def\F{\mathcal F}
+  \def\U{U^\perp}
+  \def\u{u^\perp}
+
+  Clearly, $0\in U\cap\U$. Also, for all $u\in U\sans0$, we have $u\notin\U$
+  because $\inner uu>0$. Hence $U\cap\U=\{0\}$.
+
+  It remains to show that all $v\in\F^n$ can be expressed as the sum
+  $$
+    v=u+\u
+  $$
+
+  Let $x$ be any vector in $U$. Then, taking inspiration from
+  \href{fc332ef}{vector projections}, we define
+  $$
+    u:=\frac{\inner xv}{\inner xx}x\Quad\text{and}\Quad\u:=v-u
+  $$
+
+  Now, $u\in U$ because it's a scalar multiple of $x\in U$. Next, $\u\in\U$
+  because
+  \begin{align*}
+    \inner u\u
+     &=\inner u{v-u}                                                                                              \\
+     &=\inner uv-\inner uu                                                                                        \\
+     &=\Inner{\frac{\inner xv}{\inner xx}x}{v}-\Inner{\frac{\inner xv}{\inner xx}x}{\frac{\inner xv}{\inner xx}x} \\
+     &=\frac{\inner xv}{\inner xx}\cdot\inner{x}{v}-\biggl(\frac{\inner xv}{\inner xx}\biggr)^2\inner xx          \\
+     &=0
+  \end{align*}
+
+  And clearly $v=u+\u$. This completes the proof.
+\end{proof}
+
+\Lemma{Orthogonal matrix vector product preserves $\ell_2$-norm}\label{eaec5b1}
+
+Let $Q\in\R^{n\times n}$ be an \href{c38c9d1}{orthogonal matrix}. Then for all
+$x\in\R^n$, we have
+$$
+  \norm{x}_2=\norm{Qx}_2
+$$
+
+\begin{proof}
+  Consider the squared version.
+  \begin{align*}
+    \norm{Qx}_2^2 &=(Qx)^T(Qx)                             \\
+                  &=x^TQ^TQx                               \\
+                  &=x^Tx\desc{by the orthogonality of $Q$} \\
+                  &=\norm{x}_2^2
+  \end{align*}
+\end{proof}
+
+\Lemma{Finding linearly independent vectors orthogonal to one}\label{a0fa485}
+
+Let $v\in V$ where $V$ is an $n$-dimensional vector space (with $n\geq1)$. Then
+we can find $n-1$ linearly independent vectors that are all orthogonal to $v$.
+
+\begin{proof}
+  Since $V$ is an $n$-dimensional vector space, it has a basis of length $n$.
+  WLOG, let the first vector in this basis be $v$. Apply the
+  \href{b75ef8e}{Gram-Schmidt process} to this basis to obtain
+  $\{v,\iter{u_2}{u_n}\}$.
+
+  By \autoref{c4f05ae}, none of $\iter{u_2}{u_n}$ are the zero vector, and by
+  construction, $\iter{u_2}{u_n}$ are orthogonal, and \href{c0eb6f5}{hence} are
+  linearly independent.
+\end{proof}

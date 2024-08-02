@@ -1,0 +1,131 @@
+\subsection{Representing a linear map as a matrix}\label{f3574c8}
+
+\Definition{Matrix of a linear map}\label{c70dad0}
+
+\texttt{\href{d76dfe6}{use notation};} Let $V,W$ be finite-dimensional vector
+spaces. Suppose $T\in\href{ab1f2fb}{\L(V,W)}$ and $\iter{v_1}{v_n}$ is a basis
+of $V$ and $\iter{w_1}{w_m}$ is a basis of $W$. The \textbf{matrix} of $T$ with
+respect to these bases is the $m\times n$ matrix $\mathcal M(T)$ whose entries
+$A_{i,j}$ are defined by
+$$
+  T(v_k):=A_{1,k}w_1+\ldots+A_{m,k}w_m\with{(k=\iter1n)}
+$$
+
+\begin{itemize}
+  \item If the bases are clear from context, we write $\mathcal M(T)$.
+  \item Otherwise, we write the basis as part of the parameters of $\mathcal
+        M$:
+        $$
+          \mathcal M(T,(\iter{v_1}{v_n}),(\iter{w_1}{w_m}))
+        $$
+  \item If the bases are the same, we write $\mathcal M(T,(\iter{v_1}{v_n}))$
+        to mean
+        $$
+          \mathcal M(T,(\iter{v_1}{v_n}),(\iter{v_1}{v_n}))
+        $$
+\end{itemize}
+
+\Remark{Unpacking the matrix of a linear map}\label{cae2265}
+
+Continuing from \autoref{c70dad0}, to run the full operation $T(v)$, we do the
+following steps:
+\begin{enumerati}
+  \item Send $v$ to $\bar v\in\F^n$ by deconstructing $v$ with respect to the
+        basis $\iter{v_1}{v_n}$.
+  \item Send $\bar v$ to $\bar w\in\F^m$ by the matrix multiplication $\bar
+        w=A\bar v$.
+  \item Reconstruct $w$ using $\bar w$ as coefficients in the linear
+        combination of basis $\iter{w_1}{w_m}$.
+\end{enumerati}
+
+\Proposition{Matrix of the sum of linear maps}\label{abcf830}
+
+\texttt{\href{d76dfe6}{use notation};} Let $S,T\in\href{ab1f2fb}{\L(V,W)}$,
+where $V,W$ are finite-dimensional vector spaces. Then $\mathcal M(S+T)=\mathcal
+M(S)+\mathcal M(T)$.
+
+\begin{proof}
+  \def\M{\mathcal M}
+  Let $\iter{v_1}{v_n}$ be a basis of $V$, and $\iter{w_1}{w_m}$ be a basis of
+  $W$. Let $A:=\mathcal M(S)$ and $B:=\mathcal M(T)$. Then
+  \begin{align*}
+    (S+T)(v_k)            &=S(v_k)+T(v_k)\desc{\href{e257b42}{adding linear maps}}                                            \\
+                          &=(A_{1,k}w_1+\ldots+A_{m,k}w_m)+(B_{1,k}w_1+\ldots+B_{m,k}w_m)\desc{by \href{c70dad0}{definition}} \\
+                          &=(A_{1,k}+B_{1,k})w_1+\ldots+(A_{m,k}+B_{m,k})w_m                                                  \\
+                          &=(A+B)_{1,k}w_1+\ldots+(A+B)_{m,k}w_m\desc{by \href{e41b441}{matrix addition}}                     \\
+    \pre{\implies}\M(S+T) &=A+B\desc{by \href{c70dad0}{definition}}                                                           \\
+                          &=\M(S)+\M(T)
+  \end{align*}
+\end{proof}
+
+\Proposition{Matrix of a scalar times a linear map}\label{f95a174}
+
+\texttt{\href{d76dfe6}{use notation};} Let $T\in\href{ab1f2fb}{\L(V,W)}$, where
+$V,W$ are finite-dimensional vector spaces. Then $\mathcal M(\lambda
+T)=\lambda\mathcal M(T)$.
+
+\begin{proof}
+  \def\M{\mathcal M}
+  Let $\iter{v_1}{v_n}$ be a basis of $V$, and $\iter{w_1}{w_m}$ be a basis of
+  $W$. Let $A:=\mathcal M(T)$. Then
+  \begin{align*}
+    (\lambda T)(v_k)            &=\lambda T(v_k)\desc{\href{e257b42}{multiplying linear maps by a scalar}}                     \\
+                                &=\lambda (A_{1,k}w_1+\ldots+A_{m,k}w_m)\desc{by \href{c70dad0}{definition}}                   \\
+                                &=(\lambda A_{1,k}w_1+\ldots+\lambda A_{m,k}w_m)                                               \\
+                                &=(\lambda A)_{1,k}w_1+\ldots+(\lambda A)_{m,k}w_m\desc{\href{d36252c}{scalar times a matrix}} \\
+    \pre{\implies}\M(\lambda T) &=\lambda A\desc{by \href{c70dad0}{definition}}                                                \\
+                                &=\lambda \M(T)
+  \end{align*}
+\end{proof}
+
+\Proposition{Dimension of $\mathcal F^{m\times n}$ is $mn$}\label{f2db1b2}
+
+Suppose $m,n\in\N$. With \href{e41b441}{vector addition} and
+\href{d36252c}{scalar multiplication} defined respectively, $\mathcal
+F^{m\times n}$, the set containing all $m\times n$ matrices over field
+$\mathcal F$, forms a vector space of \href{cd4284b}{dimension} $mn$.
+
+\begin{proof}
+  The verification that $\mathcal F^{m\times n}$ is left to the reader. Note
+  that the additive identity of $\mathcal F^{m\times n}$ is the $m\times n$
+  matrix with all entries $0$.
+
+  The reader should also verify that the list of of distinct $m\times n$
+  matrices that have $0$ in all entries except for a $1$ in one entry is a
+  basis of $\mathcal F^{m\times n}$. As there are $mn$ such matrices, the
+  dimension of $\mathcal F^{m\times n}$ is $mn$.
+\end{proof}
+
+\Proposition{Matrix of product of linear maps}\label{d35daba}
+
+\texttt{\href{d76dfe6}{use notation};} Let $T\in\href{ab1f2fb}{\L(U,W)}$ and
+$S\in\L(V,W)$, where $U,V,W$ are finite-dimensional vector spaces. Then
+$\mathcal M(\href{a6afdc2}{ST})=\href{d786633}{\mathcal M(S)\mathcal M(T)}$.
+
+\begin{proof}
+  Let $\iter{u_1}{u_p}$ be a basis of $U$, $\iter{v_1}{v_n}$ be a basis of $V$,
+  and $\iter{w_1}{w_m}$ be a basis of $W$. Let $A:=\mathcal M(S)$ and
+  $B:=\mathcal M(T)$. For $j=\iter1p$, we have
+  \begin{align*}
+    (ST)(u_j) &=S(T(u_j))\desc{\href{a6afdc2}{product of linear maps}}                                 \\
+              &=S\left(\sum_{k=1}^nB_{k,j}v_k\right)\desc{\href{c70dad0}{matrix of a linear map}}      \\
+              &=\sum_{k=1}^nB_{k,j}S(v_k)\desc{by \href{d7d1925}{linearity} of $S$}                    \\
+              &=\sum_{k=1}^nB_{k,j}\sum_{i=1}^mA_{i,k}w_i\desc{\href{c70dad0}{matrix of a linear map}} \\
+              &=\sum_{k=1}^n\sum_{i=1}^mA_{i,k}B_{k,j}w_i                                              \\
+              &=\sum_{i=1}^m\sum_{k=1}^nA_{i,k}B_{k,j}w_i\Tag{*}
+  \end{align*}
+
+  Thus \href{c70dad0}{by definition}, if $C:=\mathcal M(ST)$, then for each
+  $j=\iter1p$, we have
+  \begin{equation*}
+    (ST)(u_j)=C_{1,j}w_1+\ldots+C_{m,j}w_m=\sum_{i=1}^mC_{i,j}w_i
+  \end{equation*}
+
+  Comparing against $(*)$, we have
+  $$
+    C_{i,j}=\sum_{k=1}^nA_{i,k}B_{k,j}
+  $$
+
+  Which, by the definition of \href{d786633}{matrix multiplication}, implies
+  that $C=AB$, and hence $\mathcal M(ST)=\mathcal M(S)\mathcal M(T)$.
+\end{proof}

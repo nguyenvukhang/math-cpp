@@ -1,0 +1,127 @@
+\subsection{Polynomials}\label{d68e870}
+
+\Definition{Legendre polynomials}\label{e9ef1ac}
+
+The $k$-th Legendre polynomial is given by
+$$
+  q_k(x):=\frac1{2^kk!}\frac{d^k}{dx^k}(x^2-1)^k
+$$
+
+These are obtained when applying \href{ee6ac50}{Gram-Schmidt} to a basis of the
+\href{b9935c8}{inner product space} formed by the set of all polynomials with
+the inner product defined by
+$$
+  \inner pq:=\int_{-1}^1p(x)q(x)\,dx
+$$
+
+These are useful for solving (numerical) integration problems.
+
+\Definition{Chebyshev polynomials*}\label{e7283ca}
+
+The $k$-th Chebyshev polynomial is given by
+\begin{align*}
+  T_k(x) &:=\cos(n\arccos x)                       \\
+         &\href{a0c2aca}{=}2xT_{k-1}(x)-T_{n-2}(x)
+\end{align*}
+
+These are obtained when applying \href{ee6ac50}{Gram-Schmidt} to a basis of the
+\href{b9935c8}{inner product space} formed by the set of all polynomials with
+the inner product defined by
+$$
+  \inner pq:=\int_{-1}^1p(x)q(x)\frac1{\sqrt{1-x^2}}\,dx
+$$
+
+\Definition{Taylor series}\label{ab7e885}
+
+Given an infinitely differentiable function $f:X\to Y$, its Taylor series at
+$a\in X$ is
+$$
+  \sum_{k=0}^\infty\frac{f^{(k)}(a)}{k!}(x-a)^k=f(a)+f'(a)(x-a)+\frac{f''(a)}2(x-a)^2+\ldots
+$$
+
+The $n$-th Taylor polynomial is given by
+$$
+  p_n(x):=\sum_{k=0}^n\frac{f^{(k)}(a)}{k!}(x-a)^k
+$$
+
+and this has the property that $p_n(a)=f(a)$, $p_n'(a)=f'(a)$,
+$p_n''(a)=f''(a)$, and so on.
+
+Note that we need a degree $n$ Taylor polynomial to match the function value at
+$a$ and the values of the first $n$ derivatives at $a$.
+
+\Definition{Piecewise constant interpolation}\label{c6b82a5}
+
+This is the bare minimum interpolation. Given \href{a33bce0}{interpolating
+nodes} $\iter{(x_0,y_0)}{(x_n,y_n)}$, sorted in ascending order by $x$'s, we
+define
+\begin{equation*}
+  a_k:=\frac{x_k-x_{k-1}}2,
+  b_k:=\frac{x_{k+1}-x_k}2\with{(k=\iter1{n-1})}
+\end{equation*}
+
+and then estimate $f(x)$ using $y_k$, where $a_k\leq x<b_k$. That is, we find
+the interpolating node closest to $x$, and use that value to estimate $f(x)$.
+(for points outside the interpolating nodes, we still use the value at the
+closest interpolating node as estimation)
+
+\Definition{Piecewise linear interpolation}\label{b2a543c}
+
+Given interpolating nodes $\iter{(x_0,y_0)}{(x_n,y_n)}$ in ascending order by
+$x$'s, we estimate the value of $f(x)$ by finding $x_k$ such that
+$x\in[x_k,x_{k+1})$, and then taking
+$$
+  f(x)=y_k+\frac{y_{k+1}-y_k}{x_{k+1}-x_k}x
+$$
+
+This can be rewritten as
+$$
+  f(x)=y_{k+1}\frac{x-x_k}{x_{k+1}-x_k}+y_k\frac{x_{k+1}-x}{x_{k+1}-x_k}
+$$
+
+\Definition{Piecewise quadratic interpolation}\label{aeef34f}
+
+Given $2n+1$ interpolating nodes $\iter{(x_0,y_0)}{(x_{2n},y_{2n})}$ in
+ascending order by $x$'s, to estimate the value of $f(x)$, we first obtain
+$x_k$ such that $k$ is even and $x\in[x_k,x_{k+2})$.
+
+Then, find the unique parabola $f_k(x):=ax^2+bx+c$ that passes through the
+points $(x_{k},y_{k})$, $(x_{k+1},y_{k+1})$, and $(x_{k+2},y_{k+2})$. Formally,
+that
+$$
+  f_k(x_j)=y_j\with{(j=k,k+1,k+2)}
+$$
+
+Finally, we estimate $f(x)$ by using $ax^2+bx+c$.
+
+Note that this interpolation function is continuous but not differentiable at
+each $x_k$ if $k$ is even.
+
+\Definition{Differentiable piecewise quadratic interpolation}\label{b29ed82}
+
+Given interpolating nodes $\iter{(x_0,y_0)}{(x_n,y_n)}$ in ascending order by
+$x$'s, instead of using three points per parabola \href{aeef34f}{like before},
+we use two points but now add the constraint that at each point, two
+neighboring parabolas need to meet at with the same first \textit{and} second
+derivative.
+
+Consider two adjacent interpolating nodes $x_k$ and $x_{k+1}$. We then set
+these constraints on the parabola $p_k:[x_k,x_{k+1})\to\R$:
+\begin{enumerati}
+  \item It must pass through these two points:
+  $$
+    p_k(x_k)=y_k,\quad p_k(x_{k+1})=y_{k+1}
+  $$
+  \item It must match the gradient of the parabola to its right at $x_{k+1}$:
+  $$
+    p_k'(x_{k+1})=p_{k+1}'(x_{k+1})
+  $$
+  \item It must match the second derivative of the parabola to its right at
+        $x_{k+1}$:
+  $$
+    p_k''(x_{k+1})=p_{k+1}''(x_{k+1})
+  $$
+\end{enumerati}
+
+This results in an interpolating function that is continuous and twice
+differentiable.

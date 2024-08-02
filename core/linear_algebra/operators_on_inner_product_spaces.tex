@@ -1,0 +1,226 @@
+\subsection{Operators on Inner Product Spaces}\label{dcef18d}
+
+\Proposition{Adjoint of a linear map is a linear map}\label{f482c2f}
+
+Suppose $V,W$ are finite-dimensional \href{b9935c8}{inner product spaces}. If
+$T\in\href{ab1f2fb}{\L(V,W)}$, then $T^*\in\L(V,W)$.
+
+\begin{proof}
+  Suppose $T\in\L(V,W)$. If $v\in V$ and $w_1,w_2\in W$, then
+  \begin{align*}
+    \inner{T(v)}{w_1+w_2} &=\inner{T(v)}{w_1}+\inner{T(v)}{w_2}\desc{by \autoref{fb218c8}}              \\
+                          &=\inner{v}{T^*(w_1)}+\inner{v}{T^*(w_2)}\desc{by \href{c84f503}{definition}} \\
+                          &=\inner{v}{T^*(w_1)+T^*(w_2)}\desc{by \autoref{fb218c8}}
+  \end{align*}
+
+  It follows from \href{c84f503}{definition} that
+  $$
+    T^*(w_1+w_2)=T^*(w_1)+T^*(w_2)
+  $$
+
+  Now suppose $v\in V$, $w\in W$, and $\lambda\in\F$. Then
+  \begin{align*}
+    \inner{T(v)}{\lambda w} &=\overline\lambda\inner{T(v)}{w}\desc{by \autoref{fb218c8}}            \\
+                            &=\overline\lambda\inner{v}{T^*(w)}\desc{by \href{c84f503}{definition}} \\
+                            &=\inner v{\lambda T^*(w)}\desc{by \autoref{fb218c8}}
+  \end{align*}
+
+  and again from definition of the adjoint, this implies
+  $$
+    T^*(\lambda w)=\lambda T^*(w).
+  $$
+
+  This completes the proof.
+\end{proof}
+
+\Proposition{Properties of the adjoint}\label{ea24684}
+
+Suppose $V,W$ are finite-dimensional \href{b9935c8}{inner product spaces}, and
+let $T\in\href{ab1f2fb}{\L(V,W)}$. Then
+\begin{enumerata}
+  \item $(\href{e257b42}{S+T})^*=S^*+T^*$ for all $S\in\L(V,W)$.
+  \item $(\lambda T)^*=\overline\lambda T^*$ for all $\lambda\in\F$.
+  \item $(T^*)^*=T$.
+  \item $(\href{a6afdc2}{ST})^*=T^*S^*$ for all $S\in\L(W,U)$, where $U$ is a finite-dimensional
+  inner product space.
+  \item $I^*=I$, where $I$ is the identity \href{bd31d9c}{operator} on $V$.
+  \item If $T$ is invertible, then $T^*$ is invertible and
+        $(T^*)^{-1}=(T^{-1})^*$.
+\end{enumerata}
+
+\begin{proof}
+  Suppose $v\in V$ and $w\in W$.
+
+  \proofp{(a)} Let $S\in\L(V,W)$. Then
+  \begin{align*}
+    \inner{(S+T)v}{w} &\href{e257b42}{=}\inner{S(v)+T(v)}{w}                \\
+                      &\href{cebd07a}{=}\inner{S(v)}{w}+\inner{T(v)}{w}     \\
+                      &\href{c84f503}{=}\inner{v}{S^*(w)}+\inner{v}{T^*(w)} \\
+                      &\href{fb218c8}{=}\inner{v}{S^*(w)+T^*(w)}
+  \end{align*}
+
+  and thus $(S+T)^*(w)=S^*(w)+T^*(w)$ as desired.
+
+  \proofp{(b)} Let $\lambda\in\F$. Then
+  $$
+    \inner{(\lambda T)(v)}{w}
+    \href{e257b42}{=}\inner{\lambda T(v)}{w}
+    \href{cebd07a}{=}\lambda\inner{T(v)}{w}
+    \href{c84f503}{=}\lambda\inner{v}{T^*(w)}
+    \href{fb218c8}{=}\inner v{\overline\lambda T^*(w)}
+  $$
+
+  Thus $(\lambda T)^*(w)=\overline\lambda T^*(w)$ as desired.
+
+  \proofp{(c)} We have
+  $$
+    \inner{T^*(w)}{v}
+    \href{cebd07a}{=}\overline{\inner{v}{T^*(w)}}
+    \href{c84f503}{=}\overline{\inner{T(v)}{w}}
+    \href{cebd07a}{=}\inner{w}{T(v)}
+  $$
+
+  and thus $(T^*)^*(v)=T(v)$, as desired.
+
+  \proofp{(d)} Suppose $S\in\L(W,U)$, and $u\in U$. Then
+  $$
+    \inner{(ST)(v)}{u}
+    \href{a6afdc2}{=}\inner{S(T(v))}{u}
+    \href{c84f503}{=}\inner{T(v)}{S^*(u)}
+    \href{c84f503}{=}\inner{v}{T^*(S^*(u))}
+    =\inner{v}{(T^*S^*)(u)}
+  $$
+
+  and thus $(ST)^*(u)=(T^*S^*)(u)$, as desired.
+
+  \proofp{(e)} Suppose $u\in V$. Then
+  $$
+    \inner{Iu}{v}=\inner uv
+  $$
+
+  and thus $I^*(v)=v$, as desired.
+
+  \proofp{(f)} Suppose $T$ is inverible. Then
+  $$
+    T^{-1}T=I
+  $$
+
+  Taking adjoints on both sides, we have
+  $$
+    (T^{-1}T)^*=I^*
+  $$
+
+  By by parts (d) and (e), we have
+  $$
+    T^*(T^{-1})^*=I
+  $$
+
+  and this \href{e1ba7ee}{implies} that $(T^{-1})^*$ is the inverse of $T^*$,
+  as desired.
+\end{proof}
+
+\Proposition{Kernel and Range of adjoint map $T^*$}\label{e049649}
+
+Suppose $V,W$ are finite-dimensional \href{b9935c8}{inner product spaces}, and
+let $T\in\href{ab1f2fb}{\L(V,W)}$. Then
+\begin{enumerata}
+  \item $\ker T^*=(\range T)^\perp$.
+  \item $\range T^*=(\ker T)^\perp$.
+  \item $\ker T=(\range T^*)^\perp$.
+  \item $\range T=(\ker T^*)^\perp$.
+\end{enumerata}
+
+\begin{proof}
+  \proofp{(a)} Let $w\in W$. Then
+  \begin{align*}
+    w\in\ker T^* &\href{c494931}{\iff}T^*(w)=0                            \\
+                 &\href{fb218c8}{\iff}\inner v{T^*(w)}=0,\ \forall v\in V \\
+                 &\href{c84f503}{\iff}\inner{T(v)}{w}=0,\ \forall v\in V  \\
+                 &\href{c3c519f}{\iff}w\in(\range T)^\perp
+  \end{align*}
+
+  Thus $\ker T^*=(\range T)^\perp$.
+
+  Taking orthogonal complement of both sides gives (d). Replacing $T$ with
+  $T^*$ in (a) then using \href{ea24684}{$(T^*)^*=T$} gives (c).
+
+  Finally, it is left as a choice for the reader to either take the orthogonal
+  complement of both sides of (c) or to replace $T$ with $T^*$ in (d) to get
+  (b).
+\end{proof}
+
+\Proposition{Matrix of adjoint equals conjugate transpose of matrix of linear map}\label{ed8da51}
+
+Suppose $V,W$ are finite-dimensional \href{b9935c8}{inner product spaces}, and
+let $T\in\href{ab1f2fb}{\L(V,W)}$.
+
+Suppose $\iter{e_1}{e_n}$ is an \href{e112aa0}{orthonormal basis} of $V$ and
+$\iter{\epsilon_1}{\epsilon_m}$ is an orthonormal basis of $W$. Then
+$\href{c70dad0}{\mathcal
+M}(T^*,(\iter{\epsilon_1}{\epsilon_m}),(\iter{e_1}{e_n}))$ is the
+\href{abdc1e4}{conjugate transpose} of $\mathcal
+M(T,(\iter{e_1}{e_n}),(\iter{\epsilon_1}{\epsilon_m}))$.
+$$
+  \mathcal M(T^*)=(\mathcal M(T))^*
+$$
+
+Note: it is a (deliberate?) coincidence that both the adjoint and the conjugate
+tranaspose share the $^*$ notation.
+
+\begin{proof}
+  \def\e{\epsilon}\def\M{\mathcal M}
+
+  \texttt{\href{d76dfe6}{use notation};} Let
+  $A:=\M(T,(\iter{e_1}{e_n}),(\iter{\e_1}{\e_m}))$ and let
+  $B:=\M(T^*,(\iter{\e_1}{\e_m}),(\iter{e_1}{e_n}))$. Our goal is to show that
+  $A^*=B$.
+
+  \href{c70dad0}{Recall} that we obtain the $j$-th column of $A=\M(T)$ by
+  writing $T(e_j)$ as a linear combination of the $\e_i$'s; the scalars used in
+  this linear combination form $A_{\cdot,j}$.
+
+  Because $\iter{\e_1}{\e_m}$ is an orthonormal basis of $W$, \href{b762d27}{we
+  have}
+  $$
+    T(e_j)=\inner{T(e_j)}{\e_1}\e_1+\ldots+\inner{T(e_j)}{\e_m}\e_m\with{(j=\iter1n)}
+  $$
+
+  Thus, $A_{ij}=\inner{T(e_j)}{\e_i}$.
+
+  In the argument above, replace $T$ with $T^*$ and interchange
+  $\iter{e_1}{e_n}$ and $\iter{\e_1}{\e_m}$. This shows that
+  $B_{ij}=\inner{T^*(\e_j)}{e_i}$.
+
+  But notice that for all $i=\iter1m$ and $j=\iter1n$, we have
+  $$
+    A_{ij}
+    =\inner{T(e_j)}{\e_i}
+    \href{c84f503}{=}\inner{e_j}{T^*(\e_i)}
+    \href{cebd07a}{=}\overline{\inner{T^*(\e_i)}{e_j}}
+    =\overline{B_{ji}}
+  $$
+
+  \href{abdc1e4}{which is to say} that $A^*=B$, as desired.
+\end{proof}
+
+\Proposition{Eigenvalues of self-adjoint operators are real}\label{df532f5}
+
+Every eigenvalue of a \href{d484753}{self-adjoint operator} is real.
+
+\begin{proof}
+  Suppose $T$ is a self-adjoint operator on \href{b9935c8}{inner product space}
+  $V$. Let $\lambda\in\F$ be an \href{e174ec3}{eigenvalue} of $T$, and let $v$
+  be a nonzero vector in $V$ such that $T(v)=\lambda v$. Then
+  $$
+    \lambda\inner vv
+    \href{cebd07a}{=}\inner{\lambda v}{v}
+    =\inner{T(v)}{v}
+    \href{c84f503}{=}\inner{v}{T^*(v)}
+    =\inner{v}{T(v)}
+    =\inner{v}{\lambda v}
+    \href{fb218c8}{=}\overline\lambda\inner{v}{v}
+  $$
+
+  And thus $\lambda=\overline\lambda$, which means that $\lambda\in\R$, as
+  desired.
+\end{proof}

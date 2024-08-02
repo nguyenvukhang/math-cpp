@@ -1,0 +1,115 @@
+\subsection{Fundamentals}\label{e028258}
+
+For this entire chapter, given any events $A$ and $B$, we will denote the event
+$A\cap B$ as $AB$.
+
+\Theorem{Multinomial Coefficients}\label{ce33c96}
+
+The (natural) number computed by
+$$
+  \binom{n}{k_1,k_2,\ldots,k_r}:=\frac{n!}{k_1!k_2!\cdots k_r!}
+$$
+
+gives the number of possible divisions of $n$ distinct objects into $r$ groups
+of respective sizes $\iter{k_1}{k_r}$, where $k_1+\ldots+k_r=n$.
+
+\Theorem{Multinomial Theorem}\label{fa4d805}
+
+For natural numbers $\iter{x_1}{x_r}$, and using notation from
+\autoref{ce33c96},
+$$
+  (x_1+\ldots+x_r)^n
+  =\sum_{(\iter{k_1}{k_r}):k_1+\ldots+k_r=n}\binom{n}{k_1,k_2,\ldots,k_r}
+  x_1^{k_1}x_2^{k_2}\ldots x_r^{k_r}
+$$
+
+That is, the RHS is the sum across all possible values of $(\iter{k_1}{k_r})$
+such that their sum is $n$, and $k_i\geq0$ for all $i=\iter1r$.
+
+\Definition{Sample space}\label{dcc8547}
+
+This is defined as the set of all possible outcomes. Usually denoted by $S$.
+
+For example, the sample space of a coin toss can be written as the set
+$\{H,T\}$.
+
+Sample spaces can be infinite too, such as when a coin is tossed until it lands
+on heads:
+$$
+  S=\{(H),(T,H),(T,T,H),(T,T,T,H),\ldots\}
+$$
+
+\Definition{Mutually exclusive events}\label{a16826f}
+
+Two events $E$ and $F$ are mutually exclusive if $E\cap F=\emptyset$.
+
+\Definition{Complement of events}\label{a89283f}
+
+The complement of event $E$, denoted as $E^c$ is the event consisting of all
+outcomes that are not in $E$.
+
+\Proposition{Properties of event operations}\label{fc3d98b}
+
+\begin{itemize}
+  \item $\cap$ and $\cup$ are commutative.
+  \item $\cap$ and $\cup$ are associative.
+  \item $\cap$ and $\cup$ are distributive both ways.
+        \begin{align*}
+          (E\cup F)G &=(E\cap G)\cup(F\cap G) \\
+          (E\cap F)G &=(E\cup G)\cap(F\cup G)
+        \end{align*}
+\end{itemize}
+
+% Proof probably requires some definitions from Set Theory, which we don't have
+% yet
+
+\Theorem{De Morgan's Law}\label{c28492b}
+
+\begin{enumerati}
+  \item The complement of unions is the intersection of complements:
+  $$
+    \biggl(\bigcup_{i=1}^nE_i\biggr)^c=\bigcap_{i=1}^nE_i^c
+  $$
+  \item And the complement of intersections is the intersection of unions:
+  $$
+    \biggl(\bigcap_{i=1}^nE_i\biggr)^c=\bigcup_{i=1}^nE_i^c
+  $$
+\end{enumerati}
+
+\begin{proof}
+  Let $I:=\{\iter1n\}$ be the index set.
+
+  \proofp{(i)} Let $x\in(\bigcup_{i=1}^nE_i)^c$. Then
+  \begin{align*}
+    x\notin\bigcup_{i=1}^nE_i
+     &\implies x\notin E_i,\with{\forall i\in I} \\
+     &\implies x\in E_i^c,\with{\forall i\in I}  \\
+     &\implies x\in\bigcap_{i=1}^nE_i^c
+  \end{align*}
+
+  Hence we have established that
+  $(\bigcup_{i=1}^nE_i)^c\subseteq\bigcap_{i=1}^nE_i^c$
+
+  Now let $x\in\bigcap_{i=1}^nE_i^c$. Then
+  \begin{align*}
+    x\in E_i^c,\with{\forall i\in I}
+     &\implies x\notin E_i,\with{\forall i\in I}      \\
+     &\implies x\notin\bigcup_{i=1}^nE_i              \\
+     &\implies x\in\biggl(\bigcup_{i=1}^nE_i\biggr)^c
+  \end{align*}
+
+  Hence shown that $\bigcap_{i=1}^nE_i^c\subseteq(\bigcup_{i=1}^nE_i)^c$, and
+  so altogether we have
+  $$
+    \biggl(\bigcup_{i=1}^nE_i\biggr)^c=\bigcap_{i=1}^nE_i^c
+  $$
+
+  \proofp{(ii)} We can apply (i) to help us.
+  \begin{align*}
+    \biggl(\bigcup_{i=1}^nE_i^c\biggr)^c
+     &=\bigcap_{i=1}^n(E_i^c)^c\desc{by (i)}                      \\
+     &=\bigcap_{i=1}^nE_i                                         \\
+    \bigcup_{i=1}^nE_i^c
+     &=\biggl(\bigcap_{i=1}^nE_i\biggr)^c\desc{invert both sides}
+  \end{align*}
+\end{proof}

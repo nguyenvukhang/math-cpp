@@ -1,0 +1,255 @@
+\subsection{Named Discrete Random Variables}\label{ca86911}
+
+\Definition{Bernoulli random variable}\label{e2d50c6}
+
+$X$ is a Bernoulli random variable with parameter $p$ if
+$$
+  P(X=x)=\begin{cases}
+    p   & \text{if }x=1 \\
+    1-p & \text{if }x=0
+  \end{cases}
+$$
+
+$p$ is usually referred to as the probability of success, and we write
+$$
+  X\sim\mathrm{Bernoulli}(p)
+$$
+
+\Proposition{Mean and variance of the Bernoulli random variable}\label{e38c858}
+
+\begin{enumerati}
+  \item\href{ecb2162}{Expectation}: $E[X]=p$
+  \item\href{ddd95d5}{Variance}: $\Var(X)=p(1-p)$
+\end{enumerati}
+
+\begin{proof}
+  \begin{align*}
+    E[X] &=1\cdot p(1)+0\cdot p(0)\desc{using $p$ as the \href{bcef5f1}{p.m.f.} of $X$} \\
+         &=p\desc{using $p$ as the win-rate}
+  \end{align*}
+
+  Clearly, we have $E[X^2]=p$ and $[E[X]]^2=p^2$, and hence we have
+  \begin{align*}
+    \Var(X) &= p-p^2\desc{by \autoref{f178eb7}} \\
+            &= p(1-p)
+  \end{align*}
+\end{proof}
+
+\Definition{Binomial random variable}\label{bc8d330}
+
+In $n$ independent \href{e2d50c6}{Bernoulli trials}, with success rate $p$, the
+binomial random variable $X$ is the number of successes obtained, with
+$$
+  P(X=k)=\binom nkp^k(1-p)^{n-k}\with{(k=\iter0n)}
+$$
+
+and we write
+$$
+  X\sim B(n,p)
+$$
+
+Note that the total probability across $X$ taking all values is indeed $1$.
+This is a direct consequence of the \href{d972e65}{binomial theorem}.
+\begin{align*}
+  \sum_{k=0}^nP(X=k)
+   &=\sum_{k=0}^n\binom nkp^k(1-p)^{n-k} \\
+   &=\bigl(p+(1-p)\bigr)^n               \\
+   &=1
+\end{align*}
+
+\Proposition{Mean and variance of the Binomial random variable}\label{f9ece4b}
+
+\begin{enumerati}
+  \item\href{ecb2162}{Expectation}: $E[X]=np$
+  \item\href{ddd95d5}{Variance}: $\Var(X)=np(1-p)$
+\end{enumerati}
+
+\begin{proof}
+  Let $X\sim B(n,p)$ and $Y\sim B(n-1,p)$. Then
+  \begin{align*}
+    P(Y+1=k) &=P(Y=k-1)                                                      \\
+             &=\binom {n-1}{k-1}p^{k-1}(1-p)^{(n-1)-(k-1)}\with{(k=\iter1n)} \\
+             &=\binom {n-1}{k-1}p^{k-1}(1-p)^{n-k}\Tag{*}
+  \end{align*}
+
+  Now, we consider $E[X^t]$ for some positive integer $t$. This may seem like a
+  jump, but keep calm and read on.
+  \begin{align*}
+    E[X^t] &=\sum_{k=0}^nk^tP(X=k)                                                                   \\
+           &=\sum_{k=1}^nk^t\binom nkp^k(1-p)^{n-k}                                                  \\
+           &=\sum_{k=1}^nk^{t-1}n\binom{n-1}{k-1}p^k(1-p)^{n-k}\desc{by \href{e676e33}{this result}} \\
+           &=np\sum_{k=1}^nk^{t-1}\binom{n-1}{k-1}p^{k-1}(1-p)^{n-k}                                 \\
+           &=np\sum_{k=1}^nk^{t-1}P(Y+1=k)\desc{by $(*)$}                                            \\
+           &=np\cdot E[(Y+1)^{t-1}]\desc{refer to \href{e9b530c}{this}}
+  \end{align*}
+
+  So with $t=1$, we have $E[X]=np$ (Exercise. Substitute $t=1$ into the above
+  and see that you're taking the sum of all probabilities over a p.m.f.).
+
+  And with $t=2$, we have
+  \begin{align*}
+    E[X^2] &=np\cdot E[Y+1]                            \\
+           &=np[E[Y]+1]\desc{by \href{ec9df73}{this}}  \\
+           &=np[(n-1)p+1]\desc{from $E[X]=np$ earlier} \\
+           &=n^2p^2-np^2+np
+  \end{align*}
+
+  So then
+  \begin{align*}
+    \Var(X) &=E[X^2]-[E[X]]^2\desc{by \href{f178eb7}{this}} \\
+            &=(n^2p^2-np^2+np)-(np)^2                       \\
+            &=np(1-p)
+  \end{align*}
+
+  This completes the proof.
+\end{proof}
+
+\Definition{Geometric random variable}\label{ba79d2b}
+
+The geometric random variable $X$ is the number of \href{e2d50c6}{Bernoulli
+trials} performed until a success is obtained (including the successful run).
+$$
+  P(X=k)=(1-p)^{k-1}p\with{(k=1,2,\ldots)}
+$$
+
+and we write
+$$
+  X\sim\mathrm{Geo}(p)
+$$
+
+Note that in other texts, this same random variable may be defined as the
+number of trials performed until a success is obtained, \textit{excluding} the
+successful run.
+
+\Proposition{Mean and variance of the Geometric random variable}\label{babfacb}
+
+\begin{enumerati}
+  \item\href{ecb2162}{Expectation}: $E[X]=\dfrac1p$
+  \item\href{ddd95d5}{Variance}: $\Var(X)=\dfrac{1-p}{p^2}$
+\end{enumerati}
+
+\begin{proof}
+  \begin{align*}
+    E[X] &=\sum_{k=1}^\infty k\cdot(1-p)^{k-1}p                                                                \\
+         &=p\cdot\lim_{n\to\infty}\biggl(\sum_{k=1}^nk\cdot(1-p)^{k-1}\biggr)                                  \\
+         &=\frac p{1-p}\cdot\lim_{n\to\infty}\biggl(\sum_{k=1}^nk\cdot(1-p)^k\biggr)                           \\
+         &=\frac p{1-p}\cdot\frac{1-p}{p^2}\desc{by \href{a5b19a9}{this result}, with $p$ there as $1-p$ here} \\
+         &=\frac1p
+  \end{align*}
+
+  Now, consider $E[X^2]$.
+  \begin{align*}
+    E[X^2] &=\sum_{k=1}^\infty k^2\cdot(1-p)^{k-1}p                                                                        \\
+           &=p\cdot\lim_{n\to\infty}\sum_{k=1}^nk^2\cdot(1-p)^{k-1}                                                        \\
+           &=\frac p{1-p}\cdot\lim_{n\to\infty}\sum_{k=1}^nk^2\cdot(1-p)^k                                                 \\
+           &=\frac p{1-p}\cdot\frac{(1-p)^2+(1-p)}{p^3}\desc{by \href{ad69980}{this result}, with $p$ there as $1-p$ here} \\
+           &=\frac{2-p}{p^2}
+  \end{align*}
+
+  Finally, we go after $\Var(X)$:
+  \begin{align*}
+    \Var(X) &=E[X^2]-[E[X]]^2\desc{by \href{f178eb7}{this}} \\
+            &=\frac{2-p}{p^2}-\frac1{p^2}                   \\
+            &=\frac{1-p}{p^2}
+  \end{align*}
+\end{proof}
+
+\Definition{Negative Binomial random variable}\label{d2bcc34}
+
+The negative binomial random variable $X$ is the number of
+\href{e2d50c6}{Bernoulli trials} performed (including the last successful
+trial) until $m$ successes are obtained.
+\begin{align*}
+  P(X=k) &=\frac{(k-1)!}{(m-1)!(k-m)!}(1-p)^{k-m}p^m\with{(k=m,m+1,\ldots)} \\
+         &=\binom{k-1}{m-1}(1-p)^{k-m}p^m
+\end{align*}
+
+and we write
+$$
+  X\sim NB(m,p)
+$$
+
+\Proposition{Mean and variance of the Negative Binomial random variable}\label{e814685}
+
+\begin{enumerati}
+  \item\href{ecb2162}{Expectation}: $E[X]=\dfrac mp$
+  \item\href{ddd95d5}{Variance}: $\Var(X)=\dfrac{m(1-p)}{p^2}$
+\end{enumerati}
+
+\begin{proof}
+  \def\S#1{\sum_{k=#1}^\infty}\def\f{\frac}
+
+  Let $c_k:=(1-p)^{k-m}p^m$ for brevity.
+  \begin{align*}
+    E[X]
+     &=\S mkP(X=k)                                                                        \\
+     &=\S mk\f{(k-1)!}{(m-1)!(k-m)!}c_k                                                   \\
+     &=\S mk\f{(k-1)!}{(m-1)!(k-m)!}c_k                                                   \\
+     &=\S m(k-m+m)\f{(k-1)!}{(m-1)!(k-m)!}c_k                                             \\
+     &=\S m\left[m\f{(k-1)!}{(m-1)!(k-m)!}+(k-m)\f{(k-1)!}{(m-1)!(k-m)!}\right]c_k\Tag{*}
+  \end{align*}
+
+  Notice that
+  \begin{align*}
+    \S{m}m\f{(k-1)!}{(m-1)!(k-m)!}c_k
+     &= m\S{m}\binom{k-1}{m-1}(1-p)^{k-m}p^m                  \\
+     &=m\desc{sum over entire \href{d2bcc34}{NB p.m.f.} $=1$}
+  \end{align*}
+
+  So we continue from $(*)$ with
+  \begin{align*}
+    E[X] &=m+\S{m+1}(k-m)\f{(k-1)!}{(m-1)!(k-m)!}c_k                             \\
+         &=m+\S{m+1}m\cdot\f{(k-1)!}{m!(k-m-1)!}(1-p)^{k-m}p^m                   \\
+         &=m+\S{m+1}\f{m(1-p)}{p}\cdot\f{(k-1)!}{m!(k-m-1)!}(1-p)^{k-m-1}p^{m+1} \\
+         &=m+\f{m(1-p)}{p}\S{m+1}\binom{k-1}{m}(1-p)^{(k-m)-1}p^{m+1}            \\
+         &=m+\f{m(1-p)}{p}\desc{sum over entire \href{d2bcc34}{NB p.m.f.} $=1$}  \\
+         &=\f{m}{p}
+  \end{align*}
+\end{proof}
+
+\Definition{Poisson random variable}\label{fc4dd45}
+
+A random variable $X$ is said to be a Poisson random variable with parameter
+$\lambda>0$ if
+$$
+  P(X=k)=\frac{\lambda^ke^{-\lambda}}{k!}\with{(k=0,1,\ldots)}
+$$
+
+and we write
+$$
+  X\sim\mathrm{Poisson}(\lambda)
+$$
+
+\Remark{Mean and variance of the Poisson random variable}\label{f8bbae0}
+
+\begin{enumerati}
+  \item\href{ecb2162}{Expectation}: $E[X]=\lambda$
+  \item\href{ddd95d5}{Variance}: $\Var(X)=\lambda$
+\end{enumerati}
+
+\Remark{Poisson as an approximation of Binomial}\label{cfda281}
+
+If $X\sim \href{bc8d330}{B(n,p)}$, and $n$ is large and $p$ is small, then $X$
+is approximately a \href{fc4dd45}{Poisson random variable} with mean
+$\lambda=np$.
+
+\Remark{Poisson as interval estimator}\label{d544278}
+
+Consider these three assumptions, for some $\lambda\in\R$:
+\begin{enumerate}
+  \item The probability that exactly 1 event occurs in a given interval of
+        length $h$ is equal to $\lambda h+\href{ab54b3a}{o(h)}$ where $\lambda$
+        is the rate of occurences per unit time.
+  \item The probability that 2 or more events occurs in an interval of length
+        $h$ is equal to $o(h)$.
+  \item For any $n,\iter{c_1}{c_n}\in\Z$ and any set of $n$ non-overlapping
+        intervals, if we define $E_i$ to be the event that exactly $c_i$ of the
+        events occur in the $i$-th of these intervals, then events
+        $\iter{E_1}{E_n}$ are independent.
+\end{enumerate}
+
+Let $N(t)$ be the number of events that occur in an interval of length $t$. If
+the three assumptions hold, then
+$$
+  N(t)\sim\href{fc4dd45}{\mathrm{Poisson}}(\lambda t)
+$$

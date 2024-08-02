@@ -1,0 +1,808 @@
+\chapter{Plenary}\label{ce06306}
+
+\smash{\raisebox{24pt}{All the proofs and results I don't want to write twice.}}\vspace{-22pt}
+
+\begin{itemize}
+  \item\nameref{be5844b} % Real Analysis
+  \item\nameref{a5ec1bb} % One-liner Definitions
+  \item\nameref{ec9b661} % Discrete Mathematics
+  \item\nameref{c102004} % Norms
+  \item\nameref{f578ae7} % General stuff
+  \item\nameref{f160236} % Random exercises
+\end{itemize}
+
+\subsection{Real Analysis}\label{be5844b}
+
+\Theorem{Monotone seq. with a convergent subseq. is convergent}\label{aaf3ba6}
+
+Let $\{x_n\}$ be a monotone sequence with a subsequence $\{x_{n_k}\}$ that
+converges to $L$. Then $\{x_n\}$ converges to $L$.
+
+\begin{proof}
+  WLOG, assume that $\{x_n\}$ is decreasing.
+  Given any $\epsilon>0$, we want to find a $N_\epsilon\in\N$ such that
+  $$
+    |x_n-L|<\epsilon\quad\forall(n\geq N_\epsilon)
+  $$
+
+  Since $\{x_{n_k}\}$ is decreasing and converges to $L$, we can find (and fix)
+  a $k_\epsilon$ such that
+  \begin{equation*}
+    0<x_{n_k}-L<\epsilon\quad\forall(k\geq k_\epsilon)\Tag{*}
+  \end{equation*}
+
+  So we take $N_\epsilon=n_{k_\epsilon}$. Then since $\{x_n\}$ is decreasing,
+  $$
+    x_n\leq x_{N_\epsilon}=x_{n_{k_\epsilon}}\quad\forall(n\geq N_\epsilon)
+  $$
+
+  Moreover, $L\leq x_n\leq x_{n_{k_\epsilon}}$, and hence
+  $$
+    0\leq x_n-L\leq x_{n_{k_\epsilon}}-L
+  $$
+
+  and from $(*)$, we have that this entire inequality $<\epsilon$, and hence
+  $$
+    0\leq x_n-L<\epsilon
+  $$
+
+  and finally
+  $$
+    |x_n-L|<\epsilon
+  $$
+\end{proof}
+
+\Theorem{Mean value theorem}\label{d37aa2b}
+
+Let $f:[a,b]\to\R$ be continuous on the interval $[a,b]$, and differentiable on
+$(a,b)$. Then there exists $c\in(a,b)$ such that
+$$
+  f'(c)=\frac{f(b)-f(a)}{b-a}
+$$
+
+Generalized to multiple variables, the mean value theorem can be written as:
+
+Let $f:[a,b]\to\R$, where $a,b\in\R^n$, and $[a,b]$ refers to the line segment
+connecting $a$ and $b$, namely
+$$
+  [a,b]:=\{\lambda a+(1-\lambda)b\mid\lambda\in[0,1]\}
+$$
+
+Suppose $f$ is continuous on $[a,b]$ and differentiable on $(a,b)$. Then there
+exists $c\in[a,b]$ such that
+$$
+  \nabla f(c)^T(b-a)=f(b)-f(a)
+$$
+
+In some arguments, we use $f:[x,x+td]\to\R$ and write that there exists
+$\eta\in[x,x+td]$ such that
+$$
+  \nabla f(\eta)^Td=\frac{f(x+td)-f(x)}t
+$$
+
+\Theorem{Bernoulli's inequality}\label{d44713f}
+
+$$
+  (1+x)^n\geq 1+nx
+$$
+
+This holds under any of the following conditions:
+\begin{itemize}
+  \item $n\in\Z,n\geq1$ and $x\in\R,x\geq-1$ (inequality is strict if
+        $x\neq0$ and $n\geq2$)
+  \item $n\in\Z,n\geq0$ and $x\in\R,x\geq-2$
+  \item $n\in\Z$, $n$ is even and $x\in\R$
+  \item $n\in\R,n\geq1$ and $x\in\R,x\geq-1$ (inequality is strict if
+        $x\neq0$ and $n\neq1$)
+\end{itemize}
+
+and separately,
+$$
+  (1+x)^n\leq 1+nx
+$$
+
+for every $n\in\R,0\leq n\leq 1$ and $x\geq-1$.
+
+\Result{Preprocessed limits}\label{ffc8953}
+
+Let $k,\ell\in\N$ and $a,b,c\in\R$ be fixed.
+\begin{enumerata}
+  \def\li{\displaystyle\lim_{n\to\infty}}
+  \item $\li\frac1{n^k}=0$
+  \item $\li b^n=0$ \quad if \quad $|b|<1$
+  \item $\li c^{\frac1n}=1$ \quad if \quad $c>0$
+  \item $\li n^{\frac1n}=1$
+  \item $\li \left(1+\frac1n\right)^n=e$
+  \item $\li \left(1-\frac1n\right)^n=\frac1e$
+  \item $\li \frac{n^k}{c^n}=0$ \quad if \quad $c>0$
+\end{enumerata}
+
+if $k<\ell$ and $1<a<b$, we have
+$$
+  n^k << n^\ell << a^n << b^n << n!
+$$
+
+\Result{Limit to infinity of a rational function}\label{ccfddb1}
+
+Let $P,Q$ be polynomial functions, where $Q$ is of a higher degree. Then
+$$
+  \lim_{x\to\infty}\frac{P(x)}{Q(x)}=0
+$$
+
+\begin{compute}
+  Consider the example of
+  $$
+    \lim_{x\to\infty}\frac{x^2 - 3x}{x^3 + 2x + 5}
+  $$
+
+  We can divide both numerator and denominator by $x^2$ to obtain
+  $$
+    \lim_{x\to\infty}\frac{1 - \frac3x}{x + \frac2x + \frac5{x^2}}
+  $$
+
+  And we can see that the numerator $\to1$ while the denominator $\to\infty$.
+\end{compute}
+
+\Result{Limit of $\frac{e^x}x$ as $x\to\infty$}\label{b905ee7}
+
+$$
+  \lim_{x\to\infty}\frac{e^x}x=\infty
+$$
+
+\begin{proof}
+  Since $e^x$ can be written as a Taylor series
+  $$
+    e^x=1 + x + \frac{x^2}2 +\ldots
+  $$
+
+  We have $e^x\geq 1 + x + x^2$ and hence
+  \begin{align*}
+    \lim_{x\to\infty}\frac{e^x}x
+     &\geq\lim_{x\to\infty}\frac{1+x+\frac{x^2}2}x \\
+     &=\lim_{x\to\infty}\frac1x + 1 + \frac{x}2    \\
+     &= \infty
+  \end{align*}
+\end{proof}
+
+\Result{Limit of $\frac{\ln n}{n}$ as $n\to\infty$}\label{e2e1632}
+
+$$
+  \lim_{n\to\infty}\frac{\ln n}n = 0
+$$
+
+\begin{proof}
+  Given any $\epsilon>0$, we have to find a $N\in\N$ such that
+  $$
+    n\geq N\implies\frac{\ln n}n<\epsilon
+  $$
+
+  But, if you've been paying attention,
+  $$
+    \frac{\ln n}n<\epsilon\iff\frac{e^{\epsilon n}}{\epsilon n}>\frac1\epsilon
+  $$
+
+  And since $\epsilon n\to+\infty$, using \autoref{b905ee7} with $\epsilon n$
+  as the limiting variable tells us that indeed there exists such an $N$, hence
+  completing the proof.
+\end{proof}
+
+\Result{Limit of $\frac{n}{\ln n}$ as $n\to\infty$}\label{d32d0e0}
+
+$$
+  \lim_{n\to\infty}\frac n{\ln n}=\infty
+$$
+
+\begin{proof}
+  In the proof of \autoref{e2e1632}, we have shown that given any
+  $\epsilon>0$ we can find a $N\in\N$ such that
+  $$
+    n\geq N\implies\frac{\ln n}n<\epsilon
+  $$
+
+  So then now given any $M>0$, we have $1/M>0$ and hence we can find a $N\in\N$
+  such that
+  $$
+    n\geq N\implies\frac{\ln n}n<\frac1M
+  $$
+
+  which is the same as
+  $$
+    n\geq N\implies\frac n{\ln n}>M
+  $$
+
+  This completes the proof.
+\end{proof}
+
+\Corollary{$n$ is not $O(\log n)$}\label{d4be35c}
+
+Let $n\in\N$. Then the linear function $n\mapsto n$ is not $O(\log n)$.
+
+\begin{proof}
+  Assume on the contrary that $n$ is $O(\log n)$. Then there exists $M>0$ and
+  $n_0\in\N$ such that
+  $$
+    n\leq M\log n,\with{\forall n\geq n_0}
+  $$
+
+  But this contradicts
+  $$
+    \lim_{n\to\infty}\frac n{\ln n}=\infty
+  $$
+
+  which was shown to be true in \autoref{d32d0e0}.
+\end{proof}
+
+\Result{Limit of a polynomial divided by its successor}\label{b63d815}
+
+Let $P$ be a polynomial. Show that
+$$
+  \lim_{x\to\infty}\frac{P(x)}{P(x+1)}=1
+$$
+
+\begin{proof}
+  \def\one{\left(1+\frac1x\right)}
+  We will write $P(x)$ as
+  $$
+    P(x):=\sum_{i=0}^n a_ix^i
+  $$
+
+  where $n$ is the degree of polynomial $P$.
+  \begin{align*}
+    P(x+1)
+     &=P\bigl(x(1+\tfrac1x)\bigr)                                                                         \\
+     &=a_0+a_1x\one+a_2x^2\one^2+\ldots+a_nx^n\one^n                                                      \\
+     &=x^n\left[\frac{a_0}{x^n}+\frac{a_1}{x^{n-1}}\one+\frac{a_2}{x^{n-2}}\one^2+\ldots+a_n\one^n\right] \\[0.5em]
+    P(x)
+     &=x^n\left(\frac{a_0}{x^n}+\frac{a_1}{x^{n-1}}+\frac{a_2}{x^{n-2}}+\ldots+a_n\right)                 \\[0.5em]
+    \implies \frac{P(x)}{P(x+1)}
+     &=\frac
+    {\frac{a_0}{x^n}+\frac{a_1}{x^{n-1}}\one+\frac{a_2}{x^{n-2}}\one^2+\ldots+a_n\one^n}
+    {\frac{a_0}{x^n}+\frac{a_1}{x^{n-1}}+\frac{a_2}{x^{n-2}}+\ldots+a_n}                                  \\[0.5em]
+    \implies \lim_{x\to\infty}\frac{P(x)}{P(x+1)}
+     &=\frac{a_n}{a_n} = 1
+  \end{align*}
+\end{proof}
+
+\Result{Rational times irrational is irrational}\label{d9d3f10}
+
+Let $a\in\R\setminus\Q$ and $b\in\Q$. Then $ab\in\R\setminus\Q$.
+
+\begin{proof}
+  Clearly $ab\in\R$. Suppose $ab\in\Q$. Then there exists $n,m,s,t\in\Z$ such
+  that
+  $$
+    \frac nm=ab\quad\text{and}\quad \frac st=b
+  $$
+
+  Then we have
+  $$
+    a=\frac nm\cdot\frac1b=\frac nm\cdot\frac ts\in\Q
+  $$
+
+  which is a contradiction. Hence we must have $ab\in\R\setminus\Q$.
+\end{proof}
+
+\Result{}\label{a0b7c88}
+
+Let $\{x_n\}$ be a sequence of positive numbers. If
+$$
+  \lim_{n\to\infty}\frac{x_{n+1}}{x_n}=L,
+$$
+
+for $L<1$, then $\displaystyle\lim_{n\to\infty}x_n=0$.
+
+\begin{proof}
+  Since $L<1$, we have $\frac{1-L}2>0$. Let $\epsilon:=\frac{1-L}2>0$.
+
+  Since $\frac{x_{n+1}}{x_n}\to L$, there exists $K\in\N$ such that
+  $$
+    n\geq K\implies\left|\frac{x_{n+1}}{x_n}-L\right|<\epsilon
+  $$
+
+  So for all $n\geq K$,
+  \begin{align*}
+    x_{n+1}
+     &=\left|\frac{x_{n+1}}{x_n}\right|\cdot x_n                                                               \\
+     &=\left|\left(\frac{x_{n+1}}{x_n}-L\right)+L\right|\cdot x_n                                              \\
+     &\leq\left(\left|\frac{x_{n+1}}{x_n}-L\right|+L\right)\cdot x_n\desc{\href{f1288ad}{triangle inequality}} \\
+     &<(\epsilon + L)\cdot x_n
+  \end{align*}
+
+  Put $r:=\frac{1+L}2<1$, so we have
+  $$
+    x_{n+1}<(\epsilon+L)\cdot x_n=rx_n
+  $$
+
+  Which shows that $\{x_n\}$ is decreasing. Since it is also bounded below by
+  0, by the \href{cc11aa4}{Monotone Convergence Theorem}, $\{x_n\}$ converges.
+  Let $x:=\displaystyle\lim_{n\to\infty}x_n$. Now
+  $$
+    x=\lim_{n\to\infty}x_{n+1}
+    =\lim_{n\to\infty}\frac{x_{n+1}}{x_n}\cdot x_n
+    =\lim_{n\to\infty}\frac{x_{n+1}}{x_n}\cdot\lim_{n\to\infty}x_n
+    =Lx
+  $$
+
+  so that $(1-L)x=0$. But since $L<1$, $1-L\neq0$ and hence we must have $x=0$.
+\end{proof}
+
+\Result{Limit of a polynomial divided by an exponential}\label{cf2b74d}
+
+Let $a,b\in\R$ be fixed, with $b>1$. Then we have
+$$
+  \lim_{n\to\infty}\frac{n^a}{b^n}=0
+$$
+
+Note that if we have a fixed $c<1$, then this fact is expressed as
+$$
+  \lim_{n\to\infty}n^a{c^n}=0
+$$
+
+\begin{proof}
+  Define a sequence $\{x_n\}$ by $x_n:=\dfrac{n^a}{b^n}$. Then
+  \begin{align*}
+    \lim_{n\to\infty}\frac{x_{n+1}}{x_n}
+     &=\lim_{n\to\infty}\frac{(n+1)^a}{b^{n+1}}\cdot\frac{b^n}{n^a} \\
+     &=\frac1b\lim_{n\to\infty}\left(1+\frac1n\right)^a             \\
+     &=\frac1b(1+0)^a                                               \\
+     &=\frac1b<1
+  \end{align*}
+
+  and by \autoref{a0b7c88}, we have $\displaystyle\lim_{n\to\infty}x_n=0$.
+\end{proof}
+
+\subsection{One-liner Definitions}\label{a5ec1bb}
+
+\Definition{Affine functions}\label{dcb7f73}
+
+An affine function $f:\R^n\to\R^m$ is of the form
+$$
+  f(x)=Ax-b\with{(A\in\R^{m\times n},b\in\R^m)}
+$$
+
+\Definition{Coercive functions}\label{e9c7871}
+
+A function $f:\R^n\to\R$ is coercive if
+$$
+  \lim_{\norm x\to\infty}f(x)=+\infty
+$$
+
+\Definition{Supercoercive functions}\label{a0444cc}
+
+A function $f:\R^n\to\R$ is supercoercive if
+$$
+  \lim_{\norm x\to\infty}\frac{f(x)}{\norm x}=+\infty
+$$
+
+\subsection{Discrete Mathematics}\label{ec9b661}
+
+\Definition{Absolute basics of boolean algebra}\label{ba4e2fa}
+
+\begin{enumerata}
+  \item Literal: a boolean variable $x$ or $\neg x$ (or $\bar x$)
+  \item Conjunction: $\land$ (and)
+  \item Disjunction: $\lor$ (or)
+  \item Clause: a disjunction of \textbf{distinct} literals
+\end{enumerata}
+
+\Definition{Conjunctive normal form}\label{ab60bb1}
+
+This is a \href{ba4e2fa}{conjunction} of one or more \href{ba4e2fa}{clauses}.
+$$
+  (A\lor B)\land (C\lor D\lor E)
+$$
+
+\Definition{Disjunctive normal form}\label{bb41c04}
+
+This is a \href{ba4e2fa}{disjunction} of one or more
+\href{ba4e2fa}{conjunctions}.
+$$
+  (A\land B)\lor (C\land D\land E)
+$$
+
+\Proposition{Extending a CNF to 3 variables}\label{f33a84e}
+
+Given a 1-variable or 2-variable \href{ab60bb1}{CNF}, we want to write a
+logically equivalent 3-variable CNF. (Useful for 3-SAT problems). Here's how:
+
+\paragraph{2-var CNF.} Say we have the expression $(x\lor y)$. This is logically equivalent to
+$$
+  (x\lor y\lor z)\land(x\lor y\lor\bar z)
+$$
+
+Notice that if $z$ is TRUE then we can drop the left branch because it's true
+and hence
+$$
+  (x\lor y\lor z)\land(x\lor y\lor\bar z) \equiv(x\lor y\lor\bar z) \equiv (x\lor y)
+$$
+
+Similarly if $z$ is FALSE then we drop the right branch and get
+$$
+  (x\lor y\lor z)\land(x\lor y\lor\bar z) \equiv(x\lor y\lor z) \equiv (x\lor y)
+$$
+
+\paragraph{1-var CNF.} Now consider the expression $x$. Instead of adding just one variable we now add
+two and get the logically equivalent expression
+\begin{equation*}
+  (x\lor y\lor z)\land
+  (x\lor y\lor\bar z)\land
+  (x\lor \bar y\lor z)\land
+  (x\lor \bar y\lor\bar z)
+\end{equation*}
+
+If $(y,z)=(\text{TRUE},\text{TRUE})$ we can drop all clauses containing $y$ or
+$z$, leaving us with
+$$
+  (x\lor \bar y\lor\bar z)
+$$
+
+but then $(\bar y,\bar z)=(\text{FALSE},\text{FALSE})$ and hence it is
+logically equivalent to just $x$. Repeating this logic for all combinations of
+$(y,z)$, we can see that $(*)$ is logically equivalent to $x$.
+
+\subsection{Norms}\label{c102004}
+
+\Definition{Norm}\label{e0fff96}
+
+Given a \href{fc83050}{vector space} $X$ over a \href{aec6040}{subfield}
+$\mathcal F$ of the complex numbers $\C$, a \textbf{norm} on $X$ is a
+real-valued function $p:X\to\R$ with the following properties, where $|k|$
+denotes the absolute value of a scalar $k$.
+\begin{enumerate}
+  \item [\textbf{(N1)}] \textit{(Positive definiteness)} For all $x\in
+        X$, if $p(x)=0$ then $x=0$.
+  \item [\textbf{(N2)}] \textit{(Absolute homogeneity)}
+        $p(kx)=|k|p(x)$ for all $x\in X$ and scalars $k$.
+  \item [\textbf{(N3)}] \textit{(Subadditivity/Triangle inequality)}
+        $p(x+y)\leq p(x)+p(y)$ for all $x,y\in X$
+  \item [\textbf{(N4)}] \textit{(Non-negativity)}
+        $p(x)\geq0,\ \forall x\in X$
+\end{enumerate}
+
+Often, $p(x)$ is written as $\norm x$.
+
+Note that including \textbf{(N4)} as a definition is not necessary as it
+follows from \textbf{(N2)} and \textbf{(N3)}. From \textbf{(N2)} alone, we have
+$p(0)=0$ (by using $k:=0$). Then,
+\begin{align*}
+  p(x-x) &\leq p(x)+p(-x)                       \\
+         &=p(x)+|-1|p(x)\desc{by \textbf{(N2)}} \\
+  0      &\leq2p(x)\desc{by $p(0)=0$}
+\end{align*}
+
+Thus \textbf{(N4)} follows from \textbf{(N2)} and \textbf{(N3)}.
+
+\Definition{Seminorm}\label{fd3f98a}
+
+A seminorm is a \href{e0fff96}{norm} that need not be positive definite.
+
+\Definition{Types of norms}\label{ef0996f}
+
+Let $X\subseteq\mathcal F^n$ be a vector space over a subfield $\mathcal F$ of
+the complex numbers $\C$.
+
+Then we have three common types of norms:
+\begin{enumerati}
+  \item $\ell_1$-norm (or Taxicab/Manhattan norm):
+  $$
+    \norm{x}_1:=|x_1|+\ldots+|x_n|
+  $$
+  \item $\ell_2$-norm (or Euclidean norm):
+  $$
+    \norm{x}_2:=\sqrt{x_1^2+\ldots+x_n^2}
+  $$
+  \item $\ell_\infty$-norm:
+  $$
+    \norm{x}_\infty:=\max\{|x_1|,\ldots,|x_n|\}
+  $$
+\end{enumerati}
+
+\Proposition{Operator norms}\label{bad47a4}
+
+Let $\norm{\,\cdot\,}_*$ be a (vector) \href{e0fff96}{norm} on $\R^n$ and
+$\R^m$, respectively. Then for $A\in\R^{m\times n}$,
+$$
+  \norm A_*:=\sup_{x\neq0}\frac{\norm{Ax}_*}{\norm x_*}
+$$
+
+is a norm on $\R^{m\times n}$ with
+$$
+  \norm A_*=\sup_{\norm x_*=1}\norm{Ax}_*=\sup_{\norm x_*\leq1}\norm{Ax}_*
+$$
+
+\Proposition{}\label{ab2107f}
+
+Let $A\in\R^{m\times n}$. Then building on the \href{ef0996f}{types of norms},
+we have
+$$
+  \begin{array}{l l l}
+    \norm{A}_1      & = \displaystyle\max_{j=\iter1n}\sum_{i=1}^m|a_{ij}| & \text{(maximum absolute column sum)} \\[1.5em]
+    \norm{A}_2      & = \displaystyle\sqrt{\lambda_{\max}(A^TA)}          & \text{(spectral norm)}               \\[1em]
+    \norm{A}_\infty & = \displaystyle\max_{i=\iter1m}\sum_{j=1}^n|a_{ij}| & \text{(maximum absolute row sum)}
+  \end{array}
+$$
+
+\Proposition{}\label{dd47a09}
+
+Let $\norm{\,\cdot\,}_*$ be a norm on $\R^n$, $\R^m$, and $\R^p$ respectively.
+Then for all $A\in\R^{m\times n}$ and $B\in\R^{n\times p}$ the following hold:
+\begin{itemize}
+  \def\nm#1{\norm{#1}_*}
+  \item $\nm{Ax}\leq\nm A\nm x$ for all $x\in\R^n$ \quad \textit{(compatibility)}
+  \item $\nm{AB}\leq\nm A\nm B$ \quad \textit{(submultiplicativity)}
+\end{itemize}
+
+\subsection{General stuff}\label{f578ae7}
+
+\Definition{Gamma function}\label{ce1fa3f}
+
+The gamma function is defined via a convergent improper integral:
+$$
+  \Gamma(z):=\int_0^\infty e^{-t}t^{z-1}\,dt\Quad(\Re(z)>0)
+$$
+
+Note that ``$\displaystyle\int_0^\infty$" is a shorthand for
+``$\displaystyle\lim_{k\to\infty}\int_0^k$".
+
+Observe that $\Gamma(1)=1$.
+$$
+  \int_0^\infty e^{-t}\,dt=\Bigl[-e^{-t}\Bigr]_0^\infty=1
+$$
+
+And that $\Gamma(n+1)=n\Gamma(n)$.
+\begin{align*}
+  \int_0^\infty e^{-t}t^n\,dt
+   &= \Bigl[-e^{-t}\cdot t^n\Bigr]_0^\infty-\int_0^\infty-e^{-t}\cdot nt^{n-1}\,dt \\
+   &= 0+\int_0^\infty e^{-t}\cdot nt^{n-1}\,dt \Quad\text{(by \autoref{cf2b74d})}  \\
+   &= n\Gamma(n)
+\end{align*}
+
+\Definition{Language reductions}\label{e009acb}
+
+If problem $A$ is reducible to problem $B$, we write $A\leq B$.
+
+Reducing $A$ to $B$ by a \textbf{Many-one reduction} is to find a function $f$
+which converts inputs $x$ of $A$ into inputs $f(x)$ of $B$, such that
+$A(x)=B(f(x))$ under all values of $x$.
+
+Reducing $A$ to $B$ by a \textbf{Turing reduction} is to find a function which
+mimics the behavior of $A$ using an oracle of $B$. i.e., $A(x)=\text{TRUE}\iff
+B(f(x))=\text{TRUE}$.
+
+$A$ being reducible to $B$ means solving $A$ cannot be harder than the
+combined difficulty of solving $B$ and executing the reduction. In
+particular, if the reduction runs in constant-time, $A$ cannot be
+harder than $B$. In order words, $\leq$ is referring to hardness.
+
+\Definition{Everything $\mathsf P$-, $\mathsf{NP}$-related}\label{e04bcbc}
+
+This is a compilation of everything $\mathsf P$- and $\mathsf{NP}$-related. For
+in-depth definitions, refer to each link below.
+
+A problem $L$ is in $\mathsf P$ if it runs in polynomial time.
+
+A problem $L$ is in $\mathsf{NP}$ if has a polynomial-time verifier.
+
+We say that $L_1\leq_{\mathsf P}L_2$ if there is a polynomial-time
+\href{e009acb}{reduction} from $L_1$ to $L_2$.
+
+A problem $L$ is $\mathsf{NP}$-complete when $L\in\mathsf{NP}$, and every
+problem $L'$ in $\mathsf{NP}$ has a polynomial-time reduction to it:
+$$
+  \forall L'\in\mathsf{NP}: L'\leq_{\mathsf P}L
+$$
+
+A problem $H$ is $\mathsf{NP}$-hard when for every $L\in\mathsf{NP}$, there is
+a polynomial-time reduction from $L$ to $H$:
+\begin{equation*}
+  \forall L\in\mathsf{NP}: L\leq_{\mathsf P}H\Tag{*}
+\end{equation*}
+
+The only difference between $\mathsf{NP}$-complete and $\mathsf{NP}$-hard is
+that $\mathsf{NP}$-complete has the extra constraint of having to be in
+$\mathsf{NP}$.
+
+$(*)$, based on a \href{e04bcbc}{previous remark}, also implies that
+$H$ is at least as hard as the hardest problem in $\mathsf{NP}$.
+
+\Theorem{Cauchy-Schwarz inequality}\label{f85ac46}
+
+For all vectors $u$ and $v$ of an \href{b9935c8}{inner product space},
+$$
+  |\inner uv|^2\leq\inner uu\cdot\inner vv
+$$
+
+\begin{proof}
+  If $v=0$, then the inequality holds with equality, by \href{fb218c8}{this
+  proposition}. Thus we can assume that $v\neq0$. Consider the orthogonal
+  decomposition
+  $$
+    u:=\frac{\inner uv}{\inner vv}v+w
+  $$
+
+  derived \href{a7dfcb8}{here}, where $w$ is orthogonal to $v$. Then by the
+  \href{c5e5d7d}{Pythagorean theorem},
+  \begin{align*}
+    \inner uu &=\inner{\frac{\inner uv}{\inner vv}v}{\frac{\inner uv}{\inner vv}v}+\inner ww          \\
+              &=\biggl(\frac{\inner uv}{\inner vv}\biggr)^2\inner vv+\inner ww                        \\
+              &=\frac{|\inner uv|^2}{\inner vv}+\inner ww\desc{\href{cebd07a}{positive definiteness}} \\
+              &\geq\frac{|\inner uv|^2}{\inner vv}
+  \end{align*}
+
+  The claim follows immediately from the last inequality.
+\end{proof}
+
+\Remark{Conditions for equality on Cauchy-Schwarz}\label{f012e25}
+
+In the proof of \autoref{f85ac46}, we observe that the Cauchy-Schwarz
+inequality holds with equality if and only if
+$$
+  \inner uu=\frac{|\inner uv|^2}{\inner vv}
+$$
+
+This happens \href{fb218c8}{if and only if} $w=0$, but \href{a7dfcb8}{by
+construction}, $w=0$ if and only if $u$ is a scalar multiple of $v$.
+
+\Corollary{Cauchy-Schwarz inequality*}\label{c503127}
+
+The \href{c503127}{Cauchy-Schwarz inequality} gives the following corollaries:
+\begin{enumerata}
+  \item Let $u_i,v_i\in\R$ for $i=\iter1n$ for any integer $n$. Then
+  \begin{equation*}
+    \def\su{\sum}\def\u{u_i}\def\v{v_i}
+    \left(\su\u\v\right)^2\leq\left(\su\u^2\right)\left(\su\v^2\right)
+  \end{equation*}
+
+  \item Let $u_k,v_k\in\C$ for $k=\iter1n$ for any integer $n$. Then
+  \begin{equation*}
+    \def\su{\sum}\def\u{u_i}\def\v{v_i}
+    \left|\su\u\v\right|^2\leq\left(\su|\u|^2\right)\left(\su|\v|^2\right)
+  \end{equation*}
+\end{enumerata}
+
+\begin{proof}
+  To prove (a), we observe that $\R^n$ equipped with the standard dot
+  product is an \href{b9935c8}{inner product space}. We can build
+  vectors $u,v\in\R^n$ by arranging $u_i$ for $i=\iter1n$ into a
+  column vector and do the same for $v_i$ to get $v$.
+
+  Then applying the Cauchy-Schwarz inequality with the standard dot product, we
+  have
+  $$
+    |u\cdot v|^2\leq (u\cdot u)(v\cdot v)
+  $$
+
+  Which gives the statement in (a) exactly.
+
+  To prove (b), instead of the \href{b9935c8}{inner product space} constructed
+  from $\R^n$ and the standard dot product, we use $\C^n$ and the complex inner
+  product defined by
+  $$
+    \inner uw:=u_1\bar w_1+\ldots+u_n\bar w_n
+  $$
+
+  Then by the Cauchy-Schwarz inequality, for all $u,w\in\C^n$,
+  \begin{align*}
+    |\inner uw|^2 &=\left|\sum u_k\bar w_k\right|^2                            \\
+                  &\leq\inner uu\cdot\inner ww                                 \\
+                  &=\left(\sum u_k\bar u_k\right)\left(\sum w_k\bar w_k\right) \\
+                  &=\left(\sum|u_k|^2\right)\left(\sum|w_k|^2\right)
+  \end{align*}
+
+  That is
+  $$
+    |u_1\bar w_1+\ldots+u_n\bar w_n|^2\leq
+    \Bigl(|u_1|^2+\ldots+|u_n|^2\Bigr)
+    \Bigl(|\bar w_1|^2+\ldots+|\bar w_n|^2\Bigr)
+  $$
+
+  But since $|z|^2=|\bar z|^2$ for all $z\in\C$, we can define a collection
+  $\iter{v_1}{v_n}$ such that $v_k=\bar w_k$, then we can rewrite the above
+  inequality as
+  $$
+    |u_1v_1+\ldots+u_nv_n|^2\leq
+    \Bigl(|u_1|^2+\ldots+|u_n|^2\Bigr)
+    \Bigl(|v_1|^2+\ldots+|v_n|^2\Bigr)
+  $$
+
+  And finally since the collection $w_k$ were arbitrarily chosen, so can the
+  collection $v_k$.
+\end{proof}
+
+\Theorem{Taylor's Theorem}\label{c980e4c}
+
+% here, eta is declared to be in the open interval
+% because
+%   * [https://wikipedia.org/wiki/Taylor's_theorem#Explicit_formulas_for_the_remainder]
+%     here it states eta is "in between" without saying "inclusive" or
+%     "exclusive", so we assume exclusive.
+%   * This is the Mean-Value form of the Taylor's Theorem, so we take after the
+%     Mean Value Theorem, which uses an open interval.
+
+Let $f$ be differentiable $k$ times on $(x,a)$ and $f^{(k-1)}$ continuous on
+$[x,a]$. Then there exists $\eta\in(x,a)$ such that
+\begin{align*}
+  f(x)-\biggl[f(a)+f'(a)(x-a)+\frac{f''(a)}2(x-a)^2+\ldots+\frac{f^{(k)}(a)}{k!}(x-a)^k\biggr]
+  =\frac{f^{(k+1)}(\eta)}{(k+1)!}(x-a)^{k+1}
+\end{align*}
+
+Note that this is precisely the \href{d37aa2b}{Mean Value Theorem} at $k=0$.
+
+\paragraph{Taylor's Theorem with $k=1$.}
+
+Let $f:\R\to\R$ be twice differentiable on $(x,y)$, and let $f'$ be continuous
+on $[x,y]$. Then there exists $\eta\in(x,y)$ such that
+$$
+  f(y)-f(x)=f'(x)(y-x)+\frac12f''(\eta)(y-x)^2
+$$
+
+% The choice of presenting Taylor's in two slightly different ways is deliberate.
+
+\Theorem{Intermediate Value Theorem}\label{d8d9745}
+
+If $f:\R\to\R$ is continuous on $[a,b]$ and $s\in\R$ satisfies
+$$
+  f(\hat a)\leq s\leq f(\hat b)
+$$
+
+for some $\hat a,\hat b\in[a,b]$, then there exists $c\in[a,b]$ for which
+$f(c)=s$.
+
+\Theorem{Rolle's Theorem}\label{c22360b}
+
+If $f:\R\to\R$ is continuous on $[a,b]$ and $f$ is differentiable on $(a,b)$,
+and also $f(a)=f(b)=0$, then there exists $c\in[a,b]$ for which $f'(c)=0$.
+
+\Result{Sum of integers}\label{f0d0dbb}
+
+$$
+  \sum_{k=1}^nk=\frac{n(n+1)}2
+$$
+
+\Result{Sum of squares}\label{d9920cf}
+
+$$
+  \sum_{k=1}^nk^2=\frac{n}{6}(n+1)(2n+1)=\frac{n^3}3+\frac{n^2}2+\frac n6
+$$
+
+\Theorem{Fundamental theorem of algebra}\label{eef914e}
+
+Every univariate polynomial of positive degree with complex coefficients has at
+least one complex root.
+
+Or equivalently, every univariate polynomial of positive degree $n$ with
+complex coefficients can be factorized as
+$$
+  c(x-r_1)\ldots(x-r_n)
+$$
+
+where $c,\iter{r_1}{r_n}\in\C$. This statement can be seen to be equivalent to
+the first version through recursion. When a root $r_1$ has been found, the
+polynomial division by $x-r_{1}$ provides a polynomial of degree $n-1$ whose
+roots are the other roots of the given polynomial.
+
+\subsection{Random exercises}\label{f160236}
+
+\Result{Positive definiteness}\label{f8a73df}
+
+Let $A\in\R^{n\times n}$ be symmetric with with eigenvalues
+$\iter{\lambda_1}{\lambda_n}\in\R$. Show the following:
+\begin{enumerata}
+  \item $x^TAx\geq0\;(x\in\R^n)\iff\lambda_i\geq0\;(i=\iter1n)$
+  \item $x^TAx>0\;(x\in\R^n\sans{0})\iff\lambda_i>0\;(i=\iter1n)$
+\end{enumerata}
+
+\begin{compute}
+  Let $I:=\{\iter1n\}$ be the index set.
+
+  ($\implies$) Suppose $A$ is symmetric positive semidefinite. Assume on the
+  contrary that it has a $\lambda_i<0$ for some $i\in I$. Let $x$ be the
+  eigenvector corresponding to eigenvalue $\lambda_i$. Then
+  $$
+    x^TAx=x^T(\lambda_ix)=\lambda_ix^Tx=\lambda_i|x|^2<0
+  $$
+
+  which contradicts that $A$ is positive semidefinite.
+
+  ($\impliedby$) This part of the proof requires Spectral Decomposition.
+\end{compute}

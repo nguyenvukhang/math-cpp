@@ -1,0 +1,39 @@
+\subsection{Probability as a continuous set function}\label{fad1d93}
+
+\Definition{Increasing sequence}\label{cbc0142}
+
+A sequence of events $E_1,E_2,\ldots$ is said to be an increasing sequence if
+$$
+  E_1\subseteq E_2\subseteq E_3\ldots
+$$
+
+\Definition{Decreasing sequence}\label{ed3485a}
+
+A sequence of events $E_1,E_2,\ldots$ is said to be an decreasing sequence if
+$$
+  E_1\supseteq E_2\supseteq E_3\ldots
+$$
+
+\Definition{Probability of a sequence of events}\label{e6c1dd4}
+
+\begin{enumerati}
+  \item If $\Set{E_n}{n\geq1}$ is an increasing sequence, we define
+  $$
+    \lim_{n\to\infty}E_n=\bigcup_{i=1}^\infty E_i
+  $$
+  \item If $\Set{E_n}{n\geq1}$ is a decreasing sequence, we define
+  $$
+    \lim_{n\to\infty}E_n=\bigcap_{i=1}^\infty E_i
+  $$
+\end{enumerati}
+
+\Proposition{Limit of probability}\label{e3bf7df}
+
+If $\Set{E_n}{n\geq1}$ is an increasing or decreasing sequence, we have
+$$
+  \lim_{n\to\infty}P(E_n)=P\bigl(\lim_{n\to\infty}E_n\bigr)
+$$
+
+\begin{proof}
+  The proof requires the \href{e6c1dd4}{definitions above}.
+\end{proof}

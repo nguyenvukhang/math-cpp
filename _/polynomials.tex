@@ -1,0 +1,177 @@
+\chapter{Polynomials}\label{c892744}
+
+\begin{toc}
+  \citem{aa283ee} % Introduction
+  \citem{c5c59eb} % Inner product on polynomials
+\end{toc}
+
+\subsection{Introduction}\label{aa283ee}
+
+\Definition{Polynomial functions}\label{bdde0f1}
+
+Let $X$ be a set on which addition, multiplication, and exponentiation to a
+non-negative integer power is defined. A function $f:X\to X$ is a
+\textit{polynomial} if there exists coefficients $\iter{a_0}{a_n}$ such that
+$$
+  f(x)=a_0+a_1x+\ldots+a_nx^n\with{(x\in X)}
+$$
+
+in particular, the \textit{degree} of $f$ is $n$.
+
+\Definition{Set of polynomial functions}\label{e70ce72}
+
+Let $A$ be a set whose elements are valid coefficients of polynomials (in
+particular, the parent set of $\iter{a_0}{a_n}$ in \href{bdde0f1}{this
+definition} of polynomials). Then we define $\mathcal P(A)$ to be the set of
+all polynomials with coefficients taken from $A$.
+
+\Definition{Root of a polynomial}\label{a7c01f0}
+
+Let $p$ be a \href{bdde0f1}{polynomial}. Then $x$ is said to be a root of $p$
+if $p(x)=0$.
+
+\Theorem{Polynomial remainder theorem}\label{c324c1e}
+
+Let $f:X\to X$ be a polynomial, and let $r\in X$. Then
+$$
+  f(x)=f(r)+(x-r)g(x)\with{(x\in X)}
+$$
+
+where $g$ is a polynomial whose degree is less than the degree of $f$.
+
+\begin{proof}
+  Let $x,r\in X$, and let $k\in\Z_+$. Then
+  \begin{equation*}
+    x^k-r^k=(x-r)(x^{k-1}+x^{k-2}r+\ldots+xr^{k-2}+r^{k-1})\Tag{*}
+  \end{equation*}
+
+  Let $S_k$ be the large factor in the RHS of $(*)$, and notice that it is of
+  degree $k-1$. Also, let
+  $$
+    f(x):=a_0+a_1x+\ldots+a_nx^n
+  $$
+
+  Then
+  \begin{align*}
+    f(x)-f(r) &=(a_0+a_1x+\ldots+a_nx^n)-(a_0+a_1r+\ldots+a_nr^n) \\
+              &=a_1(x-r)+a_2(x^2-r^2)+\ldots+a_n(x^n-r^n)         \\
+              &=\sum_{k=1}^na_k(x^k-r^k)                          \\
+              &=(x-r)\sum_{k=1}^na_kS_k\desc{by $(*)$}
+  \end{align*}
+
+  and so letting $g(x):=\sum_{k=1}^na_kS_k$, we have
+  $$
+    f(x)=f(r)+(x-r)g(x)
+  $$
+
+  Clearly, $g$ is a polynomial, and its degree is strictly less than $n$, which
+  is in turn the degree of $f$.
+\end{proof}
+
+\Theorem{Factor theorem}\label{b02bc72}
+
+Let $p:X\to X$ be a \href{bdde0f1}{polynomial}. Then $x-a\in X$ is a factor of
+$p$ if and only if $p(a)=0$.
+
+$x-a$ is a factor of $f$ if we can write $f(x)$ as
+$$
+  f(x)=(x-a)g(x)
+$$
+
+where $g$ is a polynomial of degree strictly less than the degree of $f$.
+
+\begin{proof}
+  This follows immediately from the \href{c324c1e}{Polynomial remainder theorem}
+  with $r=0$.
+\end{proof}
+
+\Proposition{Polynomial of degree $n$ with more than $n$ roots vanishes identically}\label{ea3fbed}
+
+Let $P_n$ be a degree-$n$ polynomial. Then if it has more that $n$ roots, it is
+the zero function.
+
+\begin{proof}
+  We will prove this by induction on $n$. The case where $n=0$ is obvious. Now
+  take a polynomial $f$ of degree $\leq n$, and let $\iter{x_1}{x_{n+1}}$ be
+  distinct roots of $f$. By the \href{b02bc72}{factor theorem}, we can write
+  $$
+    f(x)=(x-x_{n+1})g(x)
+  $$
+
+  where $g$ clearly has degree $\leq n-1$. Now consider
+  $$
+    f(x_i)=(x_i-x_{n+1})g(x_i)\with{(i=\iter1n)}.
+  $$
+
+  Clearly, LHS is zero for each of these equations, while $x_i-x_{n+1}$ is
+  non-zero. This implies that $\iter{x_1}{x_n}$ are roots of $g$ too. By the
+  inductive hypothesis, $g$ is identically zero. Hence $f$ is identically zero.
+  This completes the proof.
+\end{proof}
+
+\Proposition{$n+1$ points uniquely determine a degree-$n$ polynomial}\label{d7dc069}
+
+Given $n+1$ points $\iter{x_0}{x_n}$, and a function $f$ where $f(x_i)$ known
+for all $i=\iter0n$, there exists a unique polynomial $P$ such that
+$P(x_i)=f(x_i)$ for each $i=\iter0n$.
+
+\begin{proof}
+  \proofp{existence} For $i=\iter0n$, define
+  $$
+    L_i(x):=\prod_{k=0,k\neq i}^n\frac{x-x_k}{x_i-x_k}\desc{\href{dda7795}{Lagrange basis functions}}
+  $$
+
+  Then each $L_i$ is a polynomial of degree $n$, and
+  $$
+    L_i(x_j)=\begin{cases}
+      1 & \text{if }i=j     \\
+      0 & \text{if }i\neq j
+    \end{cases}
+  $$
+
+  Now, define $P$ as
+  $$
+    P(x):=\sum_{i=0}^nf(x_i)L_i(x)
+  $$
+
+  Then, the degree of $P$ as a polynomial is at most $n$, and it matches the
+  value of $f$ on each of $\iter{x_0}{x_n}$. Thus we have found one such $P$.
+
+  \proofp{uniqueness} We use $P$ from earlier. Now assume that there exists
+  another polynomial $Q$ with degree $\leq n$ such that $Q(x_i)=f(x_i)$ for each
+  $i=\iter0n$. Then, define
+  $$
+    R(x):=P(x)-Q(x)
+  $$
+
+  Clearly, $R$ is a polynomial with degree $\leq n$, and $R(x_i)=0$ for each of
+  the $n+1$ points $\iter{x_0}{x_n}$. \href{ea3fbed}{Hence}, we have that $R$
+  is the zero function, and so $P=Q$, completing the uniqueness argument.
+\end{proof}
+
+\nextsection
+\subsection{Inner product on polynomials}\label{c5c59eb}
+
+\Proposition{The set of polynomials form a vector space}\label{b9904c1}
+
+Let $A$ be a suitable parent set for coefficients of polynomials, and consider
+\href{e70ce72}{$\mathcal P(A)$}. Let $p,q\in\mathcal P(A)$ and
+$\lambda\in\mathcal F$. We define vector addition and scalar multiplication as
+\begin{align*}
+  (p+q)(z)       &:=p(z)+q(z)   \\
+  (\lambda p)(z) &=\lambda p(z)
+\end{align*}
+
+Then the set $\mathcal P(A)$ forms a \href{fc83050}{vector space} over the
+field $\mathcal F$.
+
+% [issue #10]: Prove that this satisfies the vector space properties.
+
+\Proposition{An inner product on polynomials}\label{a7aabef}
+
+Let $p,q\in\href{e70ce72}{\mathcal P(A)}$ be \href{bdde0f1}{polynomials}. Then,
+$$
+  \int_a^bp(x)q(x)\,dx
+$$
+
+is an \href{cebd07a}{inner product} on $\mathcal P(A)$.

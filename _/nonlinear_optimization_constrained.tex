@@ -1,0 +1,1382 @@
+\chapter{Nonlinear Optimization, Part II: Constrained Optimization}\label{fc7da02}
+
+\subsection{Fundamentals}\label{da84d73}
+
+\def\pd{\succ} % positive definite
+\def\psd{\succeq} % positive semidefinite
+\def\NlpStdForm{\begin{array}{l l r l}
+    \displaystyle\min_{x\in\R^n}f(x)
+     & \text{s.t.} & g_i(x)\leq0 & \forall i\in I \\
+     &             & h_j(x)=0    & \forall j\in J
+  \end{array}}
+\def\NlpStdCond{\begin{array}{r l}
+    g_i(x)\leq0 & \forall i\in I \\
+    h_j(x)=0    & \forall j\in J
+  \end{array}}
+
+\Definition{Standard Nonlinear Program}\label{aeac31f}
+
+\begin{equation*}
+  \NlpStdForm\Tag{5.1}\label{a85283d}
+\end{equation*}
+
+Where $f,g_i,h_j:\R^n\to\R$ are continuously differentiable.
+
+We call \ref{a85283d} a nonlinear program (NLP) in standard form.
+
+By convention, we let the feasible set of \ref{a85283d} be denoted by $X$, with
+\begin{equation*}
+  X:=\Set{x\in\R^n}{\begin{array}{r l}
+      g_i(x)\leq0 & \forall i\in I \\
+      h_j(x)=0    & \forall j\in J
+    \end{array}\Tag{5.2}}\label{ea8fbff}
+\end{equation*}
+
+By the continuity of the constraint functions, $X$ is closed.
+
+We will use $I:=\{\iter1m\}$ and $J:=\{\iter1p\}$, and define the
+\textbf{active set} at $\bar x\in X$ as
+$$
+  I(\bar x):=\Set{i\in I}{g_i(\bar x)=0}
+$$
+
+\Definition{Cones}\label{ced12c7}
+
+A non-empty set $K\subset\R^n$ is said to be a cone if
+$$
+  \lambda v\in K\with{(\lambda\geq0,\ v\in K)}
+$$
+
+i.e. $K$ is a cone if and only if it is closed under multiplication with
+non-negative scalars.
+
+\Example{Examples of cones}\label{c36113c}
+
+\begin{enumerata}
+  \item \textit{(Non-negative Orthant)} For all $n\in\N$, the
+  non-negative orthan $\R^n_+$ is a convex cone, which is also a polyhedron as
+  $$
+    \R^n_+=\Set{x\in\R^n}{(-e_i)^Tx\leq 0,\ \forall i=\iter1n}
+  $$
+
+  \item \textit{(Cone complimentary constraints)} Let $K\subset \R^n$ be
+  a cone. Then the set
+  $$
+    \Lambda:=\Set{(x,y)\in\R^n\times\R^n}{x,y\in K,\ \inner xy=0}
+  $$
+
+  is a cone. A prominent example is $K=\R^n$, in which case $\Lambda$ is called
+  the complementary constraint set.
+  \item \textit{(Positive semidefinite matrices)} For $n\in\N$, the set
+  of positive semidefinite $n\times n$ matrices is a convex cone in
+  the space of $n\times n$ symmetric matrices.
+\end{enumerata}
+
+\Definition{Tangent cone}\label{add7a4b}
+
+Let $S\subset\R^n$ and $\bar x\in S$. Then the set
+$$
+  T_S(\bar x):=\Set{d\in\R^n}
+  {\exists\{x^k\in S\}\to\bar x,\{t_k\}\downarrow0:\frac{x^k-\bar x}{t_k}\to d}
+$$
+
+is called the (Bouligand) tangent cone of $S$ at $\bar x$.
+
+\Proposition{}\label{fe814cc}
+
+Let $S\subset\R^n$ and $x\in S$. Then $T_S(x)$ is a closed cone.
+
+\Theorem{Basic first-order optimality condition}\label{c8e5836}
+
+Let $\bar x$ be a local minimizer of $f\in C^1$ over $S$. Then the following
+hold:
+\begin{enumerata}
+  \item $\nabla f(\bar x)^Td\geq0\quad(d\in T_S(\bar x))$
+  \item If $S$ is convex then
+  $$
+    \nabla f(\bar x)^T(x-\bar x)\geq 0\with{(x\in S)}
+  $$
+\end{enumerata}
+
+\Definition{Projection on a set}\label{fb41457}
+
+Let $S\subset\R^n$ be non-empty and $x\in\R^n$. Then we define the projection
+of $x$ on $S$ by
+$$
+  P_S(x):=\argmin_{y\in S}\norm{x-y}
+$$
+
+\Proposition{Projection on a closed convex set}\label{ce30ae7}
+
+Let $x\in\R^n$ and $S\subset\R^n$ be a non-empty, closed, and convex set. Then
+the following hold:
+\begin{enumerata}
+  \item $P_S(x)$ has exactly one element, i.e. $P$ is a function
+  $\R^n\to S$.
+  \item $P_S(x)=x$ if and only if $x\in S$.
+  \item $(P_S(x)-x)^T(y-P_S(x))\geq0$ for all $y\in S$.
+\end{enumerata}
+
+\begin{proof}
+  \proofp{(a)} follows immediately from \href{f546fc9}{this} since the function
+  $y\mapsto\frac12\norm{x-y}^2$ is strongly convex.
+
+  \proofp{(b)} is obvious.
+
+  \proofp{(c)} follows from \autoref{c8e5836} applied to
+  $f:y\mapsto\frac12\norm{x-y}^2$.
+\end{proof}
+
+\Lemma{}\label{d2dff14}
+
+Let $B\in\R^{l\times n}$. Then
+$$
+  K:=\Set{B^Tx}{x\geq0}
+$$
+
+is a (non-empty) closed, convex cone.
+
+\Theorem{Farkas' Lemma}\label{d64b0db}
+
+Let $B\in\R^{l\times n}$ and $h\in\R^n$. Then the system
+$$
+  B^Tx=h\with{(x\in\R^l,\ x\geq0)}
+$$
+
+has a solution if and only if $h^Td\geq0$ for all $d\in\R^n$ such that
+$Bd\geq0$.
+
+\begin{proof}
+  Proving that (1) implies (2):
+
+  Let $x\geq0$ such that $B^Tx=h$. Then for any $d$ such that $Bd\geq0$, we
+  have
+  $$
+    h^Td=(B^Tx)^Td=x^TBd
+  $$
+
+  But $x^TBd\geq0$ because $x\geq0$ and $Bd\geq0$.
+
+  Proving that (2) implies (1) by contrapositive.
+
+  Assume that (1) is false. Then
+  $$
+    h\notin\{B^Tx \mid x\geq0\}=:K
+  $$
+
+  By \autoref{d2dff14}, $K$ is a closed convex cone.
+
+  Set $\bar s:=P_K(h)$ and $\bar d:=\bar s-h$. Note that $\bar s\in K$, and
+  $h\notin K$, and hence $\bar d\neq0$.
+
+  By \autoref{ce30ae7},
+  \begin{equation*}
+    \bar d^T(s-\bar s)\geq0\quad\forall(s\in K)\Tag{*}
+  \end{equation*}
+
+  Substituting $s:=0$ and $s:=2\bar s$, we obtain two simultaneous inequalities
+  \begin{align*}
+    \bar d^T\bar s\leq0\Quad\text{and}\Quad\bar d^T\bar s\geq0
+  \end{align*}
+
+  And hence $\bar d^T\bar s=0$. Using this with $(*)$ gives
+  $$
+    \bar d^Ts\geq0
+  $$
+
+  Then by definition of cone $K$, for all $x\geq0$,
+  \begin{align*}
+    \bar d^T B^Tx     &\geq0 \\
+    \then(B\bar d)^Tx &\geq0
+  \end{align*}
+
+  Inserting $x:=e_i$ (where $e_i$ is the $i^\text{th}$ component vector) for
+  $i=\iter1n$ implies $(B\bar d)^T\geq0$.
+
+  On the other hand (recall $\bar d^T\bar s=0$ from above)
+  \begin{align*}
+    h^T\bar d &=(\bar s-\bar d)^T\bar d        \\
+              &=\bar s^T\bar d-\norm{\bar d}^2 \\
+              &=-\norm{\bar d}^2               \\
+              &\leq 0
+  \end{align*}
+
+  But since $\bar d\neq0$, we have the strict inequality $h^T\bar d<0$.
+
+  Therefore, $B\bar d\geq0$, but $h^T\bar d<0$, i.e. (2) does not hold.
+\end{proof}
+
+\Definition{Karush-Kuhn-Tucker conditions}\label{b38093d}
+
+Consider the standard NLP in \ref{a85283d}. and let $X$ be the feasible set of
+\ref{a85283d}.
+
+\begin{enumerate}
+  \item The function $L:\R^n\times\R^m\times\R^p\to\R$ defined by
+        \begin{align*}
+          L(x,\lambda,\mu)
+           &=f(x)+\sum_{i=1}^m\lambda_ig_i(x)+\sum_{j=1}^p\mu_jh_j(x) \\
+           &=f(x)+\lambda^Tg(x)+\mu^Th(x)
+        \end{align*}
+
+        is called the Lagrangian (function) of \ref{a85283d}.
+  \item The set of conditions
+        $$
+          \begin{array}{l l}
+            \nabla_xL(x,\lambda,\mu)                 & =0, \\[0.2em]
+            h(x)                                     & =0, \\[0.2em]
+            \lambda\geq0,\ g(x)\leq0,\ \lambda^Tg(x) & =0
+          \end{array}
+        $$
+
+        are called the Karush-Kuhn-Tucker conditions for \ref{a85283d}, where
+        \begin{align*}
+          \nabla_xL(x,\lambda,\mu)
+           &= \nabla f(x)+\sum_{i=1}^m\lambda_i\nabla g_i(x)+\sum_{j=1}^p\mu_j\nabla h_j(x) \\
+           &= \nabla f(x)+\lambda^T\nabla g(x)+\mu^T\nabla h(x)
+        \end{align*}
+  \item A triple $(\bar x,\bar\lambda,\bar\mu)$ that satisfies the KKT
+        conditions is called a KKT point.
+  \item Given $\bar x$, a feasible point for \ref{a85283d}, we define
+        $$
+          M(\bar x):=\{(\lambda,\mu)\mid(\bar x,\lambda,\mu)\text{ is a KKT point of \ref{a85283d}}\}
+        $$
+
+        as the set of all KKT multipliers (possibly empty) at $\bar x$.
+\end{enumerate}
+
+\Definition{Constraint qualification (CQ)}\label{d533941}
+
+We define a condition about the feasible set $X$ of a standard NLP
+\ref{a85283d} that guarantees that the \href{b38093d}{KKT conditions} hold at a
+local minimizer as a constraint qualification.
+
+If a CQ holds on $\bar x\in X$, then KKT is necessary for $\bar x$ to be a
+local minimizer.
+
+If a CQ holds on $\bar x\in X$, then $\bar x$ being a local minimizer implies
+that there exists a $(\bar\lambda,\bar\mu)$ such that $(\bar
+x,\bar\lambda,\bar\mu)$ is a KKT point.
+
+% A CQ, by definition, is a condition that makes the KKT a
+% necessary optimality condition.
+%
+% A CQ guarantees that the local minimizer is a KKT point.
+
+\Definition{Linearized cone}\label{ca4f471}
+
+Let $X$ be the feasible set of \ref{a85283d}. The linearized cone (of $X$) at
+$\bar x\in X$ is defined by
+$$
+  L_X(\bar x):=\left\{ d\in\R^n\ \middle\vert
+  \begin{array}{r l}
+    \nabla g_i(\bar x)^Td\leq0 & \forall i=I(\bar x) \\
+    \nabla h_j(\bar x)^Td=0    & \forall j=\iter1p
+  \end{array}
+  \right\}
+$$
+
+\Definition{Abadie constraint qualification (ACQ)}\label{adc266e}
+
+We say that the ACQ holds at $\bar x\in X$ if
+$$
+  T_X(\bar x)=L_X(\bar x)
+$$
+
+That is, the \href{add7a4b}{tangent cone} is exactly the
+\href{ca4f471}{linearized cone}.
+
+\Theorem{KKT conditions under ACQ}\label{b1c5437}
+
+Let $\bar x\in X$ be a local minimizer of \ref{a85283d} such that
+\href{adc266e}{ACQ} holds at $\bar x$. Then there exists
+$(\bar\lambda,\bar\mu)\in\R^m\times\R^p$ such that $(\bar
+x,\bar\lambda,\bar\mu)$ is a \href{b38093d}{KKT} point of \ref{a85283d}.
+
+\begin{proof}
+  \def\bm{\bar\mu}\def\bl{\bar\lambda}\def\bx{\bar x}
+  By \autoref{c8e5836},
+  \begin{equation*}
+    \nabla f(\bx)^Td\geq0\quad\forall(d\in T_X(\bx))\Tag{*}
+  \end{equation*}
+
+  Set
+  $$
+    B:=\begin{pmat}
+      -\nabla g_i(\bx)^T & (i=\iter1m) \\
+      -\nabla h_j(\bx)^T & (j=\iter1p) \\
+      \nabla h_j(\bx)^T  & (j=\iter1p) \\
+    \end{pmat}\in\R^{(m+2p)\times{n}}
+  $$
+
+  Then purely from the definition of a \href{ca4f471}{linearized cone} and how
+  we set $B$, we have
+  $$
+    d\in L_X(\bx)\iff Bd\geq0
+  $$
+
+  By \href{adc266e}{ACQ}, we have $d\in T_X(\bx)\iff Bd\geq0$
+
+  Combined with $(*)$, we have
+  $$
+    \nabla f(\bx)^Td\geq0\quad\forall(d:Bd\geq0)
+  $$
+
+  (Think $h=\nabla f(\bx)$ and apply the Farkas Lemma.)
+
+  By the Farkas Lemma,
+  $$
+    \exists y=
+    \begin{pmat}
+      y^1\in\R^m \\y^2\in\R^p\\y^3\in\R^p \\
+    \end{pmat}
+  $$
+
+  such that $y\geq0$, and $B^Ty=\nabla f(\bx)$
+
+  Define $\bl\in\R^n,\bm\in\R^p$ by
+  $$
+    \bl_i=\begin{cases}
+      y^1_i & \text{if $i=\iter1m$} \\
+      0     & \text{otherwise}
+    \end{cases}
+  $$
+
+  and
+  $$
+    \bm_i=\begin{cases}
+      y^2_j - y^3_j & \text{if $j=\iter{m+1}{m+2p}$} \\
+      0             & \text{otherwise}
+    \end{cases}
+  $$
+
+  Then $(\bx,\bl,\bm)$ is a KKT point.
+
+  MORE NOTES
+
+  \begin{align*}
+    0
+     &= \nabla f(\bx)
+    +\sum_{i=0}^my^1_i\nabla g_i(\bx)
+    +\sum_{j=m+1}^{m+2p}(y^2_j-y^3_j)\nabla h_j(\bx) \\
+     &= \nabla f(\bx)
+    +\sum_{i=0}^m \bl_i\nabla g_i(\bx)
+    +\sum_{j=m+1}^{m+2p}\bm_j\nabla h_j(\bx)
+  \end{align*}
+
+  and then there is a line with a tick/check next to it:
+  $$
+    \bl^Tg(\bx)=\sum_{i=0}^m\bl_ig_i(\bx)=0
+  $$
+\end{proof}
+
+\Definition{Constraint qualifications}\label{e8fa554}
+
+A condition on $X$ (i.e. on $g$ and $h$) that ensures that the KKT conditions
+hold at a local minimizer is called a \textbf{constraint qualification}.
+
+\Definition{LICQ and MFCQ}\label{fed784a}
+
+Let $\bar x$ be feasible for (1). We say that
+\begin{enumerata}
+  \item \textbf{(LICQ)} the linear independence constraint
+  qualification holds at $\bar x$ if the gradients
+  \begin{align*}
+    \nabla g_i(\bar x) &\quad(i\in I(\bar x)), \\
+    \nabla h_j(\bar x) &\quad(j\in J)
+  \end{align*}
+
+  are linearly indepdendent.
+  \item \textbf{(MFCQ)} the Mangasarian-Fromovitz constraint
+  qualification holds at $\bar x$ if the gradients
+  $$
+    \nabla h_j(\bar x)\quad(j\in J)
+  $$
+
+  are linearly indepdendent, and $\exists d\in\R^n$ such that
+  \begin{align*}
+    \nabla g_i(\bar x)^Td &<0\quad(i\in I(\bar x)) \\
+    \nabla h_j(\bar x)^Td &=0\quad(j\in J)
+  \end{align*}
+\end{enumerata}
+
+\Proposition{LICQ implies MFCQ}\label{a7ef3f5}
+
+Let $\bar x$ be feasible for (1) such that \href{fed784a}{LICQ} holds at $\bar
+x$. Then \href{fed784a}{MFCQ} holds.
+
+% \Lemma{}{}
+
+% Let $\bar x$ be feasible for (1) such that there exists $d\in\R^n$
+% such that
+% $$
+% 	\nabla h_j(\bar x)\quad\forall(j\in J)
+% $$
+% are linearly indepdendent, and
+% \begin{gather*}
+% 	\nabla g_i(\bar x)^T < 0  \quad\forall(i\in I(\bar x))\\
+% 	\nabla h_j(\bar x)^Td = 0 \quad\forall(j\in J)
+% \end{gather*}
+
+% Then there exists $\epsilon>0$ and a $C^1$-curve
+% $\gamma:(-\epsilon,\epsilon)\to\R^n$ such that
+% \begin{gather*}
+% 	\gamma(t) \in X\quad\forall(t\in(-\epsilon,\epsilon)) \\
+% 	\gamma(0) = \bar x \\
+% 	\gamma'(0)=d
+% \end{gather*}
+
+% \Lemma{}{}
+
+% Let $\bar x$ be feasible for (1). Then
+% $$
+% 	T_X(\bar x)\subset L_X(\bar x)
+% $$
+
+% \begin{proof}
+% 	Exercise 9.3
+% \end{proof}
+
+% \Proposition{}{MFCQ $\implies$ ACQ}
+
+% Let $\bar x$ be feasible for (1) such that MFCQ holds at $\bar x$.
+% Then ACQ holds at $\bar x$.
+
+% \begin{proof}
+% 	Only need to show $L_X(\bar x)\subset T_X(\bar x)$.
+
+% 	Let $d\in L_X(\bar x)$. By MFCQ, there exists $\hat d$ such that
+% 	% Note: we can't use d directly instead of d(∂) because d doesn't
+% 	% have the strict inequality required by Lemma ???
+% 	\begin{gather*}
+% 		\nabla g_i(\bar x)^T\hat d<0\quad\forall(i\in I(\bar x)) \\
+% 		\nabla h_j(\bar x)^T\hat d=0\quad\forall(j\in J)
+% 	\end{gather*}
+% 	and $\nabla h_j(\bar x)\ \forall(j\in J)$ are linearly indepdendent.
+
+% 	Set $d(\delta):= d + \delta\hat d$. Then, $\forall\delta>0$:
+% 	\begin{gather*}
+% 		\nabla g_i(\bar x)^T{d(\delta)}<0\quad\forall(i\in I(\bar x)) \\
+% 		\nabla h_j(\bar x)^T{d(\delta)}=0\quad\forall(j\in J)
+% 	\end{gather*}
+
+% 	Applying Lemma ??? to $d(\delta)$ yields a $C^1$-curve
+% 	$\gamma:(-\epsilon,\epsilon)\to\R^n$ such that
+% 	\begin{gather*}
+% 		\gamma(t) \in X\quad\forall(t\in(-\epsilon,\epsilon)) \\
+% 		\gamma(0) = \bar x \\
+% 		\gamma'(0)=d(\delta)
+% 	\end{gather*}
+
+% 	Let $\{t_k\}\downarrow0$ and set $x^k:=\gamma(t_k)$. Then
+% 	$\{x^k\in X\}\to\bar x$.
+
+% 	And $d(\delta)=\gamma'(0)$ and hence
+% 	$$
+% 		d(\delta)=\lim_{k\to\infty}\frac{\gamma(t_k)-\gamma(0)}{t_k}=
+% 		\lim_{k\to\infty}\frac{x^k-\bar x}{t_k}
+% 	$$
+
+% 	And since
+% 	$$
+% 		\lim_{\delta\to0} d(\delta) = d
+% 	$$
+% 	and both lie in $T_X(\bar x)$ due to an unproved argument using
+% 	closedness.
+
+% 	this completes the proof with
+% 	$$
+% 		\lim_{k\to\infty}\frac{x^k-\bar x}{t_k}=d
+% 	$$
+% \end{proof}
+
+% \Corollary{}{KKT under MFCQ}
+
+% Let $\bar x$ be a local minimum of (1) such that MFCQ holds at $\bar x$. Then:
+
+% \begin{enumerata}
+% 	\item There exists $(\bar\lambda, \bar\mu)\in\R^m\times\R^p$  such
+% 	that $(\bar x,\bar\lambda, \bar\mu)$ is a KKT point of (1).
+% 	\item $M(\bar x)$ is bounded where
+% 	$$
+% 		M(\bar x):=\{(\lambda,\mu)\mid(\bar x,\lambda,\mu)\text{ is a KKT point of (1)} \}
+% 	$$
+% \end{enumerata}
+
+% \begin{proof}
+% 	Proving (a) requires Proposition ??? (MFCQ $\implies$ ACQ) and
+% 	Theorem ???
+
+% 	Proving (b):
+
+% 	Suppose $M(\bar x)$ were unbounded, i.e. there exists
+% 	$$
+% 		\{(\lambda^k,\mu^k)\in M(\bar x)\} : \norm{(\lambda^k,\mu^k)}\to+\infty
+% 	$$
+
+% 	Then WLOG,
+% 	$$
+% 		\frac{(\lambda^k,\mu^k)}{\norm{(\lambda^k,\mu^k)}}\to(\tilde\lambda,\tilde\mu)
+% 	$$
+
+% 	Note that every element in the above sequence has norm 1. And hence
+% 	we know that it doesn't converge to the zero vector, since that has
+% 	norm 0.
+
+% 	Since $(\bar x,\lambda^k,\mu^k)$ is a KKT point of (1), we have
+% 	$$
+% 		0 = \frac{\nabla f(\bar x) + \sum_{i\in I(\bar x)}\lambda^k_i\nabla g_i(\bar x)
+% 			+ \sum_{j\in J}\mu^k_j\nabla h_j(\bar x)}{\norm{(\lambda^k,\mu^k)}}
+% 	$$
+
+% 	Then as $h\to\infty$,
+
+% 	\begin{equation*}
+% 		0=\sum_{i\in I(\bar x)}\tilde\lambda_i\nabla g_i(\bar x)
+% 		+ \sum_{j\in J}\tilde\mu_j\nabla h_j(\bar x)
+% 	\end{equation*} % cognitive, but just raw algebra
+
+% 	% Note: taking ||.|| of a product space (X × Y)
+% 	% ||(a,b)|| = ||a||+||b||
+% \end{proof}
+
+% Now multiply with $d$ from MFCQ at $\bar x$.
+% \begin{equation*}
+% 	0=\sum_{i\in I(\bar x)}\tilde\lambda_i\nabla g_i(\bar x)^Td
+% 	+ \sum_{j\in J}\tilde\mu_j\nabla h_j(\bar x)^Td \Tag{*}
+% \end{equation*}
+
+% And by MFCQ, the second term is $=0$. Hence
+% $$
+% 	0=\sum_{i\in I(\bar x)}\tilde\lambda_i\nabla g_i(\bar x)^Td
+% $$
+
+% \textbf{Case 1} $\exists i_0 \in I(\bar x): \tilde\lambda_{i_0}>0$. Then
+% $0<0$. Contradiction!
+% $$
+% 	0=\sum_{i\in I(\bar x)}\tilde\lambda_i\nabla g_i(\bar x)^Td
+% 	\;\leq\;\tilde\lambda_{i_0}\nabla g_{i_0}(\bar x)^Td<0
+% $$
+% \textbf{Case 2} $\forall i\in I(\bar x):\tilde\lambda_i=0$. Then $(*)$ reads
+% $$
+% 	0=\sum_{j\in J}\tilde\mu_j\nabla h_j(\bar x)^Td
+% $$
+% which is a contradiction against MFCQ.
+
+% \Corollary{}{}
+
+% Let $\bar x$ be a local minimum of (1) such that LICQ holds at $\bar
+% 	x$. Then:
+% \begin{enumerata}
+% 	\item There exists $(\bar\lambda,\bar\mu)\in M(\bar x)$.
+% 	\item $M(\bar x) = \{(\bar\lambda,\bar\mu)\}$.
+% \end{enumerata}
+
+% \begin{proof}
+% 	(a) follows from Proposition ??? + Corollary ???
+
+% 	(b)
+
+% 	Assume that $(\tilde\lambda,\tilde\mu)\in M(\bar x)$. Then
+% 	\begin{align*}
+% 		0          & =\nabla f(\bar x)+\sum_{i\in I(\bar x)}\tilde\lambda_i\nabla g_i(\bar x)+\sum_{j\in J}\tilde\mu_j\nabla h_j(\bar x)                             \\
+% 		           & =\nabla f(\bar x)+\sum_{i\in I(\bar x)}\bar\lambda_i\nabla g_i(\bar x)+\sum_{j\in J}\bar\mu_j\nabla h_j(\bar x)                                 \\
+% 		\implies 0 & =\nabla f(\bar x)+\sum_{i\in I(\bar x)}(\tilde\lambda_i-\bar\lambda_i)\nabla g_i(\bar x)+\sum_{j\in J}(\tilde\mu_j-\bar\mu_j)\nabla h_j(\bar x)
+% 	\end{align*}
+
+% 	Then by LICQ,
+% 	\begin{gather*}
+% 		\tilde\lambda_i - \bar\lambda_i = 0\quad\forall(i\in I(\bar x)) \\
+% 		\tilde\mu_j - \bar\mu_j = 0\quad\forall(j\in J) \\
+% 	\end{gather*}
+
+% 	Then since $\tilde\lambda_i = \bar\lambda_i\ \forall(i\notin I(\bar
+% 		x))$, this shows $\tilde\lambda=\bar\lambda$ and $\tilde\mu=\bar\mu$.
+% \end{proof}
+
+% LAGRANGIAN DUALITY
+
+With $I:=\iter1m$ and $J:=\iter1p$, the Standard NLP is
+\begin{equation*}
+  \begin{array}{l l l l}
+    \displaystyle \min_{x\in\R^n}f(x)
+     & \text{s.t.} & g_i(x)\leq0 & \forall i\in I \\
+     &             & h_j(x)=0    & \forall j\in J
+  \end{array}\Tag{5.1}
+\end{equation*}
+
+We define the active set $I(\bar x)$ as
+$$
+  I(\bar x):=\Set{i\in I}{g_i(\bar x)=0}
+$$
+
+Let $X$ be the feasible set of the NLP.
+
+TANGENT CONE:
+$$
+  T_X(\bar x):=
+  \Set{d\in\R^n}{\exists \{x^k\in X\}\to\bar x,\{t_k\}\downarrow0:\frac{x^k-\bar x}{t_k}\to d}
+$$
+
+LINEARIZED CONE:
+$$
+  L_X(\bar x):=\left\{ d\in\R^n\ \middle\vert
+  \begin{array}{l l}
+    \nabla g_i(\bar x)^Td\leq0 & \forall i\in I(\bar x) \\
+    \nabla h_j(\bar x)^Td=0    & \forall j\in J
+  \end{array}
+  \right\}
+$$
+
+\Definition{}\label{e55c332}
+
+We say that the affine constraint qualification (Affine CQ) holds for (5.1) if
+all constraints are affine. That is, there exists
+$$
+  \begin{array}{l l l}
+    a_i\in\R^n & \alpha_i\in\R & \forall i\in I \\
+    b_i\in\R^n & \beta_j\in\R  & \forall j\in J
+  \end{array}
+$$
+
+such that for all $x\in\R^n$,
+$$
+  \begin{array}{l l}
+    g_i(x)=a_i^T-\alpha_i & \forall i\in I \\
+    h_j(x)=b_i^T-\beta_j  & \forall j\in J
+  \end{array}
+$$
+
+\Proposition{}\label{f5d546e}
+
+Let the Affine CQ hold for $(5.1)$. Then ACQ holds at every feasible point.
+
+\begin{proof}
+  \def\LC{L_X(\bar x)}
+  \def\TC{T_X(\bar x)}
+  \def\Active{I(\bar x)}
+
+  Let $\bar x\in X$. In view of Lemma ??? we only have to show that
+  $\LC\subset\TC$. Let $d\in\LC$. Then by defn of the linearized cone we have
+  $$
+    \begin{array}{l l}
+      \alpha_i^Td\leq0 & \forall i\in I \\
+      \beta_j^Td=0     & \forall j\in J
+    \end{array}
+  $$
+
+  Now, let $\{t_k\}\downarrow0$ and put $x^k:=\bar x+t_kd$. Then
+  $$
+    x^k\to\bar x \Quad\text{and}\Quad \frac{x^k-\bar x}{t_k}\to d
+  $$
+
+  Hence, we still need to show that $x^k\in X$ ($\forall k$ suff. large)
+
+  \paragraph{For $i\notin\Active$} Then $a_i^T\bar x<\alpha_i$, hence by continuity
+  $$
+    a_i^Tx^k<\alpha_i\Quad\forall(x\text{ suff. large})
+  $$
+
+  \paragraph{For $i\in\Active$} Then
+  $$
+    a_i^Tx^k = a_i^T\bar x + t_ka_i^Td \leq a_i^T\bar x = \alpha_i
+  $$
+
+  because $a_i^Td\leq0$ by definition of $\LC$.
+
+  \paragraph{For $j\in J$} Then
+  $$
+    b_j^T x^k=b_j^T\bar x+t_kb_j^Td=\beta_j
+  $$
+
+  because $b_j^Td=0$ by definition of $\LC$.
+
+  These three together show that $x^k\in X$ for $k$ sufficiently large. This
+  completes the proof.
+\end{proof}
+
+\textbf{CONVEX PROBLEMS}
+
+Consider
+\begin{equation*}
+  \begin{array}{l l l l}
+    \min f(x) & \text{s.t.} & g_i(x)\leq0             & \forall i\in I \\
+              &             & h_j(x)=b_j^Tx-\beta_j=0 & \forall j\in J
+  \end{array}
+  \Tag{5.2}
+\end{equation*}
+
+where $f,g_i,h_j\in\R^n\to\R$ are cont. diff \textbf{and convex}, and
+$b_j\in\R^n,\beta_j\in\R$. Then
+$$
+  X=\Set{x\in\R^n}{
+    \begin{array}{l l}
+      g_i(x)\leq0 & \forall i\in I \\
+      h_j(x)=0    & \forall j\in J
+    \end{array}
+  }
+$$
+
+is convex (see Midterms).
+
+\Theorem{}\label{d0453f3}
+
+Let $\bar x$ be feasible for (5.2), and consider the following statements:
+\begin{enumerata}
+  \item There exists $(\bar\lambda,\bar\mu)\in M(\bar x)$
+  \item $\bar x$ is a global minimizer of (5.2)
+\end{enumerata}
+
+Then (a) implies (b). Hence, if a CQ holds at $\bar x$, then (a) iff (b).
+
+% cl A is the set of all {d|exists seq x in A s.t. x goes to d}
+% yes. that is ANY CQ.
+% A CQ, by definition, is a condition that makes the KKT a
+% necessary optimality condition.
+%
+% A CQ guarantees that the local minimizer is a KKT point.
+%
+% NB: make sure the "necessary" and "sufficient" are correctly placed.
+
+\begin{proof}
+  \def\bx{\bar x}\def\bl{\bar\lambda}\def\bm{\bar\mu}
+  \def\Act{I(\bx)}
+  Let $(\bx,\bl,\bm)$ be a KKT point of (5.2), and let $\bar x\in X$.
+
+  Then, by Theorem ???
+  $$
+    f(x)\geq f(\bx) + \nabla f(\bx)^T(x-\bx)
+  $$
+
+  But with the KKT conditions, we can rewrite $\nabla f(\bx)$ as
+  $$
+    \nabla f(\bx)=-\sum_{i\in\Act}^m\bl_i \nabla g_i(\bx)-\sum_{j=1}^p\bm_j\nabla h_j(\bx)
+  $$
+
+  So then
+  \begin{align*}
+    f(x)\geq f(\bx)-\sum_{i\in\Act}^m\bl_i\nabla g_i(\bx)^T(x-\bx)-\sum_{j=1}^p\bm_j\nabla h_j(\bx)^T(x-\bx)\Tag{*}
+  \end{align*}
+
+  Again by Theorem ???, we have
+  $$
+    \nabla g_i(\bx)^T(x-\bx)\leq g_i(x)-g_i(\bx)
+  $$
+
+  Separately,
+  $$
+    \nabla h_j(\bx)^T(x-\bx)=0
+  $$
+
+  Putting everything back to $(*)$ and noting that $g_i(\bar x)=0$ by
+  definition of an active set,
+  $$
+    f(x)\geq f(\bx)-\sum_{i\in\Act}^m\bl_ig_i(x)
+  $$
+
+  But since $\bl_i\geq0$ and $g_i(x)\leq0$, we have
+  $$
+    f(x)\geq f(\bx)
+  $$
+
+  and hence $\bar x$ is a global minimum of (5.2). Hence shown that (a) implies
+  (b). The converse direction is the definition of a CQ.
+
+  And hence (a) iff (b).
+\end{proof}
+
+\Definition{Slater constraint qualification}\label{a3b15e9}
+
+We say that Slater CQ holds for (5.2) if there exists $\hat x$ such that
+$$
+  \begin{array}{l l}
+    g_i(\hat x)<0 & \forall i\in I \\
+    h_j(\hat x)=0 & \forall j\in J
+  \end{array}
+$$
+
+We call such an $\hat x$ a Slater point.
+
+\Proposition{}\label{c78f4af}
+
+Let SCQ hold for (5.2). Then ACQ holds at every feasible point.
+
+\begin{proof}
+  \def\bx{\bar x}\def\bl{\bar\lambda}\def\bm{\bar\mu}
+  \def\LC{L_X(\bar x)}
+  \def\TC{T_X(\bar x)}
+  \def\Act{I(\bx)}
+
+  Let $\bx\in X$ and set
+  $$
+    F(\bx):=\Set{d\in\R^n}{
+      \begin{array}{l l}
+        \nabla g_i(\bx)^T\leq0 & \forall i\in\Act \\
+        b_j^Td=0               & \forall j\in J
+      \end{array}
+    }
+  $$
+
+  \paragraph{Lemma}
+
+  $F(\bx)\subset T_X(\bx)$.
+
+  Let $d\in F(\bx)$, take $\{t_k\}\downarrow0$. Set $x^k:=\bar x+t_kd$. Then
+  $\dfrac{x^k-\bar x}{t_k}\to d$. Moreover,
+
+  For $i\notin\Act$, $g_i(x^k)<0$ for $k$ sufficiently large.
+
+  For $i\in\Act$, $\dfrac{g_i(x^k)-g_i(\bx)}{t_k}\to\nabla g_i(\bx)<0$, and
+  $g_i(\bx)=0$, so we ahve $g_i(x^k)<0$ for $k$ sufficiently large.
+
+  For $j\in J$, $h_j(x^k)=b_j^Tx^k-\beta_j=t_k\nabla h_j(\bx)^Td-\beta_j$
+  \begin{align*}
+    h_j(x^k) &=b_j^Tx^k-\beta_j                                 \\
+             &=t_k\nabla h_j(\bx)^Td+\nabla h_j(\bx)\beta_j = 0
+    % !!! fix the line above! this was not read properly in class.
+  \end{align*}
+
+  Thus
+  $$
+    cl F(\bx)\subset cl\TC=\TC
+  $$
+
+  We now show $\LC\subset dF(\bx)$. To this end, let $d\in\LC$, and let $\hat
+  x$ be a Slater point.
+
+  Set $\hat d$ to be $\hat x-\bar x$. Then by Theorem ???
+  \begin{equation*}
+    \nabla g_i(\bx)^T\hat d\leq g_i(\hat x) - g_i(\bx)<0\Quad\forall(i\in\Act)\Tag{*}
+  \end{equation*}
+
+  $<0$ because of definitions of Slater and Active Set.
+
+  Moreover, by the affine-ness of $h_j$, we have
+  \begin{align*}
+    \nabla h_j(\bx)^T\hat d = h_j(\hat x)-h_j(\bx)=0\Quad\forall(j\in J)\Tag{**}
+  \end{align*}
+
+  because both $h_j(\hat x)$ and $h_j(\bx)$ are zero.
+
+  Now we take a small pertubation of $d$ using $\hat d$:
+  $$
+    d(\delta):= d + \delta\hat d\Quad(\delta>0)
+  $$
+
+  Then $d(\delta)\in F(\bx)$, since
+  \begin{align*}
+    \nabla g_i(\bx)^Td(\delta) &=\nabla g_i(\bx)^Td + \delta\nabla g_i(\bx)^T\hat d<0 \Quad\forall(i\in\Act) \\
+    \nabla h_j(\bx)^Td(\delta) &=\nabla h_j(\bx)^Td + \delta\nabla h_j(\bx)^T\hat d=0 \Quad\forall(j\in J)
+  \end{align*}
+
+  $<0$ because the 1st term $\leq0$ and 2nd term $<0$, because $d$ is
+  in the linearized cone, and $\hat d$...? \\
+  And $=0$ because both terms $=0$.
+
+  Hence,
+  $$
+    d=\lim_{\delta\downarrow0}d(\delta) \subset clF(\bx)
+  $$
+\end{proof}
+
+Consider the standard NLP:
+\begin{equation*}
+  \NlpStdForm\Tag{1}
+\end{equation*}
+
+But now assume that $f,g_i,h_j:\R^n\to\R$ with no smoothness.
+
+The Lagrangian of (1) is
+\begin{align*}
+  L(x,\lambda,\mu)
+   &=f(x)+\sum_{i\in I}\lambda_ig_i(x) + \sum_{j\in J}\mu_jh_j(x) \\
+   &=f(x)+\lambda^Tg(x)+\mu^Th(x)
+\end{align*}
+
+\textbf{The Dual Problem}
+
+Observe that if $x$ is a feasible point,
+\begin{align*}
+  \sup_{\lambda\in\R^m_+,\ \mu\in\R^p}=
+  \begin{cases}
+    f(x)    & \text{if }x\in X,   \\
+    +\infty & \text{if }x\notin X
+  \end{cases}
+\end{align*}
+
+% Infinity because we can blow up both Lambda and Mu terms to
+% +infinity, and hence sup is infinity.
+%
+% 0 because Mu is 0 when feasible and Lambda maxes out at 0 when
+% feasible.
+
+Therefore the primal problem (1) is equivalent to
+$$
+  \min_{x\in\R^n}\sup_{\lambda\in\R^m_+,\ \mu\in\R^p}L(x,\lambda,\mu)
+$$
+
+\textbf{Q.} When can we switch min(inf) and sup?
+
+\Definition{Lagrangian dual}\label{f6ab91b}
+
+The Lagrangian dual of (1) is given by
+$$
+  \begin{array}{l l l l}
+    \max_{}d(\lambda,\mu) & \text{s.t.} & \lambda\geq0
+  \end{array}
+$$
+
+where the dual objective is given by $d:\R^m\times\R^p\to\R\cup\{+\infty\}$ and
+$$
+  d(\lambda,\mu):=\inf_{x\in\R^n}L(x,\lambda,\mu)
+$$
+
+The function $p:\R^n\to\R\cup\{+\infty\}$ given by
+$$
+  p(x):=\sup_{\lambda\in\R^m_+,\ \mu\in\R^p}
+  L(x,\lambda,\mu)
+$$
+
+is called the \textbf{primal objective}.
+
+\Example{LP duality}\label{ab8429b}
+
+Consider the standard linear program (LP):
+$$
+  \begin{array}{l l l}
+    \displaystyle \min_{x\in\R^n}c^Tx
+     & \text{s.t.} & Ax=b   \\
+     &             & x\geq0
+  \end{array}
+$$
+
+with $A\in\R^{m\times n}$, $b\in\R^m$, $c\in\R^n$.
+
+The Lagrangian reads
+\begin{align*}
+  L(x,\lambda,\mu)
+   &=c^Tx-\lambda^Tx+\mu^T(b-Ax)         \\
+   &=(c-\lambda-A^T\mu)^Tx + b^Tu\Tag{*}
+\end{align*}
+
+% so g_i corresponds to -x<=0
+% and h_j corresponds to Ax-b=0
+
+So then
+\begin{align*}
+  \nabla_xL(x,\lambda,\mu)
+   &=c-\lambda-A^T\mu
+\end{align*}
+
+The function that takes $x\mapsto L(x,\lambda,\mu)$ is affine (from $(*)$), and
+in particular it is convex. And hence it takes its minimum if and only if
+$\nabla_xL(x,\lambda,\mu)=0$, in which case,
+$$
+  \inf_{x\in\R^n}L(x,\lambda,\mu)=b^T\mu
+$$
+
+otherwise if $\nabla_xL(x,\lambda,\mu)\neq0$, the infimum must be $-\infty$.
+
+So then
+$$
+  d(\lambda,\mu)=\begin{cases}
+    b^T\mu  & \text{if }c=A^Tu+\lambda, \\
+    -\infty & \text{otherwise}
+  \end{cases}
+$$
+
+Therefore, the dual problem reads
+$$
+  \begin{array}{l l l}\displaystyle
+    \max_{\lambda,\,\mu}d(\lambda,\mu) & \text{s.t.} & \lambda\geq0
+  \end{array}
+$$
+
+Which is the same as
+$$
+  \begin{array}{l l l}\displaystyle
+    \max_{\lambda,\,\mu}b^T\mu & \text{s.t.} & \lambda\geq0,A^T\mu+\lambda=c
+  \end{array}
+$$
+
+and again,
+$$
+  \begin{array}{l l l}\displaystyle
+    \max_\mu b^T\mu & \text{s.t.} & A^T\mu\leq c
+  \end{array}
+$$
+
+% WEAK AND STRONG DUALITY
+
+\Theorem{Weak duality}\label{ad0b792}
+
+Let $\hat x$ be feasible for (P) and $(\hat\lambda,\hat\mu)$ be feasible for
+(D). Then
+$$
+  p(\hat x)\geq d(\hat\lambda,\hat\mu)
+$$
+
+\begin{proof}
+  \def\hx{\hat x}
+  \def\hl{\hat\lambda}
+  \def\hm{\hat\mu}
+  We have
+  $$
+    p(\hx) = f(\hx)\with{(\hx\in X)}
+  $$
+
+  and hence
+  \begin{align*}
+    p(\hx) &\geq f(\hx) + \hl^Tg(\hx) + \hm^Th(\hx) \\
+           &=L(\hx,\hl,\hm)                         \\
+           &\geq\inf_{x\in\R^n}L(x,\hl,\hm)         \\
+           &= d(\hl,\hm)
+  \end{align*}
+
+  \paragraph{Remark} If $p(\hx)=d(\hl,\hm)$, then $\hx$ solves (P), and $(\hl,\hm)$ solves (D).
+\end{proof}
+
+From weak duality, if we define
+\begin{align*}
+  \bar p:=\inf_{x\in\R^n}p(x)\geq
+  \sup_{\lambda\in\R^m_+,\ \mu\in\R^p}d(\lambda,\mu)
+  =:\bar d
+\end{align*}
+
+Then $\bar p-\bar d\geq0$
+
+\Example{Non-zero duality gap}\label{c4aaa1f}
+
+% Strong duality in LP but we don't have that in NLP
+
+Consider the following objective function:
+\begin{align*}
+  \min f(x):=\begin{cases}
+               x^2-2x & x\geq0           \\
+               x      & \text{otherwise}
+             \end{cases}
+  \quad \text{s.t.}\quad g(x):=-x\leq0
+\end{align*}
+
+% Note that the global minimizer is at 1.
+% we already know that p_bar is 1. We will be computing d_bar now.
+
+The Lagrangian reads
+$$
+  L(x,\lambda)=\begin{cases}
+    x^2-(2+\lambda)x & \text{if } x\geq0 \\
+    (1-\lambda)x     & \text{otherwise}
+  \end{cases}
+$$
+% there is no mu because there is no equality constraints
+
+A short computation shows that
+$$
+  d(\lambda)=\begin{cases}
+    -\frac{(2+\lambda)^2}{4} & \text{if }\lambda\geq1 \\
+    -\infty                  & \text{otherwise}
+  \end{cases}
+$$
+
+Therefore,
+\begin{align*}
+  \bar d=d(1)=-\frac94<1=\bar p
+\end{align*}
+
+Hence the duality gap
+$$
+  \bar p-\bar d=\frac54>0
+$$
+
+\Definition{Saddle point}\label{e1525d8}
+
+The triple $(\bar x,\bar\lambda,\bar\mu)\in\R^n\times\R^m_+\times\R^p$ is
+called a saddle point of the Lagrangian $L$ of (P) if
+$$
+  L(\bar x,\lambda,\mu)\leq
+  L(\bar x,\bar\lambda,\bar\mu)\leq
+  L(x,\bar\lambda,\bar\mu)
+$$
+
+\Theorem{}\label{dc4af95}
+
+The following are equivalent:
+\begin{enumerati}
+  \item $(\bar x,\bar\lambda,\bar\mu)$ is a saddle point of (P)
+  \item $\bar x$ solves (P); $(\bar\lambda,\bar\mu)$ solves (D)
+\end{enumerati}
+
+\begin{proof}
+  \paragraph{(i) $\implies$ (ii):}
+
+  If $(\bar x,\bar\lambda,\bar\mu)$ is a saddle point of (P), then
+  \begin{align*}
+    L(\bar x,\bar\lambda,\bar\mu)
+     &\stackrel{\text{S.P.}}{\leq}\inf_{x}L(x,\bar\lambda,\bar\mu)      \\
+     &\leq\sup_{\lambda\in\R^m_+,\ \mu\in\R^p}\inf_{x}L(x,\lambda,\mu)  \\
+     &\leq\inf_{x}\sup_{\lambda\in\R^m_+,\ \mu\in\R^p}L(x,\lambda,\mu)  \\
+     &\leq\sup_{\lambda\in\R^m_+,\ \mu\in\R^p}L(\bar x,\lambda,\mu)     \\
+     &\stackrel{\text{S.P.}}{\leq} L(\bar x,\bar\lambda,\bar\mu)\Tag{*}
+  \end{align*}
+
+  % look for a problem in the notes that flip inf and sup and have
+  % a resulting inequality. This will convince you of the argument
+  % above.
+
+  Then,
+  \begin{align*}
+    d(\bar\lambda,\bar\mu)
+     &=\inf_{x} (x,\bar\lambda,\bar\mu)                                        \\
+     &\stackrel{(*)}=\sup_{\lambda\in\R^m_+,\ \mu\in\R^p}L(\bar x,\lambda,\mu) \\
+     &= p(\bar x) = \bar p<+\infty
+  \end{align*}
+
+  Hence if $x\in X$, and by weak duality, $\bar x$ solves (P), and
+  $(\bar\lambda,\bar\mu)$ solves (D).
+
+  \paragraph{(ii) $\implies$ (i):}
+
+  Observe that
+  \begin{align*}
+    L(\bar x,\bar\lambda,\bar\mu)
+     &\stackrel{\bar x\in X}{\leq} f(\bar x)                                                 \\
+     &\stackrel{\bar x\in X}= p(\bar x)                                                      \\
+     &\stackrel{\text{defn. of }p}=\sup_{\lambda\in\R^m_+,\ \mu\in\R^p}L(\bar x,\lambda,\mu) \\
+     &=d(\bar\lambda,\bar\mu)                                                                \\
+     &=\inf_{x} (x,\bar\lambda,\bar\mu)                                                      \\
+     &\leq L(\bar x,\bar\lambda,\bar\mu)
+  \end{align*}
+
+  But that's just the original LHS value, and hence all lines are equal. Hence
+  \begin{align*}
+    L(\bar x,\bar\lambda,\bar\mu)
+     &=\inf_{x} (x,\bar\lambda,\bar\mu)                          \\
+     &=\sup_{\lambda\in\R^m_+,\ \mu\in\R^p}L(\bar x,\lambda,\mu)
+  \end{align*}
+
+  And hence $(\bar x,\bar\lambda,\bar\mu)$ is a saddle point.
+\end{proof}
+
+% in class, Prof forgot to talk about strong duality in class.
+
+% Exact penalty functions
+
+Consider again
+\begin{equation*}
+  \begin{array}{l l l}
+    \min f(x) & \text{s.t.} & x\in X
+  \end{array}\Tag{1}
+\end{equation*}
+
+and a penalty function
+\begin{equation*}
+  P_\alpha^r:=f+\alpha r,\with{\alpha>0}\Tag{2}
+\end{equation*}
+
+with $r\geq0$, $r(x)=0\iff x\in X^r$
+
+\Definition{}\label{de3d5ee}
+
+The penalty function $P_\alpha^r$ is called exact at a local min $\bar x$ of
+(1) if there exists $\bar\alpha$ such that $\bar x$ is a local min of
+$P_\alpha^r$ for all $\alpha>\bar\alpha$
+
+Consider now the standard NLP
+\begin{equation*}
+  \NlpStdForm\Tag{3}
+\end{equation*}
+
+with $f,g_i,h_j:\R^n\to\R$ at least cont. diff.
+
+A whole class of penalty functions in the sense of (2) for problem (3) is
+defined via
+$$
+  r_q(x):=\norm{(\max\{g(x),0\},h(x))}_q
+$$
+
+Where the $\max$ is interpreted component-wise, and then we're taking the
+$q$-norm. The value in $(\cdot)$ is a vector with the first $i$ elements being
+$\max\{g_i(x),0\}$ and the last $j$ elements being $h_j(x)$.
+
+and
+$$
+  \norm{z}_q=\begin{cases}
+    \displaystyle\left(\sum_{i=1}^\ell (z_i)^q \right)^{\frac1q} \ldots
+                                          & \text{if } q\in[1,\infty) \\[2em]
+    \displaystyle\max_{i=\iter1\ell}|z_i| & \text{if } q=+\infty
+  \end{cases}
+$$
+
+we focus on $q=1$:
+$$
+  P_\alpha^1(x)=f(x)+\alpha\sum_{j=1}^p|h_j(x)| + \alpha\sum_{i=1}^m\max\{g_i(x),0\}
+$$
+
+\Theorem{}\label{d2d5221}
+
+Let $(\bar x,\bar\lambda,\bar\mu)$ be a KKT point of the convex NLP
+\begin{equation*}
+  \NlpStdForm\Tag{4}
+\end{equation*}
+
+with $f,g_i:\R^n\to\R$ convex and cont. diff, and $h_j:\R^n\to\R$ affine (and
+hence convex).
+
+Then $\bar x\in\argmin_XP_\alpha^1(x)$, for all
+$\alpha\geq\norm{(\bar\lambda,\bar\mu)}_\infty$.
+
+In particular, $P_\alpha^1$ is exact at $\bar x$ if a CQ holds.
+
+\begin{proof}
+  By Theorem ??? (KKT for convex problems), $\bar x$ is a global minimizer of
+  (4). Therefore, by Theorem ??? (Saddle point theorem), $\bar x$ is a global
+  minimizer of the Lagrangian $L(\cdot,\bar\lambda,\bar\mu)$.
+
+  Therefore, for all $x\in\R^n$ and for all
+  $\alpha\geq\norm{(\bar\lambda,\bar\mu)}_\infty$, we have
+  % what is the shape of $(\bar\lambda,\bar\mu)$? is it a single column
+  % vector? Norming it above here suggests that it is
+  $$
+    P_\alpha^1(\bar x)=f(\bar x)+\alpha\sum_{j=1}^p|h_j(\bar x)| + \alpha\sum_{i=1}^m\max\{g_i(\bar x),0\}
+  $$
+
+  For reference,
+  $$
+    \norm{(\bar\lambda,\bar\mu)}_\infty:=\max\{
+    \iter{|\bar\lambda_1|}{|\bar\lambda_m|},
+    \iter{|\bar\mu_1|}{|\bar\mu_p|}
+    \}
+  $$
+
+  But remember that since the point is feasible, the second and third terms are
+  both zero and hence
+  \begin{align*}
+    P_\alpha^1(\bar x)
+     &=f(\bar x)                                                                               \\
+     &\stackrel{\text{KKT}}{=}f(\bar x)+\bar\lambda^Tg(\bar x)+\bar\mu^Th(\bar x)              \\
+     &= L(\bar x,\bar\lambda,\bar\mu)                                                          \\
+     &\stackrel{\text{Thm ???}}{\leq} L(x,\bar\lambda,\bar\mu)                                 \\
+     &= f(x)+\sum_{i=1}^m\bar\lambda_ig_i(x)+\sum_{j=1}^p\bar\mu_jh_j(x)                       \\
+     &\leq f(x)+\sum_{i=1}^m\bar\lambda_i\max\{g_i(x),0\}+\sum_{j=1}^p|\bar\mu_j|\cdot|h_j(x)| \\
+     &\leq f(x)+\alpha\sum_{i=0}^m\max\{g_i(x),0\}+\alpha\sum_{j=1}^p|h_j(x)|                  \\
+     &= P_\alpha^1(x)
+  \end{align*}
+
+  Hence $\bar x$ is the global minimizer of $P_\alpha^1$, that is for any
+  $\alpha\geq\norm{(\bar\lambda,\bar\mu)}_\infty$
+  $$
+    \bar x\in\argmin_XP_\alpha^1
+  $$
+\end{proof}
+
+% LAST CHAPTER: SQP methods
+
+\subsection{SQP Methods}\label{b790813}
+
+Consider
+\begin{equation*}
+  \begin{array}{l l l}
+    \min f(x) & \text{s.t.} & h_j(x)=0\with{\forall j\in J}
+  \end{array}\Tag{1}
+\end{equation*}
+
+with $f,h_j:\R^n\to\R$ twice cont diff.
+
+Define $\Phi:\R^n\times\R^p\to\R^n\times\R^p$ by
+$$
+  \Phi(x,\mu):=\begin{bmat}
+    \nabla_xL(x,\mu) \\ h(x) \\
+  \end{bmat}
+$$
+
+where $L:\R^n\times\R^p\to\R$ is the Lagrangian of (1). Then
+\begin{equation*}
+  (x,\mu)\text{ is a KKT point of (1)}\iff\Phi(x,\mu)=0\Tag{*}
+\end{equation*}
+
+where $\Phi$ is $C^1$.
+
+Idea: Apply Newton's method to $(*)$.
+
+\Algorithm{Lagrange-Newton method}\label{faafd8f}
+
+\begin{enumerate}
+  \item [\textbf{(S0)}] Choose $(x^0,\mu^0)\in\R^n\times\R^p$ and set $k:=0$.
+  \item [\textbf{(S1)}] If $\Phi(x^k,\mu^k)=0$: STOP
+  \item [\textbf{(S2)}] Determine $(\Delta x^k,\Delta\mu^k)$ as solution of
+        $$
+          \Phi'(x^k,\mu^k)\begin{pmat}\Delta x\\\Delta\mu\end{pmat}=-\Phi(x^k,\mu^k)
+        $$
+  \item [\textbf{(S3)}] Put $(x^{k+1},\mu^{k+1}):=(x^k,\mu^k)+(\Delta x^k,\Delta\mu^k)$, $k\gets k+1$, and go to (S1).
+\end{enumerate}
+
+``Hessian is the Jacobian of the gradient"
+
+Crucial part for well-definedness is to have $\Phi'$ be invertible at
+$(x^k,\mu^k)$
+
+\Theorem{}\label{c471dcc}
+
+Let $(\bar x,\bar\mu)\in\R^n\times\R^p$ be a KKT point of (1), i.e. a root of
+the function $\Phi(x,\mu)=0$ such that:
+\begin{enumerati}
+  \item (LICQ) The vectors $\nabla h_j(x)$ are linearly indepdendent, for $j\in J$
+  \item (2nd order sufficient condition) We have
+  $$
+    d^T \nabla_{xx}^2 L(\bar x,\bar\mu)d>0\with{\forall d\neq0\land\nabla h_j(\bar x)^Td=0}
+  $$
+\end{enumerati}
+
+\begin{proof}
+  Goal is to show that kernel is trivial.
+
+  Sidenote:
+  $$
+    h'(x)^T=\begin{bmat}
+      \nabla h_1(x) & \ldots & \nabla h_p(x) \\
+    \end{bmat}
+    \in\R^{n\times p}
+  $$
+
+  Observe that
+  % Example of computing jacobians!
+  $$
+    \Phi(x,\mu)=\begin{pmat}
+      \nabla_{xx}^2L(x,\mu) & h'(x)^T \\
+      h'(x)                 & 0       \\
+    \end{pmat}\with{\forall (x,\mu)\in\R^n\times\R^p}
+  $$
+
+  Hence,
+  \begin{align*}
+    % which space is this exactly?
+    \Phi'(\bar x,\bar\mu){\begin{pmat}q\\r\end{pmat}}
+     &= 0 \\
+    \iff \nabla_{xx}^2L(\bar x,\mu)q + h'(\bar x)^Tr
+     &=0  \\
+    \text{and}\Quad h'(\bar x)^Tq
+     &=0
+  \end{align*}
+
+  Note: $\Phi'\in\R^{(n+p)\times(n+p)}$
+\end{proof}
+
+\subsection{Nov 30 class}\label{a4f101c}
+
+\subsection{Lagrange-Newton Equation}\label{fb0a98b}
+
+Update with $(x^{k+1},\mu^{k+1}):=(x^k,\mu^k)+(\Delta x^k,\Delta \mu^k)$
+
+\begin{align*}
+  \Phi'(x^k,\mu^k)\begin{pmat}\Delta x\\\Delta\mu\end{pmat}
+   &=-\Phi(x^k,\mu^k) \\
+  \iff\begin{bmat}
+        \nabla_{xx}^2 L(x^k,\mu^k) & h'(x^k)^T \\
+        h'(x^k)                    & 0         \\
+      \end{bmat}\begin{pmat}\Delta x\\\Delta\mu\end{pmat}
+   &=
+  -\begin{bmat}
+     \nabla f(x^k)-h'(x^k)^T \\
+     h'(x^k)                 \\
+   \end{bmat}
+\end{align*}

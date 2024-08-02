@@ -1,0 +1,65 @@
+\subsection{Bounds, Supremum, Infimum}\label{ba78d71}
+
+\Lemma{}\label{f77f162}
+
+Let $E\subseteq\R$ be non-empty. Then $M=\href{e6981e1}{\sup}E$ if and only if
+$M$ is an \href{e4698be}{upper bound} of $E$ and for every $\epsilon>0$, there
+exists $x_\epsilon\in E$ such that $M-\epsilon<x_\epsilon$.
+
+\begin{proof}
+  ($\implies$) Suppose $M=\sup E$. Let $\epsilon>0$. Then $M-\epsilon<M$. Since
+  $M$ is the least upper bound of $E$ by definition, $M-\epsilon$ cannot be an
+  upper bound for $E$. Hence there exists $x_\epsilon\in E$ such that
+  $M-\epsilon<x_\epsilon$.
+
+  ($\impliedby$) Suppose $M$ is an upper bound for $E$ and that there exists
+  $x_\epsilon\in E$ such that $M-\epsilon<x_\epsilon$. Let $M'$ be an upper
+  bound of $E$. Suppose on the contrary that $M'<M$. Then we let
+  $\epsilon:=M-M'>0$. Then there exists $x_\epsilon\in E$ such that
+  $$
+    M'=M-(M-M')=M-\epsilon<x_\epsilon
+  $$
+
+  This contradicts the assumption that $M'$ is an upper bound for $E$. Hence we
+  must have $M\leq M'$, making $M$ the least upper bound of $E$.
+\end{proof}
+
+\Lemma{}\label{cd8e7c5}
+
+If $A\subseteq B\subseteq\R$ and both $\href{e6981e1}{\sup}A$ and $\sup B$
+exist, then $\sup A\leq\sup B$.
+
+\begin{proof}
+  $\sup B$ is an upper bound for $B$, but since $A\subseteq B$, $\sup B$ is an
+  upper bound for $A$ as well. Since $\sup A$ is the least upper bound of $A$,
+  we have $\sup A\leq\sup B$.
+\end{proof}
+
+\Lemma{}\label{fec9bdb}
+
+Let $E\subseteq\R$ be non-empty. Then $m=\href{ff16df6}{\inf}E$ if and only if
+$m$ is a \href{e4698be}{lower bound} of $E$ and for every $\epsilon>0$, there
+exists $x_\epsilon\in E$ such that $x_\epsilon<m+\epsilon$.
+
+\begin{proof}
+  Exercise (similar to proof of \autoref{f77f162})
+\end{proof}
+
+\Principle{Completeness/supremum property of $\mathbb R$}\label{f330cf9}
+
+Every non-empty subset of $\R$ which is \href{e4698be}{bounded above} has a
+\href{e6981e1}{supremum} in $\R$.
+
+In other words, if $E\subseteq\R$ is non-empty, then $\sup E$ exists.
+
+\Remark{}\label{b1dc879}
+
+This marks the end of our assumptions, which are:
+
+\begin{enumerati}
+  \item the \href{bf61f02}{field properties of $\R$}.
+  \item the \href{d49c63e}{order properties of $\R$}.
+  \item the \href{f330cf9}{completeness property of $\R$}.
+\end{enumerati}
+
+With these we will build up other properties of $\R$.

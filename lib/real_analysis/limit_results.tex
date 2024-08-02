@@ -1,0 +1,503 @@
+\subsection{Limit results}\label{e118ddb}
+
+\Lemma{Limit of a reciprocal}\label{cbd2c3c}
+
+Let $\{x_n\}\to x$. If $x_n\neq0$ for all $n$ and $x\neq0$, we have
+$$
+  \lim_{n\to\infty}\frac1{x_n}=\frac1x
+$$
+
+\begin{proof}
+  \href{e565120}{Since} $\{x_n\}\to x$, there exists $K_1\in\N$ such that for
+  all $n\geq K_1$,
+  \begin{align*}
+    |x_n-x|   &<\frac{|x|}2                                             \\
+    |x|-|x_n| &<\frac{|x|}{2}\desc{\href{f1288ad}{triangle inequality}} \\
+    |x_n|     &>\frac{|x|}{2}\Tag{*}
+  \end{align*}
+
+  Let $\epsilon>0$ be given. Now, there exists $K_2\in\N$ such that for all
+  $n\geq K_2$,
+  \begin{equation*}
+    |x_n-x|<\frac{|x|^2\epsilon}2\Tag{**}
+  \end{equation*}
+
+  Let $K:=\max\{K_1,K_2\}$ so that for all $n\geq K$, both constraints above
+  are met and we have
+  \begin{align*}
+    \biggl|\frac1{x_n}-\frac1x\biggr|
+     &=\frac{|x_n-x|}{|x_nx|}                                         \\
+     &\leq\frac12\frac{|x|^2\epsilon}{|x_n||x|}\desc{from $(**)$}     \\
+     &<\frac12\frac{|x|^2\epsilon}{\frac{|x|}{2}|x|}\desc{from $(*)$} \\
+     &=\epsilon
+  \end{align*}
+
+  This completes the proof.
+\end{proof}
+
+\Proposition{Properties of limits}\label{d13a5e7}
+
+Let $\{x_n\}$ and $\{y_n\}$ be \href{b5fa0e4}{sequences}. If
+$\displaystyle\lim_{n\to\infty}x_n=\bar x$ and
+$\displaystyle\lim_{n\to\infty}y_n=\bar y$, then
+
+\begin{enumerati}
+  \def\l{\displaystyle\lim_{n\to\infty}}
+  \item $\l(x_n+y_n)=\bar x+\bar y$
+  \item $\l(x_n-y_n)=\bar x-\bar y$
+  \item $\l(x_n\cdot y_n)=\bar x\cdot\bar y$
+  \item $\l(x_n/y_n)=\bar x/\bar y$, provided $y_n\neq0$ for all $n\in\N$, and
+  $\bar y\neq0$.
+\end{enumerati}
+
+It immediately follows that
+\begin{itemize}
+  \item $\displaystyle\lim_{n\to\infty}(c+x_n)=c+\lim_{n\to\infty}x_n$, and
+  \item $\displaystyle\lim_{n\to\infty}(cx_n)=c\lim_{n\to\infty}x_n$
+\end{itemize}
+
+This can be seen by using $\{y_n\}=c$, a \href{d661313}{constant sequence}.
+
+In summary, the arithmetic operators $+$, $-$, $\times$, $\div$ are preserved
+upon taking limits. Note that these require both $\{x_n\}$ and $\{y_n\}$ to
+converge.
+
+\begin{proof}
+  \proofp{(i)} Let $\epsilon>0$ be given. \href{e565120}{Since} $\{x_n\}\to\bar
+  x$ and $\{y_n\}\to\bar y$, there exist $K_1,K_2\in\N$ such that
+  \begin{align*}
+    n\geq K_1 &\implies |x_n-\bar x|<\epsilon/2, \\
+    n\geq K_2 &\implies |y_n-\bar y|<\epsilon/2
+  \end{align*}
+
+  where the $\epsilon/2$ are strategically chosen constants. Let
+  $K:=\max\{K_1,K_2\}\in\N$. Then for all $n\geq K$, both constraints above are
+  satisfied and hence
+  \begin{align*}
+    |(x_n+y_n)-(\bar x+\bar y)|
+     &=|(x_n-\bar x)+(y_n-\bar y)|                                            \\
+     &\leq|x_n-\bar x|+|y_n-\bar y|\desc{\href{f1288ad}{triangle inequality}} \\
+     &<(\epsilon/2)+(\epsilon/2)                                              \\
+     &=\epsilon
+  \end{align*}
+
+  Hence we have $\lim_{n\to\infty}(x_n+y_n)=\bar x+\bar y$. The proof of (ii)
+  is similar.
+
+  \proofp{(iii)} Since $\{x_n\}$ converges, it is \href{d5ed299}{bounded}. Thus
+  there exists $M_1>0$ such that
+  $$
+    |x_n|\leq M_1\with{(\forall n\in N)}
+  $$
+
+  Then, we lay some ground work:
+  \begin{align*}
+    |x_ny_n-\bar x\bar y|
+     &=|(x_ny_n-x_n\bar y)+(x_n\bar y-\bar x\bar y)|                                            \\
+     &\leq|x_ny_n-x_n\bar y|+|x_n\bar y-\bar x\bar y|\desc{\href{f1288ad}{triangle inequality}} \\
+     &=|x_n||y_n-\bar y|+|\bar y||x_n-\bar x|                                                   \\
+     &\leq M_1|y_n-\bar y|+|\bar y||x_n-\bar x|                                                 \\
+     &\leq M(|y_n-\bar y|+|x_n-\bar x|)\Tag{*}
+  \end{align*}
+
+  where $M:=\max\{M_1,|\bar y|\}>0$.
+
+  Now let $\epsilon>0$ be given. \href{e565120}{Since} $\{x_n\}\to\bar x$ and
+  $\{y_n\}\to\bar y$, there exist $K_1,K_2\in\N$ such that
+  \begin{align*}
+    n\geq K_1 &\implies |x_n-\bar x|<\epsilon/(2M), \\
+    n\geq K_2 &\implies |y_n-\bar y|<\epsilon/(2M)
+  \end{align*}
+
+  where the $\epsilon/(2M)$ are strategically chosen constants. Let
+  $K:=\max\{K_1,K_2\}\in\N$. Then for all $n\geq K$, both constraints above are
+  satisfied and hence
+  \begin{align*}
+    |x_ny_n-\bar x\bar y|
+     &\leq M(|y_n-\bar y|+|x_n-\bar x|)\desc{from $(*)$} \\
+     &<M(\epsilon/(2M)+\epsilon/(2M))                    \\
+     &=\epsilon
+  \end{align*}
+
+  And hence we have $\lim_{n\to\infty}(x_ny_n)=\bar x\bar y$.
+
+  \proofp{(iv)}
+  \begin{align*}
+    \lim_{n\to\infty}\frac{x_n}{y_n}
+     &=\lim_{n\to\infty}\biggl(x_n\cdot\frac1{y_n}\biggr)                     \\
+     &=\lim_{n\to\infty}x_n\cdot\lim_{n\to\infty}\frac1{y_n}\desc{from (iii)} \\
+     &=\bar x\cdot\frac1{\bar y}\desc{by \autoref{cbd2c3c}}                   \\
+     &=\frac{\bar x}{\bar y}
+  \end{align*}
+
+  And hence we have $\lim_{n\to\infty}(x_n/y_n)=\bar x/\bar y$.
+\end{proof}
+
+\Corollary{}\label{c182ece}
+
+If $\{x_n\}$ converges and $k\in\N$, then
+$$
+  \lim_{n\to\infty} (x_n)^k=\Bigl(\lim_{n\to\infty}x_n\Bigr)^k\with{(n\in\N)}
+$$
+
+\Theorem{Squeeze Theorem}\label{c3364d9}
+
+If $x_n\leq y_n\leq z_n$ for all $n\in\N$ and
+$\displaystyle\lim_{n\to\infty}x_n=\lim_{n\to\infty}z_n=a$, then
+$$
+  \lim_{n\to\infty}y_n=a
+$$
+
+Note that we can weaken the condition on $n$ to just $n\in\N,\ n\geq K_0$ for
+some fixed $K_0$.
+
+\begin{proof}
+  Let $\epsilon>0$ be given. \href{e565120}{Since} $x_n\to a$, there exists
+  $K_1\in\N$ such that for all $n\geq K_1$,
+  \begin{equation*}
+    |x_n-a|<\epsilon \implies-\epsilon<x_n-a\Tag{*}
+  \end{equation*}
+
+  Since $z_n\to a$, there exists $K_1\in\N$ such that for all $n\geq K_1$,
+  \begin{equation*}
+    |z_n-a|<\epsilon \implies z_n-a<\epsilon\Tag{**}
+  \end{equation*}
+
+  Let $K:=\max\{K_1,K_2\}\in\N$. If we used the weaker condition, put
+  $K:=\max\{K_0,K_1,K_2\}$.
+
+  Then for all $n\geq K$, we have
+  \begin{align*}
+    x_n\leq y_n\leq z_n
+     &\implies x_n-a\leq y_n-a\leq z_n-a                            \\
+     &\implies -\epsilon<y_n-a<\epsilon\desc{from $(*)$ and $(**)$} \\
+     &\implies |y_n-a|<\epsilon
+  \end{align*}
+
+  Hence we also have $\displaystyle\lim_{n\to\infty}y_n=a$.
+\end{proof}
+
+\Theorem{Sequence converging absolutely to zero also converges to zero}\label{a9a7a2f}
+
+Let $\{x_n\}$ be a \href{b5fa0e4}{sequence} such that
+$$
+  \lim_{n\to\infty}|x_n|=0
+$$
+
+then $\lim_{n\to\infty}x_n=0$. In short, $|x_n|\to0$ implies $x_n\to0$.
+
+\begin{proof}
+  Let $\epsilon>0$ be given. Since $|x_n|\to0$, it follows that there exists
+  $K\in\N$ such that
+  $$
+    n\geq K\implies \big||x_n|-0\big|<\epsilon
+  $$
+
+  But $\big||x_n|-0\big|=|x_n-0|$, and hence we have
+  $$
+    n\geq K\implies |x_n-0|=\big||x_n|-0\big|<\epsilon
+  $$
+
+  Hence $x_n\to0$.
+\end{proof}
+
+\Lemma{Limit to infinity of a geometric sequence*}\label{b88d621}
+
+For a fixed $b\in\R$ satisfying $0\leq b<1$, we have
+$$
+  \lim_{n\to\infty}b^n=0\with{(n\in\N)}
+$$
+
+\begin{proof}
+  There are two cases to consider:
+
+  \paragraph{Case 1: $b=0$.}
+
+  Let $\epsilon>0$ be given. Take $K=1$. Then for all $n\geq K$,
+  $$
+    |b^n-0|=|0-0|=0<\epsilon
+  $$
+
+  Therefore we have $\displaystyle\lim_{n\to\infty}b^n=0$.
+
+  \paragraph{Case 2: $0<b<1$.}
+
+  Let $a:=\dfrac1b-1$. Then $a>0$, and $b=\dfrac1{1+a}$. By
+  \href{d44713f}{Bernoulli's inequality}, we have $(1+a)^n\geq1+na$ for all
+  $n\in\N$, hence
+  $$
+    0<b^n=\frac1{(1+a)^n}\leq\frac1{1+na}\leq\frac1{na}\with{(\forall n\in\N)}
+  $$
+
+  Now
+  $$
+    \lim_{n\to\infty}0=0\quad\text{and}\quad\lim_{n\to\infty}\frac1{na}=0
+  $$
+
+  So by \href{c3364d9}{Squeeze Theorem}, we have
+  $\displaystyle\lim_{n\to\infty}b^n=0$.
+\end{proof}
+
+\Theorem{Limit to infinity of a geometric sequence}\label{aa16570}
+
+For a fixed $b\in\R$ satisfying $|b|<1$, we have
+$$
+  \lim_{n\to\infty}b^n=0\with{(n\in\N)}
+$$
+
+\begin{proof}
+  This follows from \autoref{a9a7a2f} and \autoref{b88d621}.
+\end{proof}
+
+\Theorem{Limit to infinity of reciprocal exponents}\label{e97e8a0}
+
+For a fixed number $c>0$, we have
+$$
+  \lim_{n\to\infty}c^\frac1n=1\with{(n\in\N)}
+$$
+
+\begin{proof}
+  \def\limn{\displaystyle\lim_{n\to\infty}}
+  There are two cases to consider:
+
+  \paragraph{Case 1: $c\geq1$}
+
+  In this case, $c^\frac1n\geq1$. We will aim to use \href{d44713f}{Bernoulli's
+  inequality}. So let $d_n:=c^\frac1n-1$. Then $d_n\geq0$, and we have
+  $c=(1+d_n)^n$. By Bernoulli,
+  $$
+    c=(1+d_n)^n\geq1+nd_n
+  $$
+
+  and so
+  $$
+    0\leq d_n\leq\frac{c-1}n
+  $$
+
+  Now,
+  $$
+    \limn\frac{c-1}n=(c-1)\limn\frac1n=0
+  $$
+
+  Thus by the \href{c3364d9}{Squeeze Theorem}, we have $\limn d_n=0$. And
+  hence,
+  $$
+    \limn c^\frac1n=\limn(1+d_n)=1+\limn d_n=1
+  $$
+
+  \paragraph{Case 2: $0<c<1$}
+
+  In this case, $\frac1c>1$. By Case 1, $\displaystyle\limn(1/c)^\frac1n=1$.
+  Consequently,
+  $$
+    \limn c^\frac1n=\limn\frac1{(1/c)^\frac1n}=\frac1{\limn(1/c)^\frac1n}=1
+  $$
+
+  And hence the proof is complete.
+\end{proof}
+
+\Theorem{Limits preserve abs and sqrt}\label{be3d800}
+
+\begin{enumerata}
+  \item If $\displaystyle\lim_{n\to\infty}x_n=x$, then
+        $\displaystyle\lim_{n\to\infty}|x_n|=|x|$.
+  \item If $\displaystyle\lim_{n\to\infty}x_n=x$ and all $x_n\geq0$, then
+        $\displaystyle\lim_{n\to\infty}\sqrt{x_n}=\sqrt x$.
+\end{enumerata}
+
+In short, the operations $|\cdot|$ and $\sqrt\cdot$ are preserved upon taking
+limits.
+
+Note that the converse of (a) is not true. Consider the oscillating sequence
+$\{x_n\}$ where $x_n:=(-1)^n$.
+
+\begin{proof}
+  \proofp{(a)} Let $\epsilon>0$ be given. Since $x_n\to x$, there exists
+  $K\in\N$ such that
+  $$
+    |x_n-x|<\epsilon,\with{\forall n\geq K}
+  $$
+
+  Thus for all $n\geq K$, we have
+  \begin{align*}
+    \big|{|x_n|-|x|}\big|
+     &\leq |x_n-x|\desc{\href{f1288ad}{triangle inequality}} \\
+     &<\epsilon
+  \end{align*}
+
+  So we have $\displaystyle\lim_{n\to\infty}|x_n|=|x|$.
+
+  \proofp{(b)} We deal with two separate cases:
+
+  \paragraph{Case 1: $x>0$}
+
+  Let $\epsilon>0$ be given. Since $x_n\to x$, there exists $K\in\N$ such that
+  \begin{equation*}
+    n\geq K\implies |x_n-x|<\epsilon\sqrt x\Tag{*}
+  \end{equation*}
+
+  Note that using $\epsilon\sqrt x$ as an upper bound is valid because $x$ is
+  fixed. Then for all $n\geq K$,
+  $$
+    |\sqrt{x_n}-\sqrt x|=\frac{|x_n-x|}{\sqrt{x_n}+\sqrt x}
+    \leq\frac1{\sqrt x}|x_n-x|\stackrel{(*)}{<}\frac{\epsilon\sqrt x}{\sqrt x}
+    =\epsilon
+  $$
+
+  Hence we have $\displaystyle\lim_{n\to\infty}\sqrt{x_n}=\sqrt x$.
+
+  \paragraph{Case 2: $x=0$}
+
+  Here we have $\sqrt x=0$. Let $\epsilon>0$ be given. We then have
+  $\epsilon^2>0$. Since $x_n\to x=0$, there exists $K\in\N$ such that
+  \begin{equation*}
+    n\geq K\implies |x_n-0|<\epsilon^2\Tag{*}
+  \end{equation*}
+
+  Then for all $n\geq K$,
+  $$
+    |\sqrt{x_n}-0|=|\sqrt{x_n}|=\sqrt{x_n}\stackrel{(*)}{<}\sqrt{\epsilon^2}=\epsilon
+  $$
+
+  Hence we have $\displaystyle\lim_{n\to\infty}\sqrt{x_n}=0=\sqrt x$.
+\end{proof}
+
+\Theorem{}\label{c88c34b}
+
+For $n\in\N$,
+$$
+  \lim_{n\to\infty}n^\frac1n=1
+$$
+
+\begin{proof}
+  \def\nn{n^\frac1n}
+  \paragraph{Lemma}
+
+  For all $a>0$, we have $(1+a)^n\geq\dfrac{n(n-1)}{2}a^2$. We will prove this
+  by induction.
+
+  Let $P(n)$ be the statement that for all $a>0$,
+  $(1+a)^n\geq\dfrac{n(n-1)}2a^2$.
+
+  When $n=2$, we have
+  $$
+    (1+a)^2=1+2a+a^2\geq a^2=\frac{2(2-1)}2a^2
+  $$
+
+  So $P(2)$ is true.
+
+  Assume that $P(k)$ is true for some $k\in\N$ with $k\geq2$. Then the
+  inductive hypothesis gives
+  \begin{equation*}
+    (1+a)^k\geq\frac{k(k-1)}2a^2\Tag{*}
+  \end{equation*}
+
+  Separately, by \href{d44713f}{Bernoulli}, we have
+  $$
+    (1+a)^k\geq1+ka\geq ka
+  $$
+
+  Which is then
+  \begin{align*}
+    a(1+a)^k         &\geq ka^2                                   \\
+    a(1+a)^k+(1+a)^k &\stackrel{(*)}{\geq} ka^2+\frac{k(k-1)}2a^2 \\
+    (1+a)^{k+1}      &\geq \frac{(k+1)k}2a^2
+  \end{align*}
+
+  and hence $P(k+1)$ is true. By \href{b51ca45}{Mathematical Induction}, the
+  lemma holds.
+
+  Now back to the main proof.
+
+  Note that $\nn>1$ for $n\geq2$. Let $k_n:=\nn-1$. Then $k_n>0$ for all
+  $n\geq2$.
+
+  By the Lemma, for $n\geq2$,
+  $$
+    (1+k_n)^n\geq\frac{n(n-1)}2a^2
+  $$
+
+  But $(1+k_n)^n=n$, so we have
+  $$
+    0\leq k_n^2\leq\frac2{n-1}
+  $$
+
+  By \href{c3364d9}{Squeeze Theorem}, $\displaystyle\lim_{n\to\infty}k_n^2=0$,
+  and so $\displaystyle\lim_{n\to\infty}k_n=0$ and
+  $$
+    \lim_{n\to\infty}\nn=\lim_{n\to\infty}(1+k_n)=1
+  $$
+\end{proof}
+
+\Theorem{Inequalities of limits}\label{d88455d}
+%+Limits and inequalities
+
+Let $\{x_n\}$, $\{y_n\}$ be convergent sequences.
+($\displaystyle\lim_{n\to\infty}x_n$ and $\displaystyle\lim_{n\to\infty}y_n$
+exist)
+\begin{enumerata}
+  \item if $x_n\geq0$ for all $n\in\N$, then
+  $$
+    \lim_{n\to\infty}x_n\geq0
+  $$
+  \item if $x_n\leq y_n$ for all $n\in\N$, then
+  $$
+    \lim_{n\to\infty}x_n\leq\lim_{n\to\infty}y_n
+  $$
+  \item if $a,b\in\R$ and $a\leq x_n\leq b$ for all $n\in\N$, then
+  $$
+    a\leq\lim_{n\to\infty}x_n\leq b
+  $$
+\end{enumerata}
+
+In short, the operators $\leq$ and $\geq$ are preserved upon taking limits.
+Note that $<$ and $>$ may not be preserved upon taking limits.
+
+\begin{proof}
+  \def\limn{\displaystyle\lim_{n\to\infty}}
+
+  \proofp{(a)} Let $x:=\limn x_n$. Assume on the contrary that $x<0$. Take
+  $\epsilon:=-x>0$. Then since $x_n\to x$, there exists $K\in\N$ such that
+  $$
+    n\geq K\implies|x_n-x|<\epsilon=-x
+  $$
+
+  But this means that
+  \begin{align*}
+    |x_n-x| &<-x                                          \\
+    x_n-x   &<-x\desc{$x_n\geq0$ and $x<0$, so $x_n-x>0$} \\
+    x_n     &<0
+  \end{align*}
+
+  and this contradicts the assumption that $x_n\geq0$. Hence $x\geq0$.
+
+  \proofp{(b)} $x:=\limn x_n$ and $y:=\limn y_n$. Note that $y_n-x_n\geq0$ for
+  all $n$ and \href{d13a5e7}{$y_n-x_n\to y-x$}.
+
+  By (a), we have $y-x\geq0$, so $x\leq y$.
+
+  \proofp{(c)} Define a new sequence $y_n:=x_n-a$. Then $y_n\geq0$ for all $n$,
+  and by (a) we have $\limn y_n\geq0$, which gives $\limn x_n-a\geq0$ and
+  finally $a\leq\limn x_n$. A similar argument can be made for $b$.
+\end{proof}
+
+\Result{List of standard limit results}\label{d44aef3}
+
+Let $k,\ell\in\N$ and $a,b,c\in\R$ be \textbf{fixed} numbers. Then we have
+
+\begin{enumerati}
+  \def\limn{\displaystyle\lim_{n\to\infty}}
+  \item $\limn\frac1{n^k}=0$.
+  \item $\limn b^n=0$ if $|b|<1$. (\autoref{aa16570})
+  \item $\limn c^\frac1n=1$ if $c>0$. (\autoref{e97e8a0})
+  \item $\limn n^\frac1n=1$. (\autoref{c88c34b})
+  \item $\limn\left(1+\frac1n\right)^n=e$. (By definition)
+  \item $n^k\ll n^\ell\ll a^n\ll b^n\ll n!$ if $k<\ell$ and $1<a<b$. (\autoref{a7e3707})
+\end{enumerati}
+
+Also, the following operations/relations are preserved upon taking limits:
+\begin{enumerati}
+  \item $+,-,\times,\div$ (\autoref{d13a5e7})
+  \item $|\cdot|$ and $\sqrt\cdot$ (\autoref{be3d800})
+  \item $\leq$ and $\geq$ (\autoref{d88455d})
+\end{enumerati}

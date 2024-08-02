@@ -1,0 +1,166 @@
+\subsection{The Subspace Topology}\label{c73c655}
+
+\Remark{The subspace topology is indeed a topology}\label{b9e513c}
+
+Let $(Y,\mathcal T_Y)$ be a \href{cddfbd8}{subspace} of a given
+\href{de3c1b1}{topological space} $(X,\mathcal T)$. Then $\mathcal T_Y$ is a
+\href{cc8eb8b}{topology}.
+
+\begin{proof}
+  \def\T{\mathcal T}
+  Recall that by \href{cddfbd8}{definition}, $\T_Y=\Set{Y\cap U}{U\in\T}$
+
+  Then clearly $\emptyset\in\T_Y$ because $\emptyset\in\T$ and
+  $Y\cap\emptyset=\emptyset$. Similarly, $Y\in\T_Y$, because $X\in\T$ and
+  $Y\cap X=Y$.
+
+  It is also closed under finite intersections:
+  $$
+    (U_1\cap Y)\cap\ldots\cap(U_n\cap Y)=(U_1\cap\ldots\cap U_n)\cap Y
+    \with{U_i\in\T\text{, for }i=\iter1n}
+  $$
+
+  and closed under arbitrary unions:
+  $$
+    (U_1\cap Y)\cup(U_2\cap Y)\cup\ldots=(U_1\cup U_2\cup\ldots)\cap Y
+    \with{U_i\in\T\text{, for }i=1,2,\ldots}
+  $$
+\end{proof}
+
+\Lemma{Element-wise intersection of basis yields basis for subspace topology}\label{a4e8ce7}
+%+Munkres Lemma 16.1
+
+If $\mathcal B$ is a \href{e896402}{basis} for the \href{cc8eb8b}{topology} of
+$X$ then the collection
+$$
+  \mathcal B_Y:=\Set{B\cap Y}{B\in\mathcal B}
+$$
+
+is a basis for the \href{cddfbd8}{subspace topology} on $Y$.
+
+\begin{proof}
+  Given $U$ open in $X$ and given $y\in U\cap Y$, we can choose and element $B$
+  of $\mathcal B$ such that $y\in B\subseteq U$. Then $y\in B\cap Y\subseteq
+  U\cap Y$. It follows from \autoref{bc13024} that $\mathcal B_Y$ is a basis for the
+  subspace topology on $Y$.
+\end{proof}
+
+\Lemma{Element-wise intersection of subbasis yields a subbasis for subspace topology}\label{da3a0b1}
+
+If $\mathcal S$ is a \href{aba7b48}{subbasis} for the \href{cc8eb8b}{topology}
+$\mathcal T$ of $X$, and $Y$ is a subset of $X$, then the collection
+$$
+  \mathcal S_Y:=\Set{S\cap Y}{S\in\mathcal S}
+$$
+
+is a subbasis for the \href{cddfbd8}{subspace topology} on $Y$.
+
+\begin{proof}
+  \def\T{\mathcal T}\def\TY{\mathcal T_Y}
+  \def\S{\mathcal S}\def\SY{\mathcal S_Y}
+
+  Recall that the subspace topology of $Y$ is given by
+  $$
+    \TY:=\Set{Y\cap U}{U\in\T}
+  $$
+
+  Let $\TY'$ denote the topology \href{d1d3329}{generated} by $\SY$. We will
+  now show that $\TY=\TY'$.
+
+  Let $U$ be an element of $\TY'$. Then $U$ is a union of finite intersections
+  of elements of $\SY$. Taking an indexed family $\{S_\alpha\}_{\alpha\in J}$
+  of subcollections of $\S$, we can express $U$ by
+  \begin{align*}
+    U &=\bigcup_{\alpha\in J}\Bigl(\bigcap_{V\in S_\alpha}\bigl(V\cap Y\bigr)\Bigr)\with{(\text{each }V\cap Y\in\SY)} \\
+      &=\bigcup_{\alpha\in J}\Bigl(Y\cap\bigcap_{V\in S_\alpha}V\Bigr)                                                \\
+      &\href{b34061c}{=}Y\cap\bigcup_{\alpha\in J}\Bigl(\bigcap_{V\in S_\alpha}V\Bigr)
+  \end{align*}
+
+  So then $U$ is also a union of $Y$ and a union of finite intersections of
+  elements of $\S$ (observe that above, each $V\in S_\alpha\subseteq\S$). By
+  definition of a \href{d1d3329}{subbasis}, the union of a finite intersections
+  of elements of $\S$ is open in $\T$. So indeed, $U\in\TY$ and we have
+  $\TY'\subseteq\TY$.
+
+  By inspection, the argument above is fully reversible, and so
+  $\TY'\subseteq\TY$, giving us inclusion in both directions, completing the
+  proof.
+\end{proof}
+
+\Lemma{Open in an open subspace is open in the main space}\label{b9eeb21}
+%+Munkres Lemma 16.2
+
+Let $Y$ be a \href{cddfbd8}{subspace} of $X$. If $U$ is open in $Y$ and $Y$ is
+open in $X$, then $U$ is open in $X$.
+
+\begin{proof}
+  Since $U$ is open in $Y$, by \href{cddfbd8}{definition} there is a set $V$
+  open in $X$ such that $U=Y\cap V$. Since both $Y$ and $V$ are open in $X$,
+  \href{cc8eb8b}{so is} $Y\cap V$.
+\end{proof}
+
+\Theorem{Product topology of subspaces is the subspace topology of the product}\label{f7ed5a3}
+%+Munkres Theorem 16.3
+
+If $A$ is a \href{cddfbd8}{subspace} of $X$ and $B$ is a subspace of $Y$, then
+the \href{be6372e}{product topology} on $A\times B$ is the same as the topology
+that $A\times B$ inherits as a subspace of $X\times Y$.
+
+\begin{proof}
+  By \href{be6372e}{definition}, the set $U\times V$ is a general
+  \href{e896402}{basis} element for $X\times Y$, where $U$ is open in $X$ and
+  $V$ is open in $Y$. \href{a4e8ce7}{Therefore}, $(U\times V)\cap(A\times B)$ is
+  the general basis element for the subspace topology on $A\times B$.
+
+  Now,
+  $$
+    (U\times V)\cap(A\times B)\href{e2948d3}{=}(U\cap A)\times(V\cap B)
+  $$
+
+  Since $U\cap A$ and $V\cap B$ are, by \href{cddfbd8}{definition}, the general
+  open sets for the subspace topologies on $A$ and $B$ respectively,
+  \href{be6372e}{by inspection}, the set $(U\cap A)\times(V\cap B)$ is the
+  general basis element for the product topology on $A\times B$.
+
+  So then the bases for the subspace topology on $A\times B$ and for the
+  product topology on $A\times B$ are the same. Hence the topologies are the
+  same.
+\end{proof}
+
+\Theorem{Convex subsets inherit order topology}\label{bcd8371}
+%+Munkres Theorem 16.4
+
+Let $X$ be an ordered set in the \href{aaff6da}{order topology}; let $Y$ be a
+subset of $X$ that is \href{c19c232}{convex} in $X$. Then the order topology on
+$Y$ is the same as the topology that $Y$ \href{cddfbd8}{inherits} as a subspace
+of $X$.
+
+\begin{proof}
+  \def\T{\mathcal T}
+  Consider the ray $(a,+\infty)$ in $X$, and think about its intersection with
+  $Y$. If $a\in Y$, then
+  $$
+    (a,+\infty)\cap Y=\Set{x}{x\in Y\text{ and }x>a}
+  $$
+
+  which is an open ray of the ordered set $Y$. If $a\notin Y$, then $a$ is
+  either a lower bound on $Y$ or an upper bound on $Y$, since $Y$ is convex. In
+  the former case, $(a,+\infty)\cap Y=Y$, and in the latter case,
+  $(a,+\infty)\cap Y=\emptyset$.
+
+  Using a similar argument, we can show that all rays of the form
+  $(-\infty,a)\cap Y$ are either open rays in $Y$, or $Y$ itself, or empty.
+
+  \href{bc48b15}{Since} open rays in $X$ form a subbasis for its order topology,
+  by \autoref{da3a0b1}, sets of the form $(-\infty,a)\cap Y$ or $(a,+\infty)\cap
+  Y$ form a subbasis for the subspace topology on $Y$. But these sets are open
+  in the order topology on $Y$ (them being either open rays, empty or $Y$
+  itself), and hence the order topology contains the subspace topology on $Y$.
+
+  On the other hand, any open ray of $Y$ equals the intersection of $Y$ and an
+  open ray of $X$, so it is open in the \href{cddfbd8}{subspace topology} on
+  $Y$. \href{bc48b15}{Since} the open rays of $Y$ are a subbasis for the order
+  topology on $Y$, this topology is contained in the subspace topology.
+
+  With inclusion both ways, this proof is complete.
+\end{proof}

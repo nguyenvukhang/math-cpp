@@ -1,0 +1,191 @@
+\subsection{Kernel and Range}\label{a446761}
+
+\Proposition{Kernel of a linear map is a subspace of its domain space}\label{bdf990d}
+
+Let $T\in\href{ab1f2fb}{\L(V,W)}$, where $V,W$ are vector spaces. Then
+$\href{c494931}{\ker T}$ is a subspace of $V$.
+
+\begin{proof}
+  By \href{c494931}{definition}, $\ker T\subset V$. Next, let $u,v\in\ker T$ and
+  $a\in\F$. Then
+  \begin{align*}
+    T(u+v) &=T(u)+T(v)\desc{by \href{d7d1925}{linearity} of $V$} \\
+           &=0+0=0
+  \end{align*}
+
+  and
+  $$
+    T(au)=aT(u)=a\cdot0=0
+  $$
+
+  We've just shown that $\ker T$ is closed under vector additon and scalar
+  multiplication, and by \href{c5eb127}{a know result}, $0\in\ker T$. By
+  \autoref{dea139b}, we have that $\ker T$ is a subspace of $V$.
+\end{proof}
+
+\Proposition{Trivial kernel ↔︎ injectivity}\label{f68db52}
+
+Let $T\in\href{ab1f2fb}{\L(V,W)}$, where $V,W$ are vector spaces. $T$ is
+\href{ac44d1d}{injective} if and only if \href{c494931}{$\ker T$} is
+\href{f532630}{trivial}.
+
+\begin{proof}
+  ($\implies$) Since \href{c5eb127}{linear maps take 0 to 0}, $T(0)=0$. Now if
+  $v\in\ker T$, then $T(v)=0$, but this means that $T(v)=T(0)$, and by
+  injectivity we have that $v=0$. Hence the kernel only has the zero vector.
+
+  ($\impliedby$) Take any $u,v\in V$, such that $T(u)=T(v)$. Then
+  $$
+    0=T(u)-T(v)=T(u-v)\desc{by \href{d7d1925}{linearity}}
+  $$
+
+  This implies that $u-v\in\ker T$. But $\ker T$ only has the zero vector, and
+  hence $u-v=0$, and we have $u=v$, achieving injectivity.
+\end{proof}
+
+\Proposition{Range of a linear map is a subspace of its image space}\label{d0afc28}
+
+Let $T\in\href{ab1f2fb}{\L(V,W)}$, where $V,W$ are vector spaces. Then
+\href{a3ef003}{$\range T$} is a subspace of $W$.
+
+\begin{proof}
+  By \href{a3ef003}{definition} $\range T\subset W$. Next, let $u,v\in\range
+  T$ and $a\in\F$. Then there exists $\bar u,\bar v\in V$ such that $u=T(\bar
+  u)$ and $v=T(\bar v)$.
+
+  So then
+  \begin{align*}
+    u+v &=T(\bar u)+T(\bar v)\desc{by \href{d7d1925}{linearity} of $T$} \\
+        &=T(\bar u+\bar v)
+  \end{align*}
+
+  and
+  $$
+    au=aT(\bar u)=T(a\bar u)
+  $$
+
+  We've just shown that $\range T$ is closed under vector additon and scalar
+  multiplication, and by \href{c5eb127}{a know result}, $0\in\range T$. By
+  \autoref{dea139b}, we have that $\range T$ is a subspace of $V$.
+\end{proof}
+
+\Proposition{Full rank ↔︎ surjectivity}\label{a41ddec}
+
+Let $T\in\href{ab1f2fb}{\L(V,W)}$, where $V,W$ are vector spaces. Then the
+following are equivalent:
+\begin{enumerati}
+  \item $\Rank T=\dim W$.
+  \item $\range T=W$.
+  \item $T$ is surjective.
+\end{enumerati}
+
+\begin{proof}
+  By \href{a3ef003}{definition}, $T$ is \href{bd75843}{surjective} if and only if
+  $\range T=W$. Hence $T$ surjective implies $\Rank T=\dim W$.
+
+  On the flip side, we start with $\Rank T=\dim W$. Since
+  \href{d0afc28}{$\range T$ is a subspace of $W$} with the same dimension, by
+  \autoref{ed8951d}, we have $\range T=W$.
+\end{proof}
+
+\Lemma{Spanning set of $\mathrm{range}\,T$}\label{d91179c}
+
+Let $T\in\href{ab1f2fb}{\L(V,W)}$, where $V,W$ are vector spaces, and $V$ is
+\href{c4cd6dd}{finite-dimensional}. Let $\iter{v_1}{v_n}$ be a basis of $V$.
+Then $\range T$ is finite-dimensional and
+$$
+  \range T=\Span\{\iter{T(v_1)}{T(v_n)}\}
+$$
+
+\begin{proof}
+  Let $v\in V$. Because $\iter{v_1}{v_n}$ spans $V$, we can write
+  $$
+    v=a_1v_1+\ldots+a_nv_n
+  $$
+
+  where the $a$'s are in $\F$. Applying $T$ to both sides, we have
+  \begin{align*}
+    T(v) &=T(a_1v_1+\ldots+a_nv_n)                                              \\
+         &=a_1T(v_1)+\ldots+a_nT(v_n)\desc{by \href{d7d1925}{linearity} of $T$}
+  \end{align*}
+
+  which implies that the list $\iter{T(v_1)}{T(v_n)}$ spans $\range T$. In
+  particular, $\range T$ is finite-dimensional \href{c4cd6dd}{by definition}.
+\end{proof}
+
+\Theorem{Rank-Nullity Theorem}\label{e83dffc}
+
+Let $T\in\href{ab1f2fb}{\L(V,W)}$, where $V,W$ are vector spaces, and $V$ is
+finite-dimensional. Then \href{a3ef003}{$\range T$} is finite-dimensional and
+$$
+  \dim V=\Null T+\Rank T
+$$
+
+This is also known as the Fundamental Theorem of Linear Maps.
+
+\begin{proof}
+  Let $\iter{u_1}{u_m}$ be a basis of $\ker T$. Thus $\Null T=m$. By
+  \autoref{f0fa1cd}, the linearly independent list $\iter{u_1}{u_m}$ can be
+  extended to a basis
+  $$
+    \iter{u_1}{u_m},\iter{v_1}{v_n}
+  $$
+
+  of $V$. Thus, $\dim V=m+n$. To complete the proof, we need to show that
+  $\range T$ is finite-dimensional and $\Rank T=n$. We will do this by proving
+  that $\iter{T(v_1)}{T(v_n)}$ is a basis of $\range T$.
+
+  From \autoref{d91179c}, we already have that $\range T$ is finite-dimensional
+  and that $\iter{T(v_1)}{T(v_n)}$ spans $\range T$. It remains to show that
+  they are linear independent.
+
+  Suppose $\iter{c_1}{c_n}\in\F$ and
+  $$
+    c_1T(v_1)+\ldots+c_nT(v_n)=0.
+  $$
+
+  Then by linearity, $T(c_1v_1+\ldots+c_nv_n)=0$, and hence
+  $c_1v_1+\ldots+c_nv_n\in\ker T$. Because $\iter{u_1}{u_m}$ spans $\Null T$,
+  we can write
+  $$
+    c_1v_1+\ldots+c_nv_n=d_1u_1+\ldots+d_mu_m
+  $$
+
+  for some $d_i\in\F$. This equation implies that all $c$'s and $d$'s are zero
+  (because $\iter{u_1}{u_m},\iter{v_1}{v_n}$ are linearly independent). Thus
+  $\iter{T(v_1)}{T(v_n)}$ is linearly independent, making it a basis of $\range
+  T$.
+\end{proof}
+
+\Proposition{Pre-image larger than image → linear map not injective}\label{a9db518}
+
+Let $T\in\href{ab1f2fb}{\L(V,W)}$, where $V,W$ are finite-dimensional vector
+spaces, where $\href{cd4284b}{\dim V}>\dim W$. Then $T$ cannot be injective.
+
+\begin{proof}
+  Because, $\Rank T\leq\dim W$ (as $\range T\subset W$), we have
+  \begin{align*}
+    \Null T &=\dim V-\Rank T\desc{\href{e83dffc}{Rank-Nullity Theorem}} \\
+            &\geq\dim V-\dim W                                          \\
+            &>0
+  \end{align*}
+
+  Hence $T$ has a non-trivial kernel, and by \autoref{f68db52}, $T$ is not
+  injective.
+\end{proof}
+
+\Proposition{Pre-image smaller than image → linear map not surjective}\label{b4e34e9}
+
+Let $T\in\href{ab1f2fb}{\L(V,W)}$, where $V,W$ are finite-dimensional vector
+spaces, where $\href{cd4284b}{\dim V}<\dim W$. Then $T$ cannot be surjective.
+
+\begin{proof}
+  Because, $\Rank T\leq\dim W$ (as $\range T\subset W$), we have
+  \begin{align*}
+    \Rank T &=\dim V-\Null V\desc{\href{ee102e4}{Rank-Nullity Theorem}} \\
+            &\leq\dim V                                                 \\
+            &<\dim W
+  \end{align*}
+
+  Thus $\range T\neq W$, and so $T$ is not surjective.
+\end{proof}

@@ -1,4 +1,28 @@
+# macOS-specific files
 .DS_Store
-/*.txt
-/*.tex
-/target
+
+# environment variables
+.env
+
+# Node.JS
+node_modules/
+npm-debug.log*
+
+# TeX outputs
+*.aux
+*.log
+*.out
+
+# rust
+target/
+
+# minimath
+.build
+/*.pdf
+/fmt.lock
+
+# latexindent
+*.bak
+
+# CMake
+.cache

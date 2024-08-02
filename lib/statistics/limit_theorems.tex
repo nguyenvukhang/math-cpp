@@ -1,0 +1,45 @@
+\subsection{Limit theorems}\label{f04466e}
+
+\Proposition{Markov's inequality}\label{dcc34d6}
+
+If $X$ is a random variable with $P(X\geq0)=1$ and for which $E[X]$ exists,
+then for all $t>0$,
+$$
+  P(X\geq t)\leq E[X]/t
+$$
+
+\begin{proof}
+  Here, it is crucial to recall that the p.d.f. \href{cb9d3f0}{always returns
+  non-negative values}. That is, $f(x)\geq0$ for all inputs $x$.
+  \begin{align*}
+    E[X] &\href{d13ac42}{=}\int_{-\infty}^\infty xf(x)\,dx         \\
+         &=\int_0^\infty xf(x)\,dx\desc{since $X$ is non-negative} \\
+         &=\int_0^txf(x)\,dx+\int_t^\infty xf(x)\,dx               \\
+         &\geq\int_t^\infty xf(x)\,dx                              \\
+         &\geq\int_t^\infty tf(x)\,dx                              \\
+         &=t\int_t^\infty f(x)\,dx                                 \\
+         &\href{ad1290d}{=}tP(X\geq t)
+  \end{align*}
+\end{proof}
+
+\Proposition{Chebyshev's inequality}\label{bd91f98}
+
+Let $X$ be a \href{b96960b}{random variable} with \href{d13ac42}{mean} $\mu$
+and \href{ddd95d5}{variance} $\sigma^2$. Then, for any $k>0$,
+$$
+  P(|X-\mu|>k)\leq\frac{\sigma^2}{k^2}
+$$
+
+\begin{proof}
+  Consider a random variable with $Y:=(X-\mu)^2$. Clearly, $Y\geq0$. Thus, by
+  \href{dcc34d6}{Markov's inequality}, since $k^2>0$,
+  $$
+    P(Y\geq k^2)\leq\frac{E[Y]}{k^2}
+  $$
+
+  Observe that $E[Y]=E[(X-\mu)^2]$ is, by \href{ddd95d5}{definition},
+  $\Var(X)$, and so the above is equivalent to
+  $$
+    P(|X-\mu|\geq k)\leq\frac{\sigma^2}{k^2}
+  $$
+\end{proof}

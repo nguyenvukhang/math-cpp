@@ -1,0 +1,143 @@
+\subsection{Cholesky decomposition}\label{bf9439e}
+
+\Definition{Cholesky decomposition}\label{c9f2a5d}
+
+This is when we decompose a symmetric \href{e25e722}{positive definite} matrix
+$A$ into
+$$
+  A=LL^*\desc{See the $L^*$ notation \href{abdc1e4}{here}}
+$$
+
+Where $L$ is a \href{ce94591}{lower triangular} matrix.
+
+\Algorithm{Cholesky decomposition}\label{ca32d2b}
+
+Given a symmetric \href{e25e722}{positive definite} matrix $A\in\R^{n\times
+n}$, this algorithm overwrites its lower part with its \href{c9f2a5d}{Cholesky}
+factor.
+
+\begin{pseudocode} % verfied_by[test_ca32d2b]
+  \For $k=1:n-1$ \\
+  \tab $a_{kk}\gets\sqrt{a_{kk}}$ \\
+  \tab\For $i=k+1:n$ \\[0.5em]
+  \tab\tab $a_{ik}\gets\dfrac{a_{ik}}{a_{kk}}$ \\[0.5em]
+  \tab\End \\
+  \tab\For $j=k+1:n$ \\
+  \tab\tab\For $i=j:n$ \\
+  \tab\tab\tab $a_{ij}\gets a_{ij}-a_{ik}a_{jk}$ \\
+  \tab\tab\End \\
+  \tab\End \\
+  \End \\
+  $a_{nn}\gets\sqrt{a_{nn}}$
+\end{pseudocode}
+
+\Algorithm{Cholesky decomposition by hand}\label{c201099}
+
+On a matrix $A\in\R^{n\times n}$, we divide the first column by $a_{11}$ (the
+top-left element). Then, for each column $C_j$, for $j=\iter2n$, we do
+$$
+  C_j\gets C_j-a_jC_1
+$$
+
+Then we recurse on the submatrix of $A$ that is $A$ without its first row and
+first column. At the end of it, $L$ will be in the lower triangle of $A$.
+
+So an example of this procdure goes
+$$
+  \begin{pmat}
+    16 & 4  & 16  & -4  \\
+    4  & 5  & 6   & -9  \\
+    16 & 6  & 33  & -28 \\
+    -4 & -9 & -28 & 58  \\
+  \end{pmat}
+  \to
+  \begin{pmat}
+    \textcolor{red}{4}  & 4  & 16  & -4  \\
+    \textcolor{red}{1}  & 5  & 6   & -9  \\
+    \textcolor{red}{4}  & 6  & 33  & -28 \\
+    \textcolor{red}{-1} & -9 & -28 & 58  \\
+  \end{pmat}
+  \to
+  \begin{pmat}
+    4  & 4                   & 16                   & -4                  \\
+    1  & \textcolor{red}{4}  & 6                    & -9                  \\
+    4  & \textcolor{red}{2}  & \textcolor{red}{17}  & -28                 \\
+    -1 & \textcolor{red}{-8} & \textcolor{red}{-24} & \textcolor{red}{57} \\
+  \end{pmat}
+$$
+
+Then we recurse on the submatrix taken by ignoring the first column and first
+row:
+$$
+  \begin{pmat}
+    4  & 4  & 16  & -4  \\
+    1  & 4  & 6   & -9  \\
+    4  & 2  & 17  & -28 \\
+    -1 & -8 & -24 & 57  \\
+  \end{pmat}
+  \to
+  \begin{pmat}
+    4  & 4                   & 16  & -4  \\
+    1  & \textcolor{red}{2}  & 6   & -9  \\
+    4  & \textcolor{red}{1}  & 17  & -28 \\
+    -1 & \textcolor{red}{-4} & -24 & 57  \\
+  \end{pmat}
+  \to
+  \begin{pmat}
+    4  & 4  & 16                   & -4                  \\
+    1  & 2  & 6                    & -9                  \\
+    4  & 1  & \textcolor{red}{16}  & -28                 \\
+    -1 & -4 & \textcolor{red}{-20} & \textcolor{red}{41} \\
+  \end{pmat}
+$$
+
+Continuing...
+$$
+  \begin{pmat}
+    4  & 4  & 16  & -4  \\
+    1  & 2  & 6   & -9  \\
+    4  & 1  & 16  & -28 \\
+    -1 & -4 & -20 & 41  \\
+  \end{pmat}
+  \to
+  \begin{pmat}
+    4  & 4  & 16                  & -4  \\
+    1  & 2  & 6                   & -9  \\
+    4  & 1  & \textcolor{red}{4}  & -28 \\
+    -1 & -4 & \textcolor{red}{-5} & 41  \\
+  \end{pmat}
+  \to
+  \begin{pmat}
+    4  & 4  & 16 & -4                  \\
+    1  & 2  & 6  & -9                  \\
+    4  & 1  & 4  & -28                 \\
+    -1 & -4 & -5 & \textcolor{red}{16} \\
+  \end{pmat}
+$$
+
+and finally,
+$$
+  \begin{pmat}
+    4  & 4  & 16 & -4  \\
+    1  & 2  & 6  & -9  \\
+    4  & 1  & 4  & -28 \\
+    -1 & -4 & -5 & 16  \\
+  \end{pmat}
+  \to
+  \begin{pmat}
+    4  & 4  & 16 & -4                 \\
+    1  & 2  & 6  & -9                 \\
+    4  & 1  & 4  & -28                \\
+    -1 & -4 & -5 & \textcolor{red}{4} \\
+  \end{pmat}
+$$
+
+and we have $L$ as
+$$
+  L= \begin{pmat}
+    4  &    &    &   \\
+    1  & 2  &    &   \\
+    4  & 1  & 4  &   \\
+    -1 & -4 & -5 & 4 \\
+  \end{pmat}
+$$

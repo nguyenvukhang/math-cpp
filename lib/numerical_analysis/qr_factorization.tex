@@ -1,0 +1,175 @@
+\subsection{QR Factorization}\label{ab6fe9e}
+
+\Algorithm{Gram-Schmidt process}\label{b75ef8e}
+
+This is a way of making two or more vectors orthogonal to each other.
+
+Formally, it is a method of constructing an \href{d90fcb1}{orthonormal} basis
+from a set of vectors in an \href{b9935c8}{inner product space}.
+
+Before describing the process, let's define $\mathrm{proj}_a(b)$ as the
+\href{fc332ef}{vector projection} of $b$ onto $a$.
+$$
+  {\mathrm{proj}}_{a}(b):=\frac{\inner ba}{\inner aa}a
+$$
+
+Given $n$ vectors $\{\iter{a_1}{a_n}\}$, the Gram-Schmidt process defines the
+vectors $\{\iter{u_1}{u_n}\}$ as follows:
+\begin{itemize}
+  \item $u_1:=a_1$
+  \item $u_2:=a_2-\mathrm{proj}_{u_1}(a_2)$
+  \item $u_3:=a_3-\mathrm{proj}_{u_1}(a_3)-\mathrm{proj}_{u_2}(a_3)$
+  \item [] $\vdots$
+  \item $u_n:=a_n-\sum_{i=i}^{n-1}\mathrm{proj}_{u_i}(a_n)$
+\end{itemize}
+
+And then we normalize each of $u_i$ into $q_i$ by doing
+$$
+  q_i:=\frac{u_i}{\norm{u_i}},\with{\text{for } i=\iter1n}
+$$
+
+Obtaining $\{\iter{u_1}{u_n}\}$ is called Gram-Schmidt
+\textbf{orthogonalization}, while obtaining $\{\iter{q_1}{q_n}\}$ is called
+Gram-Schmidt \textbf{orthonormalization}.
+
+\Definition{QR factorization}\label{c465f7c}
+
+Let $A\in\R^{m\times n}$, with $m\geq n$. \textit{QR factorization} decomposes
+it into
+$$
+  A=QR
+$$
+
+where $Q$ has orthogonal columns and $R$ has zeros below the diagonal.
+
+The QR factorization has two variants: the \href{c43e60c}{full factorization},
+and the \href{c465f7c}{reduced factorization}.
+
+\Definition{Full QR factorization}\label{c43e60c}
+
+Let $A\in\R^{m\times n}$, where $m\geq n$. Decomposing it into
+$$
+  A=QR
+$$
+
+where $Q\in\R^{m\times m}$ is a \textbf{square} \href{c38c9d1}{orthogonal
+matrix} and $R\in\R^{m\times n}$ has zeros below the diagonal. Note that $R$
+can be partitioned into
+$$
+  R=\begin{pmat}R'\\0\end{pmat}
+$$
+
+where $R'\in\R^{n\times n}$ is an \href{c39b6bf}{upper triangular} matrix.
+
+\Definition{Reduced QR factorization}\label{f544868}
+
+Let $A\in\R^{m\times n}$, where $m\geq n$. Decomposing it into
+$$
+  A=QR
+$$
+
+where $Q\in\R^{m\times n}$ has \href{d90fcb1}{orthonormal} column vectors (such
+that $Q^TQ=I$), and $R\in\R^{n\times n}$ is \href{c39b6bf}{upper triangular}.
+
+The \href{b75ef8e}{Gram-Schmidt process} produces this particular QR
+factorization, where (using notation from \href{b75ef8e}{there})
+$$
+  Q=\begin{bmat}q_1 & \ldots & q_n\end{bmat}\in\R^{m\times n}
+$$
+
+and
+$$ % verfied_by[test_f544868]
+  R=\begin{bmat}
+    \inner{q_1}{a_1} & \inner{q_1}{a_2} & \cdots & \inner{q_1}{a_n} \\
+                     & \inner{q_2}{a_2} & \cdots & \inner{q_2}{a_n} \\
+                     &                  & \ddots & \vdots           \\
+                     &                  &        & \inner{q_n}{a_n} \\
+  \end{bmat}\in\R^{n\times n}
+$$
+
+where $\iter{a_1}{a_n}$ form the columns of $A\in\R^{m\times n}$.
+
+\Remark{Solving a system with QR factorization}\label{d2585df}
+
+Let $Ax=b$ be an overdetermined system of linear equations, with
+$A\in\R^{m\times n}$, and $b\in\R^m$. Let $A$ have full column rank. We
+naturally try to sovle for the least squares problem:
+$$
+  \min_{x\in\R^n}\norm{b-Ax}_2
+$$
+
+Let $A=QR$ be the \href{c465f7c}{full QR factorization} of $A$. Note that since
+$Q$ is an orthogonal matrix (so is $Q^T$), so it is possible to
+\href{eaec5b1}{preserve the solution} of the least squares problem:
+\begin{align*}
+  \norm{b-Ax} &=\norm{b-QRx}          \\
+              &=\norm{Q^Tb-Rx}\Tag{*}
+\end{align*}
+
+But since $R$ is \href{c39b6bf}{upper triangular}, we can split it by its first
+$n$ rows:
+$$
+  R=:\begin{pmat}R'\\0\end{pmat}
+$$
+
+where $R'\in\R^{n\times n}$ is an actual \href{c39b6bf}{upper triangular}
+matrix, so continuing from $(*)$ we have
+\begin{align*}
+  \norm{Q^Tb-Rx}=\norm{Q^Tb-\begin{pmat}R'\\0\end{pmat}x}
+\end{align*}
+
+Applying the same partitioning to $Q^Tb$, we have
+$$
+  Q^Tb=:\begin{pmat}c\\d\end{pmat}
+$$
+
+which then leads us to
+$$
+  \norm{b-Ax}^2=\norm{c-R'x}^2+\norm d^2
+$$
+
+Since we can only vary $x$, $\norm d^2$ is fixed. Hence we obtain the miminum
+value of $\norm{b-Ax}$ by setting $\norm{c-R'x}$ to zero, that is, to solve the
+system $R'x=c$.
+
+This yields the least squares solution $\hat x$, and we also get $\norm{b-A\hat
+x}=\norm d$.
+
+Note that $Rx=c$ is only solvable if $R$ has all non-zero elements on its
+diagonal, which occurs iff $A$ has full column rank. This claim is proved
+\href{c998eda}{here}.
+
+\Theorem{Conditions for invertible $R$ in QR factorization}\label{c998eda}
+
+Let $A=QR$ be the \href{f544868}{reduced QR factorization} of $A$ (For the full
+QR factorization, $R$ may not be a square matrix). Then $R$ is invertible if
+and only if $A$ has full column rank.
+
+Note that by construction, $R$ is upper triangular. Hence $R$ is invertible if
+and only if its diagonal contains only non-zero elements (otherwise we will
+have zero-rows in $RR^{-1}$, because $R^{-1}$ is \href{a8f4ca9}{upper
+triangular too}).
+
+\begin{proof}
+  ($\implies$) It suffices to show that the kernel of $R$ is
+  \href{f532630}{trivial}.
+
+  Let $x\in\R^n$ with $Rx=0$. Then $QRx=0$, which then means $Ax=0$. But since
+  $A$ has full column rank, by a \href{a2a08ab}{known result}, we have $x=0$.
+  Thus $Rx=0\implies x=0$ and we're done.
+
+  ($\impliedby$) Now assume that $R$ is invertible. It suffices to show that $A$
+  has a trivial kernel.
+  \begin{align*}
+    Ax                &=0                                        \\
+    \pre{\implies}QRx &=0                                        \\
+    \pre{\implies}Rx  &=0\desc{$Q$ is \href{a2a08ab}{full rank}} \\
+    \pre{\implies}x   &=0\desc{$R$ is invertible}
+  \end{align*}
+
+  Note that $Q$ is full rank because it has $n$ orthogonal columns, and
+  \href{c0eb6f5}{orthogonality implies linear independence}.
+
+  So we've shown that $Ax=0$ implies $x=0$, and hence $A$ has a trivial kernel.
+  By the \href{ee102e4}{Rank-Nullity Theorem}, $A$ is full rank.
+\end{proof}

@@ -1,0 +1,146 @@
+\subsection{Conditional probability}\label{e673f7b}
+
+\Definition{Conditional probability}\label{b076095}
+
+Let $E,F\subseteq S$ be events. The probability of $E$ occurring given $F$ is
+denoted by $P(E|F)$, and is given by
+$$
+  P(E|F)=\frac{P(E\cap F)}{P(F)}
+$$
+
+Note that for $P(E|F)$ to exist we must have $P(F)>0$.
+
+\Theorem{Multiplication rule}\label{c57ff7d}
+
+Given $n$ events $\iter{E_1}{E_n}$, we have
+$$
+  P(E_1\ldots E_n)=P(E_1)P(E_2|E_1)P(E_3|E_1E_2)\ldots P(E_n|E_1\ldots E_{n-1})
+$$
+
+\begin{proof}
+  \begin{align*}
+     &P(E_1)P(E_2|E_1)P(E_3|E_1E_2)\ldots P(E_n|E_1\ldots E_{n-1})  \\
+     &=P(E_1)\frac{P(E_1E_2)}{P(E_1)}\frac{P(E_1E_2E_3)}{P(E_1E_2)}
+    \ldots\frac{P(E_1E_2\ldots E_n)}{P(E_1\ldots E_{n-1})}          \\
+     &=P(E_1\ldots E_n)
+  \end{align*}
+\end{proof}
+
+\Theorem{Conditioning formula}\label{b1fd2bd}
+
+Given events $E$ and $F$, we have
+$$
+  P(E)=P(E|F)P(F)+P(E|F^c)P(F^c)
+$$
+
+\begin{proof}
+  \begin{align*}
+    P(E) &=P(EF)+P(EF^c)                                                 \\
+         &=P(E|F)P(F)+P(E|F^c)P(F^c)\desc{by \href{b076095}{definition}}
+  \end{align*}
+\end{proof}
+
+\Theorem{Theorem of Total Probability}\label{bf75209}
+
+Suppose we have a sample space $S$ and mutually exclusive events
+$F_1,F_2,\ldots F_n$ such that $\bigcup_{i=1}^nF_i=S$, then
+\begin{align*}
+  P(E) &=\sum_{i=1}^nP(EF_i)        \\
+       &=\sum_{i=1}^nP(E|F_i)P(F_i)
+\end{align*}
+
+\Theorem{Bayes' Theorem}\label{fecfa78}
+
+Given events $A$ and $B$, we have
+$$
+  P(A|B)=\frac{P(B|A)P(A)}{P(B)}
+$$
+
+\begin{proof}
+  By definition of \href{b076095}{conditional probability},
+  $$
+    P(A|B)=\frac{P(AB)}{P(B)}
+  $$
+
+  But this means that
+  $$
+    P(AB)=P(A|B)P(B).
+  $$
+
+  By symmetry, we also have
+  $$
+    P(AB)=P(B|A)P(A).
+  $$
+
+  Putting these together, we obtain Bayes' Theorem.
+\end{proof}
+
+\Result{Applying Bayes' Theorem}\label{be51d24}
+
+Consider the situation where we have events $F_1,F_2,\ldots,F_n$ and $E$. For
+some $j=\iter1n$,
+\begin{align*}
+  P(F_j|E) &=\frac{P(E|F_j)P(F_j)}{P(E)}\desc{\href{fecfa78}{Bayes' Theorem}} \\
+           &= \frac{P(E|F_j)P(F_j)}{\sum_{i=1}^nP(E|F_i)P(F_i)}
+\end{align*}
+
+This means that if we know that $E$ has already happened, Bayes' Theorem helps
+us to find which $F_j$ is the most likely (that led to $E$ occurring).
+
+For example, $E$ is getting a negative result on a lie detector test, and $F_1$
+is the event that the person lied, while $F_2$ is the event that the person
+told the truth.
+
+\Definition{Odds of an event}\label{c69ee67}
+
+The odds of an event $E$ are defined as
+$$
+  \dfrac{P(E)}{P(E^c)}.
+$$
+
+\Definition{Independent events}\label{cb4d04c}
+
+Let $E,F$ be events. $E$ and $F$ are said to be independent if
+$$
+  P(E|F)=P(E).
+$$
+
+Note that this is true iff $P(E\cap F)=P(E)P(F)$. (proof involves the
+definition of \href{b076095}{conditional probability})
+
+\Proposition{Independence of complement}\label{ddf1030}
+
+If $E$ and $F$ are \href{cb4d04c}{independent}, then $E$ and $F^c$ are
+independent too.
+
+\begin{proof}
+  \begin{align*}
+    P(E)    &=P(EF)+P(EF^c)                                             \\
+            &=P(E)P(F)+P(EF^c)\desc{$\because$ $E$ and $F$ independent} \\
+    P(EF^c) &=P(E)-P(E)P(F)                                             \\
+            &=P(E)[1-P(F)]                                              \\
+            &=P(E)P(F^c)
+  \end{align*}
+
+  Hence $E$ and $F^c$ are independent.
+\end{proof}
+
+\Definition{Independence of $n$ events}\label{c15b12c}
+
+Events $\iter{E_1}{E_n}$ in independent if any subset of these $n$ events are
+independent.
+$$
+  P\biggl(\bigcap_{E\in S}E \biggr)=\prod_{E\in S}P(E),\with{\forall E\in\mathcal P(\{\iter{E_1}{E_n}\})}
+$$
+
+For instance, for $E$, $F$, and $G$ to be independent, we must have
+$$
+  P(EFG)=P(E)P(F)P(G)
+$$
+
+and pairs $\{E,F\},\ \{E,G\},\ \{F,G\}$ independent.
+
+\Definition{Independent of an infinite set of events}\label{fa07197}
+
+The infinite set of events is independent if any subset of them are
+independent.

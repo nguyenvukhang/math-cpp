@@ -1,0 +1,31 @@
+\subsection{Special systems}\label{b9466fa}
+
+\Definition{Banded matrices}\label{e385669}
+
+A matrix $A$ is \textit{banded} if all its elements are zero outside a band of
+diagonals around the main diagonal. Formally, we have $p,q\in\N$ with
+$p,q\in[1,n]$ such that
+$$
+  a_{ij}=0 \text{ if } i\geq j+p \text{ or } j\geq i+q
+$$
+
+The \textbf{bandwidth} is defined as the number of consecutive diagonals that
+may contain non-zero elements (i.e. $p+q-1$). We call $p$ the \textit{upper
+bandwidth}, and $q$ the \textit{lower bandwidth}.
+
+\Algorithm{LU decomposition for banded matrices}\label{a8ff951}
+
+Given a banded matrix $A\in\R^{n\times n}$ which requires no pivoting, and with
+upper bandwidth $p$ and lower bandwidth $q$, the following overwrites the upper
+triangular part of $A$ by $U$:
+
+\begin{pseudocode}
+  \For $k=1:n-1$ \\
+  \tab\For $i=k+1:k+p-1$ \\[0.5em]
+  \tab\tab $\ell_{ik}=\dfrac{a_{ik}}{a_{kk}}$ \\[0.5em]
+  \tab\tab\For $j=k+1:k+q-1$ \\
+  \tab\tab\tab $a_{ij}\gets a_{ij}-\ell_{ik}a_{kj}$ \\
+  \tab\tab\End \\
+  \tab\End \\
+  \End
+\end{pseudocode}

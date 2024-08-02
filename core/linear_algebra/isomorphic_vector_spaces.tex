@@ -1,0 +1,84 @@
+\subsection{Isomorphic vector spaces}\label{ef39dd0}
+
+\Proposition{Dimension shows if vector spaces are isomorphic}\label{c10bb88}
+
+Two finite-dimensional vector spaces over $\F$ are isomorphic if and only if
+they have the same dimension.
+
+\begin{proof}
+  Let $V,W$ be finite-dimensional vector spaces.
+
+  First, suppose that $V$ and $W$ are \href{d0ad6cb}{isomorphic vector spaces}.
+  Then there exists an isomorphism $\phi:V\to W$. Since $\phi$ is invertible,
+  we have (by \href{bd0d827}{this}, \href{f68db52}{this}, and
+  \href{a41ddec}{this}) $\ker\phi=\{0\}$ and $\range\phi=W$. Thus we have both
+  $$
+    \Null\phi=0,\quad \Rank\phi=\dim W
+  $$
+
+  which, when substituted into the \href{e83dffc}{Rank-Nullity Theorem}, gives
+  $\dim V=\dim W$.
+
+  Next, suppose $\dim V=\dim W$. Then there exists \href{db2477b}{bases}
+  $\iter{v_1}{v_n}$ of $V$ and $\iter{w_1}{w_n}$ of $W$. Let $\phi\in\L(V,W)$
+  be defined by
+  $$
+    \phi(c_1v_1+\ldots+c_nv_n):=c_1w_1+\ldots+c_nw_n
+  $$
+
+  Then $\phi$ is a well-defined linear map because $\iter{v_1}{v_n}$ is a basis
+  of $V$, and so it maps every element of $v$ unambiguously to one element of
+  $W$. Also, $\phi$ is surjective because $\iter{w_1}{w_n}$
+  \href{ac574be}{spans} $W$. Furthermore, $\ker\phi=\{0\}$ because of the
+  \href{c133a44}{linear independence} of $\iter{w_1}{w_n}$, \href{f68db52}{and
+  so} $\phi$ is injective.
+
+  Since $\phi$ is a bijective linear map, by definition it is a vector space
+  isomorphism (from $V$ to $W$), and hence $V$ and $W$ are isomorphic.
+\end{proof}
+
+\Proposition{$\mathcal L(V,W)$ and $\mathcal F^{m\times n}$ are isomorphic}\label{c172aff}
+
+\texttt{\href{d76dfe6}{use notation};} Let $V,W$ be finite-dimensional vector
+spaces, and let $n:=\href{cd4284b}{\dim V}$ and $m:=\dim W$. Then
+\href{c70dad0}{$\mathcal M$} is an \href{d0ad6cb}{isomorphism} between $\L(V,W)$
+and $\F^{m\times n}$.
+
+\begin{proof}
+  By \autoref{abcf830} and \autoref{f95a174}, we have seem that $\mathcal M$ is
+  linear. It remains to show that $\mathcal M$ is \href{d205f32}{bijective}.
+
+  Let $\iter{v_1}{v_n}$ be a basis of $V$ and let $\iter{v_1}{v_m}$ be a basis
+  of $W$.
+
+  Starting with injectivity, if $T\in\L(V,W)$ and $\mathcal M(T)=0$,
+  \href{c70dad0}{then} $T(v_k)=0$ for all $k=\iter1n$. Now because
+  $\iter{v_1}{v_n}$ is a basis of $V$, by the \href{d7d1925}{linearity} of $T$
+  this implies that $T=0$ (that $T$ is the linear map that sends all vectors to
+  $0\in W$). Thus $\mathcal M$ is injective.
+
+  Next, for surjectivity, suppose $A\in\F^{m\times n}$. We can define a $T:V\to
+  W$ such that
+  \begin{equation*}
+    T(v_k)=\sum_{j=1}^m A_{j,k}w_j\with{(k=\iter1n)}\Tag{*}
+  \end{equation*}
+
+  From the proof of the \href{f1c27fd}{linear map lemma}, we can infer that $T$
+  is well-defined as a function from $V$ to $W$, and that it is linear. Hence
+  $T\in\L(V,W)$. Since $\mathcal M(T)=A$ (comparing $(*)$ against
+  \href{c70dad0}{definition}), what we've just done is to show that any element
+  in $A\in\F^{m\times n}$ has a pre-image in $T\in\L(V,W)$ under $\mathcal M$,
+  and hence $\mathcal M$ is surjective.
+\end{proof}
+
+\Proposition{$\dim\mathcal L(V,W)=(\dim V)(\dim W)$}\label{eb3bad0}
+
+Let $V,W$ be finite-dimensional vector spaces. Then $\L(V,W)$ is
+finite-dimensional and
+$$
+  \dim\L(V,W)=(\dim V)(\dim W)
+$$
+
+\begin{proof}
+  This follows from \autoref{f2db1b2}, \autoref{c10bb88}, and \autoref{c172aff}.
+\end{proof}

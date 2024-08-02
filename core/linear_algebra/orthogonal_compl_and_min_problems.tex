@@ -1,0 +1,605 @@
+\subsection{Orthogonal complements and minimization problems}\label{c45c89a}
+
+\Lemma{Orthogonal complement of a subspace forms a subspace}\label{d7186eb}
+
+Let $U$ be a subset of inner product space $V$. Then the
+\href{c3c519f}{orthogonal complement} of $U$ forms a vector space.
+
+\begin{proof}
+  \def\F{\mathcal F}
+
+  Let $U^\perp:=\Set{v\in\F^n}{\inner uv=0,\,\forall u\in U}$ be the orthogonal
+  complement of $U$. We will use \href{dea139b}{these conditions} to show that
+  $U^\perp$ is a subspace.
+
+  Let $a,b\in U^\perp$. Then for all $u\in U$,
+  $$
+    \inner{a+b}{u}=\inner au+\inner bu=0+0=0
+  $$
+
+  implying $a+b\in U^\perp$, and hence $U^\perp$ is closed under vector
+  addition.
+
+  Let $a\in U^\perp$, and $c\in\F$. Then for all $u\in U$,
+  $$
+    \inner{ca}u=c\inner au=c\cdot0=0
+  $$
+
+  which shows that $U^\perp$ is closed under scalar multiplication.
+
+  \href{fb218c8}{Clearly}, $0\in U^\perp$, and hence $U^\perp$ is a subspace.
+\end{proof}
+
+\Proposition{Properties of orthogonal complement}\label{fb661b9}
+
+Let $V$ be an \href{b9935c8}{inner product space}. Then we have
+\begin{enumerata}
+  \item $\{0\}^\perp=V$.
+  \item $V^\perp=\{0\}$. (where $V^\perp$ is the set of all vectors in $V$
+  orthogonal to all vectors in $V$)
+  \item If $U$ is a subset of $V$, then $U\cap U^\perp\subseteq\{0\}$.
+  \item If $G$ and $H$ are subsets of $V$ with $G\subseteq H$, then
+        $H^\perp\subseteq G^\perp$.
+\end{enumerata}
+
+\begin{proof}
+  \proofp{(a)} Suppose $v\in V$. \href{fb218c8}{Since} $\inner 0v=0$, $v$ is
+  orthogonal to $0$, which implies that $v\in\{0\}^\perp$. Thus $V=\{0\}^\perp$.
+
+  \proofp{(b)} Suppose $v\in V^\perp$. Then since $v\in V$, $\inner vv=0$,
+  \href{fb218c8}{which implies} that $v=0$. Thus $V^\perp=\{0\}$.
+
+  \proofp{(c)} Suppose $U$ is a subset of $V$ and $u\in U\cap U^\perp$. Then
+  $\inner uu=0$, \href{fb218c8}{which implies} that $u=0$. Thus $u\in U\cap
+  U^\perp\subseteq\{0\}$.
+
+  \proofp{(d)} Suppose $G$ and $H$ are subsets of $V$ and $G\subseteq H$.
+  Suppose $v\in H^\perp$. Then $\inner uv=0$ for every $u\in H$, which implies
+  that $\inner uv=0$ for every $u\in G$. Hence $v\in G^\perp$. Thus
+  $H^\perp\subseteq G^\perp$.
+\end{proof}
+
+\Proposition{Direct sum of a subspace and its orthogonal complement}\label{d7635df}
+
+Suppose $U$ is a finite-dimensional subspace of vector space $V$. Then
+$$
+  V=\href{c67c961}{U\oplus U^\perp}
+$$
+
+\begin{proof}
+  First we will show that \href{d7c30bb}{$V=U+U^\perp$}. Suppose $v\in V$. Let
+  $\iter{e_1}{e_m}$ be an \href{e112aa0}{orthonormal basis} of $U$ (existence by
+  \autoref{b0c9a08}). We want to write $v$ as a sum of a vector in $U$ and a
+  vector in $U^\perp$.
+
+  So then let
+  $$
+    u:=\inner v{e_1}e_1+\ldots+\inner v{e_m}e_m
+  $$
+
+  Note that since $u$ is a linear combination of basis $\iter{e_1}{e_m}$, we
+  have $u\in U$.
+
+  Now let $w:=v-u$. By \autoref{ac79275}, we have $\inner w{e_k}=0$ for all
+  $e_k$, and since $\iter{e_1}{e_m}$ forms a basis for $U$, by
+  \autoref{fb218c8}, we have
+  $$
+    \inner wx=0,\ \forall x\in U.
+  $$
+
+  and hence $w\in U^\perp$. Thus, we have written $v=u+w$, where $u\in U$ and
+  $w\in U^\perp$, completing the proof that $V=U+U^\perp$.
+
+  From \autoref{fb661b9}, and that $0\in U$, we have $U\cap U^\perp=\{0\}$.
+  \href{f41081f}{Putting it all together}, we have $V=U\oplus U^\perp$.
+\end{proof}
+
+\Proposition{Dimension of orthogonal complement}\label{a756c94}
+
+Suppose $V$ is a finite-dimensional vector space, and let $U$ be a subspace of
+$V$. Then
+$$
+  \dim U^\perp=\dim V-\dim U
+$$
+
+\begin{proof}
+  This follows immediately from \autoref{d7635df} and \autoref{c6195b4}.
+\end{proof}
+
+\Proposition{Orthogonal complement of the orthogonal complement}\label{ab079d0}
+
+Suppose $U$ is a finite-dimensional subspace of \href{b9935c8}{inner product
+space} $V$. Then
+$$
+  U=(U^\perp)^\perp
+$$
+
+\begin{proof}
+  First, we will show that $U\subseteq(U^\perp)^\perp$. Suppose $u\in U$. Then
+  $\inner uw=0$ for every $w\in U^\perp$. Since $u$ is orthogonal to evey vector
+  in $U^\perp$, we have $u\in(U^\perp)^\perp$.
+
+  To prove inclusion in the other direction, suppose $v\in(U^\perp)^\perp$. In
+  particular, $v\in V$, and so \autoref{d7635df} implies that we can write
+  $v=u+w$, for some $u\in U$ and $w\in U^\perp$. We have $v-u=w\in U^\perp$,
+  but also $v\in(U^\perp)^\perp$ and $u\in(U^\perp)^\perp$ (from the previous
+  part), and hence by closure under addition, $v-u\in(U^\perp)^\perp$. Thus
+  $w-u\in U^\perp\cap(U^\perp)^\perp$, \href{fb661b9}{implying} that $v-u=0$.
+  So then $v=u\in U$. Thus $(U^\perp)^\perp\subseteq U$.
+
+  This gives $(U^\perp)^\perp=U$, completing the proof.
+\end{proof}
+
+\Proposition{Subspace has trivial orthogonal complement iff it is the whole space}\label{f8b7711}
+
+Let $U$ be a finite-dimensional subspace of $V$. Then
+$$
+  U^\perp=\{0\}\iff U=V.
+$$
+
+Note that these imply that $V$ is finite-dimensional too.
+
+\begin{proof}
+  First suppose $U^\perp=\{0\}$. Then
+  \begin{align*}
+    U &=(U^\perp)^\perp\desc{by \autoref{ab079d0}} \\
+      &=\{0\}^\perp                                \\
+      &=V\desc{by \autoref{fb661b9}}
+  \end{align*}
+
+  Next, suppose $U=V$. Then by \autoref{fb661b9} we have
+  $U^\perp=V^\perp=\{0\}$.
+\end{proof}
+
+\Proposition{Equivalence of orthogonal project definitions}\label{a0d3151}
+
+Let $P$ be a projection on an \href{b9935c8}{inner product space} $V$ as
+defined \href{fb705a2}{here}. Knowing only that $P^2=P$, we want to show that
+the following (definitions of orthogonal projections) are equivalent:
+\begin{enumerati}
+  \item $\inner{Px}y=\inner x{Py}$ for all $x,y\in V$. (And necessarily
+  $\inner{Px}{Py}$)
+  \item $\inner{x-Px}{Py}=\inner{Px}{y-Py}=0$
+\end{enumerati}
+
+\begin{proof}
+  We will use (i) to prove (ii). We have $\inner{Px}y=\inner x{Py}$ for all
+  $x,y\in V$. But since $Px,y\in V$, we can apply this on them too, giving
+  \begin{align*}
+    \inner{P(Px)}{y} &=\inner{Px}{Py}                         \\
+    \inner{Px}{y}    &=\inner{Px}{Py}\with{\forall Px,y\in V}
+  \end{align*}
+
+  So then we have $\inner{Px}y=\inner{Px}{Py}=\inner x{Py}$. Next,
+  \begin{align*}
+    \inner x{Py}                &=\inner{Px}y                                                           \\
+    \inner x{Py}-\inner{Px}{Py} &=\inner{Px}y-\inner{Px}{Py}\Tag{*}                                     \\
+    \inner{x-Px}{Py}            &=\inner{Px}y-\inner{Px}{Py}\desc{\href{cebd07a}{linearity in 1st arg}} \\
+                                &=\inner{Px}{y-Py}\desc{by \autoref{fb218c8}}                           \\
+                                &=0\desc{from $(*)$}
+  \end{align*}
+
+  Since this argument is reversible, the converse is self-evident. This
+  completes the proof.
+\end{proof}
+
+\Proposition{Equivalence of orthogonal project definitions*}\label{f18d94f}
+
+We aim to show the equivalence of \href{fb705a2}{this definition} and
+\href{dbfa2fa}{this definition}, when dealing with a projection onto a
+finite-dimensional subspace of $V$.
+
+\begin{proof}
+  Let $V$ be an \href{b9935c8}{inner product space}.
+
+  ($\implies$) First, we assume that $P\in\href{ab1f2fb}{\L(V)}$, and that
+  $P^2=P$ with $\inner{Px}y=\inner x{Py}$ for all $x,y\in V$; as in
+  \href{fb705a2}{this definition}.
+
+  \href{d0afc28}{Clearly}, $\range P$ is a subspace of $V$. Let $U:=\range P$.
+  By assumption, $U$ is a finite-dimensional subspace, and hence
+  \href{d7635df}{there exists} $U^\perp$, the \href{c3c519f}{orthogonal
+  complement} of $U$, such that
+  $$
+    V=U\oplus U^\perp
+  $$
+
+  So given any $v\in V$, we can write $v=u+w$ in a \href{c67c961}{unqiue way},
+  where $u\in U$ and $w\in U^\perp$. Since $P(v)\in\range P=U$, we must have
+  $u=P(v)$. This completes the proof in one direction.
+
+  ($\impliedby$) Next, assume that for any $v\in V$ we can write $v=u+w$, where
+  $u\in U$ and $w\in U^\perp$, then $P(v)=u$; as in \href{dbfa2fa}{this
+  definition}. Note that since $U$ is finite-dimensional by assumption,
+  $V=U\oplus U^\perp$ again. That is, given any $v\in V$, there is a unique
+  $u\in U$ and $w\in U^\perp$ such that $v=u+w$.
+
+  Hence if we decompose any $v\in V$ by doing
+  \begin{align*}
+    v &=u+w\with{(u\in U,\ w\in U^\perp)}          \\
+      &=(u'+w')+w'\with{(u'\in U,\ w'\in U^\perp)}
+  \end{align*}
+
+  Then $P(v)=u$, and $P^2(v)=P(u)=u'$, but then decomposing $u=u'+w'$ clearly
+  works when $u'=u\in U$ and $w'=0\in U^\perp$, and since $V=U\oplus U^\perp$,
+  it's the only way to do it. Hence $u=u'$, giving us $P^2=P$.
+
+  Now for \href{d7d1925}{linearity}. Let $v_1,v_2\in V$. Then there exists
+  unique $u_1,u_2\in U$ and $w_1,w_2\in U^\perp$ such that $v_1=u_1+w_1$ and
+  $v_2=u_2+w_2$. Then
+  \begin{align*}
+    P(v_1+v_2) &=P((u_1+w_1)+(u_2+w_2)) \\
+               &=P((u_1+u_2)+(w_1+w_2)) \\
+               &=u_1+u_2                \\
+               &=P(v_1)+P(v_2)
+  \end{align*}
+
+  It is left as an exercise for the reader to show that $P(\lambda v)=\lambda
+  P(v)$ for all $\lambda\in\F$ and $v\in V$.
+
+  Lastly, we need to show $\inner{Px}y=\inner x{Py}$ for all $x,y\in V$. By
+  assumption, there exists unique $u_1,u_2\in U$ and $w_1,w_2\in U^\perp$ such
+  that $x=u_1+w_1$ and $y=u_2+w_2$. Hence,
+  \begin{align*}
+    \inner{Px}y &=\inner{u_1}{u_2+w_2}                                                          \\
+                &=\inner{u_1}{u_2}+\inner{u_1}{w_2}\desc{by \autoref{fb218c8}}                  \\
+                &=\inner{u_1}{u_2}\desc{\href{c3c519f}{orthogonal complement}}                  \\
+                &=\inner{u_1}{u_2}+\inner{w_1}{u_2}\desc{\href{c3c519f}{orthogonal complement}} \\
+                &=\inner{u_1+w_1}{u_2}\desc{by \autoref{fb218c8}}                               \\
+                &=\inner{x}{Py}
+  \end{align*}
+\end{proof}
+
+\Proposition{Properties of orthogonal projection}\label{f012eec}
+
+Suppose $U$ is a finite-dimensional subspace of \href{b9935c8}{inner product
+space} $V$. Let $P$ be the \href{dbfa2fa}{orthogonal projection} from $V$ to
+$U$. Then
+
+\begin{enumerata}
+  \item $P\in\L(V)$
+  \item $P^2=P$.
+  \item $P(u)=u$ for every $u\in U$.
+  \item $P(w)=0$ for every $w\in U^\perp$.
+  \item $\range P=U$.
+  \item $\ker P=U^\perp$.
+  \item $v-P(v)\in U^\perp$ for every $v\in V$.
+  \item $\norm{P(v)}\leq\norm{v}$ for every $v\in V$.
+  \item If $\iter{e_1}{e_m}$ is an orthonormal basis of $U$ and $v\in V$, then
+  $$
+    P(v)=\inner v{e_1}e_1+\ldots+\inner v{e_m}e_m
+  $$
+\end{enumerata}
+
+\begin{proof}
+  (a), (b) follows from the \href{f18d94f}{equivalence} to \href{fb705a2}{this
+  definition} of orthogonal projections.
+
+  For the rest, observe that since $U$ is finite-dimensional, there exists its
+  \href{c3c519f}{orthogonal complement} $U^\perp$ \href{d7635df}{such that}
+  $$
+    V=U\oplus U^\perp
+  $$
+
+  \proofp{(c)} $u\in U$ can be written as $u+0$ where $u\in U$ and $0\in
+  U^\perp$ and this is the only way to do so, hence $P(u)=u$.
+
+  \proofp{(d)} $w\in U^\perp$ can be written as $0+w$ where $0\in U$ and $w\in
+  U^\perp$ and this is the only way to do so, hence $P(w)=0$.
+
+  \proofp{(e)} By \href{dbfa2fa}{definition} we have $\range P\subset U$, and by
+  (c) we have $U\subset\range P$. Hence $\range P=U$.
+
+  \proofp{(f)} The inclusion $U^\perp\subset\ker P$ follows from (d). To prove
+  the inclusion in the other direction, note that if $v\in\ker P$ then its
+  \href{fb705a2}{decomposition} must be $v=0+v$, where $0\in U$ and $v\in
+  U^\perp$. Thus $\ker P\subset U^\perp$.
+
+  \proofp{(g)} If $v\in V$ and $v=u+w$ with $u\in U$ and $v\in U^\perp$, then
+  $$
+    v-P(v)=v-u=w\in U^\perp
+  $$
+
+  \proofp{(h)} If $v\in V$ and $v=u+w$ with $u\in U$ and $w\in U^\perp$, then
+  \begin{align*}
+    \norm{P(v)}^2 &=\norm u^2                                           \\
+                  &\leq\norm u^2+\norm w^2                              \\
+                  &=\norm v^2\desc{\href{c5e5d7d}{Pythagorean theorem}}
+  \end{align*}
+
+  \proofp{(i)}
+
+  Let $u:=\inner v{e_1}e_1+\ldots+\inner v{e_m}e_m$. Then $u\in U$ since it is
+  a linear combination of its basis vectors. Also, if we write
+  $$
+    v=u+w
+  $$
+
+  Then by \autoref{ac79275}, we have $\inner w{e_k}=0$ for each $k=\iter1m$,
+  and hence, $w\in U^\perp$. It follows from \href{dbfa2fa}{definition} that
+  $$
+    P(v)=u=\inner v{e_1}e_1+\ldots+\inner v{e_m}e_m
+  $$
+\end{proof}
+
+\Theorem{Riesz representation theorem*}\label{a1f36df}
+
+This restates (and reproves) the \href{ec6fa79}{previous statement} of the
+Riesz representation theorem.
+
+Suppose $V$ is a finite-dimensional \href{b9935c8}{inner product space} over a
+field $\F$. For each $v\in V$, define $\alpha_v\in\href{c6cc6ea}{V'}$ by
+$$
+  \alpha_v(u)=\inner uv\with{(u\in V)}
+$$
+
+Then $v\mapsto \alpha_v$ is a \href{d205f32}{bijective} function from $V$ to
+$V'$.
+
+Note that if $\F=\R$, then $v\mapsto\alpha_v$ is a \href{d7d1925}{linear
+mapping} from $V$ to $V'$. If instead $\F=\C$, then $\alpha_{\lambda
+v}=\overline\lambda\alpha_v$, which is not linear.
+
+\begin{proof}
+  Before starting, observe that this version of the theorem's statement is
+  claiming the same thing as the previous statement.
+
+  Saying that $v\mapsto \alpha_v$ is bijective is \href{bd75843}{equivalent} to
+  saying that for all $\alpha_v\in V'$, there exists (surjectivity) a unique
+  (injectivity) $v\in V$ such that
+  $$
+    \alpha_v(u)=\inner uv\with{(\forall u\in V)}
+  $$
+
+  Which is exactly the \href{ec6fa79}{previous statement}. The injective
+  portion of the proof can be found there. Here, we will only cover the
+  \textbf{surjective} portion of the proof.
+
+  Let $f:V\to V'$ be given by $f(v):=\alpha_v$ where $\alpha_v\in V'$ is as it
+  is defined \href{a1f36df}{above}. Our goal is to show that $f$ is surjective.
+
+  Suppose $\alpha\in V'$. If $\alpha=0$, then $\alpha=\alpha_0=f(0)$, so then
+  we've found $0\in V$ such that $f(0)=\alpha$. It remains to show that for
+  $\alpha\neq0$, we can still find a $v\in V$ such that $f(v)=\alpha$.
+
+  So assume $\alpha\neq0$. Hence $\ker\alpha\neq V$. \href{f8b7711}{Which
+  implies} that $(\ker\alpha)^\perp\neq\{0\}$. Hence there exists
+  $w\in(\ker\alpha)^\perp$ such that $w\neq0$. Let
+  \begin{equation*}
+    v:=\frac{\overline{\alpha(w)}}{\norm w^2}w\Tag{*}
+  \end{equation*}
+
+  Then $v\in(\ker\alpha)^\perp$ and $v\neq0$ (because $w\notin\ker\alpha$).
+  Taking the \href{d828dac}{norm} on both sides gives
+  \begin{equation*}
+    \norm v=\frac{|\alpha(w)|}{\norm w}\Tag{**}
+  \end{equation*}
+
+  Applying $\alpha$ to both sides of $(*)$, we have
+  $$
+    \alpha(v)
+    =\alpha\left(\frac{\overline{\alpha(w)}}{\norm w^2}w\right)
+    =\frac{\overline{\alpha(w)}}{\norm w^2}\alpha(w)
+    =\frac{|\alpha(w)|^2}{\norm w^2}
+    =\norm v^2
+  $$
+
+  Where the last equality comes from $(**)$. We shall now show that
+  $f(v)=\alpha$. For any $u\in V$, using the equation above, we have
+  $$
+    u=\biggl(u-\frac{\alpha(u)}{\alpha(v)}v\biggr)+\frac{\alpha(u)}{\norm v^2}v
+  $$
+
+  The first term in parentheses above is in $\ker\alpha$ (by direct
+  verification) and hence is \href{d9735e5}{orthogonal} to $v$. Thus, taking
+  the inner product on both sides with $v$ shows that
+  $$
+    \inner uv=\frac{\alpha(u)}{\norm v^2}\inner vv=\alpha(u)
+  $$
+
+  But notice that $\inner uv=f(v)(u)$, and so we've shown that
+  $f(v)(u)=\alpha(u)$ for all $u\in V$, hence $f(v)=\alpha$ as desired.
+
+  In conclusion, given any $\alpha$, we have can find a $v\in V$ such that
+  $f(v)=\alpha$. Hence $f$ is surjective.
+\end{proof}
+
+\Proposition{Minimizing distance to a subspace}\label{c05609d}
+
+Suppose $U$ is a finite-dimensional subspace of \href{b9935c8}{inner product
+space} $V$, and let $v\in V$, $u\in U$. Then
+$$
+  \norm{v-\href{dbfa2fa}{P_U(v)}}\leq\norm{v-u}
+$$
+
+Moreover, this inequality holds with equality if and only if $u=P_U(v)$.
+
+\begin{proof}
+  \begin{align*}
+    \norm{v-P_U(v)} &\leq\norm{v-P_U(v)}^2+\norm{P_U(v)-u}^2                                   \\
+                    &=\norm{(v-P_U(v))+(P_U(v)-u)}^2\desc{\href{c5e5d7d}{Pythagorean theorem}} \\
+                    &=\norm{v-u}\Tag{*}
+  \end{align*}
+
+  Note that the Pythagorean theorem applies because $v-P_U(v)\in U^\perp$ by
+  \autoref{f012eec}, $u\in U$ by assumption, and $P_U(v)\in U$ by
+  \href{dbfa2fa}{definition}, and so
+  $$
+    \inner{v-P_U(v)}{P_U(v)-u}=0\desc{are orthogonal vectors}
+  $$
+
+  Clearly, the inequality in $(*)$ holds with equality if and only if
+  $$
+    \norm{P_U(v)-u}=0
+  $$
+
+  which is the case if and only if $u=P_U(v)$.
+\end{proof}
+
+\Proposition{Restriction of a linear map to obtain a bijective map}\label{eab487c}
+
+Suppose $V$ is a finite-dimensional \href{b9935c8}{inner product space}, and
+$T\in\L(V,W)$. Then $T|_{(\ker T)^\perp}$ is \href{d205f32}{bijective} map from
+$(\ker T)^\perp$ to $\range T$.
+
+In a sense, every linear map has a bijection ``embedded" within it, found by
+restricting the domain and co-domain.
+
+\begin{proof}
+  \def\T{T|_{(\ker T)^\perp}}
+
+  Suppose that $v\in(\ker T)^\perp$ and $\T(v)=0$. \href{efec72b}{Then}
+  $T(v)=0$, and thus $v\in\ker T\cap(\ker T)^\perp$, \href{fb661b9}{which
+  implies} that $v=0$. Hence $\ker\T=\{0\}$, \href{f68db52}{which implies} that
+  $\T$ is injective.
+
+  Clearly, $\range\T\subseteq\range T$. To prove inclusion in the other
+  direction, suppose $w\in\range T$. Then there exists $v\in V$ such that
+  $T(v)=w$. Then by \autoref{d7635df}, we have $V=\ker T\oplus(\ker T)^\perp$,
+  which implies that there exist $u\in\ker T$ and $x\in(\ker T)^\perp$ such
+  that $v=u+x$. Now,
+  $$
+    \T(x)=T(x)=T(v)-T(u)=w-0=w
+  $$
+
+  which shows that $w\in\range\T$. Hence $\range T\subseteq\range\T$ and so we
+  have $\range T=\range\T$, \href{a41ddec}{implying} surjectivity.
+\end{proof}
+
+\Proposition{Basic properties of pseudoinverse}\label{b88d2b0}
+
+Let $V,W$ be \href{b9935c8}{inner product spaces}, let
+$T\in\href{ab1f2fb}{\L(V,W)}$, and let $T^\dagger\in\L(W,V)$ be the
+\href{ba879e1}{pseudoinverse} of $T$. Then
+\begin{enumerata}
+  \item If $w\in(\range T)^\perp$, then $T^\dagger(w)=0$,
+  \item If $w\in\range T$, then $T^\dagger(w)$ is the unqiue element of $(\ker
+        T)^\perp$ such that $T(T^\dagger(w))=w$.
+\end{enumerata}
+
+\begin{proof}
+  First, \href{f012eec}{recall that} $P_{\range T}(w)=0$ if $w\in(\range
+  T)^\perp$ and $P_{\range T}(w)=w$ if $w\in\range T$.
+
+  \proofp{(a)} If $w\in(\range T)^\perp$, then $P_{\range T}(w)=0$, and hence
+  $\href{ba879e1}{T^\dagger}(w)=0$.
+
+  \proofp{(b)} If $w\in\range T$, then by \autoref{eab487c}, $T|_{(\ker
+  T)^\perp}:(\ker T)^\perp\to\range T$ is a bijection, and hence there exists a
+  unique $v\in(\ker T)^\perp$ such that
+  \begin{align*}
+    T|_{(\ker T)^\perp}(v)=w
+     &\iff v=(T|_{(\ker T)^\perp})^{-1}(w)\desc{\href{c1de7b1}{inverse of linear map}} \\
+     &\iff v=(T|_{(\ker T)^\perp})^{-1}P_{\range T}(w)\desc{from above}                \\
+     &\iff v=T^\dagger(w)
+  \end{align*}
+
+  But also since $T|_{(\ker T)^\perp}(v)=w$, \href{efec72b}{by definition} we
+  have $T(v)=w$, and so now the statement reads: there exists a unique
+  $v\in(\ker T)^\perp$ such that
+  $$
+    T(T^\dagger(w))=T(v)=w
+  $$
+
+  and indeed $T^\dagger(w)=v$, as desired.
+\end{proof}
+
+\Proposition{Algebraic properties of the pseudoinverse}\label{ea0037c}
+
+Suppose $V$ is finite-dimensional and $T\in\L(V,W)$. Let $T^\dagger$ be the
+\href{ba879e1}{pseudoinverse} of $T$.
+\begin{enumerata}
+  \item If $T$ is invertible, then $T^\dagger=T^{-1}$.
+  \item $TT^\dagger=P_{\range T}=$ the \href{dbfa2fa}{orthogonal projection} of
+  $W$ onto $\range T$.
+  \item $T^\dagger T=P_{(\ker T)^\perp}=$ the orthogonal projection of $V$ onto
+  $(\ker T)^\perp$.
+\end{enumerata}
+
+\begin{proof}
+  \def\T{T|_{(\ker T)^\perp}}
+
+  \proofp{(a)} Suppose $T$ is invertible. Then \href{a41ddec}{by surjectivity},
+  $\range T=W$, and \href{f68db52}{by injectivity}, $\ker T=\{0\}$,
+  \href{fb661b9}{which implies} $(\ker T)^\perp=V$. Thus $\T=T|_V=T$, and
+  $P_{\range T}=P_W=I$.
+
+  Hence, $T^{-1}=T^{-1}I=(\T)^{-1}P_{\range T}=T^\dagger$.
+
+  \proofp{(b)} Suppose $w\in\range T$. Then
+  \begin{align*}
+    TT^\dagger(w) &=w\desc{by \autoref{b88d2b0}}                        \\
+                  &=P_{\range T}(w)\desc{\autoref{f012eec}, $P_U(u)=u$}
+  \end{align*}
+
+  And if $w\in(\range T)^\perp$, \href{b88d2b0}{then} $T^\dagger(w)=0$, hence
+  $TT^\dagger(w)=0$. Thus $TT^\dagger$ and $P_{\range T}$ agree on $\range T$
+  and on $(\range T)^\perp$. By \autoref{d7635df}, they agree on $W$, and so
+  the two linear maps are equal.
+
+  \proofp{(c)} Suppose $v\in(\ker T)^\perp$. Because $T(v)\in\range T$, the
+  \href{ba879e1}{definition} of $T^\dagger$ shows that
+  \begin{align*}
+    T^\dagger(T(v)) &=(T|_{(\ker T)^\perp})^{-1}P_{\range T}(T(v)) \\
+                    &=(T|_{(\ker T)^\perp})^{-1}T(v)               \\
+                    &=v                                            \\
+                    &=P_{(\ker T)^\perp}(v)
+  \end{align*}
+
+  And if $v\in\ker T$, then $T^\dagger T(v)=0\href{f012eec}{=}P_{(\ker
+  T)^\perp}(v)$. Thus, $T^\dagger T$ and $P_{(\ker T)^\perp}$ agree on $\ker T$
+  and $(\ker T)^\perp$. By \autoref{d7635df}, they agree on $V$, and so they
+  are equal.
+\end{proof}
+
+\Proposition{Pseudoinverse gives best approximate solution or best solution}\label{cef1297}
+
+Suppose $V,W$ is a finite-dimensional \href{b9935c8}{inner product space},
+$T\in\href{ab1f2fb}{\L(V,W)}$, and $w\in W$.
+\begin{enumerata}
+  \item If $v\in V$, then
+  $$
+    \norm{TT^\dagger(w)-w}\leq\norm{T(v)-w}
+  $$
+
+  and this holds with equality if and only if $v-T^\dagger(w)\in\ker T$.
+  \item If $v\in V$, such that $v-T^\dagger(w)\in\ker T$, then
+  $$
+    \norm{T^\dagger(w)}\leq\norm v
+  $$
+
+  and this holds with equality if and only if $v=T^\dagger(w)$.
+\end{enumerata}
+
+\begin{proof}
+  \proofp{(a)} Suppose $v\in V$. Then
+  \begin{equation*}
+    T(v)-w=[T(v)-TT^\dagger(w)]+[TT^\dagger(w)-w]\Tag{*}
+  \end{equation*}
+
+  The first term of $(*)$ is in $\range T$. As $TT^\dagger$ \href{ea0037c}{is
+  the orthogonal projection} of $W$ onto $\range T$, \href{f012eec}{this
+  implies} the second term of $(*)$ is in $(\range T)^\perp$. Hence,
+  \begin{align*}
+    \norm{T(v)-w} &=\norm{T(v)-TT^\dagger(w)}+\norm{TT^\dagger(w)-w}\desc{\href{c5e5d7d}{Pythagorean theorem}} \\
+                  &\geq\norm{TT^\dagger(w)-w}
+  \end{align*}
+
+  Clearly, this holds with equality if and only if
+  \begin{align*}
+    T(v)-TT^\dagger(w)=0 &\iff T(v-T^\dagger(w))=0     \\
+                         &\iff v-T^\dagger(w)\in\ker T
+  \end{align*}
+
+  as desired.
+
+  \proofp{(b)} Suppose $v\in V$ such that $v-T^\dagger(w)\in\ker T$. Then
+  $$
+    v=(v-T^\dagger(w))+T^\dagger(w)
+  $$
+
+  The \href{ba879e1}{definition} of $T^\dagger$ implies that
+  $T^\dagger(w)\in(\ker T)^\perp$. Applying the \href{c5e5d7d}{Pythagorean
+  theorem}, just like in part (a), we have that $\norm{T^\dagger(w)}\leq\norm
+  v$, and that this holds with equality if and only if $v-T^\dagger(w)=0$.
+\end{proof}

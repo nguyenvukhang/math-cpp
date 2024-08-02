@@ -1,0 +1,109 @@
+\subsection{Single Value Decomposition}\label{fb30801}
+
+\Algorithm{The power method (power iteration)}\label{c63f68a}
+
+This is a simple technique for computing the \textbf{dominant} eigenvector and
+eigenvalue of a matrix. It is based on the idea that repeated multiplication of
+a random vector by the given matrix yields vectors that eventually tend towards
+the direction of the dominant eigenvector.
+
+Given any square matrix $A\in\R^{n\times n}$,
+\begin{enumerate}
+  \item Initialize a random $v_0\in\R^n$, and $k:=0$.
+  \item If termination criteria is met, STOP and return $v_k$.
+  \item $\tilde v:=Av_k$, and then $v_{k+1}:=\tilde v/\norm{\tilde v}$.
+  \item Update $k\gets k+1$ and go to step 2
+\end{enumerate}
+
+The normalization is purely to prevent round-off errors from growing as we
+iterate over higher values of $k$.
+
+Once we have the dominant eigenvector, we can use the Rayleigh quotient to
+extract its eigenvalue.
+
+\Definition{Rayleigh quotient}\label{b060d88}
+
+The Rayleigh quotient, defined for any given vector $v\in\R^n$ by
+$$
+  \mu(v):=\frac{v^TAv}{v^Tv}
+$$
+
+If $v$ is an eigenvector of $A$, then the Rayleigh quotient gives its
+corresponding eigenvalue. Otherwise, it gives the closest possible
+approximation to the eigenvalue in the least squares sense.
+% [issue #13]
+
+\Lemma{Diagonal elements of an upper triangular matrix are its eigenvalues}\label{c929b03}
+
+Let $A\in\R^{n\times n}$ be a square matrix that is \href{c39b6bf}{upper
+triangular}. Then the elements on the diagonal of $A$ are its eigenvalues.
+
+\Proposition{Fundamental Theorem of Algebra on matrices}\label{d0be039}
+
+Consider the Fundamental Theorem of Algebra: given a polynomial $p(z)$, we can
+factorize it such that
+\begin{align*}
+  p(z) &:=b_nz^n+\ldots+b_1z+b_0                 \\
+       &=\lambda(z-\lambda_1)\ldots(z-\lambda_n)
+\end{align*}
+
+Now, using $A$ in the place of $z$ and $I$ in the place of $1$, we have
+\begin{align*}
+  p(A) &:=c_nA^nx+\ldots+c_1Ax+c_0x                \\
+       &=\lambda(A-\lambda_1I)\ldots(A-\lambda_nI)
+\end{align*}
+
+The proof is, for now, left as an exercise for the reader.
+
+\Definition{Algebraic and geometric multiplicity}\label{b1914d4}
+
+The algebraic multiplicity of an eigenvalue $\lambda$ is its multiplicity as a
+root of the characteristic polynomial. The geometric multiplicity is the
+dimension of the associated eigenspace.
+
+The geometric multiplicity is less than or equal to the algebraic multiplicity.
+
+If the geometric multiplicity is strictly less than algebraic multiplicity, we
+call the matrix \textbf{defective}.
+
+\Theorem{Non-defective matrices are diagonalizable}\label{c318fd7}
+
+Let $A$ be non-defective in the sense of \autoref{b1914d4}. Then $A$ is
+diagonalizable:
+$$
+  AP=PD\iff P^{-1}AP=D\iff A=PDP^{-1}
+$$
+
+where $P$ is a matrix whose columns are eigenvectors. $A\in\mathcal F^{n\times
+n}$ is \textbf{diagonalizable} if it has $n$ linearly independent eigenvectors.
+Equivalently, there is a basis of $\mathcal F^n$ consisting of eigenvectors of
+$A$.
+
+\Remark{Orthonormally diagonalizable matrices}\label{ad6ffe5}
+
+If $A\in\mathcal F^{n\times n}$ has $n$ orthogonal eigenvectors, then we say it
+is orthonormally diagonalizable. Equivalently, there is an orthonormal basis of
+$\mathcal F^n$ consisting of eigenvectors of $A$.
+
+\Remark{Applying the Spectral Theorem}\label{fec0ef5}
+
+The Real Spectral Theorem states: $A\in\R^{n\times n}$ is orthonormally
+diagonalizable if and only if $A=A^T$.
+
+The Complex Spectral Theorem states: $A\in\C^{n\times n}$ is orthonormally
+diagonalizable if and only if $AA^T=A^TA$.
+
+\Remark{Effect of matrix operations on eigenvalues}\label{aa010d6}
+
+In order to solve eigenvalue problems, we will need to know how operations on
+matrices change the eigenvalues. Here are a few common operations, given that
+$Ax=\lambda x$:
+\begin{enumerati}
+  \item Shifts: $(A-\sigma I)x=(\lambda-\sigma)x$.
+  \item Inverses: $A^{-1}x=\frac1\lambda x$.
+  \item Powers: $A^kx=\lambda^kx$.
+  \item Polynomials: $p(A)x=p(\lambda)x$.
+  \item Similarity: $A$ and $S^{-1}AS$ have the same eigenvalues.
+  \item Gaussian Eliminiation, Cholesky, and QR factorization do not preserve
+        the (non-zero) eigenvalues in general.
+\end{enumerati}

@@ -1,0 +1,156 @@
+\subsection{Limits of functions}\label{dfdd630}
+
+\Proposition{Cluster point ↔ limit of a converging sequence}\label{e46288b}
+
+A real number $c$ is a \href{b0219cd}{cluster point} of a non-empty
+$A\subseteq\R$ if and only if there exists a \href{b5fa0e4}{sequence}
+$\{a_n\}\subseteq A\sans c$ \href{de3e28a}{converging} to $c$.
+
+\begin{proof}
+  ($\implies$) For each $n\in\N$, since $c$ is a cluster point of $A$, there
+  exists $a_n\in A\sans c$ such that $0<|a_n-c|<1/n$. Then the sequence
+  $\{a_n\}\subseteq A\sans c$. Now, given any $\epsilon>0$, by the
+  \href{d845856}{Archimedean property}, there exists $K\in\N$ such that for all
+  $n\geq K$, we have $0<\frac1n<\epsilon$.
+
+  So then for all $n\geq K$,
+  $$
+    0<|a_n-c|<\frac1k<\epsilon
+  $$
+
+  and \href{e565120}{hence} $\displaystyle\lim_{k\to\infty}a_k=c$.
+
+  ($\impliedby$) It is given that there exists a sequence $\{a_n\}\subseteq
+  A\sans c$ such that $\displaystyle\lim_{k\to\infty}a_k=c $.
+
+  Let $\epsilon>0$. \href{e565120}{Then} there exists
+  $K=\href{a2d79c4}{K(\epsilon)}\in\N$ such that
+  $$
+    n\geq K\implies |a_n-c|<\epsilon
+  $$
+
+  Thus, we have $a_K\in A\sans c$ and $0<|a_K-c|<\epsilon$. Note that
+  $|a_K-c|\neq0$ because $a_K\in A\sans c$. And hence $c$ is a cluster point of
+  $A$.
+\end{proof}
+
+\Remark{$\epsilon$–$\delta$ definition of limit*}\label{d6555f4}
+
+This is in reference to the \href{d2d461a}{definition} itself, and takes
+variables from there too.
+
+It is really just saying that given any small number $\epsilon>0$, we can
+respond with a number $\delta>0$ (which, since it's given in response, can
+change if $\epsilon$ changes) such that calling $f$ on any input in the
+\href{ba35f12}{$\delta$-neighborhood} of $c$ (but not at $c$) will result in an
+output in the $\epsilon$-neighborhood of $L$.
+
+Also, note that $f$ need not be defined at $c$. Moreover, even if it is, it
+plays no part in the definition. It can even happen that
+$$
+  \lim_{x\to c}f(x)=L\text{ (exists), but }L\neq f(c)
+$$
+
+\Remark{$\epsilon$–$\delta$ definition of limit: restated}\label{dd4984e}
+
+This is a restatement of \href{d2d461a}{this definition} using the concept of
+\href{ba35f12}{neighborhoods}.
+
+Let $f:A\to\R$, where $\emptyset\neq A\subseteq R$. Let $c$ be a
+\href{b0219cd}{cluster point} of $A$. Then $L\in\R$ is the \textbf{limit of}
+$f$ \textbf{at} $x=c$ if and only if for every $\epsilon>0$, there exists
+$\delta=\href{a2d79c4}{\delta(\epsilon)}>0$ such that
+\begin{equation*}
+  f(A\cap B^*_\delta(c))\subseteq B_\epsilon(L)\Tag{*}
+\end{equation*}
+
+Note that if $c$ is \textit{not} a cluster point of $A$, then there exists
+$\delta>0$ such that
+$$
+  A\cap B^*_\delta(c)=\emptyset
+$$
+
+This causes $(*)$ to become a vacuous condition, and $(*)$ will hold for any
+$L\in\R$.
+
+\Remark{Negating the $\epsilon$–$\delta$ definition of limits}\label{cdbf269}
+
+Consider the \href{d2d461a}{$\epsilon$–$\delta$ definition of limits}, and
+inherit all the variables from there. It states that $\lim_{x\to c}f(x)=L$
+means that
+\begin{equation*}
+  \def\g#1{\textcolor{green}{#1}}
+  \g\forall\epsilon>0,\ \g\exists\delta>0\ \text{ s.t. }\g\forall x\in A\text{ with
+  }0<|x-c|<\delta,\ \text{we have }|f(x)-L|<\epsilon
+\end{equation*}
+
+Then the \textbf{negation} of this statement is
+\begin{equation*}
+  \def\r#1{\textcolor{red}{#1}}
+  \r\exists\epsilon>0\ \text{ s.t. }\r\forall\delta>0,\ \r\exists x\in A\text{ with
+  }0<|x-c|<\delta,\ \text{such that }|f(x)-L|\geq\epsilon
+\end{equation*}
+
+\Theorem{Sequential Criterion for limits}\label{d55e07e}
+
+Let $A\subseteq\R$ be non-empty, and let $c$ be a \href{b0219cd}{cluster point}
+of $A$. Suppose $f:A\to\R$, and let $L\in\R$. Then the following statements are
+equivalent.
+\begin{itemize}
+  \item $\displaystyle\lim_{x\to c}f(x)=L$.
+  \item For every sequence $\{x_n\}$ in $A\sans c$ satisfying
+        $\displaystyle\lim_{n\to\infty}x_n=c$, one has
+        $\displaystyle\lim_{n\to\infty}f(x_n)=L$.
+\end{itemize}
+
+\begin{proof}
+  \proofp{(i)$\implies$(ii)}
+  Suppose $\lim_{x\to c}f(x)=L$. Let $\{x_n\}$ be a sequence in $A\sans c$ such
+  that $\lim_{n\to\infty}x_n=c$. Then $x_n\neq c$ for each $n$.
+
+  Given any $\epsilon>0$, \href{d2d461a}{since} $\lim_{x\to c}f(x)=L$, there
+  exists $\delta>0$ such that
+  \begin{equation*}
+    x\in A\text{ and }0<|x-c|<\delta\implies|f(x)-L|<\epsilon\Tag{*}
+  \end{equation*}
+
+  \href{e565120}{Since} $\lim_{n\to\infty}x_n=c$, there exists $K\in\N$ such
+  that
+  \begin{align*}
+    n\geq K &\implies|x_n-c|<\delta\desc{RHS could have been any constant}               \\
+            &\implies x_n\in A\text{ and }0<|x_n-c|<\delta\desc{since $x_n\in A\sans c$} \\
+            &\implies|f(x_n)-L|<\epsilon\desc{from $(*)$}
+  \end{align*}
+
+  \href{e565120}{Thus} we have $\lim_{n\to\infty}f(x_n)=L$.
+
+  \proofp{(ii)$\implies$(i)}
+  Suppose that $\lim_{x\to c}f(x)\neq L$ or the limit does not exist.
+
+  \href{cdbf269}{Then} there exists $\epsilon>0$ such that for any $\delta>0$,
+  there exists
+  $$
+    x_\delta\in A\text{ and }0<|x_\delta-c|<\delta\text{ such that }|f(x_\delta)-L|\geq\epsilon.
+  $$
+
+  In particular, by choosing $\delta:=1/n$, it follows that for any $n\in\N$,
+  there exists
+  $$
+    x_n\in A\text{ with }0<|x_n-c|<\frac1n\text{ such that }|f(x_n)-L|\geq\epsilon.
+  $$
+
+  This implies that each $x_n\neq c$, and
+  $$
+    c-\frac1n<x_n<c+\frac1n\with{(n\in\N)}
+  $$
+
+  Since
+  $\displaystyle\lim_{n\to\infty}(c-\tfrac1n)=\lim_{n\to\infty}(c+\tfrac1n)=c$,
+  by the \href{c3364d9}{Squeeze Theorem},
+  $\displaystyle\lim_{n\to\infty}x_n=c$.
+
+  On the other hand, $\{f(x_n)\}$ does not converge to $L$, since
+  $|f(x_n)-L|\geq\epsilon$ for all $n\in\N$. This contradicts (ii).
+
+  Hence we must have $\displaystyle\lim_{x\to c}f(x)=L$.
+\end{proof}

@@ -1,0 +1,728 @@
+\chapter{\texttt{defs::real\_analysis}}\label{ded38cd}
+
+\begin{toc}
+  \citem{b6631c3} % Basics
+  \citem{b81c8db} % Bounds, Supremum, Infimum
+  \citem{f5b7518} % Sets
+  \citem{d310a77} % Sequences and limits
+  \citem{aff9ce6} % Subsequences
+  \citem{dda0b11} % Cauchy sequences
+  \citem{e1fcd30} % Divergence
+  \citem{f9277e5} % Series
+  \citem{a052053} % Closure
+  \citem{db384c3} % Metric spaces
+  \citem{d08d5ae} % Measure Theory
+\end{toc}
+
+\subsection{Basics}\label{b6631c3}
+
+\Definition{Number systems}\label{d52c6b7}
+
+\begin{enumerati}
+  \item $\N:=$ set of all \textbf{natural} numbers $\{1,2,3,\ldots\}$
+  \item $\Z:=$ set of all \textbf{integers} $\{\ldots,-2,-1,0,1,2,\ldots\}$
+  \item $\Q:=$ set of all \textbf{rational} numbers $\Set{\dfrac pq}{p,q\in\Z,q\neq0}$
+  \item $\mathbb R:=$ set of all \textbf{real} numbers
+  \item $\mathbb C:=$ set of all \textbf{complex} numbers
+\end{enumerati}
+
+We have
+$$
+  \N\subseteq\Z\subseteq\Q\subseteq\R\subseteq\C.
+$$
+
+The set of \textbf{irrational} numbers is denoted by $\R\setminus\Q$.
+
+\Definition{Binary operation}\label{d526017}
+
+A \textit{binary operation} on a set $S$ is a function that maps an ordered
+pair elements of $S$ to an element of $S$. For example, $+$ as a binary
+operation on $\R$ is really a function that takes two values $a,b\in\R$ and
+maps it to $a+b\in\R$.
+
+Formally, any function $f$ such that $f:S\times S\to S$, we call $f$ a binary
+operation on $S$.
+
+\Definition{Binary relation}\label{a3a60e1}
+
+A \textit{binary relation} associates elements of one set, called the domain,
+with elements of another set, called the codomain.
+
+A binary relation over sets $X$ and $Y$ is defined as a subset of
+$$
+  \Set{(x,y)}{x\in X,y\in Y},
+$$
+
+where we say $x\in X$ is related to $y\in Y$ if and only if the pair $(x,y)$
+belong to the set which defines the binary relation. Here, $X$ is the domain
+and $Y$ is the codomain.
+
+An example of a binary relation is $<$, and we use it by writing ``$a<b$" to
+denote that $a$ is related to $b$ is a particular way.
+
+\Definition{Field}\label{aec6040}
+
+A set $\mathcal F$ together with two \href{d526017}{binary operations}, $+$ and
+$\cdot$ on $\mathcal F$ such that the \textbf{Field Axioms} are met is called a
+\textit{field}.
+
+The field axioms are, for all $a,b,c\in\mathcal F$:
+\begin{itemize}
+  \item [(\textbf{A1})] \textit{(Commutativity)} $a+b=b+a$
+  \item [(\textbf{A2})] \textit{(Associativity)} $(a+b)+c=a+(b+c)$
+  \item [(\textbf{A3})] \textit{(Existence of additive identity)} $\exists0\in\mathcal F:\ a+0=a$
+  \item [(\textbf{A4})] \textit{(Existence of additive inverse)} $\forall
+        x\in\mathcal F,\ \exists y\in\R:\ x+y=0$
+  \item [(\textbf{M1})] \textit{(Commutativity)} $a\cdot b=b\cdot a$
+  \item [(\textbf{M2})] \textit{(Associativity)} $(a\cdot b)\cdot c=a\cdot
+        (b\cdot c)$
+  \item [(\textbf{M3})] \textit{(Existence of multiplicative identity)} $\exists1\in\mathcal F:\ a\cdot1=a$
+  \item [(\textbf{M4})] \textit{(Existence of multiplicative inverse)} $\forall
+        x\in\mathcal F\sans0,\ \exists z\in\mathcal F:\ x\cdot z=1$
+  \item [(\textbf{D})] \textit{(Distributivity of multiplication over addition)}
+        $a\cdot(b+c)=(a\cdot b)+(a\cdot c)$
+\end{itemize}
+
+Because of the (provable) uniqueness of $y$ and $z$, we usually write $y$ as
+$-x$, and $z$ as $x^{-1}$ or $1/x$.
+
+\subsection{Bounds, Supremum, Infimum}\label{b81c8db}
+
+\Definition{Boundedness}\label{e4698be}
+
+A non-empty set $S\subseteq\R$ is said to be \textbf{bounded above} if there
+exists some $M\in\R$ such that
+$$
+  x\leq M\with{\forall x\in S}
+$$
+
+Such an $M$ is called an \textbf{upper bound} of $S$.
+
+On the other hand, $S$ is said to be \textbf{bounded below} if there exists
+some $m\in\R$ such that
+$$
+  m\leq x\with{\forall x\in S}
+$$
+
+Such an $m$ is called a \textbf{lower bound} of $S$.
+
+If $S$ is both bounded above and bounded below, then we simply call it
+\textbf{bounded}.
+
+Equivalently, a set $S$ is bounded if there exists $M\geq0$ such that
+$$
+  |x|\leq M\with{\forall x\in S}
+$$
+
+\Definition{Maximum and minimum of a subset of $\mathbb R$}\label{c3ec51c}
+
+For a non-empty $S\subseteq\R$, one defines the maximum of $S$ to be the
+(necessarily unique) number $M$ such that
+\begin{enumerati}
+  \item $M\in S$, and
+  \item $x\leq M$ for all $x\in S$.
+\end{enumerati}
+
+Similarly, the \textbf{minimum} of $S$ is the (necessarily unique) number $m$
+such that
+\begin{enumerati}
+  \item $m\in S$, and
+  \item $m\leq x$ for all $x\in S$.
+\end{enumerati}
+
+\Definition{Supremum}\label{e6981e1}
+
+Let $E\subseteq\R$ be non-empty. A real number $M\in\R$ is called the
+\textbf{supremum} of $E$ (we write $\sup E$) if
+\begin{enumerati}
+  \item $M$ is an \href{e4698be}{upper bound} of $E$, and
+  \item if $M'$ is an upper bound of $E$, then $M\leq M'$.
+\end{enumerati}
+
+\Definition{Infimum}\label{ff16df6}
+
+Let $E\subseteq\R$ be non-empty. A real number $m\in\R$ is called the
+\textbf{infimum} of $E$ (we write $\inf E$) if
+\begin{enumerati}
+  \item $m$ is a \href{e4698be}{lower bound} of $E$, and
+  \item if $m'$ is a lower bound of $E$, then $m'\leq m$.
+\end{enumerati}
+
+\subsection{Sets}\label{f5b7518}
+
+\Definition{Dense sets}\label{e929c5e}
+
+The set $D\subseteq\R$ is said to be \textbf{dense} in $\R$ if for any
+$a,b\in\R$ with $a<b$, we have $D\cap(a,b)\neq\emptyset$.
+
+In other words, $\exists x\in D$ such that $a<x<b$.
+
+\Definition{Intervals}\label{c65e94a}
+
+An \textbf{interval} is a subset $I$ of $\R$ with the following (equivalent)
+properties:
+\begin{itemize}
+  \item if $x\leq t\leq y$ and $x,y\in I$, then $t\in I$.
+  \item if $x,y\in I$ and $x\leq y$, then $[x,y]\subseteq I$.
+\end{itemize}
+
+\nextsection
+\subsection{Sequences and limits}\label{d310a77}
+
+\Definition{Sequence}\label{b5fa0e4}
+
+A \textbf{sequence} in $\R$ is a function $X:\N\to\R$.
+
+The numbers $\set{X(n)}{n\in\N}$ are called the \textbf{terms} of the sequence.
+For each $n\in\N$, $X(n)$ is called the $n$-th term of the sequence.
+
+\paragraph{Notation.}
+
+We usually write $x_n$ for $X(n)$ and denote the sequence $X$ by any one of
+$$
+  \{x_n\},\ \{x_n\}_{n=1}^\infty,\ \{x_n\}_{n\in\N},\ \{x_n\}_\N
+$$
+
+\Definition{Bounded sequence}\label{d5ed299}
+
+The boundedness of a \href{b5fa0e4}{sequence} $\{x_n\}$ is determined by the
+set
+$$
+  \set{x_n}{n\in\N}
+$$
+
+used in definitions stated \href{e4698be}{here}.
+
+\Definition{Constant sequence}\label{d661313}
+
+A constant sequence is of the form
+$$
+  \{c,c,c,\ldots\}
+$$
+
+for some constant $c\in\R$.
+
+\Definition{Neighborhood}\label{ba35f12}
+%+Deleted neighborhood
+
+Let $a\in\mathcal F$ (where $\mathcal F$ is either $\R$ or $\C$) and
+$\epsilon>0$. The \textbf{$\epsilon$-neighborhood of $a$} is the set
+$$
+  B_\epsilon(a):=\set{x\in\mathcal F}{|x-a|<\epsilon}
+$$
+
+or alternatively, $(a-\epsilon,a+\epsilon)$.
+
+This should be thought of as the set containing elements within a certain
+distance from $a$, with the distance quantified by $\epsilon$. $B$ is for ball,
+since this notion of a distance bound can be generalized up to higher
+dimensions.
+
+We define the \textbf{$\epsilon$-deleted neighborhood} of $a$ as the set
+$$
+  B^*_\epsilon(a):=B_\epsilon(a)\sans a
+$$
+
+\Notation{Dependent variables}\label{a2d79c4}
+
+In the context of real analysis, given some $\epsilon>0$, when we write that
+there exists $K=K(\epsilon)\in\N$, we are saying that $K$ depends on
+$\epsilon$.
+
+\Definition{Limit}\label{e565120}
+
+We say that $\bar x$ is the \textbf{limit} of the \href{b5fa0e4}{sequence}
+$\{x_n\}$ if for every $\epsilon>0$, there exist
+$K=\href{a2d79c4}{K(\epsilon)}\in\N$ such that
+$$
+  n\geq K\implies|x_n-\bar x|<\epsilon
+$$
+
+or equivalently,
+$$
+  \forall n\geq K,\ |x_n-\bar x|<\epsilon
+$$
+
+or,
+$$
+  \forall n\geq K,\ x_n\in B_\epsilon(\bar x)
+$$
+
+\Notation{Landau notation}\label{ab54b3a}
+
+Let $\{x_n>0\},\ \{y_n>0\}$ be strictly positive sequences for large values of
+$n$. Then we define $o$ and $O$ such that
+$$
+  \begin{array}{r c l}
+    x_n=o(y_n) & \iff & \displaystyle\lim_{n\to\infty}\frac{x_n}{y_n}=0 \\[0.7em]
+    x_n=O(y_n) & \iff & \exists C>0,\ \forall n\in\N:x_n\leq Cy_n
+  \end{array}
+$$
+
+This is also known as ``little $o$" and ``big $O$" notation. Also,
+$$
+  x_n=o(y_n)\equiv x_n\ll y_n
+$$
+
+In the case where both $\{x_n\}$ and $\{y_n\}$ blow up to infinity,
+$x_n=o(y_n)$ means that when $n$ is large, $x_n$ is much smaller than $y_n$,
+even though $x_n$ itself is large.
+
+\Definition{Convergence}\label{de3e28a}
+
+\begin{enumerati}
+  \item If $\bar x$ is the limit of $\{x_n\}$, then we also say that $\{x_n\}$
+        \textbf{converges} to $\bar x$, and we write
+  $$
+    \lim_{n\to\infty}x_n=\bar x
+  $$
+
+  or `` $x_n\to\bar x$ as $n\to\infty$ " or simply `` $x_n\to\bar x$ ".
+  \item We say that a sequence $\{x_n\}$ \textbf{converges} if it converges to
+        a (finite) limit $\bar x\in\R$; and that it \textbf{diverges} if it
+        does not converge (to a finite limit).
+\end{enumerati}
+
+\Definition{$\epsilon$–$\delta$ definition of limit}\label{d2d461a}
+
+Let $f:A\to\R$, where $\emptyset\neq A\subseteq R$. Let $c$ be a
+\href{b0219cd}{cluster point} of $A$. We say that a $L\in\R$ is the
+\textbf{limit of} $f$ \textbf{at} $x=c$ and write
+$$
+  \lim_{x\to c}f(x)=L
+$$
+
+if for every $\epsilon>0$, there exists
+$\delta=\href{a2d79c4}{\delta(\epsilon)}>0$ such that for all $x\in A$ and
+$0<|x-c|<\delta$,
+$$
+  |f(x)-L|<\epsilon
+$$
+
+or equivalently,
+\begin{itemize}
+  \item $x\in A\land0<|x-c|<\delta\implies|f(x)-L|<\epsilon$
+  \item $x\in A\sans c\land|x-c|<\delta\implies|f(x)-L|<\epsilon$
+\end{itemize}
+
+In this case, we say that $f$ \textbf{converges} to $L$ at $x=c$. We sometimes
+also write $f(x)\to L$ as $x\to c$.
+
+If the limit of $f$ at $x=c$ does not exist (in $\R$), we say that $f$
+\textbf{diverges} at $x=c$.
+
+\subsection{Subsequences}\label{aff9ce6}
+
+\Definition{Monotone sequences}\label{feae1b2}
+%+Decreasing sequences
+%+Increasing sequences
+
+We say that a sequence $\{x_n\}$ is
+\begin{itemize}
+  \item \textbf{increasing} if
+        $$
+          x_1\leq x_2\leq\ldots
+        $$
+  \item \textbf{decreasing} if
+        $$
+          x_1\geq x_2\geq\ldots
+        $$
+  \item \textbf{monotone} if it is either increasing or decreasing.
+\end{itemize}
+
+\Definition{Subsequences}\label{c6b3a49}
+
+Let $\{x_n\}$ be a sequence and let
+$$
+  n_1<n_2<\ldots<n_k<\ldots
+$$
+
+be a strictly increasing sequence of natural numbers. We call the sequence
+$$
+  \{x_{n_k}\}=\{x_{n_1},x_{n_2},\ldots,x_{n_k},\ldots\}
+$$
+
+a \textbf{subsequence} of $\{x_n\}$.
+
+Note that the $k$-th term of the subsequence is the $n_k$-th term of the
+original sequence.
+
+\Definition{Subsequential limit}\label{fd942fa}
+
+Let $\{x_n\in\R\}$ \href{b5fa0e4}{sequence}. $\bar x\in\R$ is called a
+\textbf{subsequential limit} of $\{x_n\}$ if $\{x_n\}$ has a subsequence
+$\{x_{n_k}\}$ which \href{de3e28a}{converges} to $\bar x$.
+
+\Definition{Limit superior/limit inferior}\label{f4f2af4}
+
+Let $\{x_n\in\R\}$ \href{b5fa0e4}{sequence}. We define
+
+\begin{enumerati}
+  \item the \textbf{limit superior} of $\{x_n\}$ to be
+  $$
+    \limsup_{n\to\infty}x_n:=\lim_{n\to\infty}\sup\Set{x_k}{k\geq n}
+  $$
+  \item the \textbf{limit inferior} of $\{x_n\}$ to be
+  $$
+    \liminf_{n\to\infty}x_n:=\lim_{n\to\infty}\inf\Set{x_k}{k\geq n}
+  $$
+\end{enumerati}
+
+Alternatively, we can also define them by
+\begin{align*}
+  \limsup_{n\to\infty}x_n &:=\sup S(x_n) \\
+  \liminf_{n\to\infty}x_n &:=\inf S(x_n)
+\end{align*}
+
+where $S(x_n)$ is the set of all \href{fd942fa}{subsequential limits} of
+$\{x_n\}$.
+
+\subsection{Cauchy sequences}\label{dda0b11}
+
+\Definition{Cauchy sequence}\label{a8f670d}
+
+A sequence $\{x_n\}$ is called a \textbf{Cauchy sequence} if for every
+$\epsilon>0$, there exists $K=K(\epsilon)\in\N$ such that
+$$
+  |x_n-x_m|<\epsilon,\with{\forall n,m\geq K}
+$$
+
+That is, past a certain point, the difference between any two terms is
+arbitrarily small.
+
+Note that the constraint on $m,n$ can be re-worded as $m>n\geq K$ without loss
+of generality.
+
+\Definition{Contractive sequences}\label{d5c8fb8}
+
+A sequence $\{x_n\}$ is said to be contractive if there exists a \textbf{fixed}
+$C\in\R$ with $0<C<1$ such that
+$$
+  |x_{n+2}-x_{n+1}|\leq C|x_{n+1}-x_n|,\with{\forall n\in\N}
+$$
+
+Note that the sequence $\{x_n\}$ given by $x_n:=\frac1n$ is an example of a
+non-contractive convergence sequence, since given any $C$ such that $0<C<1$, we
+have
+\begin{align*}
+  |x_{n+2}-x_{n+1}|                        &\leq C|x_{n+1}-x_n|                    \\
+  \iff\left|\frac1{n+2}-\frac1{n+1}\right| &\leq C\left|\frac1{n+1}-\frac1n\right| \\
+  \iff\frac1{(n+2)(n+1)}                   &\leq C\left(\frac1{n(n+1)}\right)      \\
+  \iff\frac{n}{n+2}                        &\leq C
+\end{align*}
+
+But since the limit of the LHS as $n\to\infty$ is 1, we can always pick an $n$
+sufficiently large such that it is greater than $C$.
+
+\subsection{Divergence}\label{e1fcd30}
+
+\Definition{Properly divergent sequences}\label{eb71424}
+
+We say that a \href{b5fa0e4}{sequence} $\{x_n\}$ tends to $\infty$ if for every
+$M>0$, there exists $K=K(M)\in\N$ such that
+$$
+  x_n>M,\with{\forall n\geq K}
+$$
+
+In this case, we write $\displaystyle\lim_{n\to\infty}x_n=\infty$.
+
+On the other hand, $\{y_n\}$ tends to $-\infty$ if for every $M<0$, $\exists
+K=K(M)\in\N$ such that
+$$
+  y_n<M,\with{\forall n\geq K}
+$$
+
+In this case, we write $\displaystyle\lim_{n\to\infty}y_n=-\infty$.
+
+We call a sequence $\{z_n\}$ \textbf{properly divergent} if either it
+$z_n\to\infty$ or $z_n\to-\infty$.
+
+\subsection{Series}\label{f9277e5}
+
+\Definition{Series}\label{d659804}
+
+A series is an infinite sum, represented by an infinite expression of the form
+$$
+  a_1+a_2+a_3+\ldots
+$$
+
+where $\{a_n\}$ is a \href{b5fa0e4}{sequence} of terms. Using summing notation,
+the above series is written as
+$$
+  \sum_{k=1}^\infty a_k
+$$
+
+\Definition{Partial sums}\label{a835138}
+
+Given a \href{d659804}{series} $\displaystyle\sum_{k=1}^\infty a_k$, its $n$-th
+\textbf{partial sum} is given by
+$$
+  s_n:=\sum_{k=1}^na_k=a_1+a_2+\ldots+a_n
+$$
+
+\Definition{Harmonic series}\label{c9bddda}
+
+The harmonic series is the infinite series
+$$
+  \sum_{n=1}^\infty\frac1n=1+\frac12+\frac13+\frac14+\ldots
+$$
+
+\Definition{Convergence of a series}\label{f8901df}
+%+Series convergence
+
+If the sequence of \href{a835138}{partial sums} $\{s_n\}$ of the series
+$\sum_{k=1}^\infty a_k$ converges to a number $S\in\R$, we say that the series
+$\sum_{k=1}^\infty a_k$ converges (to $S$) and write
+$$
+  \sum_{k=1}^\infty a_k=\lim_{n\to\infty}s_n=S
+$$
+
+We also call $S$ the \textbf{sum} of $\sum_{k=1}^\infty a_k$.
+
+\Definition{Absolute convergence}\label{f823d65}
+
+We say that the \href{d659804}{series} $\sum_{k=1}^\infty a_k$ converges
+\textbf{absolutely} if the series $\sum_{k=1}^\infty|a_k|$
+\href{f8901df}{converges}.
+
+\Definition{Conditional convergence}\label{bc12578}
+
+We say that the \href{d659804}{series} $\sum_{k=1}^\infty a_k$ converges
+\textbf{conditionally} if
+\begin{itemize}
+  \item The series $\sum_{k=1}^\infty a_k$ \href{f8901df}{converges}, and
+  \item The series $\sum_{k=1}^\infty|a_k|$ diverges.
+\end{itemize}
+
+\Definition{Non-negative series}\label{b6cffeb}
+
+A series $\sum_{n=1}^\infty a_n$ is called a (eventually) non-negative series
+if each term $a_k\geq0$ for all $k$ sufficiently large. Here, $a_k\geq0$ for
+all $k$ sufficiently large means there exists $K\in\N$ such that $a_k\geq0$ for
+all $k\geq K$.
+
+\Definition{Positive series}\label{c09906a}
+
+A series $\sum_{n=1}^\infty a_n$ is called a (eventually) positive series if
+each term $a_k>0$ for all $k$ sufficiently large.
+
+\Definition{Geometric series}\label{ae21a85}
+
+A geometric series is determined by its initial value $a\in\R$ and its common
+ratio $r\in\R$. It is given by
+$$
+  \sum_{n=0}^\infty ar^n=a+ar+ar^2+\ldots
+$$
+
+\Definition{$p$-series}\label{cccc2e8}
+
+The $p$-series is the series of the form
+$$
+  \sum_{n=1}^\infty\frac1{n^p}
+$$
+
+\Definition{Rearrangement of a series}\label{a58ff93}
+
+A series $\sum_{k=1}^\infty b_k$ is called a \textbf{rearrangement} of the
+series $\sum_{k=1}^\infty a_k$ if there is a \href{d205f32}{bijection}
+$f:\N\to\N$ such that
+$$
+  b_n=a_{f(n)}\with{(n\in\N)}
+$$
+
+\subsection{Closure}\label{a052053}
+
+\Definition{Dense}\label{e14819a}
+
+Informally, a subset $A$ of a topological space $X$ is said to be
+\textbf{dense} in $X$ if every point of $X$ either belongs to $A$ or else is
+arbitrarily ``close" to a member of $A$.
+
+A subset $A$ if a topological space $X$ is said to be a dense subset of $X$ if
+any of the following equivalent conditions are satisfied:
+\begin{enumerati}
+  \item The smallest \href{deadb92}{closed subset} of $X$ containing $A$ is $X$
+        itself.
+  \item The closure of $A$ in $X$ is equal to $X$. ($\Cl_XA=X$).
+  \item Every point in $X$ either belongs to $A$ or is a \href{b0219cd}{cluster
+        point} of $A$.
+\end{enumerati}
+
+\Definition{Point of closure}\label{f928932}
+
+For $S$ as a subset of a Euclidean space, $x$ is a point of closure of $S$ if
+every open ball centered at $x$ contains a point of $S$ (this point can be $x$
+itself).
+
+\Definition{Closure}\label{a07ff74}
+
+The closure of a subset $S$ of points in a topological space can be defined
+using any of the following equivalent definitions:
+\begin{enumerati}
+  \item $\Cl S$ is the set of all \href{f928932}{points of closure} of $S$.
+  \item $\Cl S$ is the set $S$ together with all of its \href{f928932}{limit
+  points}.
+  \item $\Cl S$ is the intersection of all closed sets containing $S$.
+  \item $\Cl S$ is the smallest closed set containing $S$.
+  \item $\Cl S$ is the union of $S$ and its boundary $\partial S$
+\end{enumerati}
+
+\Definition{Open sets}\label{dd04b4d}
+
+A subset $U$ of a metric space $(M,d)$ is called open if for any point $x$ in
+$U$, there exists a real number $\epsilon>0$ such that any point $y\in M$
+satisfying $d(x,y)<\epsilon$ belongs to $U$.
+
+Equivalently, $U$ is open if every point $U$ has a neighborhood contained in
+$U$.
+
+An example of a metric space is $(\R^2,\norm{\,\cdot\,})$.
+
+\Definition{Closed sets}\label{deadb92}
+
+A subset $A$ of a \href{de3c1b1}{topological space} $(X,\mathcal T)$ is closed
+if its complement $X\setminus A$ is an \href{dd04b4d}{open} subset of
+$(X,\mathcal T)$
+
+A set $A$ is closed in $X$ if and only if it is equal to its closure $\Cl A$ in
+$X$.
+
+Yet another equivalent definition is that a set is closed if and only if it
+contains all of its boundary points.
+
+\nextsection
+\subsection{Metric spaces}\label{db384c3}
+
+\Definition{Metric}\label{d23883d}
+%+Distance function
+
+A \textbf{metric} $d$ defined on a given set $M$ is a function
+$$
+  d:M\times M\to\R
+$$
+
+satisfying the following axioms for all points $x,y,z\in M$:
+\begin{itemize}
+  \item[(\textbf{M1})] The distance from a point to itself is zero:
+        $$
+          d(x,x)=0
+        $$
+  \item[(\textbf{M2})] \textit{(Positivity)} The distance between two
+        distinct points is always positive:
+        $$
+          x\neq y\implies d(x,y)>0
+        $$
+  \item[(\textbf{M3})]\textit{(Symmetry)} The distance from $x$ to $y$ is the
+        same as the distance from $y$ to $x$:
+        $$
+          d(x,y)=d(y,x)
+        $$
+  \item[(\textbf{M4})] The \href{f1288ad}{triangle inequality} holds:
+        $$
+          d(x,z)\leq d(x,y)+d(y,z)
+        $$
+\end{itemize}
+
+Note that by taking all axioms except for (\textbf{M2}), one can show that the
+distance is always non-negative:
+$$
+  0=d(x,x)\leq d(x,y)+d(y,x)=2d(x,y)
+$$
+
+Therefore (\textbf{M2}) can be weakened to $[x\neq y\implies d(x,y)\neq0]$, and
+combined with (\textbf{M1}) to make
+$$
+  d(x,y)=0\iff x=y
+$$
+
+\Definition{Metric space}\label{dfe585e}
+
+A metric space is an ordered pair $(M,d)$ where $M$ is a set and $d$ is a
+\href{d23883d}{metric} on $M$.
+
+\Definition{Complete metric space}\label{beab911}
+%+Cauchy space
+
+A \href{dfe585e}{metric space} $(M,d)$ is called \textit{complete} (or a
+\textit{Cauchy space}) if every \href{a8f670d}{Cauchy sequence} of points in
+$M$ has a \href{e565120}{limit} that is also in $M$.
+
+Note that in the place of $\left|\,\cdot\,\right|$ in those references, we now
+use $d$.
+
+\Definition{Banach space}\label{f894cb0}
+
+A Banach space is an ordered pair $(X,\norm{\,\cdot\,})$ where
+$(X,\norm{\,\cdot\,})$ is a \href{beab911}{complete metric space},
+$\norm{\,\cdot\,}$ is a \href{e0fff96}{norm}, and $X$ is a
+\href{fc83050}{vector space}.
+
+In short, it's a complete normed vector space.
+
+Thus, a Banach space is a vector space with a \href{dfe585e}{metric} that
+allows the computation of vector length and distance between vectors and is
+complete in the sense that a \href{a8f670d}{Cauchy sequence} of vectors always
+converges to a well-defined \href{e565120}{limit} that is within the space.
+
+\subsection{Measure Theory}\label{d08d5ae}
+
+\Definition{$\sigma$-algebra}\label{da9a47a}
+
+Let $X$ be a given set, and let $\mathcal P(X)$ be its power set. Then a subset
+$\Sigma\subseteq\mathcal P(X)$ is called a $\sigma$-algebra if and only if it
+satisfies the following properties:
+\begin{itemize}
+  \item[(\textbf{S1})] $X\in\Sigma$. In the following context, $X$ is considered
+        to be the universal set.
+  \item[(\textbf{S2})] $\Sigma$ is closed under complementation: for all
+        $A\in\Sigma$, we have $X\setminus A\in\Sigma$.
+  \item[(\textbf{S3})] $\Sigma$ is closed under countable unions: for all
+        $A_1,A_2,\ldots\in\Sigma$, we have $A_1\cup A_2\cup\ldots\in\Sigma$.
+\end{itemize}
+
+From these properties, it follows that the $\sigma$-algebra is also closed
+under countable intersections (by applying \href{c28492b}{De Morgan's laws}).
+
+\Definition{Measure}\label{f7f1db2}
+
+Let $X$ be a set, and $\Sigma$ a $\sigma$-algebra over $X$. A set function
+$\mu$ from $\Sigma$ to the extended real number line is called a
+\textbf{measure} if the following conditions hold:
+\begin{itemize}
+  \item[(\textbf{M1})] $\mu(\emptyset)=0$.
+  \item[(\textbf{M2})] \textit{(Non-negativity)} For all $E\in\Sigma$,
+        $\mu(E)\geq0$.
+  \item[(\textbf{M3})] \textit{(Countable additivity/$\sigma$-additivity)} For
+        all countable collections $\{E_k\}_{k=1}^\infty$ of pairwise disjoint sets
+        in $\Sigma$,
+        $$
+          \mu\biggl(\bigcup_{k=1}^\infty E_k\biggr)=\sum_{k=1}^\infty\mu(E_k)
+        $$
+\end{itemize}
+
+\Definition{Signed measure}\label{e8f6d6e}
+
+A signed measure is a \href{f7f1db2}{measure} with the condition on
+non-negativity dropped.
+
+\Definition{Outer measure}\label{ae9b304}
+
+Given a non-empty set $X$, an \textit{outer measure} on $X$ is map
+$\mu:\mathcal P(X)\to[0,\infty]$ with the following properties:
+\begin{itemize}
+  \item[(\textbf{O1})] $\mu(\emptyset)=0$.
+  \item[(\textbf{O2})] \textit{(Monotonocity)} If $A,B\in\mathcal P(X)$ are such
+        that $A\subseteq B$, then $\mu(A)\leq\mu(B)$.
+  \item[(\textbf{O3})] \textit{($\sigma$-subaddivitiy)} For any $A\in\mathcal
+        P(X)$, and $\{A_n\}$ is a sequence in $\mathcal P(X)$ with
+        $A\subseteq\bigcup_{n=1}^\infty A_n$. It follows that
+        $\mu(A)\leq\sum_{n=1}^\infty\mu(A_n)$
+\end{itemize}
+
+Note that by and (\textbf{O3}) and using the sequence
+$\{A_1,A_2,\ldots,A_{n-1},A_n,\emptyset,\emptyset,\ldots\}$, $\mu$ is
+automatically subadditive. i.e. whenever $A,\iter{A_1}{A_n}\in\mathcal P(X)$
+are such that $A\subseteq\bigcup_{i=1}^nA_i$, it follows that
+$$
+  \mu(A)\leq\mu(A_1)+\ldots+\mu(A_n)
+$$

@@ -1,0 +1,248 @@
+\subsection{Linear independence, span, and bases}\label{d63fa20}
+
+\Lemma{Steinitz exchange lemma}\label{afcb195}
+
+Let $U,W$ be finite subsets of a \href{fc83050}{vector space} $V$. If $U$ is a
+set of \href{c133a44}{linearly independent} vectors, and $W$
+\href{ac574be}{spans} $V$, then
+\begin{enumerati}
+  \item $|U|\leq|W|$
+  \item There is a set $W'\subseteq W$ with $|W'|=|W|-|U|$ such that $U\cup W'$
+        spans $V$.
+\end{enumerati}
+
+\begin{proof}
+  \def\W#1#2{\iter{w_{#1}}{w_{#2}}}
+  \def\U#1#2{\iter{u_{#1}}{u_{#2}}}
+
+  Suppose $U=\{\U1m\}$ and $W=\{\W1n\}$. We wish to show that $m\leq n$, and
+  that after rearranging $w_j$ if necessary, the set $\{\U1m,\W{m+1}n\}$ spans
+  $V$. We proceed by induction on $m$.
+
+  For the base case, suppose $m=0$. Then the claim holds because there are no
+  vectors $u_i$, and the set $\{\W1n\}$ spans $V$ by the hypothesis.
+
+  For the inductive step, assume that the proposition is true for $m-1$. By the
+  inductive hypothesis, we may reorder the $w_i$ so that $\{\U1{m-1},\W{m}n\}$
+  spans $V$. Since $u_m\in V$, there exists coefficients $\iter{a_1}{a_n}$ such
+  that
+  \begin{equation*}
+    u_m=\sum_{i=1}^{m-1}a_iu_i+\sum_{j=m}^na_jw_j\Tag{*}
+  \end{equation*}
+
+  At least one of the $a_j$ must be non-zero, otherwise $(*)$ contradicts the
+  \href{c133a44}{linear independence} of $\{\U1m\}$. It follows that $m\leq n$.
+
+  Next, by reordering $\iter{a_mw_m}{a_nw_n}$ if necessary, we may assume that
+  $a_m$ is non-zero. Therefore, we have
+  $$
+    w_m=\frac1{a_m}\biggr(
+    u_m-\sum_{i=1}^{m-1}a_iu_i-\sum_{j=m+1}^{n}a_jw_j
+    \biggl)
+  $$
+
+  In other words, $w_m$ is in the span of $\{\U1{m},\W{m+1}n\}$. Since this
+  span contains each of the vectors $\U1{m-1},\W{m}n$, by the inductive
+  hypothesis it contains $V$.
+\end{proof}
+
+\Lemma{Bound lemma}\label{e054922}
+
+In a (finite-dimensional) \href{fc83050}{vector space} $V$ with a basis of
+length $n\in\N_0$, a set of $n+1$ vectors in $V$ is always
+\href{c133a44}{linearly dependent}.
+
+\begin{proof}
+  Since $V$ has a basis of length $n$, it has a spanning set of length $n$. By
+  \href{d8487b6}{this lemma}, all linearly independent lists have length $\leq
+  n$. Hence if a list has length $n+1$, it must be linearly dependent.
+\end{proof}
+
+\begin{proof}
+  \def\V{\{\iter{v_1}{v_{n+1}}\}}
+  \def\Z#1{\{\iter{z_#1}{z_n}\}}
+
+  Let $P(N)$ be the statement that in a vector space with a basis of length
+  $\leq N-1$, any set of $N$ vectors is linearly dependent.
+
+  With $P(1)$, the statement reads ``In a vector space with a basis of length
+  0, any set of 1 vector is linearly dependent". The vector space with an empty
+  basis is $\{0\}$, and the only vector in it is $0$, so the only set that
+  contains 1 vector is $\{0\}$, which is trivially linearly dependent.
+
+  Now on to the inductive step. We assume that $P(n)$ is true for some
+  $n\in\N_0$, and try to show that this implies that $P(n+1)$ it true.
+
+  Let $\Z1$ be a basis of $V$. Consider an arbitrary set of $n+1$ vectors
+  $\V\subset V\sans0$ (if any $v_i=0$, then this set is linearly dependent and
+  we are done).
+
+  As $v_1\neq0$, we assume that $v_1=\lambda_1z_1+y_1$, with $\lambda_1\neq0$
+  and $y_1\in U:=\Span\Z2$. Note that if instead all vectors in $\V$ can be
+  written as a linear combination of $\Z2$ alone, then by $P(n)$ they are
+  linearly dependent and we are done.
+
+  Next, for each $j=\iter2{n+1}$, there exist $\lambda_j\in\R$ and $y_j\in U$
+  such that
+  $$
+    v_j=\lambda_jz_1+y_j
+  $$
+
+  This just comes from $\Z1$ being a basis of $V$. Therefore, for each
+  $j=\iter2{n+1}$,
+  \begin{align*}
+    w_j &:=\lambda_1v_j-\lambda_jv_1                              \\
+        &=\lambda_1(\lambda_jz_1+y_j)-\lambda_j(\lambda_1z_1+y_1) \\
+        &=\lambda_1v_j-\lambda_jv_1\in U
+  \end{align*}
+
+  By the induction hypothesis applied to $U$, the set of $n$ vectors
+  $\{\iter{w_2}{w_{n+1}}\}$ are linearly dependent.
+
+  Hence, there exist scalars $\{\iter{\mu_2}{\mu_{n+1}}\}$, not all zero, such
+  that
+  \begin{equation*}
+    0 =\sum_{j=2}^{n+1}\mu_jw_j
+    =\sum_{j=2}^{n+1}\mu_j(\lambda_1v_j-\lambda_jv_1)
+    =\sum_{j=2}^{n+1}\lambda_1\mu_jv_j+\biggl(-\sum_{j=2}^{n+1}\mu_j\lambda_j\biggr)v_1
+  \end{equation*}
+
+  As $\lambda_1\neq0$ and $\mu_j\neq0$ for at least one $j$, we have just shown
+  that there exists a non-trivial linear combination of $\V$ that gets 0. Hence
+  $\V$ is linearly dependent, i.e. $P(n+1)$ is true.
+
+  This completes the inductive step and hence the inductive proof.
+\end{proof}
+
+\Theorem{Uniqueness of basis size}\label{e38814b}
+
+Let $V$ be a finite-dimensional vector space. Let $U,W\subset V$ be
+\href{db2477b}{bases} of $V$. Then
+$$
+  |U|=|W|
+$$
+
+and with this uniqueness, we denote $\href{cd4284b}{\dim V}:=|U|$.
+
+\begin{proof}
+  Since $U$ is a basis of $V$ with length $|U|$, if $|U|<|W|$, then by the
+  \href{e054922}{Bound lemma}, $W$ is linearly dependent. This contradicts the
+  fact that $W$ is a basis, and hence we must have $|U|\geq |W|$.
+
+  By symmetry, we also have $|U|\leq |W|$. Hence $|U|=|W|$.
+\end{proof}
+
+\Theorem{Basis is smallest spanning set}\label{b0af3c1}
+
+Let $V$ be a finite-dimensional \href{fc83050}{vector space} with a basis of
+size $n$. Then any subset $S$ of $V$ with $|S|<n$ does not span $V$.
+
+\begin{proof}
+  First, we remove vectors from $S$ that can be expressed as a linear
+  combination of other vectors in $S$ until we obtain a linearly independent
+  subset $S'$. Observe that $|S'|<|S|<n$ and hence $|S'|\neq n$. Also note that
+  $\Span S'=\Span S$.
+
+  By \autoref{e38814b}, $S'$ is not a basis of $V$. Since $S'$ is linearly
+  independent and not a basis, it cannot span $V$. Hence
+  $$
+    \Span S=\Span S'\neq V
+  $$
+
+  Hence $S$ does not span $V$.
+\end{proof}
+
+\Lemma{Unique representation and linear independence}\label{af98c68}
+
+Let $B$ be a subset of the \href{fc83050}{vector space} $V$ (over field
+$\mathcal F$). Then the following are equivalent:
+\begin{enumerati}
+  \item $B$ is \href{c133a44}{linearly independent}.
+  \item Each $v\in\href{ac574be}{\Span}B$ has a unique representation as a
+        linear combination of elements in $B$.
+\end{enumerati}
+
+\begin{proof}
+  ($\implies$) Let $v\in\Span B$ have two representations
+  $$
+    v=\sum_{i=1}^p\lambda_ib_i=\sum_{i=1}^p\mu_ib_i
+  $$
+
+  where $\iter{\lambda_1}{\lambda_p},\,\iter{\mu_1}{\mu_p}\in\mathcal F$ and
+  $\iter{b_1}{b_p}\in B$. Then
+  $$
+    0=\sum_{i=1}^p(\lambda_i-\mu_i)b_i
+  $$
+
+  Now since $B$ is \href{c133a44}{linearly independent}, we have
+  $$
+    \lambda_i-\mu_i=0,\with{\text{for }i=\iter1p}
+  $$
+
+  and hence the representation is unique.
+
+  ($\impliedby$) Assume that $B$ is not linearly independent. Our goal is to
+  show that there exists a $v\in\Span B$ with a non-unique representation.
+
+  WLOG, assume that $\iter{b_1}{b_n}$ are pairwise distinct (otherwise the
+  non-unique representation is trivial), and there is a collection
+  $\iter{\lambda_1}{\lambda_n}\in\mathcal F$ such that
+  $$
+    0=\sum_{i=1}^n\lambda_ib_i
+  $$
+
+  By linear dependence, at least one $\lambda_i$ is non-zero. WLOG, let
+  $\lambda_1\neq0$. Then
+  $$
+    1\cdot b_1=b_1=\sum_{i=2}^n-\frac{\lambda_i}{\lambda_1}b_i
+  $$
+
+  are two distinct representations of $b_1\in\Span B$.
+\end{proof}
+
+\Theorem{$n$ linearly independent vectors span $n$-dimensional spaces}\label{c8f8fd3}
+
+Let $V$ be an $n$-dimensional vector space (in the sense that its bases all
+have size $n$). A set of $n$ \href{c133a44}{linearly independent} vectors is a
+\href{db2477b}{basis} of $V$. Likewise, $n$ vectors that \href{ac574be}{span}
+$V$ is a basis of $V$. That is,
+$$
+  \iter{z_1}{z_n}\textit{ linearly independent} \iff
+  \Span\{\iter{z_1}{z_n}\}=V \iff
+  \{\iter{z_1}{z_n}\}\textit{ basis of }V
+$$
+
+\begin{proof}
+  That $Z$ being a basis implies linear independence and span follows from the
+  definition of a basis.
+
+  \proofp{linear independence $\implies$ basis}
+
+  Let $Z:=\{\iter{z_1}{z_n}\}$ be linearly independent. Then for all $v\in
+  V\setminus Z$, the \href{e054922}{bound lemma} implies that $Z\cup\{v\}$ is
+  linearly dependent (as a set of $n+1$ elements in an $n$-dimensional vector
+  space). Hence, all vectors $v\in V\setminus Z$ are linear combinations of
+  vectors in $Z$, and hence $Z$ is a basis of $V$.
+
+  \proofp{span $\implies$ basis}
+
+  Assume on the contrary that $\{\iter{z_1}{z_n}\}$ is linearly dependent. Then
+  there exists a collection $\iter{\lambda_1}{\lambda_n}$ such that
+  $$
+    0=\sum_{i=1}^n\lambda_iz_i
+  $$
+
+  By linear dependence, at least one $\lambda_i$ is non-zero. WLOG, let
+  $\lambda_1\neq0$. Then
+  $$
+    z_1=\sum_{i=2}^n-\frac{\lambda_i}{\lambda_1}z_i
+  $$
+
+  and hence $z_1\in\Span\{\iter{z_2}{z_n}\}$. But then this means that
+  $$
+    \Span\{\iter{z_2}{z_n}\}=\Span\{\iter{z_1}{z_n}\}=V
+  $$
+
+  contradicting that all bases of $V$ have size $n$. Hence we must have that
+  $Z$ is linearly independent, making it a basis.
+\end{proof}

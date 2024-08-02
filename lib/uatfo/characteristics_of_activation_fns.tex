@@ -1,0 +1,113 @@
+\subsection{Characteristics of Activation Functions}\label{f62a70d}
+
+\Theorem{}\label{dc8bd2e}
+
+Suppose that $g$ is a continuous function, and $g\in \href{aa7beb7}{\mathcal
+S'(\R^1)}$, then
+$$
+  g\in\href{e65fc0e}{\TW}\iff\text{$g$ is not a polynomial.}
+$$
+
+Note that it follows that for a function to be qualified as an activation
+function, a sufficient condition is that it is in $\TW$.
+
+% TODO: find out where it states that if g is continuous, in S'(R), and g is not
+% a polynomial, then g is qualified to be an activation function.
+%
+% This might relate to citing [11].
+
+Therefore, to prove that a neural network is capable of approximating any
+continuous function of $n$ variables, all we need to do is to deal with the
+case $n=1$. Thus we have reduced the complexity of the problem in terms of
+dimensionality.
+
+\begin{proof}
+  We will prove by contradiction.
+
+  Assume on the contrary that the set of all linear combinations
+  $$
+    \sum_{i=1}^nc_ig(\lambda_ix+\theta_i)
+  $$
+
+  is not dense in $C[a,b]$, then the Hahn-Banach extension theorem and Riesz
+  representation of linear continuous functionals show that there is a signed
+  Borel measure $d\mu$ with $\supp(d\mu)\subseteq[a,b]$ and
+  $$
+    \int_{\R^1}g(\lambda x+\theta)d\mu(x)=0
+  $$
+
+  for all $\lambda\neq0$ and $\theta\in\R^1$. Now, take any $w\in\mathcal
+  S(\R^1)$, then
+  $$
+    \int_{\R^1}w(\theta)d\theta\int_{\R^1}g(\lambda x+\theta)d\mu(x)=0
+  $$
+
+  Let $\lambda x+\theta=u$ and change the order of integration to obtain
+  $$
+    \int_{\R^1}g(u)\int_{\R^1}w(\theta)d\mu\left(\frac{u-\theta}\lambda\right)=0
+  $$
+
+  which is equivalent to
+  \begin{equation*}
+    \hat g(\hat w(\cdot)\hat d\mu(\lambda\cdot))=0\Tag{*}
+  \end{equation*}
+
+  where $\hat g$ represents the Fourier transform of $g$ in the sense of
+  tempered distribution, and is also understood in the sense of distribution.
+
+  In order that the LHS of $(*)$ makes sense, we have to show that $\hat
+  w(t)\hat{d\mu}(\lambda t)\in\mathcal S(\R^1)$. Since
+  $\supp(d\mu)\subseteq[a,b]$, it is straightforward to show that
+  $\hat{d\mu}(t)\in C^\infty(\R^1)$ and for each $k\in\N$, there is a constant
+  $c_k$ such that
+  $$
+    \left|\frac{\partial^k}{\partial t^k}\hat{d\mu}(t)\right|\leq c_k.
+  $$
+
+  Consequently, $\hat w(t)\hat{d\mu}(\lambda t)\in\mathcal S(\R^1)$
+
+  Since $d\mu\not\equiv0$ and $\hat{d\mu}(t)\in C^\infty(\R^1)$, hence there
+  exists some $t_0\in\R\sans0$ with some neighborhood $(t_0-\delta,t_0+\delta)$
+  such that $\hat{d\mu}\neq0$ for all $t\in(t_0-\delta,t_0+\delta)$. Now, if
+  $t_1\neq0$, let $\lambda:=t_0/t_1$, then $\hat{d\mu}(\lambda t)\neq0$ for all
+  $t\in(t_1-\delta/\lambda,t_1+\delta/\lambda)$. Take any $\hat w\in
+  C^\infty_c(t_1-\delta/2\lambda,t_1+\delta/2\lambda)$, then $\hat
+  w(t)\hat{d\mu}(\lambda t)\in\mathcal S(\R^1)$, and by $(*)$,
+  $$
+    \hat g(\hat w(\cdot))=\hat g\left(\frac{\hat w(\cdot)}{\hat{d\mu}(\lambda\cdot)}\hat{d\mu}(\lambda\cdot)\right)=0
+  $$
+
+  The previous argument shows that for any fixed point $t^*$, there is a
+  neighborhood $[t^*-\eta,t^*+\eta]$ such that $\hat g(\hat w(\cdot))=0$ for
+  all $\hat w$ with compact support $[t^*-\eta,t^*+\eta]$, i.e. $\supp(\hat
+  g)\subseteq\{0\}$. By the distribution theory, $\hat g$ is some linear
+  combination of $\delta$-Dirac function and its derivatives, which is
+  equivalent to that $g$ is a polynomial.
+
+  This leads to a contraction, and Theorem 1 is proved.
+\end{proof}
+
+\Theorem{}\label{e15c3fb}
+
+If $\sigma$ is a \href{e4698be}{bounded} \href{cf39bf4}{sigmoidal} function,
+then $\sigma\in\href{e65fc0e}{\TW}$.
+
+\Theorem{}\label{b3b68fd}
+
+Suppose that
+\begin{itemize}
+  \item $K$ is a compact set in $\R^n$,
+  \item $U$ is a compact set in $C(K)$, and
+  \item $g\in\href{e65fc0e}{\TW}$.
+\end{itemize}
+
+Then for any $\epsilon>0$, there exist $N\in\Z_+$, $\theta_i\in\R$,
+$\omega_i\in\R^n$, for $i=\iter1N$, which are independent of $f\in C(K)$ and
+constants $c_i(f),\ i=\iter1N$ depending on $f$, such that
+\begin{equation*}
+  \left|f(x)-\sum_{i=1}^Nc_i(f)g(\omega_i\cdot x+\theta_i)\right|<\epsilon
+\end{equation*}
+
+holds for all $x\in K$ and $f\in U$.
+
+Moreover, each $c_i(f)$ is a linear continuous functional defined on $U$.

@@ -1,0 +1,862 @@
+\chapter{\texttt{defs::linear\_algebra}}\label{d146713}
+
+\begin{toc}
+  \citem{e3e653f} % Basics
+  \citem{f8a1623} % Vector spaces
+  \citem{e1094f4} % Linear maps
+  \citem{baa2513} % Polynomials
+  \citem{a82c0bd} % Kernel and Range
+  \citem{b93c2d0} % Matrix operations
+  \citem{ad763e5} % Kernel and range of matrices
+  \citem{dbc6b7f} % Duality
+  \citem{c06426e} % Types of matrices
+  \citem{c0226c8} % Span, Linear Independence, Basis
+  \citem{b44db9c} % Inner product spaces
+\end{toc}
+
+\subsection{Basics}\label{e3e653f}
+
+\Definition{Elementary row operations of a matrix}\label{d7fc6d0}
+
+Let $A\in\R^{m\times n}$ be a matrix. An elementary row operation on $A$ is to
+modify $A$ in one of three ways: ($R_n$ refers to the $n$-th row of $A$)
+\begin{enumerati}
+  \item \textbf{Row switching}.
+  $$
+    R_i\leftrightarrow R_j
+  $$
+  \item \textbf{Row multiplication}: each element in a row is multiplied by a
+  non-zero constant. Also known as \textit{scaling} a row.
+  $$
+    R_i\gets kR_i\with{(k\neq0)}
+  $$
+  \item \textbf{Row addition}: replace that row with the sum of that row and a
+  multiple of another row.
+  $$
+    R_i\gets R_i+kR_j\with{(i\neq j)}
+  $$
+\end{enumerati}
+
+\subsection{Vector spaces}\label{f8a1623}
+
+\Definition{Vector addition}\label{bcc80c6}
+
+Addition for a set $V$ is a definite mapping that takes pairs of elements of
+$V$ to another element of $V$.
+$$
+  +:(u,v)\to u+v
+$$
+
+\Definition{Scalar multiplication}\label{ab30b6e}
+
+Scalar multiplication for a set $V$ is a definite mapping that takes pairs of
+the form $(a,u)$, where $a$ is a scalar and $u\in V$, to an element of $V$.
+$$
+  \times:(a,u)\to a\times u
+$$
+
+\Definition{Vector space}\label{fc83050}
+
+A vector space over a field $\mathcal F$ is a set $V$ with addition and scalar
+multiplication, such that
+\begin{enumerati}
+  \item Addition is commutative.
+  \item Addition is associative.
+  \item There is an additive identity.
+  \item Every $v\in V$ has an additive inverse.
+  \item There is a (scalar) multiplicative identity.
+  \item Addition and scalar multiplication are distributive both ways.
+  \begin{align*}
+    a(u+v) &=au+av \\
+    (a+b)u &=au+bu
+  \end{align*}
+
+  for all $a,b\in\mathcal F$ and $u,v\in V$.
+\end{enumerati}
+
+\Definition{Finite-dimensional vector space}\label{c4cd6dd}
+
+A vector space is called \textit{finite-dimensional} if some list of vectors in
+it spans the space. (Recall: by definition, every list has finite length)
+
+\Definition{Vector subspace}\label{a0f0f06}
+
+A subset $U$ of a vector space $V$ is called a (vector) subspace if $U$ is a
+vector space, with the same addition and scalar multiplication as in $V$.
+
+\Definition{Sum of subspaces}\label{d7c30bb}
+
+Suppose $\iter{V_1}{V_m}$ are subspaces of vector space $V$. The \textit{sum}
+of $\iter{V_1}{V_m}$ denoted by $V_1+\ldots+V_m$ is the set of all possible
+sums of elements of $\iter{V_1}{V_m}$. More precisely,
+$$
+  V_1+\ldots+V_m:=\Set{v_1+\ldots+v_m}{\iter{v_1\in V_1}{v_m\in V_m}}
+$$
+
+\Definition{Direct sum, $\oplus$}\label{c67c961}
+
+Suppose $\iter{V_1}{V_m}$ are subspaces of a vector space $V$. Then
+\begin{itemize}
+  \item The sum $V_1+\ldots+V_m$ is called a \textit{direct sum} if each
+        element of $V_1+\ldots+V_m$ can be written in only one way as a sum
+        $v_1+\ldots+v_m$, where each $v_k\in V_k$.
+  \item If $V_1+\ldots+V_m$ is a direct sum, then $V_1\oplus\ldots\oplus V_m$
+        denotes $V_1+\ldots+V_m$, with the $\oplus$ notation serving as an
+        indication that this is a direct sum.
+\end{itemize}
+
+\Definition{Product of vector spaces}\label{ff8936a}
+
+Suppose $\iter{V_1}{V_m}$ are vector spaces. Then
+\begin{itemize}
+  \item The \textit{product} $V_1\times\ldots\times V_m$ is defined by
+        $$
+          V_1\times\ldots\times V_m:=\Set{(\iter{v_1}{v_m})}{\iter{v_1\in V_1}{v_m\in V_m}}
+        $$
+  \item Addition on $V_1\times\ldots\times V_m$ is defined by
+        $$
+          (\iter{u_1}{u_m})+(\iter{v_1}{v_m}):=(\iter{u_1+v_1}{u_m+v_m})
+        $$
+  \item Scalar multiplication on $V_1\times\ldots\times V_m$ is defined by
+        $$
+          \lambda(\iter{v_1}{v_m}):=(\iter{\lambda v_1}{\lambda v_m})
+        $$
+\end{itemize}
+
+\subsection{Linear maps}\label{e1094f4}
+
+\Notation{Set of linear maps: $\mathcal L(V,W)$ and $\mathcal L(V)$}\label{ab1f2fb}
+
+Let $V,W$ be vector spaces. We denote
+\begin{itemize}
+  \item the set of \href{d7d1925}{linear maps} from $V$ to $W$ as $\mathcal
+        L(V,W)$,
+  \item and the set of linear maps from $V$ to itself as $\mathcal
+        L(V):=\mathcal L(V,V)$.
+\end{itemize}
+
+\Definition{Restriction of a linear map to a subspace}\label{efec72b}
+
+Let $V,W$ be vector spaces, let $U\subset V$, and let $T:V\to W$. Then the
+\textit{restriction} of $T$ to $U$, denoted as $T|_U$ is defined such that
+$T|_U:U\to W$ and
+$$
+  T(u)=T|_U(u)
+$$
+
+for all $u\in U$. We usually study the restriction of \href{d7d1925}{linear
+maps} to a \href{a0f0f06}{subspace} to better understand how it works.
+
+\Definition{Operator}\label{bd31d9c}
+
+Let $V$ be a vector space and let $T\in\mathcal L(V)$, as denoted in
+\autoref{ab1f2fb}. That is, $T$ is a linear map from a vector space to itself.
+We call $T$ an \textit{operator}.
+
+\Definition{Invariant subspace}\label{e52bb69}
+
+Suppose $T\in\href{ab1f2fb}{\mathcal L(V)}$. A subspace $U$ of V is called
+\textit{invariant} under $T$ if $T(u)\in U$ for every $u\in U$.
+
+\Definition{Addition and scalar multiplication of linear maps}\label{e257b42}
+
+Let $V,W$ be \href{fc83050}{vector spaces}. Let $S,T\in\href{ab1f2fb}{\mathcal
+L(V,W)}$, and $\lambda\in\mathcal F$. We define $S+T$ and the product $\lambda
+T$ as the linear maps given by
+\begin{gather*}
+  (S+T)(v):=S(v)+T(v)\\
+  (\lambda T)(v):=\lambda T(v)
+\end{gather*}
+
+for all $v\in V$. It is left as an exercise to verify that $S+T$ and $\lambda
+T$ are each \href{d7d1925}{linear maps} too.
+
+\Definition{Product of linear maps}\label{a6afdc2}
+
+Let $U,V,W$ be \href{fc83050}{vector spaces}. Let $T\in\href{ab1f2fb}{\mathcal
+L(U,V)}$ and $S\in\mathcal L(V,W)$. Then the product $ST\in\mathcal L(U,W)$ is
+defined by
+$$
+  (ST)(u):=S(T(u))
+$$
+
+for all $u\in U$. In other words, $ST:=S\circ T$.
+
+\Definition{Inverse of a linear map}\label{e1ba7ee}
+
+Let $V,W$ be vector spaces, and let $T\in\href{ab1f2fb}{\mathcal L(V,W)}$. $T$
+is called \textit{invertible} if there exists a linear map $S\in\mathcal
+L(W,V)$ such that $ST$ equals the identity \href{bd31d9c}{operator} on $V$, and
+$TS$ equals the identity operator on $W$.
+
+Such an $S$ is called an \textit{inverse} of $T$. Since $S$ is
+\href{c2b81d6}{uniquely determined} by $T$, we denote it by $T^{-1}$.
+
+In other words, if $T\in\mathcal L(V,W)$ is invertible, then $T^{-1}$ is the
+unique element of $\mathcal L(W,V)$ such that $T^{-1}T=I$ and $TT^{-1}=I$.
+
+\Definition{Linear extension}\label{c4fd746}
+
+Suppose $U,V$ are vector spaces and $f:S\to V$ is defined on some subset
+$S\subseteq U$. Then a \textit{linear extension} of $f$ to $U$, if it exists,
+is a \href{d7d1925}{linear map} $F:U\to V$ defined on $U$ such that $F(s)=f(s)$
+for all $s\in S$.
+
+\Definition{Vector space isomorphism}\label{d0ad6cb}
+
+A vector space isomorphism is a bijective linear map (from one vector space to
+another).
+
+Two vector spaces are isomorphic if there is a vector space isomorphism from
+one to the other.
+
+\Definition{Eigenvalue}\label{e174ec3}
+
+Let $V$ be a vector space and let $T\in\mathcal L(V)$. Then $\lambda\in\mathcal
+F$ is called an \textit{eigenvalue} of $T$ if there exists $v\in V$ such that
+$v\neq0$ and $T(v)=\lambda v$.
+
+\Definition{Eigenvector}\label{ac14802}
+
+Let $V$ be a vector space and let $T\in\mathcal L(V)$. Then $v\in V$ is called
+an \textit{eigenvector} of $T$ corresponding to (\href{e174ec3}{eigenvalue})
+$\lambda\in\mathcal F$ if $v\neq0$ and $T(v)=\lambda v$.
+
+\Notation{Powers of a linear map}\label{e4cc199}
+
+Let $V$ be a vector space, and let $T\in\href{ab1f2fb}{\mathcal L(V)}$. Let $m$
+be a positive integer.
+\begin{enumerati}
+  \item $T^m\in\mathcal L(V)$ is defined as applying $T$ as a function $m$ times.
+  \item $T^0$ is defined as the identity operator $I\in\mathcal L(V)$.
+  \item If $T$ is invertible with inverse $T^{-1}$, then $T^{-m}$ is defined as
+        applying $T_{-1}$ as a function $m$ times.
+\end{enumerati}
+
+\subsection{Polynomials}\label{baa2513}
+
+\Notation{Polynomials: $p(T)$}\label{df84c07}
+
+Let $V$ be a vector space and suppose $T\in\mathcal L(V)$, and that
+$p\in\mathcal P(\mathcal F)$ is a polynomial given by
+$$
+  p(z)=a_0+a_1z+a_2z^2+\ldots+a_mz^m
+$$
+
+for all $z\in\mathcal F$. Then $p(T)$ is the operator on $V$ defined by
+$$
+  p(T)=a_0+a_1T+a_2T^2+\ldots+a_mT^m
+$$
+
+With $p,q\in\mathcal P(\mathcal F)$ and $\lambda\in\mathcal F$, we define
+addition and scalar multiplication on $\mathcal P(\mathcal F)$ by
+\begin{align*}
+  (p+q)(z)       &:=p(z)+q(z)    \\
+  (\lambda p)(z) &:=\lambda p(z)
+\end{align*}
+
+\Definition{Zero of a polynomial}\label{addeddc}
+
+A number $\lambda\in\mathcal F$ is called a \textit{zero} (or \textit{root}) of
+a \href{df84c07}{polynomial} $p\in\mathcal P(\mathcal F)$ if
+$$
+  p(\lambda)=0
+$$
+
+\Notation{Product of polynomials: $pq(z)$}\label{e0f83ed}
+
+Let $p,q\in\mathcal P(\mathcal F)$ be \href{df84c07}{polynomials}. Then we
+define the product $pq(z)$ by
+$$
+  (pq)(z):=p(z)q(z)
+$$
+
+for all $z\in\mathcal F$.
+
+\subsection{Kernel and Range}\label{a82c0bd}
+
+\Definition{Kernel}\label{c494931}
+
+Let $T\in\href{ab1f2fb}{\mathcal L(V,W)}$, where $V,W$ are vector spaces.
+
+The \textit{kernel} of $T$, denoted by $\ker T$ is the set of elements in $V$
+that are mapped to the zero vector in $W$.
+$$
+  \ker T:=\Set{v\in V}{T(v)=0\in W}
+$$
+
+\Definition{Trivial kernel}\label{f532630}
+
+When $\href{c494931}{\ker T}=\{0\}$, we call it \textbf{trivial}.
+
+\Definition{Nullity}\label{a6bc328}
+
+Let $T\in\href{ab1f2fb}{\mathcal L(V,W)}$, where $V,W$ are vector spaces.
+
+The \href{cd4284b}{dimension} of $\ker T$ is called the \textit{nullity} of
+$T$, denoted by $\Null T$.
+
+\Definition{Range}\label{a3ef003}
+
+Let $T\in\href{ab1f2fb}{\mathcal L(V,W)}$, where $V,W$ are vector spaces.
+
+The \textit{range} of $T$, denoted by $\range T$ is the set of elements in $W$
+which can be expressed as $T(v)$ for some vector $v\in V$.
+$$
+  \range T:=\Set{T(v)\in W}{v\in V}
+$$
+
+\Definition{Rank}\label{ca0f3c2}
+
+Let $T\in\href{ab1f2fb}{\mathcal L(V,W)}$, where $V,W$ are vector spaces.
+
+The \href{cd4284b}{dimension} of $\range T$ is called the \textit{rank} of $T$,
+denoted by $\Rank T$.
+
+\subsection{Matrix operations}\label{b93c2d0}
+
+\Notation{Matrix indexing $A_{i,j}$}\label{d76dfe6}
+
+Let $A$ be a matrix. We denote the element at the $i$-th row and the $j$-th
+column of $A$ by $A_{i,j}$. Additionally, we denote the $i$-th row of $A$ by
+$A_{i,\cdot}$ and the $j$-th column of $A$ by $A_{\cdot,j}$.
+
+\Notation{Matrix indexing $A^i_j$}\label{beaa574}
+
+Let $A$ be a matrix. We denote the element at the $i$-th row and the $j$-th
+column of $A$ by $A^i_j$.
+
+Note that with this notation, $I^i_j$ where $I$ is the \href{dcfd9cd}{identity
+matrix} is a concise form of writing a number that is $1$ if $i=j$, and $0$ if
+$i\neq j$.
+
+\Definition{Matrix addition}\label{e41b441}
+
+\texttt{\href{beaa574}{use notation};} Let $A,B\in\mathcal F^{m\times n}$. For
+matrix addtion to be valid, both dimensions of $A$ and $B$ must match. Then the
+matrix sum $A+B$ is such that
+$$
+  (A+B)^i_j:=A^i_j+B^i_j
+$$
+
+\Definition{Matrix multiplication}\label{d786633}
+
+\texttt{\href{beaa574}{use notation};} Let $A\in\mathcal F^{m\times n}$ and
+$B\in\mathcal F^{n\times p}$. For matrix multiplication to be valid, the number
+of columns of $A$ must match the number of rows of $B$. Then the matrix product
+$AB$ is such that
+$$
+  (AB)^i_j:=\sum_{k=1}^nA^i_kB^k_j
+$$
+
+Note how the sum iterates over $k=\iter1n$, the common dimension of $A$ and
+$B$.
+
+\Definition{Scalar multiplication of a matrix}\label{d36252c}
+
+\texttt{\href{beaa574}{use notation};} Let $A\in\mathcal F^{m\times n}$, and let
+$\lambda\in\mathcal F$. Then the product $\lambda A$ is defined as
+$$
+  (\lambda A)^i_j:=\lambda A^i_j
+$$
+
+\subsection{Kernel and range of matrices}\label{ad763e5}
+
+\Definition{Kernel of a matrix}\label{d6bf553}
+
+Let $A\in\mathcal F^{m\times n}$. Then the map $x\mapsto Ax$ is
+\href{d7d1925}{linear} and hence we can define the \textbf{kernel} of $A$:
+$$
+  \ker A:=\Set{x\in\R^n}{Ax=0}
+$$
+
+It is also referred to as the \textbf{null space}.
+
+\Definition{Nullity of a matrix}\label{bd8d6b4}
+
+The \textit{nullity} of a matrix is the \href{cd4284b}{dimension} of its
+\href{d6bf553}{kernel}.
+
+\Definition{Range of a matrix}\label{c8d6fe2}
+
+Let $A\in\mathcal F^{m\times n}$. Then the map $x\mapsto Ax$ is
+\href{d7d1925}{linear} and hence we can define the \textbf{range} of $A$:
+\begin{align*}
+  \range A &:=\Set{u\in\R^m}{\exists x\in\R^n:Ax=u} \\
+           &=\Set{Ax}{x\in\R^n}
+\end{align*}
+
+Observe that $Ax$ is simply a linear combination of the columns of $A$, using
+the contents of $x$ as the coefficients. Hence, $\range A$ is the vector space
+spanned by the column vectors of $A$, also known as the \textbf{column space}
+of $A$
+
+\Definition{Column rank of a matrix}\label{bc27a95}
+
+Let $A\in\mathcal F^{m\times n}$. The \textit{column rank} of $A$ is the
+dimension of the span of the columns of $A$, in $\mathcal F^{m\times1}$.
+
+\Definition{Row rank of a matrix}\label{bae7bca}
+
+Let $A\in\mathcal F^{m\times n}$. The \textit{row rank} of $A$ is the dimension
+of the span of the rows of $A$, in $\mathcal F^{1\times n}$.
+
+\Definition{Rank of a matrix}\label{ecd3948}
+
+The \textit{rank} of a matrix is the \href{bc27a95}{column rank} of the matrix
+(\href{a8e348c}{and also} the \href{bae7bca}{row rank}).
+
+\subsection{Duality}\label{dbc6b7f}
+
+\Definition{Functional}\label{e824ec7}
+
+A \textit{functional} on a \href{fc83050}{vector space} $V$ is a map from $V$
+to a \href{aec6040}{field} $\mathcal F$.
+
+\Definition{Linear functional}\label{b0b1db8}
+
+A \textit{linear functional} on a \href{fc83050}{vector space} $V$ simply a
+\href{e824ec7}{functional} that is \href{d7d1925}{linear}. In other words, a
+linear functional is an element of \href{ab1f2fb}{$\mathcal L(V,\mathcal F)$}.
+
+\Definition{Dual space}\label{c6cc6ea}
+
+Let $V$ be a \href{fc83050}{vector space}. The \textit{dual space} of $V$,
+denoted by $V'$, is the vector space of all \href{b0b1db8}{linear functionals}
+on $V$. In other words,
+$$
+  V':=\mathcal L(V,\mathcal F).
+$$
+
+\subsection{Types of matrices}\label{c06426e}
+
+\Definition{Identity matrix}\label{dcfd9cd}
+
+Suppose $n\in\N$. The $n\times n$ (\href{d917f93}{square}) matrix
+$$
+  \begin{bmat}
+    1 &        & 0 \\
+      & \ddots &   \\
+    0 &        & 1 \\
+  \end{bmat}
+$$
+
+with 1's down its diagonal and 0's everywhere else is called the identity
+matrix and is denoted by $I$.
+
+This matrix has the property that for all matrices $A\in\mathcal F^{m\times
+n}$, we have
+$$
+  AI=A
+$$
+
+and for all matrices $B\in\mathcal F^{n\times p}$, we have
+$$
+  IB=B
+$$
+
+The effect of multiplying a given matrix by an identity matrix is to leave the
+given matrix unchanged.
+
+\Definition{Inverse matrix}\label{ce4daa8}
+%+Invertible matrix
+
+A matrix $A$ is \textit{invertible} (or \textit{non-singular}) if there exists
+a matrix $B$ such that
+\begin{equation*}
+  AB=BA=I\Tag{*}
+\end{equation*}
+
+where $I$ is the identity matrix. $B$ is unique, and is denoted by $A^{-1}$,
+and is called the \textit{inverse} matrix of $A$.
+
+Note that since left inverse and right inverse \href{d0f9377}{are the same}, we
+only have to satisfy one equality in $(*)$ to have both.
+
+\Definition{Square matrix}\label{d917f93}
+
+A matrix $A$ is called a square matrix if it has as many columns as it has
+rows.
+
+\Definition{Symmetric matrix}\label{adcfa41}
+
+A matrix $A$ is symmetric if $A^T=A$.
+
+Note that it immediately follows that $A$ is a \href{d917f93}{square matrix}.
+
+\Definition{Positive (semi)definite matrix}\label{e25e722}
+
+A matrix $A\in\R^{n\times n}$ is positive definite if
+$$
+  x^TAx>0\with{\forall x\in\R^n}
+$$
+
+and positive semidefinite if
+$$
+  x^TAx\geq0\with{\forall x\in\R^n}
+$$
+
+\Definition{Upper triangular matrix}\label{c39b6bf}
+
+A matrix $A$ is upper triangular if it has zeros below the diagonal:
+$$
+  A=\begin{pmat}
+    a_{11} & a_{12} & \ldots & a_{1n} \\
+           & a_{22} & \ddots & a_{2n} \\
+           &        & \ddots & \vdots \\
+           &        &        & a_{nn} \\
+  \end{pmat}
+$$
+
+That is, $a_{ij}=0$ if $i>j$.
+
+\Definition{Lower triangular matrix}\label{ce94591}
+
+A matrix $A$ is lower triangular if it has zeros above the diagonal:
+$$
+  A=\begin{pmat}
+    a_{11} &        &        &        \\
+    a_{21} & a_{22} &        &        \\
+    \vdots & \ddots & \ddots &        \\
+    a_{n1} & a_{n2} & \ldots & a_{nn} \\
+  \end{pmat}
+$$
+
+That is, $a_{ij}=0$ if $i<j$.
+
+\Definition{Orthogonal matrices}\label{c38c9d1}
+
+An \textit{orthogonal matrix} is a real square matrix whose columns and rows
+are \href{d90fcb1}{orthonormal} vectors.
+
+One way to express this is
+$$
+  Q^TQ=QQ^T=I
+$$
+
+This leads to an equivalent characterization: a matrix $Q$ is orthogonal if its
+transpose is equal to its inverse:
+$$
+  Q^T=Q^{-1}
+$$
+
+Note that an orthogonal matrix cannot have zero rows, otherwise there will be a
+zero on the diagonal of either $Q^TQ$ or $QQ^T$, which will contradict it being
+the identity.
+
+\Definition{Semi-orthogonal matrix}\label{e4afc53}
+
+A \textit{semi-orthogonal matrix} is a non-square real matrix $A\in\R^{m\times
+n}$ where:
+\begin{enumerati}
+  \item if $m<n$, then the $m$ rows are \href{d90fcb1}{orthonormal} vectors.
+  \item if $m>n$, then the $n$ columns are \href{d90fcb1}{orthonormal} vectors.
+\end{enumerati}
+
+Equivalently, a non-square matrix $A$ is semi-orthogonal if either
+$$
+  A^TA=I\Quad\text{or}\Quad AA^T=I
+$$
+
+\Definition{Conjugate transpose}\label{abdc1e4}
+
+The conjugate transpose of a complex \href{d917f93}{square matrix} $A$ is the
+matrix $B$ such that
+$$
+  B_{ij}=\overline{A_{ji}}\with{(i,j=\iter1n)}
+$$
+
+or in matrix form,
+$$
+  B=\overline{A^T}
+$$
+
+We write the conjugate transpose of $A$ concisely as $A^*$ or $A^H$ ($H$ for
+\href{a633178}{Hermite}).
+
+\Definition{Hermitian matrix}\label{a633178}
+
+A Hermitian matrix is a complex \href{d917f93}{square matrix} that is equal to
+its own \href{abdc1e4}{conjugate transpose}. That is, if $A$ is Hermitian, then
+$$
+  A=A^*
+$$
+
+\Definition{Unitary matrix}\label{a32560c}
+
+A unitary matrix is one whose \href{ce4daa8}{inverse} is its
+\href{abdc1e4}{conjugate transpose}. That is, if $A$ is unitary, then
+$$
+  A^{-1}=A^*
+$$
+
+\Definition{Involutory matrix}\label{bb02509}
+
+An involutory matrix is one whose is equal to its \href{ce4daa8}{inverse}. If
+$A$ is involutory,
+$$
+  A=A^{-1}
+$$
+
+and also
+$$
+  A^2=I
+$$
+
+\nextsection
+\subsection{Span, Linear Independence, Basis}\label{c0226c8}
+
+\Definition{Linear combination}\label{ceb6342}
+
+A \textit{linear combination} of the elements of a list of vectors
+$\{\iter{v_1}{v_n}\}$ is any vector $u$ that can be expressed by
+$$
+  u=a_1v_1+\ldots+a_nv_n
+$$
+
+where $\iter{a_1}{a_n}$ are a collection of numbers.
+
+\Definition{Span}\label{ac574be}
+
+Let $\{\iter{v_1}{v_n}\}$ be a set of vectors. The \textit{span} of this set if
+the set of all \href{ceb6342}{linear combinations} of vectors in this set.
+
+Let $V$ be a vector space. If $\Span\{\iter{v_1}{v_n}\}=V$, then we say that
+$\iter{v_1}{v_n}$ spans $V$.
+
+The span of an empty list is declared to be $\{0\}$.
+
+\Definition{Linear independence}\label{c133a44}
+
+Let $\{\iter{v_1}{v_n}\}$ be a set of vectors. The set is called
+\textit{linearly independent} if
+$$
+  \sum_{i=1}^na_iv_i=0\implies(a_i=0,\ \forall i=\iter1n)
+$$
+
+In other words, the only way to obtain zero from these vectors is the trivial
+linear combination.
+
+The empty list is declared to be linearly independent.
+
+\Definition{Basis}\label{db2477b}
+
+A subset $B$ is a vector space $V$ is called a \textit{basis} if it is a
+\href{c133a44}{linearly independent} set that \href{ac574be}{spans} $V$.
+
+\Definition{Canonical basis}\label{c01037d}
+
+We define $\{e_i\}$ to be the \textit{canonical basis} of $\mathcal F^n$. That
+is,
+$$
+  e_1:=\begin{bmat}1\\0\\0\\\vdots\end{bmat},\quad
+  e_2:=\begin{bmat}0\\1\\0\\\vdots\end{bmat},\quad\ldots\quad,\quad
+  e_n:=\begin{bmat}\vdots\\0\\0\\1\end{bmat}
+$$
+
+Clearly, $\{e_i\}$ spans $\mathcal F^n$, and is linearly independent.
+
+\Definition{Dimension}\label{cd4284b}
+
+Let $V$ be a vector space. Then we define the dimension of $V$ as
+$$
+  \dim V:=\begin{cases}
+    n      & \text{if $V$ has a basis of length $n\in\N_0$} \\
+    \infty & \text{otherwise}
+  \end{cases}
+$$
+
+This definition holds because \href{c1f28cf}{all bases of a finite-dimensional
+vector space are of the same length}.
+
+\subsection{Inner product spaces}\label{b44db9c}
+
+\Definition{Standard dot product}\label{ba82373}
+
+For $x,y\in\R^n$, the \textit{dot product} of $x$ and $y$, denoted by $x\cdot
+y$, is defined by
+$$
+  x\cdot y:=x_1y_1+\ldots+x_ny_n
+$$
+
+where $x=(\iter{x_1}{x_n})$ and $y=(\iter{y_1}{y_n})$.
+
+Observe that $x\cdot x=\norm{x}^2$ where we are using the $\ell_2$ (Euclidean)
+norm. Furthermore, the dot product has the following properties:
+\begin{itemize}
+  \item $x\cdot x\geq0$ for all $x\in\R^n$.
+  \item $x\cdot x=0$ if and only if $x=0$.
+  \item For $y\in\R^n$ fixed, the map from $\R^n$ to $\R$ that sends $x\in\R^n$
+        to $x\cdot y$ is linear (\href{dcae040}{proof}).
+  \item $x\cdot y=y\cdot x$ for all $x,y\in\R^n$.
+\end{itemize}
+
+\Definition{Inner product}\label{cebd07a}
+
+An \textit{inner product} on a vector space $V$ over a field $\mathcal F$ is a
+function that takes each ordered pair $(u,v)$ of elements of $V$ to a number
+$\inner uv\in\mathcal F$ and has the following properties:
+
+for all $x,y,z\in V$ and $a,b\in\mathcal F$,
+\begin{enumerate}
+  \item[\textbf{(I1)}] \textit{(Positive definiteness)} If $x$ is
+        non-zero, then $\inner xx>0$.
+  \item[\textbf{(I2)}] \textit{(Linearity in the first argument)}
+        $\inner{ax+by}z=a\inner xz+b\inner yz$
+  \item[\textbf{(I3)}] \textit{(Conjugate symmetry)}
+        $\inner xy=\overline{\inner yx}$
+\end{enumerate}
+
+Note that with when $\mathcal F=\R$, conjugate symmetry reduces to symmetry and
+we have linearity in the second argument too.
+
+\Definition{Inner product space}\label{b9935c8}
+
+An inner product space is a vector space $V$ over the field $\mathcal F$ along
+with an \href{cebd07a}{inner product} $\inner{\,\cdot\,}{\,\cdot\,}$ such that
+$$
+  \inner{\,\cdot\,}{\,\cdot\,}:V\times V\to\mathcal F
+$$
+
+\Definition{Induced norm on an inner product space}\label{d828dac}
+
+Let $V$ be an \href{b9935c8}{inner product space}. Then for all $v\in V$, the
+(induced) \textit{norm} of $V$, denoted by $\norm v$, is defined by
+$$
+  \norm v:=\sqrt{\inner vv}
+$$
+
+\Definition{Orthogonal vectors}\label{d9735e5}
+
+Let $V$ be an \href{b9935c8}{inner product space}, and let $u,v\in V$. Then $u$
+and $v$ are said to be \textbf{orthogonal} if $\inner uv=0$.
+
+Note that in the $\R^n$ equipped with the inner product of the
+\href{ba82373}{standard dot product}, two vectors $u,v$ are orthogonal if
+$u\cdot v=0$.
+
+A list of vectors is said to be orthogonal if they all pairwise orthogonal.
+
+\Definition{Orthonormal vectors}\label{d90fcb1}
+
+Two vectors are \textit{orthonormal} if they are \href{d9735e5}{orthogonal}
+unit vectors.
+
+A list of vectors is said to be orthonormal if they all pairwise orthonormal.
+
+\Definition{Orthonormal basis}\label{e112aa0}
+
+An \textit{orthonormal basis} of vector space $V$ is an
+\href{d90fcb1}{orthonormal} list of vecotrs that is also a
+\href{db2477b}{basis} of $V$.
+
+\Definition{Orthogonal complement}\label{c3c519f}
+
+Let $V$ be an \href{b9935c8}{inner product space}. For a subset $U$ of $V$, we
+define its orthogonal complement $U^\perp$ to be
+$$
+  U^\perp:=\Set{v\in V}{\inner uv=0,\,\forall u\in U}
+$$
+
+That is, $U^\perp$ is the set of all vectors in $V$ that are orthogonal to
+every vector in $U$.
+
+\Definition{Vector projection}\label{fc332ef}
+
+Let $V$ be an \href{b9935c8}{inner product space}, and let $v,x\in V$. To
+\textbf{project} $x$ onto $v$, we do
+$$
+  x_v=\frac{\inner xv}{\norm v^2}v\desc{recall: \href{cebd07a}{inner product}}
+$$
+
+where $\norm{\,\cdot\,}$ is the \href{d828dac}{induced norm} of $V$.
+
+% Note to author: it is not possible to swap the position of x and v in ⟨x,v⟩
+% without reducing the generality of the inner product. This is elaborated in
+% Remark ddad872.
+
+Note that the vector $x-x_v$ is \href{d9735e5}{orthogonal} to $v$, as can be
+seen \href{a7dfcb8}{here}.
+
+\Definition{Vector projection onto the span of an orthogonal list of vectors}\label{e06bd2f}
+
+Let $\iter{u_1}{u_m}$ be an \href{d9735e5}{orthogonal} list of vectors in an
+\href{b9935c8}{inner product space} $V$. Then the \textbf{projection of} $v\in
+V$ \textbf{onto} $\Span(\iter{u_1}{u_m})$ is defined as the sum of the
+\href{fc332ef}{projection} of $v$ onto each $e_k$:
+$$
+  \sum_{k=1}^m\frac{\inner v{u_k}}{\norm{u_k}^2}u_k
+$$
+
+\Definition{Orthogonal projection onto a vector space}\label{fb705a2}
+
+A projection $P$ on a vector space $V$ is a linear operator $P:V\to V$ such
+that $P^2=P$.
+
+When $V$ is an \href{b9935c8}{inner product space}, a projection $P$ on $V$ is
+called an \textbf{orthogonal projection} if it satisfies $\inner{Px}y=\inner
+x{Py}$ for all $x,y\in V$.
+
+\href{a0d3151}{Equivalently}, $P$ is orthogonal when it satisfies
+$$
+  \inner{Px}{y-Py}=\inner{x-Px}{Py}=0
+$$
+
+% Let $\iter{z_1}{z_n}$ be an orthonormal basis of $V$, with $n\geq1$. Let $A$ be
+% the $m\times n$ matrix whose columns are $\iter{z_1}{z_n}$. Then the projection
+% to $V$ is given by
+% $$
+%   P_A=AA^T
+% $$
+%
+% which can be rewritten as
+% $$
+%   P_A=\sum_{i=1}^n\inner{z_i}{\cdot}z_i
+% $$
+
+\Definition{Orthogonal projection onto a vector space*}\label{dbfa2fa}
+
+Suppose $U$ is a \href{c4cd6dd}{finite-dimensional} subspace of $V$. The
+\textit{orthogonal projection} of $V$ onto $U$ is the \href{bd31d9c}{operator}
+$P_U\in\href{ab1f2fb}{\mathcal L(V)}$ defined as follows:
+
+For each $v\in V$, \href{d7635df}{write} $v=u+w$, where $u\in U$ and $w\in
+\href{c3c519f}{U^\perp}$. Then $P_U(v):=u$.
+
+\Definition{Pseudoinverse of a linear map}\label{ba879e1}
+
+Suppose that $V$ is a finite-dimensional \href{b9935c8}{inner product space},
+and $T\in\mathcal L(V,W)$. The \textit{pseudoinverse} $T^\dagger\in\mathcal
+L(W,V)$ of $T$ is the linear map from $W$ to $V$ defined by
+$$
+  T^\dagger(w):=(T|_{(\ker T)^\perp})^{-1}P_{\range T}(w),\with{(w\in W)}
+$$
+
+where $P_{\range T}$ is the \href{dbfa2fa}{projection} of $W$ onto $\range T$.
+Here, we also use concepts of \href{c3c519f}{orthogonal complement} and
+\href{efec72b}{domain restriction}.
+
+(Read $T^\dagger$ as ``$T$ dagger".)
+
+\Definition{Adjoint $T^*$}\label{c84f503}
+
+Suppose $V,W$ are finite-dimensional \href{b9935c8}{inner product spaces}, and
+that $T\in\href{ab1f2fb}{\mathcal L(V,W)}$. Then the \textit{adjoint} of $T$ is
+the function $T^*:W\to V$ such that
+$$
+  \inner{T(v)}{w}=\inner v{T^*(w)}
+$$
+
+for every $v\in V$ and every $w\in W$.
+
+\Definition{Self-adjoint}\label{d484753}
+
+An \href{bd31d9c}{operator} $T\in\href{ab1f2fb}{\mathcal L(V)}$ is called
+\textit{self-adjoint} if $T=T^*$.
+
+\Definition{Hilbert space}\label{b8c0fec}
+
+A Hilbert space is an \href{b9935c8}{inner product space} that is also a
+\href{beab911}{complete metric space} with respect to the
+\href{d23883d}{distance function} (norm) \href{d828dac}{induced} by the inner
+product.

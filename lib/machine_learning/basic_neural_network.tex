@@ -1,0 +1,28 @@
+\subsection{Basic Neural Network}\label{fbc9851}
+
+\Problem{Handwriting recognition}\label{af28d9f}
+
+Consider the MNIST dataset, a database of $28\times28$ pixel images of a single
+handwritten digit, each with a label of what the digit is supposed to be.
+
+Models are tasked with taking in a single $28\times28$ image, and returning a
+value in $[0,9]$ that is its best guess on what the image is supposed to be.
+
+\Definition{Forward propagation: Classification}\label{baa40d7}
+
+Let $m\in\N$ be the number of entries in our dataset. Let each entry in our
+dataset be a list of 784 normalized floats. Let the output layer be a list of
+10 normalized floats.
+
+Let $Z_1,Z_2,A_1,A_2,b_1,b_2\in\R^{10\times m}$, $W_1\in\R^{10\times784}$,
+$W_2\in\R^{10\times10}$, let $X\in\R^{784\times m}$. Let $f:\R^{10\times
+m}\to\R^{10\times m}$ be the element-wise \href{fe694c2}{ReLU} function, and
+let $g:\R^{10}\to\R^{10}$ be the \href{fdaba2f}{softmax} function.
+\begin{align*}
+  Z_1 &:=W_1X+b_1   \\
+  A_1 &:=f(Z_1)     \\
+  Z_2 &:=W_2A_1+b_2 \\
+  A_2 &:=g(Z_2)
+\end{align*}
+
+Using this method, we generate a

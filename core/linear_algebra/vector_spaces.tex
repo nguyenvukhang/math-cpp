@@ -1,0 +1,189 @@
+\subsection{Vector spaces}\label{f7b8de8}
+
+\Proposition{Vector spaces have a unique additive identity}\label{c444473}
+
+Let $V$ be a vector space. Then its additive identity is unique.
+
+\begin{proof}
+  Let $e_1,e_2$ be the additive identities of $V$. Then,
+  \begin{align*}
+    e_1+e_2=e_1\desc{since $e_2$ is an additive identity}
+  \end{align*}
+
+  and
+  \begin{align*}
+    e_1+e_2=e_2\desc{since $e_1$ is an additive identity}
+  \end{align*}
+
+  But this means that we have $e_1=e_1+e_2=e_2$. Hence the additive identity is
+  unique.
+\end{proof}
+
+\Proposition{Vectors have a unique additive inverse}\label{cb813a5}
+
+Let $V$ be a \href{fc83050}{vector space}, and let $v\in V$. Then the additive
+inverse of $v$ is unique.
+
+\begin{proof}
+  Let $a,b\in V$ be additive inverses of $v$. Then,
+  \begin{align*}
+    a &=a+0\desc{additive identity}    \\
+      &=a+(v+b)\desc{additive inverse} \\
+      &=(a+v)+b\desc{associativity}    \\
+      &=0+b\desc{additive inverse}     \\
+      &=b\desc{additive identity}
+  \end{align*}
+
+  Hence the additive inverse of every element $v\in V$ is unique.
+\end{proof}
+
+\Proposition{Zero times a vector is the zero vector}\label{ab62bb9}
+
+Let $V$ be a \href{fc83050}{vector space}, and let $v\in V$. Then $0v=0$ ($0v$
+is the zero vector).
+
+\begin{proof}
+  For $v\in V$, we have
+  \begin{align*}
+    0v &=(0+0)v\desc{scalar arithmetic} \\
+       &=0v+0v\desc{distributivity}
+  \end{align*}
+
+  by definition, $0v$ is the additive identity and hence is the zero vector.
+\end{proof}
+
+\Proposition{Scalar times a zero vector is the zero vector}\label{e658c50}
+
+Let $V$ be a \href{fc83050}{vector space}, and let $0\in V$. For all $a\in\F$,
+we have $a0=0$.
+
+\begin{proof}
+  \begin{align*}
+    a0 &=a(0+0)\desc{additive identity} \\
+       &=a0+a0\desc{distributivity}
+  \end{align*}
+
+  by definition, $a0$ is the additive identity and hence is the zero vector.
+\end{proof}
+
+\Proposition{$-1$ times a vector gives the additive inverse}\label{f8e46a2}
+
+Let $V$ be a \href{fc83050}{vector space}, and let $v\in V$. Then $-1(v)$ is
+the additive inverse of $v$.
+
+\begin{proof}
+  \begin{align*}
+    v+(-1)v &=1v+(-1)v                       \\
+            &=(1+(-1))v\desc{distributivity} \\
+            &=0v\desc{scalar arithmetic}     \\
+            &=0\desc{by \autoref{ab62bb9}}
+  \end{align*}
+\end{proof}
+
+\Proposition{Conditions for subspace}\label{dea139b}
+
+If it is given that $U$ is a subset of a \href{fc83050}{vector space} $V$, to
+show that $U$ is a \href{a0f0f06}{subspace} we only have to show
+\begin{enumerati}
+  \item $U$ is closed under vector addition. $u,v\in U\implies u+v\in U$.
+  \item $U$ is closed under scalar multiplication. $a\in\F,\ u\in
+  U\implies au\in U$
+  \item $0\in U$.
+\end{enumerati}
+
+\begin{proof}
+  (i) ensures that vector addition is well-defined. (ii) ensures that scalar
+  multiplication is well-defined. (iii) ensures that the additive inverse exists
+  in $U$. The rest of the axioms in the \href{fc83050}{definition of a vector
+  space} are satisfies because they hold on the larger space $V$.
+\end{proof}
+
+\Proposition{Sum of subspaces is the smallest containing subspace}\label{ddb0ddb}
+
+Suppose $\iter{V_1}{V_m}$ are subspaces of a vector space $V$. Then
+\href{d7c30bb}{$V_1+\ldots+V_m$} is the smallest subspace of $V$ containing
+$\iter{V_1}{V_m}$.
+
+\begin{proof}
+  Let $V_1+\ldots+V_m$. It is left as an exercise for the reader to verify
+  that $V_1+\ldots+V_m$ satisfies \href{dea139b}{these conditions}.
+
+  Clearly, every subspace $\iter{V_1}{V_m}$ is contained in $V_1+\ldots+V_m$,
+  since for any element in any of $\iter{V_1}{V_m}$, it is clearly a member of
+  the set
+  $$
+    \Set{v_1+\ldots+v_m}{\iter{v_1\in V_1}{v_m\in V_m}}
+  $$
+
+  which is $V_1+\ldots+V_m$ \href{d7c30bb}{by definition}.
+
+  Conversely, every subspace $U$ of $V$ that contains all of $\iter{V_1}{V_m}$
+  contains $V_1+\ldots+V_m$, because $U$ is closed under addition.
+
+  Thus $V_1+\ldots+V_m$ is the smallest subspace of $V$ containing
+  $\iter{V_1}{V_m}$.
+\end{proof}
+
+\Proposition{Condition for a direct sum}\label{ab66b9d}
+
+Suppose $\iter{V_1}{V_m}$ are subspaces of a vector space $V$. Then
+$V_1+\ldots+V_m$ is a \href{c67c961}{direct sum} if and only if the only way to
+write $0$ as a sum $v_1+\ldots+v_m$, where each $v_k\in V_k$, is by setting
+each $v_k=0$.
+
+\begin{proof}
+  First suppose $V_1+\ldots+V_m$ is a direct sum. Then the
+  \href{c67c961}{definition} of a direct sum implies that the only way to write
+  0 as a sum of $\iter{v_1}{v_m}$, where each $v_k\in V_k$, is by taking each
+  $v_k=0$.
+
+  Now suppose that the only way to write $0$ as a sum of $v_1+\ldots+v_m$,
+  where each $v_k\in V_k$, is by setting each $v_k=0$. To show that
+  $V_1+\ldots+V_m$ is a \href{c67c961}{direct sum}, let $v\in V_1+\ldots+V_m$
+  be arbitrary. Then we can write
+  \begin{equation*}
+    v=v_1+\ldots+v_m\Tag{*}
+  \end{equation*}
+
+  for some $\iter{v_1\in V_1}{v_m\in V_m}$. To show that this representation is
+  unique, suppose we also have
+  $$
+    v=u_1+\ldots+u_m
+  $$
+
+  where $\iter{u_1\in V_1}{u_m\in V_m}$. Subtracting these two equations, we
+  have
+  $$
+    0=(v_1-u_1)+\ldots+(v_m-u_m)
+  $$
+
+  By closure under addition, $v_k-u_k\in V_k$ for every $k=\iter1m$. But
+  because there is only one way to write $0$ as such a sum, we have $v_k-u_k=0$
+  for each $k=\iter1m$. Thus $v_k=u_k$ for all $k$ and the representation of
+  $v$ (as in $(*)$) is unique.
+\end{proof}
+
+\Proposition{Direct sum of two subspaces iff they intersect only at 0}\label{f41081f}
+
+Suppose $U$ and $W$ are subspaces of vector space $V$. Then
+$$
+  \href{d7c30bb}{U+W}\text{ is a \href{c67c961}{direct sum}}\iff U\cap W=\{0\}
+$$
+
+\begin{proof}
+  First, suppose that $U+W$ is a direct sum. If $v\in U\cap W$, then $0=v+(-v)$,
+  where $v\in U$ and $-v\in W$. By \autoref{ab66b9d}, we have $v=0$. Thus $U\cap
+  W=\{0\}$, completing the proof in one direction.
+
+  To prove the other direction, now suppose that $U\cap W=\{0\}$. Let $u\in U$
+  and $w\in W$ such that
+  $$
+    0=u+w
+  $$
+
+  But this implies that $u=-w$, and by closure under scalar multiplication (by
+  $-1$), $u\in W$. Thus $u\in U\cap W$. Hence $u=0$, which then implies that
+  $w=0$. We've thus shown that the only way to write zero as $u+w$ is to have
+  both $u=0$ and $w=0$. By \autoref{ab66b9d}, this implies that $U+W$ is a
+  direct sum.
+\end{proof}

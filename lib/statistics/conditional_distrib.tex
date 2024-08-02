@@ -1,0 +1,102 @@
+\subsection{Conditional distributions}\label{af50b2f}
+
+\Definition{Conditional probability for discrete RVs}\label{c90178e}
+
+If $X$ and $Y$ are \href{ab5a852}{jointly distributed} and
+\href{f831030}{discrete} random variables, the conditional probability that
+$X=x$ given $Y=y$ is defined to be
+$$
+  p_{X|Y}(x|y):=P(X=x|Y=y)\href{b076095}{=}\frac{P(X=x,Y=y)}{P(Y=y)}\href{e00d4ea}{=}\frac{p(x,y)}{p_Y(y)}
+$$
+
+And the conditional c.d.f. of $X$ given $Y=y$ is defined as
+$$
+  F_{X|Y}(x|y):=P(X\leq x|Y=y)=\sum_{a\leq x}P(X=a|Y=y)=\sum_{a\leq x}p_{X|Y}(a|y)
+$$
+
+with the last equality is by the definition freshly defined above.
+
+\Definition{Conditional probability for continuous RVs}\label{be663f1}
+
+This is analog to the \href{c90178e}{discrete case} for conditional
+distributions.
+
+If $X$ and $Y$ are \href{ab5a852}{jointly distributed} and
+\href{bdb1e15}{continuous} random variables, the conditional density of $X$
+given $Y=y$ is defined to be
+$$
+  f_{X|Y}(x|y):=\frac{f(x,y)}{f_Y(y)}
+$$
+
+And the conditional c.d.f. of $X$ given $Y=y$ is defined as
+$$
+  F_{X|Y}(x|y):=P(X\leq x|Y=y)=\int_{-\infty}^xf_{X|Y}(u|y)\,du
+$$
+
+\Remark{Independence of RVs expressed in conditional notation}\label{bdaa2fc}
+
+$X$ is independent of $Y$ if and only if
+\begin{itemize}
+  \item $\href{c90178e}{p_{X|Y}}(x|y)=\href{bcef5f1}{p_X}(x)$ if they are
+        discrete.
+  \item $\href{be663f1}{f_{X|Y}}(x|y)=\href{cb9d3f0}{f_X}(x)$ if they are
+        continuous.
+\end{itemize}
+
+\begin{proof}
+  First, we consider the discrete case.
+  \begin{align*}
+    p_{X|Y}(x|y) &\href{c90178e}{=}P(X=x|Y=y)                                                    \\
+                 &\href{b076095}{=}\frac{P(X=x,Y=y)}{P(Y=y)}                                     \\
+                 &\href{d8adbf8}{=}\frac{P(X=x)P(Y=y)}{P(Y=y)}\desc{$X$ and $Y$ are independent} \\
+                 &=P(X=x)                                                                        \\
+                 &\href{bcef5f1}{=}p_X(x)
+  \end{align*}
+
+  That $p_{X|Y}(x|y)=p_X(x)$ implies independence follows trivially from this
+  computation.
+
+  In fact, we'll do just that for the continuous case. Assume that
+  $f_{X|Y}(x|y)=f_X(x)$. Then
+  \begin{align*}
+    f_X(x)f_Y(y) &=f_{X|Y}(x|y)f_Y(y)                          \\
+                 &\href{be663f1}{=}\frac{f(x,y)}{f_Y(y)}f_Y(y) \\
+                 &=f(x,y)
+  \end{align*}
+
+  \href{d8adbf8}{which shows} that $X$ and $Y$ are independent.
+\end{proof}
+
+\Remark{Using continuous p.d.f.}\label{fef9069}
+
+For any set $A\in\R$, we have
+$$
+  P(X\in A|Y=y)=\int_A\href{be663f1}{f_{X|Y}}(x|y)\,dx
+$$
+
+\Proposition{Joint density of a 2-D transformation}\label{c39782e}
+
+Suppose that $X$ and $Y$ are \href{ab5a852}{jointly distributed} and
+\href{bdb1e15}{continuous} random variables with \href{b62ce9b}{joint p.d.f.}
+$f_{XY}$. Let $U,V$ be functions of $X$ and $Y$:
+$$
+  U:=g_1(X,Y),\quad V:=g_2(X,Y)
+$$
+
+If this transformation can be inverted to obtain unique solutions $X=h_1(U,V)$
+and $Y=h_2(U,V)$, and the $g_1,g_2$ have continuous partial derivatives, and
+the \href{b648d41}{Jacobian} determinant $|J_g(x,y)|\neq0$, then
+$$
+  \def\pp#1#2{\frac{\partial #1}{\partial #2}}
+  f_{UV}(u,v)=\frac{f_{XY}(x,y)}{|J_g(x,y)|}\with{J_g(x,y)=
+    \begin{pmat}\pp{g_1}x & \pp{g_1}y \\[0.4em]\pp{g_2}x &\pp{g_2}y\end{pmat}
+  }
+$$
+
+Note that
+$$
+  |J_h(u,v)|=\frac1{|J_g(x,y)|}
+$$
+
+so when calculating by hand, it might be easier to calculate $J_h(u,v)$, and
+then take its reciprocal.

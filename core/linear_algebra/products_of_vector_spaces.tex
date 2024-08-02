@@ -1,0 +1,85 @@
+\subsection{Products of vector spaces}\label{a9636c9}
+
+\Proposition{Product of vector spaces is a vector space}\label{d7bbe29}
+
+Let $\iter{V_1}{V_m}$ be vector spaces. Then the \href{ff8936a}{product}
+$V_1\times\ldots\times V_m$ is a vector space.
+
+\begin{proof}
+  Verifying all the \href{fc83050}{properties of a vector space} is left as an
+  exercise for the reader. Note that the additive identity is $(\iter00)$, where
+  the $0$ in the $k$ is the additive identity of $V_k$.
+
+  The additive inverse of $(\iter{v_1}{v_m})$ is $(\iter{-v_1}{-v_m})$.
+\end{proof}
+
+\Proposition{Dimension of a product is the sum of dimensions}\label{b87c7ba}
+
+Let $\iter{V_1}{V_m}$ be finite-dimensional vector spaces. Then the
+\href{ff8936a}{product} $V_1\times\ldots\times V_m$ is finite-dimensional, and
+$$
+  \dim(V_1\times\ldots\times V_m)=\dim V_1+\ldots+\dim V_m
+$$
+
+\begin{proof}
+  Choose a basis for each $V_k$. For each basis vector of each $V_k$, consider
+  the element of $V_1\times\ldots\times V_m$ that equals the basis vector in the
+  $k$-th slot and 0 in the other slots. The list of all such vectors is linearly
+  independent and spans $V_1\times\ldots\times V_m$. Thus it is a basis of
+  $V_1\times\ldots\times V_m$. The length of this basis is $\dim V_1+\ldots+\dim
+  V_m$ as desired.
+\end{proof}
+
+\Proposition{Product and direct sums}\label{cc62620}
+
+Suppose that $\iter{V_1}{V_m}$ are subspaces of a vector space $V$. Define a
+linear map $\Gamma:\href{ff8936a}{V_1\times\ldots\times V_m}\to
+\href{d7c30bb}{V_1+\ldots+V_m}$ by
+$$
+  \Gamma(\iter{v_1}{v_m}):=v_1+\ldots+v_m
+$$
+
+Then $V_1+\ldots+V_m$ is a \href{c67c961}{direct sum} if and only if $\Gamma$
+is \href{ac44d1d}{injective}.
+
+\begin{proof}
+  By \autoref{f68db52}, $\Gamma$ is injective if and only if it has a trivial
+  kernel. In this context, a having trivial kernel means that the only way to
+  write 0 as a sum of $v_1+\ldots+v_m$ is by taking each $v_k$ equal to 0. Thus,
+  \autoref{ab66b9d} shows that $\Gamma$ is injective if and only if
+  $V_1+\ldots+V_m$ is a direct sum, as desired.
+\end{proof}
+
+\Proposition{A sum is a direct sum iff dimensions add up}\label{c6195b4}
+
+Suppose that $\iter{V_1}{V_m}$ are subspaces of a finite-dimensional vector
+space $V$. Then $V_1+\ldots+V_m$ is a \href{c67c961}{direct sum} if and only if
+$$
+  \dim(V_1+\ldots+V_m)=\dim V_1+\ldots+\dim V_m
+$$
+
+\begin{proof}
+  \def\S{\Sigma_V}
+  \def\P{\Pi_V}
+
+  Let $\S:=V_1+\ldots+V_m$ and $\P:=V_1\times\ldots\times V_m$. Use
+  $\Gamma:\P\to\S$ as defined in \autoref{cc62620}. Clearly, $\Gamma$ is
+  surjective. By \autoref{a41ddec}, we have $\Rank\Gamma=\dim\S$.
+
+  By the \href{e83dffc}{fundamental theorem of linear maps}, we have
+  \begin{align*}
+    \dim\P &=\Null\Gamma+\Rank\Gamma \\
+           &=\Null\Gamma+\dim\S
+  \end{align*}
+
+  So then
+  \begin{align*}
+    \Gamma\text{ is injective}
+     &\iff\Null\Gamma=0\desc{\autoref{f68db52}}                                 \\
+     &\iff\dim\P=\dim\S                                                         \\
+     &\iff\dim(V_1\times\ldots\times V_m)=\dim(V_1+\ldots+V_m)                  \\
+     &\iff\dim V_1+\ldots+\dim V_m=\dim(V_1+\ldots+V_m)\desc{\autoref{b87c7ba}}
+  \end{align*}
+
+  As desired.
+\end{proof}

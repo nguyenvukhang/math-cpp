@@ -1,0 +1,121 @@
+\subsection{Matrix multiplication}\label{aefa5e1}
+
+\Remark{Thinking about matrix multiplication}\label{c3efdcc}
+
+Let $A\in\R^{n\times n}$ and $x\in\R^n$. Let $a_j$ denote the $j$-th column
+within $A$. Then $Ax$ is simply a linear combination of the list $a_j$, using
+$x$ as a list of coefficients:
+$$
+  Ax=\sum_{j=1}^n a_jx_j
+$$
+
+Another useful way of framing it is to observe that the $i$-th element (row) of
+$Ax$ is the dot product of the $i$-th row of $A$ with $x$.
+
+\Lemma{Matrix multiplication is associative}\label{a7d4369}
+
+Let $A,B,C$ be appropriately sized matrices. Then
+$$
+  (AB)C=A(BC)
+$$
+
+\begin{proof}
+  Let $M^i_j$ denote the element at the $i$-th row and $j$-th column of matrix
+  $M$. By definition of \href{d786633}{matrix multiplication},
+  \begin{equation*}
+    [(AB)C]^i_j
+    =\sum_{\ell=1}^m(AB)^i_\ell C^\ell_j
+    =\sum_{\ell=1}^m\biggl(\sum_{k=1}^nA^i_kB^k_\ell\biggr)C^\ell_j
+  \end{equation*}
+
+  Since multiplication in $\R$ is associative, we just need to preserve the
+  terms, hence
+  \begin{align*}
+    [(AB)C]^i_j
+     &=\sum_{k=1}^nA^i_k\biggl(\sum_{\ell=1}^mB^k_\ell C^\ell_j\biggr) \\
+     &=\sum_{k=1}^nA^i_k(BC)^k_j                                       \\
+     &=[A(BC)]^i_j
+  \end{align*}
+
+  To give some intuition, let's use $A\in\R^{3\times2}$, $B\in\R^{2\times4}$,
+  and $C\in\R^{4\times3}$.
+
+  Fixing on the $i$-th row and $j$-th column of the matrix product
+  $ABC\in\R^{3\times3}$, we see that
+  \begin{align*}
+    [(AB)C]^i_j
+     &=(AB)^i_1C^1_j+(AB)^i_2C^2_j+(AB)^i_3C^3_j+(AB)^i_4C^4_j \\
+     &=(A^i_1B^1_1+A^i_2B^2_1)C^1_j                            \\
+     &\ \ +(A^i_1B^1_2+A^i_2B^2_2)C^2_j                        \\
+     &\ \ +(A^i_1B^1_3+A^i_2B^2_3)C^3_j                        \\
+     &\ \ +(A^i_1B^1_4+A^i_2B^2_4)C^4_j                        \\
+     &=A^i_1(B^1_1C^1_j+B^1_2C^2_j+B^1_3C^3_j+B^1_4C^4_j)      \\
+     &\ \ +A^i_2(B^2_1C^1_j+B^2_2C^2_j+B^2_3C^3_j+B^2_4C^4_j)  \\
+     &=A^i_1(BC)^1_j+A^i_2(BC)^2_j                             \\
+     &=[A(BC)]^i_j
+  \end{align*}
+\end{proof}
+
+\Lemma{Left matrix inverse ↔︎ right matrix inverse}\label{d0f9377}
+
+$B$ is the left-\href{ce4daa8}{inverse} of $A$ if and only if it is its
+right-inverse. That is,
+$$
+  BA=I\iff AB=I
+$$
+
+\begin{proof}
+  \begin{align*}
+    BA               &=I                                                   \\
+    \pre{\iff} (BA)B &=IB                                                  \\
+    \pre{\iff} B(AB) &=B\desc{\href{a7d4369}{matrix mult. is associative}} \\
+    \pre{\iff} AB    &=I
+  \end{align*}
+\end{proof}
+
+\Result{Inverse of matrix multiplication}\label{d857d76}
+
+Let $A,B$ be appropriately sized \href{ce4daa8}{invertible} matrices. Then
+$$
+  (AB)^{-1}=B^{-1}A^{-1}
+$$
+
+\begin{proof}
+  We can show that multiplying $AB$ on the left by $B^{-1}A^{-1}$ produces $I$:
+  \begin{align*}
+    (B^{-1}A^{-1})(AB) &=B^{-1}A^{-1}AB\desc{\href{a7d4369}{matrix mult. is associative}} \\
+                       &=B^{-1}B\desc{because $A^{-1}A=I$}                                \\
+                       &=I
+  \end{align*}
+
+  Hence $B^{-1}A^{-1}$ is the left-inverse of $AB$, and by \autoref{d0f9377} it
+  is also the right-inverse of $AB$, and so it is the inverse matrix of $AB$.
+\end{proof}
+
+\Result{Transpose of a matrix multiplication}\label{e8b98fd}
+
+Let $A\in\mathcal F^{m\times n}$ and $B\in\mathcal F^{n\times p}$. Then
+$$
+  (AB)^T=B^TA^T.
+$$
+
+\begin{proof}
+  Let $C:=AB$ and $D:=B^TA^T$. Our goal is to show that $C^T=D$.
+
+  Let $M_{ij}$ denote the element at the $i$-th row and $j$-th column of matrix
+  $M$.
+
+  By \href{d786633}{matrix multiplication},
+  \begin{equation*}
+    C_{ij}=\sum_{k=1}^nA_{ik}B_{kj}
+  \end{equation*}
+
+  and
+  \begin{equation*}
+    D_{ij} =\sum_{k=1}^nB^T_{ik}A^T_{kj}
+    =\sum_{k=1}^nA_{jk}B_{ki}
+    = C_{ji}
+  \end{equation*}
+
+  hence $C^T=D$, completing the proof.
+\end{proof}

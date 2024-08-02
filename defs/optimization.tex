@@ -1,0 +1,48 @@
+\chapter{\texttt{defs::optimization}}\label{f79f734}
+
+\begin{toc}
+  \citem{f7a950f} % Fundamentals
+\end{toc}
+
+\subsection{Fundamentals}\label{f7a950f}
+
+\Definition{The argmin set}\label{b27e478}
+
+The set which minimizes values of $f$ over a domain $X$ is denoted by
+$$
+  \argmin_{x\in X}f:=\Set{x\in X}{f(x)=\inf_Xf}
+$$
+
+where $\inf_Xf$ refers to the \href{ff16df6}{infimum} of the set
+$\Set{f(x)}{x\in X}$.
+
+\Definition{Global/local minima}\label{bc7900e}
+
+Let $X\subseteq\R^n$ and $f:\R^n\to\R$. Then $\bar x\in X$ is called a
+\begin{itemize}
+  \item \textbf{Global minimizer} of $f$ over $X$ if $\bar x\in\argmin_Xf$, i.e.
+        $\forall x\in X:f(\bar x)\leq f(x)$
+  \item \textbf{Local minimizer} of $f$ over $X$ if $\exists\epsilon>0$ such
+        that $\forall x\in X\cap\href{ba35f12}{B_\epsilon(\bar x)}:f(\bar x)\leq f(x)$
+\end{itemize}
+For strict global/local minimizers, the above conditions hold with
+strict inequality.
+
+\Definition{Level set}\label{be6fa5e}
+
+For $f:\R^n\to\R$ the level set for the level $c\in\R$ is given by
+$$
+  f^{-1}(\{c\})=\Set{x\in\R^n}{f(x)=c}
+$$
+
+That is, the set of all $x\in\R^n$ which $f$ sends to $c$.
+
+\Definition{Lower level set}\label{d6589cc}
+
+For $f:\R^n\to\R$ the lower level set (or \textit{sublevel} set) of $f$ to the
+level $c\in\R$ is
+$$
+  \text{lev}_cf:=f^{-1}((-\infty,c])=\Set{x\in\R^n}{f(x)\leq c}
+$$
+
+That is, the set of all $x\in\R^n$ that $f$ sends to a value $\leq c$.

@@ -1,0 +1,252 @@
+\subsection{Numerical integration}\label{f792227}
+
+\Problem{Integration estimation}\label{db6037a}
+
+Given a function $f:\R\to\R$ and the interval $[a,b]$, the task is to estimate
+the value of
+$$
+  \int_a^bf(x)\,dx
+$$
+
+\Lemma{Expanding a definite integral by Taylor series}\label{b024138}
+
+Consider the definite integral
+$$
+  \int_a^bf(x)\,dx
+$$
+
+Expanding this about $m$ by the \href{ab7e885}{Taylor series}, the midpoint of
+$a$ and $b$, we only have odd-powered terms:
+$$
+  \int_a^bf(x)\,dx=f(m)(b-a)+\frac{f''(m)}3\biggl(\frac{b-a}2\biggr)^3+\frac{f^{(4)}(m)}{60}\biggl(\frac{b-a}2\biggr)^5+\ldots
+$$
+
+\begin{proof}
+  Expanding $f$ about $m:=\frac{a+b}2$ using the \href{ab7e885}{Taylor series},
+  we have
+  $$
+    f(x)=f(m)+f'(m)(x-m)+\frac{f''(m)}{2}(x-m)^2+\frac{f'''(m)}{6}(x-m)^3+\ldots
+  $$
+
+  But since $b-m=-(a-m)$, we have
+  $$
+    \int_a^bx-m\,dx=\biggl[\frac12(x-m)^2\biggr]_a^b=\frac12\bigl[(b-m)^2-(a-m)^2\bigr]=0
+  $$
+
+  Similarly, integrating all odd powers of $(x-m)$ will return $0$ as a result
+  of this cancellation causes by $b-m=-(a-m)$. Integrating the remaining powers
+  gives the desired result.
+\end{proof}
+
+\Algorithm{Midpoint rule}\label{adcfc4b}
+
+Here, we \href{db6037a}{estimate an integral} by taking the area of the
+rectange of width $b-a$ and height $f(\frac12(b+a))$ (hence \textbf{midpoint}).
+This works out to be
+$$
+  \int_a^bf(x)\,dx\approx(b-a)f\biggl(\frac{b+a}{2}\biggr)
+$$
+
+\Remark{Midpoint rule error term}\label{bdcd805}
+
+Using the \href{adcfc4b}{Midpoint rule} to estimate the value of an definite
+integral, the error we get is approximately
+$$
+  \frac{|f''(m)|}{24}(b-a)^3,\with{(m:=\frac{a+b}{2})}
+$$
+
+\begin{proof}
+  First, we \href{b024138}{expand} $\int_a^bf(x)\,dx$ about $m:=\frac{a+b}2$ by
+  the Taylor series to obtain
+  $$
+    \int_a^bf(x)\,dx=f(m)(b-a)+\frac{f''(x)}3\biggl(\frac{b-a}2\biggr)^3+\frac{f^{(4)}(x)}{60}\biggl(\frac{b-a}2\biggr)^5+\ldots
+  $$
+
+  Observe that the first term is the output of the \href{adcfc4b}{Midpoint
+  rule}. We call this $M$ and write
+  $$
+    \int_a^bf(x)\,dx=M+\frac{f''(x)}3\biggl(\frac{b-a}2\biggr)^3+\frac{f^{(4)}(x)}{60}\biggl(\frac{b-a}2\biggr)^5+\ldots
+  $$
+
+  and so we have the Midpoint rule estimation error
+  $$
+    \int_a^bf(x)\,dx-M=\frac{f''(x)}3\biggl(\frac{b-a}2\biggr)^3+\frac{f^{(4)}(x)}{60}\biggl(\frac{b-a}2\biggr)^5+\ldots
+  $$
+
+  If the interval is short enough such that $(b-a)^3\gg(b-a)^5$, then the error
+  is given by
+  $$
+    \biggl|\int_a^bf(x)\,dx-M\biggr|\approx\frac {|f''(m)|}{24}(b-a)^3
+  $$
+\end{proof}
+
+\Algorithm{Trapezoid rule}\label{c0b34f3}
+
+Here, we \href{db6037a}{estimate an integral} by taking the area of the
+trapezoid bounded by the four points $(a,0)$, $(b,0)$, $(a,f(a))$, and
+$(b,f(b))$. This works out to be
+$$
+  \int_a^bf(x)\,dx\approx(b-a)\frac{f(b)+f(a)}{2}
+$$
+
+\Remark{Trapezoid rule error term}\label{cd8528b}
+
+Using the \href{c0b34f3}{Trapezoid rule} to estimate the value of an definite
+integral, the error we get is approximately
+$$
+  \frac{|f''(m)|}{12}(b-a)^3,\with{(m:=\frac{b+a}{2})}
+$$
+
+\begin{proof}
+  Consider the \href{ab7e885}{Taylor series expansion} around
+  $m:=\frac{a+b}{2}$:
+  $$
+    f(x)=f(m)+f'(m)(x-m)+\frac{f''(m)}{2}(x-m)^2+\frac{f'''(m)}{6}(x-m)^3+\ldots
+  $$
+
+  Now, consider $f(a)+f(b)$. Since $b-m=-(a-m)$, the terms with odd exponents
+  cancel each other out, and we have
+  \begin{equation*}
+    f(a)+f(b)=2f(m)+f''(m)\biggl(\frac{b-a}2\biggr)^2+\frac{f^{(4)}(m)}{12}\biggl(\frac{b-a}2\biggr)^4+\ldots\Tag{*}
+  \end{equation*}
+
+  Let $T$ be the estimation by \href{c0b34f3}{Trapezoid rule}. Then we have
+  \begin{align*}
+    T &\href{c0b34f3}{=}(b-a)\frac{f(b)+f(a)}{2}                                                                                 \\
+      &=\frac{b-a}2\biggl[2f(m)+f''(m)\biggl(\frac{b-a}2\biggr)^2+\frac{f^{(4)}(m)}{12}\biggl(\frac{b-a}2\biggr)^4+\ldots\biggr] \\
+      &=f(m)(b-a)+f''(m)\biggl(\frac{b-a}2\biggr)^3+\frac{f^{(4)}(m)}{12}\biggl(\frac{b-a}2\biggr)^5+\ldots
+  \end{align*}
+
+  Then, by \href{b024138}{this lemma}, we have
+  $$
+    T-\int_a^bf(x)\,dx=\frac{f''(m)}{12}(b-a)^3+\frac{f^{(4)}((m))}{480}(b-a)^5+\ldots
+  $$
+
+  If the interval is short enough such that $(b-a)^3\gg(b-a)^5$, then the error
+  is given by
+  $$
+    \biggl|\int_a^bf(x)\,dx-T\biggr|\approx\frac {|f''(m)|}{12}(b-a)^3
+  $$
+\end{proof}
+
+\Algorithm{Simpson's rule}\label{a4f90dc}
+
+Here, we \href{db6037a}{estimate an integral} by finding the midpoint $m$ of
+$a$ and $b$, then using the quadratic that \href{a33bce0}{interpolates} the
+three points as an approximation of $f$.
+
+In particular, the quadratic is given by
+$$
+  p(x):=f(a)\frac{(x-m)(x-b)}{(a-m)(a-b)}
+  +f(m)\frac{(x-a)(x-b)}{(m-a)(m-b)}
+  +f(b)\frac{(x-a)(x-m)}{(b-a)(b-m)}
+$$
+
+Integrating and simplifying yields
+$$
+  \int_a^bf(x)\,dx\approx\int_a^bp(x)\,dx=\frac{b-a}6\bigl[f(a)+4f(m)+f(b)\bigr]
+$$
+
+\Remark{Simpson's rule error term}\label{a0a6c2c}
+
+Using the \href{a4f90dc}{Simpson's rule} to estimate the value of an definite
+integral, the error we get is approximately
+$$
+  \frac{|f^{(4)}(m)|}{2880}(b-a)^5,\with{(m:=\frac{b+a}{2})}
+$$
+
+\begin{proof}
+  Let $F:=\int_a^bf(x)\,dx$. Let $S$ be the estimation of $F$ by
+  \href{a4f90dc}{Simpson's rule}, $M$ be the estimation of $F$ by the
+  \href{adcfc4b}{Midpoint rule}, and $T$ be the estimation of $F$ by the
+  \href{c0b34f3}{Trapezoid rule}.
+
+  Observe that $S=\frac23M+\frac13T$. Since $M=f(m)(b-a)$, we mostly refer to
+  previous calculations of \href{cd8528b}{$T$}, and write
+  $$
+    S=f(m)(b-a)+\frac{f''(m)}{3}\biggl(\frac{b-a}{2}\biggr)^3
+    +\frac{f''(m)}{36}\biggl(\frac{b-a}{2}\biggr)^5+\ldots
+  $$
+
+  \href{b024138}{and so} we have the error term
+  $$
+    S-\int_a^bf(x)\,dx=-\frac{f''(m)}{2880}\biggl(\frac{b-a}{2}\biggr)^5+\ldots
+  $$
+
+  If the interval is short enough such that $(b-a)^5\gg(b-a)^7$, then the error
+  is given by
+  $$
+    \biggl|\int_a^bf(x)\,dx-S\biggr|\approx\frac {|f^{(4)}(m)|}{2880}(b-a)^5
+  $$
+\end{proof}
+
+\Algorithm{Simpson's 3/8 rule}\label{f6c4ae6}
+
+Here, we \href{db6037a}{estimate an integral} by splitting $a$ and $b$ into
+three intervals, such that $x_0=a$, $x_3=b$, and $x_1,x_2$ are evenly spaced:
+$$
+  x_k:=\tfrac{k}3a+(1-\tfrac{k}3b)\with{(k=0,1,2,3)}
+$$
+
+then we interpolate these points with a cubic polynomial (much like
+\href{a4f90dc}{before} in the quadratic case; also, see \href{dda7795}{this}),
+giving
+\begin{align*}
+  p(x):=f(x_0)\frac{(x-x_1)(x-x_2)(x-x_3)}{(x_0-x_1)(x_0-x_2)(x_0-x_3)}
+   &+f(x_1)\frac{(x-x_0)(x-x_2)(x-x_3)}{(x_1-x_0)(x_1-x_2)(x_1-x_3)} \\
+  +f(x_2)\frac{(x-x_0)(x-x_1)(x-x_3)}{(x_2-x_0)(x_2-x_1)(x_2-x_3)}
+   &+f(x_3)\frac{(x-x_0)(x-x_1)(x-x_2)}{(x_3-x_0)(x_3-x_1)(x_3-x_2)}
+\end{align*}
+
+Integrating and simplifying yields
+$$
+  \int_a^bf(x)\,dx\approx\int_a^bp(x)\,dx=\frac{b-a}8\bigl[f(x_0)+3f(x_1)+3f(x_2)+f(x_3)\bigr]
+$$
+
+\Remark{Simpson's 3/8 rule error term}\label{e8f005e}
+
+Using the \href{a4f90dc}{Simpson's rule} to estimate the value of an definite
+integral, the error we get is approximately
+$$
+  \frac{|f^{(4)}(m)|}{6480}(b-a)^5,\with{(m:=\frac{b+a}{2})}
+$$
+
+\begin{proof}
+  Let $F:=\int_a^bf(x)\,dx$. Let $\Theta$ be the estimation of $F$ by
+  \href{f6c4ae6}{Simpson's 3/8 rule}. Then
+  $$
+    \Theta=\frac{b-a}8\bigl[f(x_0)+3f(x_1)+3f(x_2)+f(x_3)\bigr]
+  $$
+
+  Much like the proof of the \href{cd8528b}{Trapezoid rule error term},
+  consider $f(x_1)+f(x_2)$, and we take the Taylor expansion of both terms
+  around their midpoint $m=\frac{a+b}2$. The odd-powered terms cancel again,
+  and we are left with
+  \begin{align*}
+    f(x_1)+f(x_2) &=2f(m)+f''(m)\biggl(\frac{x_2-x_1}2\biggr)^2+\frac{f^{(4)}(m)}{12}\biggl(\frac{x_2-x_1}2\biggr)^4+\ldots \\
+                  &=2f(m)+f''(m)\biggl(\frac{b-a}6\biggr)^2+\frac{f^{(4)}(m)}{12}\biggl(\frac{b-a}6\biggr)^4+\ldots\Tag{*}
+  \end{align*}
+
+  and recall, also from the proof of the \href{cd8528b}{Trapezoid rule error
+  term}, that
+  \begin{align*}
+    f(a)+f(b)=2f(m)+f''(m)\biggl(\frac{b-a}2\biggr)^2+\frac{f^{(4)}(m)}{12}\biggl(\frac{b-a}2\biggr)^4+\ldots\Tag{**}
+  \end{align*}
+
+  Using the value of $(*)$ as $A$ and the value of $(**)$ as B, we have
+  \begin{align*}
+    \Theta &=\frac{b-a}8(B+3A)                                                                                                \\
+           &=f(m)(b-a)+\frac{f''(m)}3\biggl(\frac{b-a}2\biggr)^3+\frac{f^{(4)}(m)}{10368/7}\biggl(\frac{b-a}2\biggr)^5+\ldots
+  \end{align*}
+
+  by \href{b024138}{this lemma}, we have
+  $$
+    \Theta-\int_a^bf(x)\,dx=\frac{f^{(4)}(m)}{6480}(b-a)^5+\ldots
+  $$
+
+  If the interval is short enough such that $(b-a)^5\gg(b-a)^7$, then the error
+  is given by
+  $$
+    \biggl|\int_a^bf(x)\,dx-\Theta\biggr|\approx\frac{|f^{(4)}(m)|}{6480}(b-a)^5
+  $$
+\end{proof}

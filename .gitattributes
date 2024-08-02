@@ -1,0 +1,8 @@
+# to keep the repo strictly TeX/Rust
+Makefile          linguist-vendored
+.github/**/*      linguist-vendored
+
+# TeX plugins
+*.sty             linguist-vendored
+*.cls             linguist-vendored
+headers.sty      -linguist-vendored

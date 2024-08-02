@@ -1,0 +1,127 @@
+\subsection{Invertibility and Isomorphisms}\label{f475f43}
+
+\Proposition{Inverse of a linear map is unique}\label{c2b81d6}
+
+Let $V,W$ be vector spaces and let $T\in\href{ab1f2fb}{\L(V,W)}$. Then the
+inverse of $T$ is unique.
+
+\begin{proof}
+  Let $S_1,S_2$ be two \href{e1ba7ee}{inverses} of $T$. Then
+  $$
+    S_1=S_1I=S_1(TS_2)=(S_1T)S_2=IS_2=S_2
+  $$
+
+  This holds because \href{b42b8cd}{linear map products are associative}, and
+  thus the inverse of $T$ is unique.
+\end{proof}
+
+\Proposition{Linear map is invertible ↔︎ it is bijective}\label{c1de7b1}
+
+A linear map is invertible if and only if it is injective and surjective.
+
+\begin{proof}
+  Let $V,W$ be vector spaces, and let $T\in\href{ab1f2fb}{\L(V,W)}$.
+
+  ($\implies$) Now, suppose $T$ is \href{e1ba7ee}{invertible}. To show that $T$
+  is injective, suppose $u,v\in V$ and $T(u)=T(v)$. Then
+  $$
+    u=T^{-1}(T(u))=T^{-1}(T(v))=v
+  $$
+
+  so $u=v$, hence $T$ is injective.
+
+  To show that $T$ is surjective, let $w\in W$. Then we have the element
+  $v:=T^{-1}(w)\in V$ such that $T(v)=w$:
+  $$
+    T(v)=T(T^{-1}(w))=w
+  $$
+
+  hence $T$ is surjective.
+
+  ($\impliedby$) Now, suppose $T$ is injective and surjective. We want to prove
+  that $T$ is invertible.
+
+  Let $S:W\to V$. For each $w\in W$, define $S(w)$ to be the unique element of
+  $V$ such that $T(S(w))=w$. The existence of $S(w)$ comes from the
+  surjectivity of $T$, and the uniqueness of $S(w)$ comes from the injectivity
+  of $T$. Then by construction, $TS$ is the identity operator on $W$.
+
+  To prove that $ST$ equals the identity operator on $V$, let $v\in V$. Then
+  \begin{align*}
+    T(ST(v)) &=(TS)(T(v))\desc{\href{b42b8cd}{associativity}} \\
+             &=T(v)\desc{since $TS=I$ from earlier}
+  \end{align*}
+
+  But since $T$ is injective, this implies that $ST(v)=v$ for all $v$, and so
+  $ST=I$.
+
+  Now we have to prove that $S$ is linear. Suppose $w_1,w_2\in W$. Then
+  \begin{align*}
+    T(S(w_1)+S(w_2)) &=T(S(w_1))+T(S(w_2))\desc{by \href{d7d1925}{linearity} of $T$} \\
+                     &=w_1+w_2\desc{since $TS=I$}                                    \\
+                     &=T(S(w_1+w_2))\desc{by defn. of $S$}
+  \end{align*}
+
+  Since $T$ is injective, we have $S(w_1)+S(w_2)=S(w_1+w_2)$.
+
+  Now let $w\in W$ and $\lambda\in\F$. Then
+  \begin{align*}
+    T(\lambda S(w)) &=\lambda T(S(w))\desc{by \href{d7d1925}{linearity} of $T$} \\
+                    &=\lambda w\desc{since $TS=I$}                              \\
+                    &=T(S(\lambda w))\desc{by defn. of $S$}
+  \end{align*}
+
+  Again by $T$'s injectivity, we have $\lambda S(w)=S(\lambda w)$.
+
+  Hence $S$ is a linear map from $W$ to $V$ such that $ST=I$ and $TS=I$, so $S$
+  is the \href{e1ba7ee}{inverse} of $T$, hence $T$ is an invertible linear map.
+\end{proof}
+
+\Theorem{Injective ↔︎ surjective ↔︎ invertible for dimension-preserving linear maps}\label{bd0d827}
+
+Let $V,W$ be vector spaces such that $\dim V=\dim W$ and let
+$T\in\href{ab1f2fb}{\L(V,W)}$. Then
+$$
+  T\text{ is invertible}\iff T\text{ is injective}\iff T\text{ is surjective}
+$$
+
+\begin{proof}
+  By the \href{e83dffc}{Rank-Nullity Theorem},
+  $$
+    \dim V=\Null T+\Rank T
+  $$
+
+  If $T$ is injective, \href{f68db52}{then} $\ker T=\{0\}$ and hence $\Null
+  T=0$. So we must have $\Rank T=\dim V$. By \autoref{a41ddec}, $T$ is
+  surjective.
+
+  This argument is easily reversible to show that surjectivity implies
+  injectivity. Since \href{b2530a8}{all bijective functions are invertible},
+  this completes the proof.
+\end{proof}
+
+\Proposition{$ST=I$ ↔︎ $TS=I$ on vector spaces of the same dimension}\label{ddb6618}
+
+Let $V,W$ be vector spaces such that $\dim V=\dim W$ and let
+$T\in\href{ab1f2fb}{\L(V,W)}$ and $S\in\L(W,V)$. Then $ST=I$ if and only if
+$TS=I$.
+
+\begin{proof}
+  First suppose $ST=I$. If $v\in V$ and $T(v)=0$, then
+  \begin{align*}
+    v &=I(v)                                                 \\
+      &=(ST)(v)                                              \\
+      &=S(T(v))\desc{\href{a6afdc2}{product of linear maps}} \\
+      &=S(0)                                                 \\
+      &=0\desc{\href{c5eb127}{linear maps take 0 to 0}}
+  \end{align*}
+
+  So then $T$ has a trivial kernel, which \href{f68db52}{implies} that it is
+  injective. By \autoref{bd0d827}, $T$ is invertible.
+
+  Now multiply both sides of the equation $ST=I$ by $T^{-1}$ on the right,
+  obtaining $S=T^{-1}$. Thus $TS=TT^{-1}=I$ as desired.
+
+  By symmetry, the converse holds ($TS=I\implies ST=I$), and the proof is
+  complete.
+\end{proof}

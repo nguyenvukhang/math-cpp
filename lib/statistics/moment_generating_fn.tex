@@ -1,0 +1,89 @@
+\subsection{Moment generating functions}\label{a8c5947}
+
+\Definition{Moment generating function}\label{aa65390}
+
+The \textit{moment generating function} of a \href{b96960b}{random variable}
+$X$ is the function $M$ defined by
+$$
+  M(t):=\href{d13ac42}{E}[e^{tX}]
+$$
+
+So when $X$ is \href{f831030}{discrete},
+$$
+  M(t)=\sum_xe^{tx}\href{bcef5f1}{p}(x)
+$$
+
+and when $X$ is \href{bdb1e15}{continuous},
+$$
+  M(t)=\int_{-\infty}^\infty e^{tx}\href{cb9d3f0}{f}(x)\,dx
+$$
+
+\Remark{Generating moments with moment generating functions}\label{a686ce0}
+
+Let $X$ be a \href{bdb1e15}{continuous random variable} and let $M$ be its
+\href{aa65390}{moment generating function}. If $M$ exists on an open interval
+containing 0, then
+$$
+  M^{(n)}(0)=\left.\frac{d^n}{dt^n}M(t)\right|_{t=0}=E[X^n]
+$$
+
+In particular, we have $M'(0)=E[X]$ and $M''(0)=E[X^2]$.
+
+\Remark{Moment generating function of sum of RVs}\label{b57f83d}
+
+Let $X,Y$ be \href{f0da4c0}{independent} and \href{bdb1e15}{continuous} random
+variables, with \href{aa65390}{m.g.f.}'s $M_X$ and $M_Y$. Suppose $Z:=X+Y$.
+Then the moment generating function of $Z$ is given by
+$$
+  M_Z(t)=M_X(t)M_Y(t)
+$$
+
+on the common interval where both m.g.f.'s exist.
+
+\Proposition{Uniqueness of distribution under m.g.f.}\label{cb0747d}
+
+If the \href{aa65390}{moment generating function} exists on an open interval
+containing zero, it uniquely determines the probability distribution.
+
+\Proposition{Properties of moment generating functions}\label{eb8f692}
+
+Let $X,Y$ be \href{bdb1e15}{continuous} random variables, and let $a,b\in\R$.
+Let $M_X,M_Y$ be the \href{aa65390}{moment generating functions} of $X,Y$
+respectively.
+\begin{enumerati}
+  \item If $Y=a+bX$, then $M_Y(t)=e^{at}M_X(bt)$
+\end{enumerati}
+
+\begin{proof}
+  \proofp{(i)} Here, we have $Y=a+bX$.
+  $$
+    M_Y(t)
+    \href{aa65390}{=}E[e^{tY}]
+    =E[e^{t(a+bX)}]
+    =E[e^{at}e^{btX}]
+    \href{e1bddba}{=}e^{at}E[e^{btX}]
+    \href{aa65390}{=}e^{at}M_X(bt)
+  $$
+\end{proof}
+
+\Definition{Joint moment generating function}\label{f75e21a}
+
+If $X,Y$ are \href{ab5a852}{jointly distributed} and \href{bdb1e15}{continuous}
+random variables, their \textit{joint moment generating function} is defined as
+$$
+  M_{XY}(a,b)=E[e^{aX+bY}]
+$$
+
+Like \autoref{cb0747d}, if the joint m.g.f. is defined on an open set that
+contains the origin, it uniquely determines the joint distribution.
+
+The m.g.f. of the marginal distribution $X$ is
+$$
+  M_X(a)=M_{XY}(a,0)
+$$
+
+It can be shown that $X$ and $Y$ are independent if and only if their joint
+m.g.f. factors into the product of the m.g.f.'s of the marginal distributions:
+$$
+  M_{XY}(a,b)=M_X(a)M_Y(b)\iff\text{$X,Y$ are independent}
+$$

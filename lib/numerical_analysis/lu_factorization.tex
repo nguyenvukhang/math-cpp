@@ -1,0 +1,217 @@
+\subsection{LU factorization}\label{d265b53}
+
+\Definition{Gaussian elimination}\label{b1c3071}
+
+This is a general method to solve the system of equations $Ax=b$.
+
+First, use elementary row operations to reduce the given linear system to
+\href{c39b6bf}{upper triangular} form. Then solve the resulting system using
+\href{a0fa0a9}{backward substitution}.
+
+This works because the solution to $Ax=b$ is \href{fd54a50}{invariant} to
+elementary row operations.
+
+\Algorithm{Gaussian elimination}\label{bcdabd2}
+
+Gaussian elimination aims to send all elements below the diagonal to zero
+(thereby achieving upper triangularity). On the first iteration,
+\begin{enumerate}
+  \item subtract $\frac{a_{21}}{a_{11}}\ \times$ the first row from the second
+        row.
+  \item subtract $\frac{a_{31}}{a_{11}}\ \times$ the first row from the third
+        row.
+  \item repeat this to the $n$-th row.
+\end{enumerate}
+
+This produces
+$$
+  (A^{(1)}|b^{(1)})=\begin{pmat}[cccc|c]
+    a_{11} & a_{12}       & \ldots & a_{1n}       & b_1       \\[0.5em]
+    0      & a_{22}^{(1)} & \ldots & a_{2n}^{(1)} & b_2^{(1)} \\[0.5em]
+    \vdots & \vdots       & \ddots & \vdots       & \vdots    \\[0.5em]
+    0      & a_{n2}^{(1)} & \ldots & a_{nn}^{(1)} & b_n^{(1)} \\
+  \end{pmat}
+$$
+
+Next, we ignore the first row and first column and apply the same process on
+the remaining submatrix. Note that this doesn't modify the first row (because
+it is actually untouched) and doesn't modify the first column (because it's all
+zeros)
+
+We then obtain the second iterate:
+$$
+  (A^{(2)}|b^{(2)})=\begin{pmat}[ccccc|c]
+    a_{11} & a_{12}       & \ldots       & \ldots & a_{1n}       & b_1       \\[0.5em]
+    0      & a_{22}^{(1)} & a_{23}^{(1)} & \ldots & a_{2n}^{(1)} & b_2^{(1)} \\[0.5em]
+    \vdots & 0            & a_{33}^{(2)} & \ldots & a_{3n}^{(2)} & b_3^{(2)} \\[0.5em]
+    \vdots & \vdots       & \vdots       & \ddots & \vdots       & \vdots    \\[0.5em]
+    0      & 0            & a_{n3}^{(2)} & \ldots & a_{nn}^{(2)} & b_n^{(2)} \\
+  \end{pmat}
+$$
+
+Doing this $(n-1)$ times, we get
+$$
+  (A^{(n-1)}|b^{(n-1)})=\begin{pmat}[ccccc|c]
+    a_{11} & a_{12}       & \ldots       & \ldots & a_{1n}         & b_1         \\[0.5em]
+    0      & a_{22}^{(1)} & a_{23}^{(1)} & \ldots & a_{2n}^{(1)}   & b_2^{(1)}   \\[0.5em]
+    \vdots & 0            & a_{33}^{(2)} & \ldots & a_{3n}^{(2)}   & b_3^{(2)}   \\[0.5em]
+    \vdots & \vdots       & \ddots       & \ddots & \vdots         & \vdots      \\[0.5em]
+    0      & 0            & 0            & \ldots & a_{nn}^{(n-1)} & b_n^{(n-1)} \\
+  \end{pmat}
+$$
+
+where $A^{(n-1)}$ is upper triangular, and hence can be solved by
+\href{a0fa0a9}{backward substitution}.
+
+The primitive implementation of Gaussian elimination does not account for
+possible zero-division nor errors magnified by division by small numbers.
+
+In pseudocode, this is written as
+
+\begin{pseudocode}
+  \For $k=1:n-1$ \\
+  \tab\For $i=k+1:n$ \\[0.5em]
+  \tab\tab $\ell:=\dfrac{a_{ik}}{a_{kk}}$ \\[0.5em]
+  \tab\tab\For $j=k+1:n$ \\
+  \tab\tab\tab $a_{ij}\gets a_{ij}-\ell\cdot a_{kj}$ \\
+  \tab\tab\End \\
+  \tab\tab $b_i\gets b_i-\ell\cdot b_k$ \\
+  \tab\End \\
+  \End
+\end{pseudocode}
+
+\Remark{Cost of Gaussian elimination}\label{d91901b}
+
+The cost of Gaussian elimination implemented \href{bcdabd2}{here} is given by
+$$
+  \frac23n^3-\frac23n
+$$
+
+\begin{compute}
+  \begin{align*}
+    \sum_{k=1}^{n-1}\sum_{i=k+1}^n(3+([n-(k+1)]+[n-k]))
+     &=\sum_{k=1}^{n-1}\sum_{i=k+1}^n2n-2k+2                                \\
+     &=\sum_{k=1}^{n-1}(n-k)(2n-2k+2)                                       \\
+     &=2\sum_{k=1}^{n-1}(n-k)^2 +2\sum_{k=1}^{n-1}(n-k)                     \\
+     &=2\sum_{k=1}^{n-1}k^2 +2\sum_{k=1}^{n-1}k                             \\
+     &=-2n^2+2\left(\frac{n^3}3+\frac{n^2}2+\frac n6\right)+2\frac{n(n-1)}2
+  \end{align*}
+
+  % [✓ verified]
+  %
+  % ```python
+  % n = 100
+  % c = 0
+  % r = lambda x, y: range(x, y + 1)
+  % for k in r(1, n - 1):
+  %     for i in r(k + 1, n):
+  %         c += 3
+  %         for j in r(k + 1, n):
+  %             c += 2
+  %         c -= 1  # account for the extra + caused by the above loop
+  % print(c, (2 / 3) * (n**3) - (2 / 3) * n)
+  % ```
+\end{compute}
+
+\Definition{LU decomposition}\label{f8b347e}
+
+The process of \href{b1c3071}{Gaussian elimination} in fact decomposes matrix
+$A$ into a product $L\times U$ of a \href{ce94591}{lower triangular matrix} $L$
+and an \href{c39b6bf}{upper triangular matrix} $U$.
+
+Decomposing $A$ into $LU$ is known as LU decomposition.
+
+\Remark{LU decomposition}\label{dbfca19}
+
+Consider the first stage of \href{bcdabd2}{Gaussian elimination}, where we
+obtain $A^{(1)}$ from $A$. We can capture the effect of this step by a lower
+triangular matrix $M^{(1)}$ given by
+$$
+  M^{(1)}=\begin{pmat}
+    1          &   &   &        &   \\
+    -\ell_{21} & 1 &   &        &   \\
+    -\ell_{31} &   & 1 &        &   \\
+    \vdots     &   &   & \ddots &   \\
+    -\ell_{n1} &   &   &        & 1 \\
+  \end{pmat}
+$$
+
+so that we have
+$$
+  A^{(1)}=M^{(1)}A\Quad\text{and}\Quad
+  b^{(1)}=M^{(1)}b
+$$
+
+likewise, the effect of the second step of Gaussian elimination can be
+represented by $M^{(2)}$, given by
+$$
+  M^{(2)}=\begin{pmat}
+    1 &            &   &        &   \\
+      & 1          &   &        &   \\
+      & -\ell_{32} & 1 &        &   \\
+      & \vdots     &   & \ddots &   \\
+      & -\ell_{n2} &   &        & 1 \\
+  \end{pmat}
+$$
+
+so that
+$$
+  A^{(2)}=M^{(2)}A^{(1)}=M^{(2)}M^{(1)}A\Quad\text{and}\Quad
+  b^{(2)}=M^{(2)}b^{(1)}=M^{(2)}M^{(1)}b
+$$
+
+So then we can see that $LU$ is obtained by
+$$
+  U=A^{(n-1)}=M^{(n-1)}\cdots M^{(1)}A
+$$
+
+and
+$$
+  L=[M^{(1)}]^{-1}
+  [M^{(2)}]^{-1}\cdots
+  [M^{(n-1)}]^{-1}
+$$
+
+It can be directly verified that $[M^{(2)}]^{-1}$ is simply $M^{(2)}$ but with
+its $\ell$ terms negated:
+$$
+  [M^{(2)}]^{-1}=\begin{pmat}
+    1 &           &   &        &   \\
+      & 1         &   &        &   \\
+      & \ell_{32} & 1 &        &   \\
+      & \vdots    &   & \ddots &   \\
+      & \ell_{n2} &   &        & 1 \\
+  \end{pmat}
+$$
+
+In turn, it can be directly verified that $L$ is given by
+\begin{align*}
+  L &=[M^{(1)}]^{-1}[M^{(2)}]^{-1}\cdots[M^{(n-1)}]^{-1} \\
+    &=\begin{pmat}
+        1         &           &        &              &   \\
+        \ell_{21} & 1         &        &              &   \\
+        \ell_{31} & \ell_{32} & 1      &              &   \\
+        \vdots    & \vdots    & \ddots & \ddots       &   \\
+        \ell_{n1} & \ell_{n2} & \ldots & \ell_{n,n-1} & 1 \\
+      \end{pmat}
+\end{align*}
+
+And so $L$ encodes all the moves made in Gaussian elimination!
+
+\Algorithm{Solving linear systems with LU decomposition}\label{db12db5}
+
+Given a linear system $Ax=b$, with $A$ as a real non-singular matrix, apply
+\href{f8b347e}{LU decomposition} first:
+$$
+  A=LU
+$$
+
+Then, use \href{a181277}{forward substitution} to solve for $y$ in
+$$
+  Ly=b
+$$
+
+And then, use \href{a0fa0a9}{backward substitution} to solve for $x$ in
+$$
+  Ux=y
+$$

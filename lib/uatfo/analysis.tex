@@ -1,0 +1,29 @@
+\subsection{Analysis}\label{bde6bd5}
+
+\Lemma{}\label{feb7b59}
+
+Suppose that $g:\R\to\R$ is a continuous, and $g\in\href{aa7beb7}{\mathcal
+S'(\R^1)}$. If $g\notin\href{e65fc0e}{\TW}$, then there is a signed Borel
+measure $d\mu$ with $\supp(d\mu)\subseteq[a,b]$, and
+$$
+  \int_{\R^1}g(\lambda x+\theta)d\mu(x)=0
+$$
+
+for all $\lambda\neq0$ and $\theta\in\R^1$.
+
+\begin{proof}
+  Since $g\notin\TW$, the set of all linear combinations
+  $$
+    \sum_{i=1}^Nc_ig(\lambda_ix+\theta_i)\with{(\lambda_i,\theta_i,c_i\in\R,\ i=\iter1N)}
+  $$
+
+  is not dense in $C[a,b]$. Then the Hahn-Banach extension theorem and
+  \href{d9bde94}{Riesz representation} of linear continuous functionals show
+  that there is a signed Borel measure $d\mu$ with $\supp(d\mu)\subseteq[a,b]$,
+  and
+  $$
+    \int_{\R^1}g(\lambda x+\theta)d\mu(x)=0
+  $$
+
+  for all $\lambda\neq0$ and $\theta\in\R^1$.
+\end{proof}

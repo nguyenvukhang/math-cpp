@@ -1,0 +1,178 @@
+\subsection{Kolmogorov's Axioms}\label{e4ebdc3}
+
+\Axiom{Kolmogorov's Three Axioms}\label{f41946e}
+
+Consider an experiment with sample space $S$ and its power set $\mathcal P(S)$.
+Assume that there exists a function $P:\mathcal P(S)\to\R$ that satisfies the
+following three axioms:
+\begin{enumerate}
+  \item [(\textbf{K1})] $0\leq P(E)\leq1$, for all events (subsets) $E$ of $S$.
+  \item [(\textbf{K2})] $P(S)=1$.
+  \item [(\textbf{K3})] For any sequence of \href{a16826f}{mutually exclusive}
+        events $E_1,E_2,\ldots$,
+        $$
+          P\biggl(\bigcup_{i=1}^\infty E_i\biggr)=\sum_{i=1}^\infty P(E_i)
+        $$
+\end{enumerate}
+
+We refer to $P(E)$ as the \textbf{probability} of event $E$.
+
+\Definition{Probability function}\label{fa898fb}
+
+Consider an experiment with sample space $S$. A probability function is any
+function $P:\mathcal P(S)\to\R$ that satisfies \href{f41946e}{Kolmogorov's
+Three Axioms}.
+
+\Proposition{Probability of nothing is zero}\label{a0a9280}
+
+$P(\emptyset)=0$.
+
+\begin{proof}
+  Consider a sequence of \href{a16826f}{mutually exclusive} events
+  $E_1,E_2,\ldots$ where $E_1=S$ and $E_i=\emptyset$ for $i>1$. By
+  \href{f41946e}{(\textbf{K3})},
+  \begin{align*}
+    P\biggl(\bigcup_{i=1}^\infty E_i\biggr) &=\sum_{i=1}^\infty P(E_i)            \\
+    P(S)                                    &=P(S)+\sum_{i=2}^\infty P(\emptyset) \\[-0.8em]
+    \sum_{i=2}^\infty P(\emptyset)          &=0                                   \\
+    P(\emptyset)                            &=0
+  \end{align*}
+\end{proof}
+
+\Proposition{Probability of finite sequence of mutually exclusive events}\label{dfbba22}
+
+For any \textbf{finite} sequence of \href{a16826f}{mutually exclusive} events
+$\iter{E_1}{E_n}$,
+$$
+  P\biggl(\bigcup_{i=1}^nE_i\biggr)=\sum_{i=1}^nP(E_i)
+$$
+
+This statement is significant because sequences referred to by
+\href{f41946e}{(\textbf{K3})} are infinite.
+
+\begin{proof}
+  Consider a sequence of mutually exclusive events $E_1,E_2,\ldots$ where
+  $E_1=S$ and $E_i=\emptyset$ for $i>n$. By \href{f41946e}{(\textbf{K3})},
+  \begin{align*}
+    P\biggl(\bigcup_{i=1}^\infty E_i\biggr)                           &=\sum_{i=1}^\infty P(E_i)                        \\
+    P\biggl(\bigcup_{i=1}^nE_i\ \cup\bigcup_{i=n+1}^\infty E_i\biggr) &=\sum_{i=1}^nP(E_i)+\sum_{i=n+1}^\infty P(E_i)   \\
+    P\biggl(\bigcup_{i=1}^nE_i\biggr)                                 &=\sum_{i=1}^nP(E_i)+0\desc{by \autoref{dfbba22}}
+  \end{align*}
+\end{proof}
+
+\Proposition{Probability of complement is $1-P$}\label{e7dbe57}
+
+$$
+  P(E^c)=1-P(E)
+$$
+
+\begin{proof}
+  By \autoref{dfbba22}, we have
+  $$
+    P(S)=P(E)+P(E^c)
+  $$
+
+  And by \href{f41946e}{(\textbf{K2})}, we have $P(S)=1$, so
+  $$
+    1=P(E)+P(E^c)
+  $$
+\end{proof}
+
+\Proposition{Events subsets have smaller probability}\label{f21f09b}
+
+If $E\subseteq F$, then $P(E)\leq P(F)$.
+
+\begin{proof}
+  \begin{align*}
+    F    &=E\cup (E^c\cap F)                                        \\
+    P(F) &=P(E)+P(E^c\cap F)\desc{by \href{f41946e}{(\textbf{K3})}}
+  \end{align*}
+
+  Then we have $P(E)\leq P(F)$ because $P(E^c\cap F)\geq0$ by
+  \href{f41946e}{(\textbf{K1})}.
+\end{proof}
+
+\Proposition{Probability of union}\label{e1a8453}
+
+For all events $E,F\subseteq S$, we have
+$$
+  P(E\cup F)=P(E)+P(F)-P(E\cap F)
+$$
+
+\begin{proof}
+  First, we have
+  \begin{align*}
+    E\cup F    &= E\cup(E^c\cap F)                                 \\
+    P(E\cup F) &= P(E)+P(E^c\cap F)\desc{\autoref{dfbba22}}\Tag{*}
+  \end{align*}
+
+  Next, we have
+  \begin{align*}
+    F            &= (E\cap F)\cup(E^c\cap F)                        \\
+    P(F)         &= P(E\cap F)+P(E^c\cap F)\desc{\autoref{dfbba22}} \\
+    P(E^c\cap F) &= P(F)-P(E\cap F)\Tag{**}
+  \end{align*}
+
+  Substituting $(**)$ into $(*)$, we obtain
+  $$
+    P(E\cup F)=P(E)+P(F)-P(E\cap F)
+  $$
+\end{proof}
+
+\Proposition{Probability of two unions}\label{e764524}
+
+For all events $E,F,G\subseteq S$, we have
+\begin{align*}
+  P(E\cup F\cup G) &= P(E)+P(F)+P(G)                  \\
+                   &-P(E\cap F)-P(E\cap G)-P(F\cap G) \\
+                   &+P(E\cap F\cap G)
+\end{align*}
+
+\begin{proof}
+  For this proof, for all events $A$ and $B$, we will use $AB$ to denote $A\cap
+  B$.
+  \begin{align*}
+     &P(E\cup F\cup G)                                                                                  \\
+     &=P((E\cup F)\cup G)                                                                               \\
+     &=P(E\cup F)+P(G)-P((E\cup F)G)\desc{\autoref{e1a8453}}                                            \\
+     &=[P(E)+P(F)-P(EF)]+P(G)-P((E\cup F)G)                                                             \\
+     &=[P(E)+P(F)+P(G)]-P(EF)-P((EG)\cup(FG))\desc{\href{fc3d98b}{distributivity of $\cap$ and $\cup$}} \\
+     &=P(E)+P(F)+P(G)-P(EF)-[P(EG)+P(FG)-P(EGFG)]\desc{\autoref{e1a8453}}                               \\
+     &=P(E)+P(F)+P(G)-P(EF)-P(EG)-P(FG)+P(EFG)
+  \end{align*}
+\end{proof}
+
+\Lemma{}\label{e3a2218}
+
+Here's a useful way of expressing a union of $n$ events as a union of $n$
+\href{a16826f}{mutually exclusive events}:
+
+Consider the union of $n$ events $\iter{E_1}{E_n}$. We have (using $AB$ to
+denote $A\cap B$)
+$$
+  \bigcup_{i=1}^nE_i
+  =E_1\cup E_1^cE_2\cup E_1^cE_2^cE_3\cup\ldots\cup E_1^c\ldots E_{n-1}^cE_n
+$$
+
+This is clear because it's the same as saying the union of all the $n$ events
+is the same as $E_1$ occurring, or $E_1$ not occurring but $E_2$ does, or $E_1$
+and $E_2$ doesn't occur but $E_3$ does, and so on.
+
+\Proposition{Bounds of probability of a union}\label{f9f9472}
+
+The probability of a union of events is
+\begin{enumerati}
+  \item Bounded above by the sum of probabilities.
+  $$
+    P\biggl(\bigcup_{i=1}^nE_i\biggr)\leq\sum_{i=1}^nP(E_i)
+  $$
+  \item Bounded below by the sum of probabilities minus the sum of
+        probabilities of pairs of events.
+  $$
+    P\biggl(\bigcup_{i=1}^nE_i\biggr)\geq\sum_{i=1}^nP(E_i)-\sum_{i<j}P(E_i\cap E_j)
+  $$
+  \item This gets too long to narrate.
+  $$
+    P\biggl(\bigcup_{i=1}^nE_i\biggr)\leq\sum_{i=1}^nP(E_i)-\sum_{i<j}P(E_i\cap E_j)+\sum_{i<j<k}P(E_i\cap E_j\cap E_k)
+  $$
+\end{enumerati}

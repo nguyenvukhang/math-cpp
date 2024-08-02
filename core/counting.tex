@@ -1,0 +1,52 @@
+\chapter{\texttt{core::counting}}\label{ec1e13a}
+
+\subsection{Basics}\label{e84f7ed}
+
+\Lemma{Breaking apart the binomial coefficient}\label{e676e33}
+
+$$
+  k\cdot\binom nk = n\cdot\binom{n-1}{k-1}
+$$
+
+\begin{proof}
+  By the \href{aff0ae6}{binomial coefficient formula},
+  \begin{align*}
+    \binom{n-1}{k-1} &=\frac{(n-1)!}{(k-1)![(n-1)-(k-1)]!} \\
+                     &=\frac{(n-1)!}{(k-1)!(n-k)!}\Tag{*}
+  \end{align*}
+
+  So then
+  \begin{align*}
+    \binom nk &=\frac{n!}{k!(n-k)!}\desc{by \href{aff0ae6}{definition}} \\
+              &=\frac{n(n-1)!}{k(k-1)!(n-k)!}                           \\
+              &=\frac nk\cdot\frac{(n-1)!}{(k-1)!(n-k)!}                \\
+              &=\frac nk\cdot\binom{n-1}{k-1}\desc{from $(*)$}
+  \end{align*}
+
+  This completes the proof.
+\end{proof}
+
+\Lemma{}\label{e39bc84}
+
+$$
+  x\binom{x+r-1}{r-1}=r\binom{x+r-1}r
+$$
+
+This may be useful when trying to make the coefficient outside the brackets a
+constant in a sum.
+
+\begin{proof}
+  \begin{equation*}
+    x\binom{x+r-1}{r-1}
+    =x\frac{(x+r-1)!}{(r-1)!x!}
+    =r\frac{(x+r-1)!}{r!(x-1)!}
+    =r\binom{x+r-1}r
+  \end{equation*}
+\end{proof}
+
+\Theorem{Newton's binomial theorem}\label{d972e65}
+
+Let $n\in\Z_+$ and let $x,y\in\R$. Then
+$$
+  (x+y)^n=\sum_{k=0}^n\binom nkx^ny^{n-k}
+$$

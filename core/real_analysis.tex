@@ -1,0 +1,200 @@
+\chapter{\texttt{core::real\_analysis}}\label{fc4a0b3}
+
+\begin{toc}
+  \citem{e3f40a4} % Field theorems
+  \citem{db2402e} % Series
+\end{toc}
+
+\subsection{Field theorems}\label{e3f40a4}
+
+\Result{Immediate results from the Field Axioms}\label{a1bdcab}
+
+Let $(\mathcal F,+,\,\cdot\,)$ be a \href{aec6040}{field}.
+
+For any $a,b,c\in\mathcal F$,
+\begin{enumerati}
+  \item \textit{(Unique additive inverse)} If $a+b=0$ and $a+c=0$, then
+  $b=c\textcolor{slate500}{\ (=-a)}$.
+  \item \textit{(Unique multiplicative inverse)} $\forall a\neq0$, if
+  $a\cdot b=1$ and $a\cdot c=1$, then $b=c\textcolor{slate500}{\ (=a^{-1})}$.
+  \item If $a+b=b$, then $a=0$.
+  \item If $b\neq0$ and $a\cdot b=b$, then $a=1$.
+  \item $a\cdot0=0$.
+  \item If $a\cdot b=0$, then $a=0$ or $b=0$.
+  \item \textit{(Cancellative property)} If $a\neq0$ and $a\cdot b=a\cdot c$, then $b=c$.
+\end{enumerati}
+
+Note that (i) being true means we can assign a notation to the additive inverse
+of every $a\in\mathcal F$. We write $-a$. Likewise for (ii) and the
+multiplicative inverse of every $b\in\mathcal F\sans0$. We write $b^{-1}$.
+
+\begin{proof}
+  It is advised to keep the \href{aec6040}{field axioms} at hand as you walk
+  through these.
+
+  \proofp{(i)} Suppose $a+b=0$ and $a+c=0$. Then
+  \begin{align*}
+    a+b+c &=0+c\desc{by assumption}                     \\
+    a+c+b &=c\desc{commutativity and additive identity} \\
+    0+b   &=c\desc{by assumption}                       \\
+    b     &=c\desc{additive identity}
+  \end{align*}
+
+  \proofp{(ii)} Suppose $a\neq0$, $a\cdot b=1$ and $a\cdot c=1$. Then
+  \begin{align*}
+    a\cdot b\cdot c &=1\cdot c\desc{by assumption}                      \\
+    a\cdot c\cdot b &=c\desc{commutativity and multiplicative identity} \\
+    1\cdot b        &=c\desc{by assumption}                             \\
+    b               &=c\desc{multiplicative identity}
+  \end{align*}
+
+  From this point on, for elements $x\in\mathcal F$, in line with the remark
+  just before the proof, we will use $-x$ to denote its additive inverse, and
+  $1/x$ (if $x\neq0$) to denote its multiplicative inverse.
+
+  \proofp{(iii)} Suppose $a+b=b$. Then
+  \begin{align*}
+    a+b+(-b) &=b+(-b)                    \\
+    a+0      &=0\desc{additive inverse}  \\
+    a        &=0\desc{additive identity}
+  \end{align*}
+
+  \proofp{(iv)} Suppose $a\cdot b=b$ and $b\neq0$. Then
+  \begin{align*}
+    a\cdot b\cdot(1/b) &=b\cdot(1/b)                     \\
+    a\cdot1            &=1\desc{multiplicative inverse}  \\
+    a                  &=1\desc{multiplicative identity}
+  \end{align*}
+
+  \proofp{(v)}
+  \begin{align*}
+    a\cdot0 &= a\cdot0+0\desc{additive identity}                       \\
+            &= a\cdot0+[(a\cdot0)+(-(a\cdot0))]\desc{additive inverse} \\
+            &= (a\cdot0+a\cdot0)+(-(a\cdot0))\desc{associativity}      \\
+            &= a\cdot(0+0)+(-(a\cdot0))\desc{distributivity}           \\
+            &= a\cdot0+(-(a\cdot0))\desc{additive identity}            \\
+            &= 0\desc{additive inverse}
+  \end{align*}
+
+  \proofp{(vi)} Suppose $a\cdot b=0$. Now if $a=0$ then we are done. So
+  suppose that $a\neq0$. Then $1/a$ exists.
+  \begin{align*}
+    a\cdot b\cdot(1/a) &=0\cdot(1/a)                     \\
+    a\cdot b\cdot(1/a) &=0\desc{result (v)}              \\
+    a\cdot(1/a)\cdot b &=0\desc{commutativity}           \\
+    1\cdot b           &=0\desc{multiplicative inverse}  \\
+    b                  &=0\desc{multiplicative identity}
+  \end{align*}
+
+  \proofp{(vii)} Suppose that $a\neq0$ (and hence $1/a$ exists) and $a\cdot
+  b=a\cdot c$. Then
+  \begin{align*}
+    (1/a)\cdot(a\cdot b)  &=(1/a)\cdot(a\cdot c)                      \\
+    ((1/a)\cdot a)\cdot b &=((1/a)\cdot a)\cdot c\desc{commutativity} \\
+    1\cdot b              &=1\cdot c\desc{multiplicative inverse}     \\
+    b                     &= c\desc{multiplicative identity}
+  \end{align*}
+\end{proof}
+
+\subsection{Series}\label{db2402e}
+
+\Proposition{Harmonic series diverges}\label{ffaeb85}
+
+The \href{c9bddda}{harmonic series} is \href{f8901df}{divergent}.
+
+\begin{proof}
+  \def\f#1{\frac1{#1}}
+  \def\r#1{\f{\textcolor{red}{#1}}}
+  \begin{align*}
+     &\mathrel{\phantom{=}}1+\f2+\f3+\f4+\f5+\f6+\f7+\f8+\f9+\f{10}+\ldots \\
+     &\geq1+\f2+\r4+\f4+\r8+\r8+\r8+\f8+\r{16}+\r{16}+\ldots               \\
+     &=1+\f2+\f2+\f2\ldots
+  \end{align*}
+
+  and clearly the last expression is \href{eb71424}{properly divergent}.
+
+  By the \href{d0856d6}{comparison test}, the harmonic series is divergent.
+\end{proof}
+
+\Proposition{Sum of reciprocals of squares of naturals converges}\label{e664113}
+%+Basel problem
+
+This is also known as the \textbf{Basel problem}. The series
+$$
+  \sum_{n=1}^\infty\frac1{n^2}=\frac1{1^2}+\frac1{2^2}+\frac1{3^2}+\ldots
+$$
+
+converges to $\pi^2/6$.
+
+\Result{Sum to $n$ of $kp^k$}\label{a5b19a9}
+
+$$
+  \sum_{k=1}^nkp^k=\frac1{1-p}\biggl(-np^{n+1}+\sum_{k=1}^np^k\biggr)
+$$
+
+In addition if $p<1$, then we also have
+$$
+  \sum_{k=1}^\infty kp^k=\frac p{(1-p)^2}
+$$
+
+\begin{proof}
+  Let $S_n:=\sum_{k=1}^nkp^k$. Then consider $S_n-pS_n$.
+  \begin{align*}
+    S_n-pS_n =(p^1 &+2p^2+3p^3+\ldots+np^n)     \\
+    -(p^2          &+2p^3+3p^4+\ldots+np^{n+1})
+  \end{align*}
+
+  And hence,
+  \begin{align*}
+    S_n-pS_n &=(p^1+p^2+\ldots+p^n)-np^{n+1}                      \\
+    (1-p)S_n &=-np^{n+1}+\sum_{k=1}^np^k                          \\
+    S_n      &=\frac1{1-p}\biggl(-np^{n+1}+\sum_{k=1}^np^k\biggr)
+  \end{align*}
+
+  In addition if $p<1$, then taking the limit as $n\to\infty$ on both sides,
+  \begin{align*}
+    S_\infty
+     &=\frac1{1-p}\lim_{n\to\infty}\biggl(-np^{n+1}+\sum_{k=1}^np^k\biggr)                              \\
+     &=\frac1{1-p}\lim_{n\to\infty}\biggl(0+\sum_{k=1}^np^k\biggr)\desc{by \href{cf2b74d}{this result}} \\
+     &=\frac1{1-p}\biggl(\frac p{1-p}\biggr)\desc{\href{fca26f6}{infinite geometric series}}            \\
+     &=\frac p{(1-p)^2}
+  \end{align*}
+\end{proof}
+
+\Result{Sum to $n$ of $k^2p^k$}\label{ad69980}
+
+If $p<1$, then we have
+$$
+  \sum_{k=1}^\infty k^2p^k=\frac{p^2+p}{(1-p)^3}
+$$
+
+\begin{proof}
+  Let $S_n:=\sum_{k=1}^nk^2p^k$. Let's pre-calculate the terms $S_n$, $pS_n$,
+  and $p^2S_n$.
+
+  \begin{align*}
+    S_n    &=\sum_{k=1}^nk^2p^k                                                     \\
+           &=p+4p^2+\sum_{k=3}^nk^2p^k                                              \\
+    pS_n   &=\sum_{k=1}^nk^2p^{k+1}                                                 \\
+           &=\sum_{k=2}^{n+1}(k-1)^2p^k\desc{shift the sum such that we have $p^k$} \\
+           &=p^2-n^2p^{n+1}+\sum_{k=3}^n(k-1)^2p^k                                  \\
+    p^2S_n &=\sum_{k=1}^nk^2p^{k+2}                                                 \\
+           &=\sum_{k=3}^{n+2}(k-2)^2p^k\desc{shift the sum such that we have $p^k$} \\
+           &=-n^2p^{n+2}-(n-1)^2p^{n+1}+\sum_{k=3}^n(k-2)^2p^k
+  \end{align*}
+
+  Notice that if we take $S_n-2pS_n+p^2S_n$, the terms in the sum
+  ($\sum_{k=3}^n$) will cancel nicely:
+  \begin{align*}
+     &S_n-2pS_n+p^2S_n                                                          \\
+     &=(p+4p^2)-2(p^2-n^2p^{n+1})+(-n^2p^{n+2}-(n-1)^2p^{n+1})+\sum_{k=3}^n2p^k \\
+     &=p+2p^2+(-2n^2+2n-1)p^{n+1}-n^2p^{n+2}+\sum_{k=3}^n2p^k
+  \end{align*}
+
+  Taking the limit as $n\to\infty$ on both sides,
+  \begin{align*}
+    S_n-2pS_n+p^2S_n &=p+2p^2+0-0+\sum_{k=3}^\infty2p^k\desc{by \href{cf2b74d}{this result}} \\
+    S_n(1-2p+p^2)    &=p+2p^2+\frac{2p^3}{1-p}                                               \\
+    S_n              &=\frac{p^2+p}{(1-p)^3}
+  \end{align*}
+\end{proof}

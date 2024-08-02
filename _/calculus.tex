@@ -1,0 +1,167 @@
+\chapter{Calculus}\label{cbe77ad}
+
+\subsection{Common identities}\label{c74a9a5}
+
+\Remark{Trigonometric identities}\label{c1fe42f}
+
+\begin{alignat*}{3}
+  \sin2x & =2\sin x\cos x & \sin^2x          & =\frac{1-\cos2x}2 \\
+  \cos2x & =1-2\sin^2x    & \cos^2x          & =\frac{\cos2x+1}2 \\
+         & =2\cos^2x-1    & \Quadd\quad\quad &
+\end{alignat*}
+
+\begin{align*}
+  \sin(A\pm B) &=\sin A\cos B\pm\cos A\sin B \\
+  \cos(A\pm B) &=\cos A\cos B\mp\sin A\sin B
+\end{align*}
+
+\begin{center}
+  \renewcommand{\arraystretch}{1.5}
+  \begin{tabular}{c|c}
+    $\sin A+\sin B =2\sin(\frac{A+B}2)\cos(\frac{A-B}2)$  & $2\sin A\cos B=\sin(\frac{A+B}2)+\sin(\frac{A-B}2)$  \\
+    $\sin A-\sin B =2\cos(\frac{A+B}2)\sin(\frac{A-B}2)$  & $2\cos A\sin B=\sin(\frac{A+B}2)-\sin(\frac{A-B}2)$  \\
+    $\cos A+\cos B =2\cos(\frac{A+B}2)\cos(\frac{A-B}2)$  & $2\cos A\cos B=\cos(\frac{A+B}2)+\cos(\frac{A-B}2)$  \\
+    $\cos A-\cos B =-2\sin(\frac{A+B}2)\sin(\frac{A-B}2)$ & $-2\sin A\sin B=\cos(\frac{A+B}2)-\cos(\frac{A-B}2)$ \\
+  \end{tabular}
+\end{center}
+
+\Result{Basic trigonometric constants}\label{e1c170b}
+
+Trigonometric preprocessing to finish homework in $O(1)$ time.
+
+\begin{tabular}
+  {|p{1cm}|p{1cm}|p{1cm}|p{1cm}|p{1cm}|p{1cm}|}
+  \hline
+         & 0 & $\pi/6$    & $\pi/4$    & $\pi/3$    & $\pi/2$ \\[0.2em]\hline
+  $\sin$ & 0 & $1/2$      & $1/\sqrt2$ & $\sqrt3/2$ & 1       \\[0.2em]\hline
+  $\cos$ & 1 & $\sqrt3/2$ & $1/\sqrt2$ & $1/2$      & 0       \\[0.2em]\hline
+  $\tan$ & 0 & $1/\sqrt3$ & 1          & $\sqrt3$   & -       \\[0.2em]\hline
+\end{tabular}
+\begin{align*}
+  \sin(-x) &=-\sin(x) \\
+  \cos(-x) &=\cos(x)  \\
+  \tan(-x) &=-\tan(x)
+\end{align*}
+
+\Remark{Differentiation identities}\label{e0367fa}
+
+\paragraph{Product rule} $(uv)'=u'v+uv'$
+
+% \frac{d}{dx}(uv)=u\cdot\frac{dv}{dx}+v\cdot\frac{du}{dx}
+
+\paragraph{Quotient rule} $\displaystyle\left(\frac
+uv\right)'=\frac{u'v-uv'}{v^2}$
+
+(can be derived from product rule using $u$ and $\frac1v$)
+
+\Remark{Integration identities}\label{dbd3301}
+
+\begin{center}
+  \renewcommand{\arraystretch}{2.1}\def\d{\displaystyle}
+  \begin{tabular}{c|c l}
+    $f(x)$                    & $\int f(x)\,dx$                               &                    \\\hline
+    $\dfrac1{x^2+a^2}$        & $\dfrac1a\tan^{-1}\left(\dfrac xa\right)$     &                    \\
+    $\dfrac1{\sqrt{a^2-x^2}}$ & $\sin^{-1}\left(\dfrac xa\right)$             & $(|x|>a)$          \\
+    $\dfrac1{x^2-a^2}$        & $\dfrac1{2a}\ln\left(\dfrac{x-a}{x+a}\right)$ & $(x>a)$            \\
+    $\dfrac1{a^2-x^2}$        & $\dfrac1{2a}\ln\left(\dfrac{a+x}{a-x}\right)$ & $(|x|>a)$          \\
+    $\tan x$                  & $\ln(\sec x)$                                 & $(|x|>\dfrac\pi2)$ \\
+    $\cot x$                  & $\ln(\sin x)$                                 & $(0>x>\pi)$        \\
+    $\sec x$                  & $-\ln(\sec x+\tan x)$                         & $(|x|>\dfrac\pi2)$ \\
+    $\csc x$                  & $-\ln(\csc x+\cot x)$                         & $(0>x>\pi)$        \\
+  \end{tabular}
+\end{center}
+
+\subsection{Theorems}\label{c17e64c}
+
+\Remark{Chain rule}\label{d969d46}
+
+In all the following scenarios, let $h:=f\circ g$.
+
+\paragraph{When $f$ takes a scalar} Let $f,g:\R\to\R$. Then $h:\R\to\R$ and we have
+$$
+  h'(t)=f'(g(t))\cdot g'(t)
+$$
+
+And $f',g':\R\to\R$.
+
+\paragraph{When $f$ takes a vector} Let $g:\R\to\R^n$ and $f:\R^n\to\R$. Then $h:\R\to\R$ and we have
+$$
+  h'(t)=\nabla f(g(t))^Tg'(t)
+$$
+
+Note that $\nabla f(g(t))\in\R^n$ and $g'(t)\in\R^n$.
+
+\paragraph{When $f$ takes a complex number} Let $g:\R\to\C$ and $f:\C\to\R$. Then $h:\R\to\R$.
+
+In particular, we write $g(t)=g_1(t)+ig_2(t)$ and $f:x+iy\mapsto f(x+iy)$.
+
+Interestingly, we still have
+$$
+  (f\circ g)'(t) =
+  f_x(g(t))\cdot {g_1}'(t)+f_y(g(t))\cdot {g_2}'(t)
+$$
+
+Note the lack of $i$ terms on the term with ${g_2}'$. This is intentional.
+
+Remember anyway that $f\circ g:\R\to\R$, and so we must have $(f\circ
+g)':\R\to\R$.
+
+\Theorem{Fundamental theorem of calculus}\label{b869dc0}
+
+\paragraph{First part} Let $f:[a,b]\to\R$ be continuous. Let $F:[a,b]\to\R$ be defined by
+$$
+  F(x)=\int_a^xf(t)\,dt
+$$
+
+Then $F$ is uniformly continuous on $[a,b]$ and differentiable on $(a,b)$, and
+$$
+  F'(x)=f(x)
+$$
+
+on $(a,b)$ so $F$ is an antiderivative of $f$.
+
+\paragraph{Corollary}
+$$
+  \int_a^bf(t)\,dt=F(b)-F(a)
+$$
+
+\paragraph{Second part} Let $f:[a,b]\to\R$. Let $F:[a,b]\to\R$ be continuous and also the
+antiderivative of $f$ in $(a,b)$. If $f$ is Riemann integrable on $[a,b]$, then
+$$
+  \int_a^bf(t)\,dt=F(b)-F(a)
+$$
+
+This is stronger than the corollary because it does not assume that $f$ is
+continuous.
+
+\Theorem{Leibniz integral rule}\label{f436430}
+
+For integrals of the form
+$$
+  \int_{a(x)}^{b(x)}f(x,t)\,dt
+$$
+
+where $-\infty<a(x),b(x)<\infty$, and the integrands are functions dependent on
+$x$, the derivative of this integral with respect to $x$ is
+$$
+  \frac d{dx}\biggl(\int_{a(x)}^{b(x)}f(x,t)\,dt\biggr)=f(x,b(x))\frac d{dx}b(x)-f(x,a(x))\frac d{dx}a(x)+\int_{a(x)}^{b(x)}\frac{\partial}{\partial x}f(x,t)\,dt
+$$
+
+In the special case where $a,b$ are constant functions, this reduces to
+$$
+  \frac d{dx}\biggl(\int_{a(x)}^{b(x)}f(x,t)\,dt\biggr)=\int_{a(x)}^{b(x)}\frac{\partial}{\partial x}f(x,t)\,dt
+$$
+
+\subsection{Results}\label{f918fee}
+
+\Proposition{Jacobian is the transpose of the gradient}\label{fe31c7f}
+
+Let $\mathbf f:\R^n\to\R^m$. Then the \href{b648d41}{Jacobian} matrix of
+$\mathbf f$ is the transpose of the \href{fd680ed}{gradient} of $\mathbf f$.
+
+This follows immediately from the respective definitions.
+
+This statement is equivalently
+$$
+  \frac{dC}{da}=(\nabla_aC)^T
+$$

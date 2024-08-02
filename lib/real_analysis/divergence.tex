@@ -1,0 +1,82 @@
+\subsection{Divergence}\label{fb410c1}
+
+\Theorem{Criteria for proper divergence}\label{dfd30ec}
+
+If a sequence $\{x_n\}$ is increasing and not bounded above, then
+$x_n\to\infty$. ($\{x_n\}$ is \href{eb71424}{properly divergent})
+
+\begin{proof}
+  Let $M>0$. Since $\{x_n\}$ is not bounded above, there exists $K\in\N$ such
+  that
+  $$
+    x_K>M
+  $$
+
+  Since $\{x_n\}$ is increasing, $x_n\geq x_K$ for all $n\geq K$. Thus
+  $$
+    x_n>M,\with{\forall n\geq K}
+  $$
+\end{proof}
+
+\Theorem{Transitivity of little $o$ sequences}\label{d0cc0f9}
+
+If $x_n=\href{ab54b3a}{o(y_n)}$ and $y_n=o(z_n)$, then $x_n=o(z_n)$.
+
+\begin{proof}
+  Since $x_n=o(y_n)$ and $y_n=o(z_n)$, we have
+  $$
+    \lim_{n\to\infty}\frac{x_n}{y_n}=0\;\text{ and }\;
+    \lim_{n\to\infty}\frac{y_n}{z_n}=0
+  $$
+
+  and hence we have
+  \begin{equation*}
+    \lim_{n\to\infty}\frac{x_n}{z_n}
+    =\lim_{n\to\infty}\frac{x_n}{y_n}\cdot\frac{y_n}{z_n}
+    =\lim_{n\to\infty}\frac{x_n}{y_n}\cdot\lim_{n\to\infty}\frac{y_n}{z_n}
+    =0\cdot0=0
+  \end{equation*}
+\end{proof}
+
+\Proposition{Comparing properly divergent sequences}\label{a7e3707}
+
+Fix $k,\ell\in\N$ and $a,b\in\R$ such that $k<\ell$ and $1<a<b$. Then we have
+$$
+  n^k\ll n^\ell\ll a^n\ll b^n\ll n!
+$$
+
+\begin{proof}
+  $n^k\ll n^\ell$ follows from
+  $\displaystyle\lim_{n\to\infty}\frac1{n^{\ell-k}}=0$ (referenced in
+  \autoref{d44aef3}).
+
+  $n^\ell\ll a^n$ follows from \href{cf2b74d}{this result}.
+
+  $a^n\ll b^n$ follows from
+  \begin{align*}
+    \lim_{n\to\infty}\frac{a^n}{b^n}
+     &=\lim_{n\to\infty}\left(\frac{a}{b}\right)^n           \\
+     &=0\desc{by \autoref{b88d621}, since $0\leq\frac ab<1$}
+  \end{align*}
+
+  Finally, on to proving $b^n\ll n!$. By the \href{fbc2289}{Archimedean
+  Property of $\R$}, there is an $n_b\in\N$ such that $b<n_b$.
+
+  Consider $b^n/n!$ and splitting out the first (finite) $n_b$ terms:
+  \begin{align*}
+    \lim_{n\to\infty}\frac{b^n}{n!}
+     &=\lim_{n\to\infty}\left(\frac{b^{n_b}}{1\times2\times\ldots\times n_b}
+    \cdot\frac{b\times b\times\ldots}{(n_b+1)\times\ldots}\right)            \\
+     &=\frac{b^{n_b}}{1\times2\times\ldots\times n_b}
+    \cdot\lim_{n\to\infty}\frac{b\times b\times\ldots}{(n_b+1)\times\ldots}
+  \end{align*}
+
+  Observe that the first term is finite, while the second term tends to zero
+  because every term in the numerator corresponds to a larger term in the
+  denominator. Hence we have
+  $$
+    \lim_{n\to\infty}\frac{b^n}{n!}=0
+  $$
+
+  This completes the proof.
+\end{proof}

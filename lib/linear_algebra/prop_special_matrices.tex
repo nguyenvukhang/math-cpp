@@ -1,0 +1,95 @@
+\subsection{Properties of special matrices}\label{afa6fb7}
+
+\Lemma{$A^TA$ is symmetric}\label{a1d41cd}
+
+Let $A\in\mathcal F^{m\times n}$. Then $A^TA$ is symmetric.
+
+\begin{proof}
+  Let $M^i_j$ be the element at the $i$-th row and $j$-th column of matrix $M$.
+  \begin{align*}
+    (A^TA)^i_j &=\sum_{k=1}^m(A^T)^i_kA^k_j \\
+               &=\sum_{k=1}^mA^k_iA^k_j     \\
+               &=\sum_{k=1}^m(A^T)^j_kA^k_i \\
+               &=(A^TA)^j_i
+  \end{align*}
+
+  Hence $A^TA$ is symmetric.
+\end{proof}
+
+\Lemma{Inverse of a lower triangular matrix is lower triangular}\label{b715552}
+
+Let $L\in\mathcal F^{n\times n}$ be a \href{ce94591}{lower triangular} matrix.
+Then $L^{-1}$ is also a lower triangular matrix.
+
+\begin{proof}
+  Let's break out $L^{-1}$ into its columns:
+  $$
+    L^{-1}=\begin{pmat}y_1 & \cdots & y_n\end{pmat}
+  $$
+
+  and by \href{ce4daa8}{definition}, we have
+  $$
+    LL^{-1}=I=\begin{pmat}e_1 & \cdots & e_n\end{pmat}
+  $$
+
+  where $\iter{e_1}{e_n}$ are the \href{c01037d}{canonical basis vectors}. But
+  notice that
+  $$
+    LL^{-1}
+    =L\begin{pmat}y_1 & \cdots & y_n\end{pmat}
+    =\begin{pmat}Ly_1 & \cdots & Ly_n\end{pmat}
+  $$
+
+  which then means that $Ly_k=e_k$ for $k=\iter1n$. It can now be directly
+  verified (by matrix multiplication on $Ly_k=e_k$) that since $L$ is lower
+  triangular, $y_k$ must have only zeros above the $k$-th row too.
+
+  And hence $L^{-1}$ is lower triangular.
+\end{proof}
+
+\Lemma{Inverse of a upper triangular matrix is upper triangular}\label{a8f4ca9}
+
+Let $L\in\mathcal F^{n\times n}$ be a \href{c39b6bf}{upper triangular} matrix.
+Then $L^{-1}$ is also a upper triangular matrix.
+
+\begin{proof}
+  Refer to the proof of \autoref{b715552}, and replace all instances of ``lower"
+  with ``upper".
+\end{proof}
+
+\Proposition{$vv^*$ is Hermitian}\label{dd38b0c}
+
+Let $v\in\mathcal F^n$, and let $v^*$ be its \href{abdc1e4}{conjugate
+transpose}. Then $vv^*$ is \href{a633178}{Hermitian}.
+
+If $\mathcal F=\R$, then this claim reduces to that $vv^T$ is
+\href{adcfa41}{symmetric}.
+
+\begin{proof}
+  Let $x_i$ be the $i$-element of $x$, and let $M^i_j$ be the element at the
+  $i$-th row and $j$-th column of $M$. By regular matrix multiplication,
+
+  Now, let $A:=vv^*$. Then we have
+  \begin{equation*}
+    A^i_j
+    =v_iv^*_j
+    =v_i\overline{v_j}
+    =\overline{\overline{v_i}v_j}
+    =\overline{v_jv^*_i}
+    =\overline{A^j_i}
+  \end{equation*}
+\end{proof}
+
+\Proposition{Sum of Hermitian matrices is Hermitian}\label{a2ea95a}
+
+Let $A,B$ be \href{a633178}{Hermitian}. Then $A+B$ is Hermitian.
+
+\begin{proof}
+  Let $M^i_j$ be the element at the $i$-th row and $j$-th column of $M$.
+  \begin{equation*}
+    (A+B)^i_j=A^i_j+B^i_j
+    =\overline{A^j_i}+\overline{B^j_i}
+    =\overline{A^j_i+B^j_i}
+    =\overline{(A+B)^j_i}
+  \end{equation*}
+\end{proof}

@@ -1,0 +1,300 @@
+\subsection{Alternating series}\label{e102e0b}
+
+\Definition{Alternating series}\label{b582bde}
+
+An alternating series is of the form
+$$
+  \sum_{k=1}^\infty(-1)^{k+1}a_k=a_1-a_2+a_3-a_4+\ldots
+$$
+
+or
+$$
+  \sum_{k=1}^\infty(-1)^{k}a_k=-a_1+a_2-a_3+a_4-\ldots
+$$
+
+with each $a_k\geq0$.
+
+\Lemma{Convergence of all partitions → general convergence}\label{cca7bfc}
+%+All partitions of a sequence converge → entire sequence converges
+
+Let $\{a_n\}$ be a \href{b5fa0e4}{sequence}. If we can partition the set $\N$
+into finitely many partitions $\{\iter{P_1}{P_n}\}$, where each
+$P_i\subseteq\N$, and all the subsequences
+$\iter{\{a_k\}_{k\in{P_1}}}{\{a_k\}_{k\in{P_n}}}$ converge to the same value
+$L$, then
+$$
+  \lim_{n\to\infty}a_n=L\desc{see: \href{e565120}{$\lim$}}
+$$
+
+In particular, if the odd terms of a sequence converges to $L$, and so do the
+even terms, then the entire sequence converges to $L$.
+
+\begin{proof}
+  WLOG, we shall prove this for when we partition $\{a_n\}$ into two
+  subsequences: $\{a_n\}$ where $n$ is odd, and $\{a_n\}$ where $n$ is even.
+
+  Let $A$ be the set of all odd natural numbers, and let $B$ be the set of all
+  even natural numbers. Then we write the two subsequences as $\{a_k\}_{k\in
+  A}$ and $\{a_k\}_{k\in B}$.
+
+  Let $\epsilon>0$ be given.
+
+  \href{e565120}{Since} the subsequence $\{a_k\}_{k\in A}\to L$, there exists
+  $K_A\in\N$ such that for all $k\geq K_A$ where $k$ is odd,
+  $$
+    |a_k-L|<\epsilon\with{(k\in A)}
+  $$
+
+  Similarly, there exists $K_B\in\N$ such that for all $k\geq K_B$,
+  $$
+    |a_k-L|<\epsilon\with{(k\in B)}
+  $$
+
+  Hence, we take $K:=\max\{K_A,K_B\}$, so that both constraints above are met.
+  Now, for any $k\geq K$, where $k\in\N$, we either have $k\in A$ or $k\in B$.
+  In any case, we will always have
+  $$
+    |a_k-L|<\epsilon\with{(k\in\N)}
+  $$
+
+  and \href{e565120}{hence} $\{a_n\}_{n\in\N}\to L$.
+\end{proof}
+
+\Theorem{Convergence of alternating series}\label{a0d7ad6}
+
+Let $\sum_{k=1}^\infty(-1)^{k+1}a_k$ (or $\sum_{k=1}^\infty(-1)^{k}a_k$) be an
+\href{b582bde}{alternating series}. Suppose that
+\begin{enumerati}
+  \item $a_n\geq0$ for all $n$.
+  \item $\{a_n\}$ is \href{feae1b2}{decreasing}.
+  \item $\lim_{n\to\infty}a_n=0$.
+\end{enumerati}
+
+Then the alternating series $\sum_{k=1}^\infty(-1)^{k+1}a_k$ (or respectively
+$\sum_{k=1}^\infty(-1)^{k}a_k$) is convergent.
+
+\begin{proof}
+  We will only prove for the alternating series
+  $\sum_{k=1}^\infty(-1)^{k+1}a_k$. The proof for the other series
+  $\sum_{k=1}^\infty(-1)^{k}a_k$ is similar.
+
+  Let $s_n:=\sum_{k=1}^n(-1)^{k+1}a_k$, where $n\in\N$. Then for all $n\in\N$,
+  $$
+    s_{2(n+1)}=s_{2n}+(a_{2n+1}-a_{2n+2})\geq s_{2n}\desc{because $\{a_n\}$ is \href{feae1b2}{decreasing}}
+  $$
+
+  and
+  $$
+    s_{2n+1}=s_{2n-1}-a_{2n}+a_{2n+1}\leq s_{2n-1}
+  $$
+
+  Hence, $\{s_{2n}\}_{n\in\N}$ (sequence of even terms) is increasing, and
+  $\{s_{2n-1}\}_{n\in\N}$ (sequence of odd terms) is decreasing. Moreover,
+  $$
+    0\leq s_2\leq s_{2n}\leq s_{2n}+a_{2n+1}=s_{2n+1}\leq s_1=a_1\with{(n\in\N)}
+  $$
+
+  Hence both $\{s_{2n}\}_{n\in\N}$ and $\{s_{2n-1}\}_{n\in\N}$ are
+  \href{d5ed299}{bounded sequences}. Thus, by \href{cc11aa4}{MCT}, both
+  $\{s_{2n}\}_{n\in\N}$ and $\{s_{2n-1}\}_{n\in\N}$ are convergent.
+
+  By (iii), we have
+  $$
+    \lim_{n\to\infty}s_{2n}=
+    \lim_{n\to\infty}s_{2n-1}-\lim_{n\to\infty}a_{2n}=
+    \lim_{n\to\infty}s_{2n-1}-0=
+    \lim_{n\to\infty}s_{2n-1}
+  $$
+
+  Since $\{s_{2n}\}_{n\in\N}$ and $\{s_{2n-1}\}_{n\in\N}$ have the same limit,
+  it \href{cca7bfc}{follows that} $\{s_{n}\}_{n\in\N}$ converges.
+\end{proof}
+
+\Theorem{Absolute convergence → general convergence}\label{e8bb6e3}
+
+If the series $\sum_{k=1}^\infty a_k$ \href{f823d65}{converges absolutely},
+then it \href{f8901df}{converges}.
+
+\begin{proof}
+  Let $\epsilon>0$ be given. Since the series $\sum_{k=1}^\infty|a_k|$
+  converges, it follows from the \href{ae59546}{Cauchy criterion for series}
+  that there exists $K=\href{a2d79c4}{K(\epsilon)}\in\N$ such that
+  \begin{equation*}
+    {m>n\geq K}\implies\bigl||a_{n+1}|+|a_{n+2}|+\ldots+|a_m|\bigr|<\epsilon\Tag{*}
+  \end{equation*}
+
+  By the \href{f1288ad}{triangle inequality} and $(*)$, we have for all
+  $m>n\geq K$,
+  $$
+    |a_{n+1}+a_{n+2}+\ldots+a_m|\leq|a_{n+1}|+|a_{n+2}|+\ldots+|a_m|<\epsilon
+  $$
+
+  Thus it follows from the \href{ae59546}{Cauchy criterion for series} again
+  that $\sum_{k=1}^\infty a_k$ converges.
+\end{proof}
+
+\Remark{Absolute convergence → general convergence*}\label{cac931b}
+
+Note that the significance of \autoref{e8bb6e3} is that now, given a series
+$\sum_{k=1}^\infty a_k$, we can conduct preliminary tests on
+$\sum_{k=1}^\infty|a_k|$ to see if that converges. By \autoref{e8bb6e3}, if the
+absolute series converges, then so does the original series and we are done.
+
+The value of inspecting the absolute series is that it is
+\textbf{non-negative}. Hence, tests like the \href{d0856d6}{comparison test},
+the \href{ea5d3c5}{limit comparison test}, and the \href{d2ba8bd}{root test}
+are now valid tools to use.
+
+Note that to use the \href{cb7b15b}{ratio test} we also need to guarantee that
+none of the terms (past a certain point) are zero.
+
+\Theorem{Trichotomy of convergence}\label{d5b50ac}
+
+Every \href{d659804}{series} is either \href{f823d65}{absolutely convergent},
+\href{bc12578}{conditionally convergent}, or \href{f8901df}{divergent}.
+
+\begin{proof}
+  Consider a series $\sum_{k=1}^\infty a_k$. There are two exclusive
+  possibilities: that it is divergent, or that it is convergent.
+
+  In the case that it is convergent, if $\sum_{k=1}^\infty|a_k|$ converges,
+  then the original series is absolutely convergent. If not, it is
+  conditionally convergent.
+\end{proof}
+
+\Lemma{Invariance of convergence of non-negative series under rearrangement}\label{f6c27c0}
+
+Let $\sum_{k=1}^\infty a_k$ be a \href{b6cffeb}{non-negative} and
+\href{f8901df}{convergent} series. Then any \href{a58ff93}{rearrangement}
+$\sum_{k=1}^\infty b_k$ of $\sum_{k=1}^\infty a_k$ also converges and has the
+same sum as $\sum_{k=1}^\infty a_k$.
+
+\begin{proof}
+  We may assume without loss of generality that $a_k\geq0$ for all $k$, since
+  whether a series is convergent does not depend on, say, the first 100 terms.
+
+  Now, the sequence of \href{a835138}{partial sums} $\{s_n\}$ is
+  \href{feae1b2}{increasing} because
+  $$
+    s_{n+1}-s_n=a_{n+1}\geq0.
+  $$
+
+  Note that it is bounded above \href{d8148e6}{because} it converges (to $L$).
+  \href{c28d9a9}{Hence}, $L=\sup\set{s_n}{n\in\N}$.
+
+  Since $\sum_{k=1}^\infty b_k$ is a rearrangement of $\sum_{k=1}^\infty a_k$,
+  there exists a bijection $f:\N\to\N$ such that $b_n=a_{f(n)}$ for all
+  $n\in\N$. Let $\{t_n\}$ be the partial sums for the series $\sum_{k=1}^\infty
+  b_k$.
+
+  Since $b_n=a_{f(n)}\geq0$ for each $n\in\N$, it follows that $\{t_n\}$ is
+  also an increasing sequence. Then for each $n\in\N$,
+  \begin{align*}
+    t_n &=b_1+\ldots+b_n                                              \\
+        &=a_{f(1)}+\ldots+a_{f(n)}                                    \\
+        &\leq a_1+a_2+\ldots+a_m\with{(m:=\max\{\iter{f(1)}{f(n)}\})} \\
+        &=s_m                                                         \\
+        &\leq L\desc{Since $L=\sup\set{s_n}{n\in\N}$ from before}
+  \end{align*}
+
+  Thus, by the \href{cc11aa4}{MCT}, $\{t_n\}$ converges, and
+  $$
+    \lim_{n\to\infty}t_n=\sup\set{t_n}{n\in\N}\leq L
+  $$
+
+  in other words, $\sum_{k=1}^\infty b_k$ converges, and
+  \begin{equation*}
+    \sum_{k=1}^\infty b_k\href{f8901df}{=}\lim_{n\to\infty}t_n\leq L=\sum_{k=1}^\infty a_k\Tag{*}
+  \end{equation*}
+
+  Now, since $f$ is a bijection, it \href{b2530a8}{has an inverse}
+  (\href{fb1a7df}{which is also} a bijection), and so we can write
+  $b_{f^{-1}(n)}=a_{n}$, showing that $\sum_{k=1}^\infty a_k$ is also a
+  rearrangement of $\sum_{k=1}^\infty b_k$. Hence, we can exchange the roles of
+  the two series in $(*)$ and obtain
+  $$
+    \sum_{k=1}^\infty b_k\geq\sum_{k=1}^\infty a_k
+  $$
+
+  Which, together with $(*)$, implies that
+  $$
+    \sum_{k=1}^\infty b_k=\sum_{k=1}^\infty a_k
+  $$
+\end{proof}
+
+\Theorem{Rearrangement Theorem}\label{c171f8a}
+
+Let $\sum_{k=1}^\infty a_k$ be an \href{f823d65}{absolutely convergent} series.
+Then any \href{a58ff93}{rearrangement} $\sum_{k=1}^\infty b_k$ of
+$\sum_{k=1}^\infty a_k$ also converges and has the same \href{f8901df}{sum} as
+$\sum_{k=1}^\infty a_k$.
+
+In short, the sum of an absolutely convergent series is invariant under
+rearrangement.
+
+\begin{proof}
+  \def\S#1{\Sigma\{#1\}}
+  For this proof, we write $\S{a_k}$ to mean $\sum_{k=1}^\infty a_k$.
+
+  By definition, the series $\S{a_k}$ \href{f823d65}{converging absolutely}
+  means that the \href{b6cffeb}{non-negative series} $\S{|a_k|}$ converges too.
+  Since $\S{b_k}$ is a \href{a58ff93}{rearrangement} of $\S{a_k}$, there exists
+  a \href{d205f32}{bijection} $f:\N\to\N$ such that $b_n=a_{f(n)}$ for all
+  $n\in\N$. It follows that for all $n\in\N$,
+  \begin{equation*}
+    |b_n|=|a_{f(n)}|\Quad\text{and}\Quad|b_n|-b_n=|a_{f(n)}|-a_{f(n)}.\Tag{*}
+  \end{equation*}
+
+  Thus, $\S{|b_k|}$ is a rearrangement of $\S{|a_k|}$, and $\S{|b_k|-b_k}$ is a
+  rearrangement of $\S{|a_k|-a_k}$. Note that both $\S{|a_k|}$ and
+  $\S{|a_k|-a_k}$ are non-negative and convergent series. (Exercise. See
+  \href{e8bb6e3}{this} and \href{d13a5e7}{this}.) Then by \autoref{f6c27c0},
+  $\S{|b_k|}=\S{|a_k|}$ and $\S{|b_k|-b_k}=\S{|a_k|-a_k}$
+
+  By the \href{f5cf40a}{linearity of convergent series}, we have
+  $$
+    \S{|b_k|-(|b_k|-b_k)}=\S{|b_k|}-\S{|b_k|-b_k}
+  $$
+
+  But the LHS is $\S{b_k}$ exactly, and hence we have
+  \begin{align*}
+    \S{b_k} &=\S{|b_k|}-\S{|b_k|-b_k}                                        \\
+            &=\S{|a_k|}-\S{|a_k|-a_k}                                        \\
+            &=\S{|a_k|-(|a_k|-a_k)}\desc{by \href{f5cf40a}{linearity} again} \\
+            &=\S{a_k}
+  \end{align*}
+\end{proof}
+
+\Corollary{Rearrangement Theorem*}\label{b9ee095}
+
+Let $\sum_{k=1}^\infty a_k$ be an \href{f823d65}{absolutely convergent} series.
+Then any \href{a58ff93}{rearrangement} $\sum_{k=1}^\infty b_k$ of
+$\sum_{k=1}^\infty a_k$ also converges absolutely.
+
+\begin{proof}
+  This follows from the proof of the \href{c171f8a}{theorem}. Namely, the part
+  where $\sum_{k=1}^\infty|b_k|$ is a rearrangement of $\sum_{k=1}^\infty|a_k|$,
+  and so by \autoref{f6c27c0}, we have
+  $$
+    \sum_{k=1}^\infty|b_k|=\sum_{k=1}^\infty|a_k|
+  $$
+\end{proof}
+
+\Remark{Convergence under rearrangement}\label{b51a20a}
+
+Let $\sum_{k=1}^\infty a_k$ be a \href{f8901df}{convergent series}, and write
+$\sum_{k=1}^\infty a_k=L$. Let $\sum_{k=1}^\infty b_k$ be a
+\href{a58ff93}{rearrangement} of $\sum_{k=1}^\infty a_k$. Then
+\begin{enumerati}
+  \item If $\sum_{k=1}^\infty a_k$ is \href{f823d65}{absolutely convergent},
+        then $\sum_{k=1}^\infty b_k=L$.
+  \item If $\sum_{k=1}^\infty a_k$ is \href{bc12578}{conditionally convergent},
+        then $\sum_{k=1}^\infty b_k\neq L$ in general.
+\end{enumerati}
+
+\begin{proof}
+  (i) Follows from the \href{c171f8a}{Rearrangement Theorem}.
+
+  The proof of (ii) is heavily non-trivial, and so will be left out for now.
+  See Bartle-Sherbert, page 269, for detailed discussion on this.
+\end{proof}

@@ -1,0 +1,101 @@
+\subsection{The field $\mathbb R$}\label{ff004fd}
+
+\Remark{$\mathbb R$ with standard addition and multiplication forms a field}\label{bf61f02}
+
+Let addition $+:\R\times\R\to\R$ and multiplication $\,\cdot\,:\R\times\R\to\R$
+be the standard addition and multiplication we are all first taught in grade
+school.
+
+Then $(\R,+,\,\cdot\,)$ satisfies all 9 \href{aec6040}{Field Axioms} and thus
+forms a field.
+
+\Proposition{Order properties of $\mathbb R$}\label{d49c63e}
+
+There is a \href{a3a60e1}{binary relation} $>$ on $\R$ which has the following
+properties (with $a,b,c\in\R$):
+
+\begin{enumerati}
+  \item [(\textbf{O1})] If $a>b$, then $a+c>b+c$.
+  \item [(\textbf{O2})] If $a>0$ and $b>0$, then $a\cdot b>0$.
+  \item [(\textbf{O3})] \textit{(Trichotomy Property)} If $a,b\in\R$, then
+  exactly one of the following holds:
+  $$
+    a>b,\quad a=b,\quad b>a
+  $$
+  \item [(\textbf{O4})] \textit{(Transitive Property)} If $a>b$ and $b>c$, then
+  $a>c$.
+\end{enumerati}
+
+Note that $a<b$ is, by definition, the same as $b>a$.
+
+\Theorem{}\label{b069294}
+
+If $a\in\R$ is such that $0\leq a<\epsilon$ for every positive number
+$\epsilon$, then $a=0$.
+
+\begin{proof}
+  Since $a\geq0$, by definition either $a>0$ or $a=0$. Suppose $a>0$. Then
+  $\frac a2>0$.
+
+  Now let $\epsilon:=\frac a2$. Then by assumption, $a<\epsilon=\frac a2$
+  \begin{align*}
+    a<\frac a2 &\implies 2\cdot a<2\cdot\frac a2=a \\
+               &\implies 2a-a<0                    \\
+               &\implies a<0
+  \end{align*}
+
+  This contradicts that $a>0$. Hence we must have $a=0$.
+\end{proof}
+
+\Theorem{Triangle inequality for $\mathbb R$}\label{f1288ad}
+
+For all $a,b\in\R$, we have
+$$
+  |a+b|\leq|a|+|b|
+$$
+
+\begin{proof}
+  We have $-|a|\leq a\leq|a|$ and $-|b|\leq b\leq|b|$. Adding, we have
+  \begin{align*}
+    -(|a|+|b|)\leq a+b\leq |a|+|b|
+  \end{align*}
+
+  which implies that $|a+b|\leq|a|+|b|$.
+\end{proof}
+
+\Corollary{Corollaries of triangle inequality for $\mathbb R$}\label{f699f4d}
+
+\begin{enumerati}
+  \item $\big||a|-|b|\big|\leq|a-b|$
+  \item $|a-b|\leq|a|+|b|$
+  \item $\big||a|-|b|\big|\leq|a+b|$
+\end{enumerati}
+
+\begin{proof}
+  By the \href{f1288ad}{triangle inequality},
+  $$
+    |a|=|(a-b)+b|\leq|a-b|+|b|
+  $$
+
+  So
+  \begin{equation*}
+    |a|-|b|\leq|a-b|\Tag{*}
+  \end{equation*}
+
+  By symmetry, we also have
+  $$
+    |b|-|a|\leq|b-a|
+  $$
+
+  which can be rewritten as
+  \begin{equation*}
+    -(|a|-|b|)\leq|a-b|\Tag{**}
+  \end{equation*}
+
+  With $(*)$ and $(**)$, we have (i).
+
+  (ii) is obtained by using $-b$ in the place of $b$ in the
+  \href{f1288ad}{triangle inequality}
+
+  (iii) follows from using $-b$ in the place of $b$ in (i).
+\end{proof}

@@ -1,0 +1,284 @@
+\chapter{Functions}\label{afadab8}
+
+\begin{toc}
+  \citem{df4bc04} % Basic results
+  \citem{fd84935} % Injectivity, surjectivity, and bijectivity
+  \citem{a8d371f} % Results from injectivity, surjectivity, and bijectivity
+  \citem{d7f9764} % Types of functions
+\end{toc}
+
+\subsection{Basic results}\label{df4bc04}
+
+\Lemma{Function composition is associative}\label{ecb536b}
+
+Let $A,B,C,D$ be sets, and let $f:A\to B$, $g:B\to C$, $h:C\to D$. Then
+$$
+  h\circ(g\circ f)=(h\circ g)\circ f
+$$
+
+\begin{proof}
+  Let $x\in A$ be arbitrary.
+  \begin{align*}
+    (h\circ(g\circ f))(x) &=h((g\circ f)(x))       \\
+                          &=h(g(f(x)))             \\
+                          &=(h\circ g)(f(x))       \\
+                          &=((h\circ g)\circ f)(x)
+  \end{align*}
+
+  Hence the functions $h\circ(g\circ f)$ and $(h\circ g)\circ f$ agree when
+  acting on all elements $x\in A$, and hence are the same function.
+\end{proof}
+
+\subsection{Injectivity, surjectivity, and bijectivity}\label{fd84935}
+
+\Definition{Injectivity}\label{ac44d1d}
+%+Injection
+
+Let $S$ and $T$ be sets. We say that a mapping $f:S\to T$ is injective if for
+all $s_1,s_2\in S$, $f(s_1)=f(s_2)$ implies $s_1=s_2$.
+
+We call $f$ that satisfies those properties a injection.
+
+\Definition{Surjectivity}\label{bd75843}
+%+Surjection
+
+Let $S$ and $T$ be sets. We say that a mapping $f:S\to T$ is surjective if any
+$t\in T$, there exists $s\in S$ such that $f(s)=t$.
+
+We call $f$ that satisfies those properties a surjection.
+
+\Definition{Bijectivity}\label{d205f32}
+%+Bijection
+
+Let $S$ and $T$ be sets. We say that a mapping $f:S\to T$ is bijective if it is
+both \href{ac44d1d}{injective} and \href{bd75843}{surjective}.
+
+We call $f$ that satisfies those properties a bijection.
+
+\Definition{Inverse of a function}\label{e5e7679}
+
+Let $S$ and $T$ be sets. The inverse of $f:S\to T$ is a function $g:T\to S$
+such that for all $s\in S$ and $t\in T$,
+$$
+  f(s)=t\iff g(t)=s
+$$
+
+Since the inverse of $f$ is \href{ed51751}{unique} to $f$, we denote it with
+$f^{-1}$.
+
+\subsection{Results from injectivity, surjectivity, and bijectivity}\label{a8d371f}
+
+\Theorem{Necessary and sufficient conditions for inverse of a function}\label{f5ae640}
+
+Let $S$ and $T$ be sets. Let $f:S\to T$ and $g:T\to S$ be functions. Then $g$
+is the \href{e5e7679}{inverse} of $f$ if and only if
+\begin{enumerati}
+  \item for all $s\in S$, $g(f(s))=s$, and
+  \item for all $t\in T$, $f(g(t))=t$.
+\end{enumerati}
+
+\begin{proof}
+  ($\implies$) Let $g$ be the inverse of $f$. Let $s\in S$ be arbitrary, and let
+  $t=f(s)$. Then by \href{e5e7679}{definition}, $g(t)=s$, and hence $g(f(s))=s$.
+
+  Now let $t\in T$ be arbitrary, and let $s=g(t)$. Again by definition, we have
+  $f(s)=t$, and so $f(g(t))=t$. This direction of the proof is complete.
+
+  ($\impliedby$) Let (i) and (ii) be true. We shall show that $g$ is the inverse
+  of $f$. Let $s\in S$ and $t\in T$ be arbitrary. Now assume that $f(s)=t$. Then
+  by (i), $g(t)=g(f(s))=s$. Instead, assume that $g(t)=s$. Then by (ii),
+  $f(s)=f(g(t))=t$. We have thus shown that $f(s)=t$ if and only if $g(t)=s$.
+  Thus $g$ is the inverse of $f$ and the proof is complete.
+\end{proof}
+
+\Corollary{Necessary and sufficient conditions for inverse of a function*}\label{b21fbe6}
+
+Let $S$ and $T$ be sets. Let $f:S\to T$ and $g:T\to S$ be functions. Then $g$
+is the \href{e5e7679}{inverse} of $f$ if and only if
+\begin{align*}
+  g\circ f=I_S\quad\text{ and }\quad f\circ g=I_T
+\end{align*}
+
+\begin{proof}
+  This is an immediate consequence of \autoref{f5ae640}, and the definition of
+  an identity function on a set.
+\end{proof}
+
+\Lemma{The inverse of a function is unique}\label{ed51751}
+
+Let $S$ and $T$ be sets. Let $f:S\to T$ be a function. Then $f$ has a unique
+\href{e5e7679}{inverse}.
+
+\begin{proof}
+  Let $g_1:T\to S$ and $g_2:T\to S$ be inverses of $f$. Our goal is to show
+  that $g_1=g_2$.
+
+  By \autoref{b21fbe6}, we have $f\circ g_2=I_T$ and $g_1\circ f=I_S$. Then
+  \begin{align*}
+    g_1 &= g_1\circ I_T                                                                    \\
+        &= g_1\circ (f\circ g_2)                                                           \\
+        &= (g_1\circ f)\circ g_2\desc{\href{ecb536b}{function composition is associative}} \\
+        &= I_S\circ g_2                                                                    \\
+        &= g_2
+  \end{align*}
+\end{proof}
+
+\Theorem{Function is invertible ↔︎ it is bijective}\label{b2530a8}
+%+Bijective functions are invertible
+%+Invertible functions are bijective
+
+Let $S$ and $T$ be sets, and let $f:S\to T$ be a function. Then $f$ is
+invertible if and only if it is bijective.
+
+\begin{proof}
+  ($\implies$) Assume that $f$ is \href{e5e7679}{invertible}. Then there is a
+  unique $f^{-1}:T\to S$. To show that $f$ is injective, let $f(a)=f(b)$ for
+  some $a,b\in S$. Then applying $f^{-1}$ on both sides, we have $a=b$, and
+  hence $f$ is injective. To show that $f$ is surjective, let $t\in T$. Then
+  there is the element $s:=f^{-1}(t)\in S$ such that $f(s)=f(f^{-1}(t))=t$, and
+  hence $f$ is surjective. Hence $f$ is bijective.
+
+  ($\impliedby$) Assume that $f$ is bijective. We define a function $g:T\to S$
+  as follows: given $t\in T$, let $g(t)$ be the element in $S$ such that
+  $f(s)=t$. Since $f$ is surjective, $s$ exists, and since $f$ is injective, $s$
+  is unique. Hence $g(t)$ is unambiguously defined. Notice that by construction,
+  given arbitrary $s\in S$ and $t\in T$, $g(t)=s$ if and only if $f(s)=t$.
+  Hence, $g$ is the \href{e5e7679}{inverse} of $f$.
+\end{proof}
+
+\Theorem{Inverse of a bijection is a bijection}\label{fb1a7df}
+
+Let $f:S\to T$ be a bijection. Then $f^{-1}:T\to S$ (\href{b2530a8}{exists},
+and) is a bijection too.
+
+\begin{proof}
+  Let $t_1,t_2\in T$ be arbitrary, such that $f^{-1}(t_1)=f^{-1}(t_2)$. Then we
+  have
+  \begin{equation*}
+    f(f^{-1}(t_1))=f(f^{-1}(t_2))\implies t_1=t_2
+  \end{equation*}
+
+  Hence $f^{-1}$ is injective.
+
+  Let $s\in S$ be arbitrary. Then $f(s)\in T$. Then define $t:=f(s)$ and we
+  have found a $t\in T$ such that
+  $$
+    f^{-1}(t)=f^{-1}(f(s))=s
+  $$
+
+  Hence $f^{-1}$ is surjective. Since it is both injective and surjective, it
+  is bijective.
+\end{proof}
+
+\Theorem{The compose of two injections is injective}\label{da8a3cf}
+
+Let $U,V,W$ be sets. Let $f:U\to V$ and $g:V\to W$ be injective mappings. Then
+$f\circ g$ is injective.
+
+\begin{proof}
+  Let $u_1,u_2\in U$.
+  \begin{align*}
+    (f\circ g)(u_1)    &=(f\circ g)(u_2)               \\
+    \implies f(g(u_1)) &=f(g(u_2))                     \\
+    \implies g(u_1)    &=g(u_2)\desc{$f$ is injective} \\
+    \implies u_1       &=u_2\desc{$g$ is injective}
+  \end{align*}
+\end{proof}
+
+\Theorem{The compose of two surjections is surjective}\label{b248581}
+
+Let $U,V,W$ be sets. Let $f:U\to V$ and $g:V\to W$ be surjective mappings. Then
+$f\circ g$ is surjective.
+
+\begin{proof}
+  Let $w\in W$. Then by surjectivity of $g$, there exists $v\in V$ such that
+  $v=g(w)$. But since $g(w)\in V$, by surjectivity of $f$ there exists $u\in U$
+  such that $u=f(g(w))=(f\circ g)(w)$. Hence $f\circ g$ is surjective.
+\end{proof}
+
+\Theorem{The compose of two bijections is bijective}\label{c0883e7}
+
+Let $U,V,W$ be sets. Let $f:U\to V$ and $g:V\to W$ be bijective mappings. Then
+$f\circ g$ is bijective.
+
+\begin{proof}
+  By \autoref{da8a3cf}, $f\circ g$ is injective, and by
+  \autoref{b248581}, $f\circ g$ is surjective. Hence $f\circ g$ is
+  bijective.
+\end{proof}
+
+\subsection{Types of functions}\label{d7f9764}
+
+\Definition{Linear map}\label{d7d1925}
+
+Let $V,W$ be \href{fc83050}{vector spaces} over \href{aec6040}{field} $\mathcal
+F$. A map $T:V\to W$ is a \textit{linear map} if it preserves the vector
+structure: the operations of vector addition and scalar multiplication: that is
+for all $u,v\in V$ and $a\in\mathcal F$,
+\begin{gather*}
+  T(u+v)=T(u)+T(v)\with{\text{\small(additivity)}} \\
+  T(au)=aT(u)\with{\text{\small(homogeneity)}}
+\end{gather*}
+
+\Definition{Antilinear map}\label{a93c786}
+%+Conjugate linear
+
+Let $V,W$ be \href{fc83050}{vector spaces} over \href{aec6040}{field} $\mathcal
+F$. A map $T:V\to W$ is an \textit{antilinear map} (or
+\textit{conjugate-linear} map) if for all $u,v\in V$ and $a\in\mathcal F$,
+\begin{gather*}
+  T(u+v)=T(u)+T(v)\with{\text{\small(additivity)}} \\
+  T(au)=\bar aT(u)\with{\text{\small(conjugate homogeneity)}}
+\end{gather*}
+
+\Definition{Sublinear map}\label{af3e040}
+%+Quasi-seminorm
+%+Banach functional
+
+Let $V$ be a \href{fc83050}{vector space} over a \href{aec6040}{field}
+$\mathcal F$. A real-valued function $f:V\to\R$ is called a sublinear function,
+and also sometimes a \textit{quasi-seminorm} or a \textit{Banach functional},
+if it satisfies the following:
+\begin{itemize}
+  \item\textit{(Non-negative homogeneity)} $f(kv)=kf(v)$ for all real $k\geq0$
+        and all $v\in V$
+  \item\textit{(Subadditivity/Triangle inequality)} $f(u+v)\leq f(u)+f(v)$
+        for all $u,v\in V$.
+\end{itemize}
+
+\Definition{Bilinear form}\label{a4bba72}
+
+A \textit{bilinear form} is a bilinear map $V\times V\to\mathcal F$ on vector
+space $V$ and field $\mathcal F$. In other words, it is \href{d7d1925}{linear}
+in each argument separately.
+
+That is, for all $u,v,w\in V$ and all $\lambda\in\mathcal F$,
+\begin{enumerati}
+  \item $B(u+v,w)=B(u,w)+B(v,w)$ and $B(\lambda u,v)=\lambda B(u,v)$
+  \item $B(u,v+w)=B(u,v)+B(u,w)$ and $B(u,\lambda v)=\lambda B(u,v)$
+\end{enumerati}
+
+The standard dot product on $\R^n$ is an example of a bilinear form.
+
+\Definition{Symmetric bilinear form}\label{e17371e}
+
+A symmetric bilinear form $B$ on a vector space $V$ is a bilinear form such
+that for all $u,v\in V$, we have
+$$
+  B(u,v)=B(v,u)
+$$
+
+\Lemma{Bilinear forms send zeros to zeros}\label{b7a53dc}
+
+Let $B$ be a bilinear form over vector space $V$. Then
+\begin{align*}
+  B(0,u) &=0\with{\forall u\in V} \\
+  B(v,0) &=0\with{\forall v\in V}
+\end{align*}
+
+\begin{proof}
+  Since $B$ is \href{d7d1925}{linear} in the first argument, and
+  \href{c5eb127}{linear maps send zeros to zeros}, $B(0,u)=0$ for all $u\in V$.
+
+  The same applies for the second argument: $B(v,0)=0$ for all $v\in V$.
+\end{proof}

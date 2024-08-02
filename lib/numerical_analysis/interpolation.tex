@@ -1,0 +1,380 @@
+\subsection{Interpolation}\label{f9b1386}
+
+\Algorithm{Horner's Method}\label{d2d44ff}
+
+This gives a computationally efficient way of evaluating a polynomial at any
+particular point. Given a polynomial of degree $m$:
+$$
+  P_m(x):=a_0+a_1x+a_2x^2+\ldots+a_mx^m
+$$
+
+Observe that this can be rewritten as
+$$
+  P_m(x)=a_0+x\Bigl(a_1+x\bigl(a_2+x(a_3+x(\ldots))\bigr)\Bigr)
+$$
+
+and so we adopt this pseudocode:
+
+\begin{pseudocode}
+  $P\gets a_m$ \\
+  \For $k=\iter{m-1}{0}$, do \\
+  \tab $P\gets a_k+xP$ \\
+  \End
+\end{pseudocode}
+
+To obtain the value of $P_m$ evaluated at $x$.
+
+\Problem{Polynomial interpolation}\label{a33bce0}
+
+For an unknown function $f:\mathcal F\to\mathcal F$, suppose the values of
+$\iter{f(x_0)}{f(x_n)}$ are given. The goal is to find polynomial function
+$p_d$ such that
+$$
+  p_d(x_i)=f(x_i)\with{(\forall i=\iter0n)}
+$$
+
+We call $\iter{x_0}{x_n}$ the \textit{interpolating nodes}, and $p_d$ the
+\textit{interpolating polynomial} (or \textit{interpolant}).
+
+Note that we can write $p_d(x)$ as
+$$
+  p_d(x)=a_0+a_1x+\ldots+a_dx^d
+$$
+
+for some collection of $d+1$ numbers $\iter{a_0}{a_d}$. Hence, to determine
+$p_d$, we have to determine the list $\iter{a_0}{a_d}$. With our constraints as
+specified, we have
+$$
+  \begin{pmat}
+    1      & x_0    & \ldots & x_0^d  \\
+    1      & x_1    & \ldots & x_1^d  \\
+    \vdots & \vdots & \ddots & \vdots \\
+    1      & x_n    & \ldots & x_n^d  \\
+  \end{pmat}
+  \begin{pmat}
+    a_0 \\\vdots\\a_d\\
+  \end{pmat}
+  =
+  \begin{pmat}
+    f(x_0) \\\vdots\\f(x_n)\\
+  \end{pmat}
+$$
+
+We name these terms $X$, $a$ and $y$ to obtain the matrix equation $Xa=y$.
+
+Computing $Xa$ is polynomial evaluation. Solving $Xa=y$ is polynomial
+interpolation.
+
+\Result{Invertibility and solvability of polynomial interpolation system}\label{df5c8e4}
+
+Consider \autoref{a33bce0}. If $d=n$ (that is, the degree of the polynomial
+matches the number of interpolation nodes), then $X$ must be invertible.
+
+Note that when $X$ is invertible, the system $Xa=y$ is solvable with a unique
+solution.
+
+\begin{proof}
+  Assume on the contrary that $X$ is not invertible. Then there exists a
+  non-zero $a$ such that $Xa=0$. But then $Xa=0$ implies that the polynomial (of
+  degree $d=n$) has $n+1$ roots, \href{ea3fbed}{which implies} that $a=0$,
+  leading to a contradiction. Hence $X$ must be invertible.
+\end{proof}
+
+\Remark{Monomial basis}\label{fd147c5}
+
+The choice of $X$ in the \href{a33bce0}{polynomial interpolation problem} is
+arbitrary, as long as it acts as a basis for the space of polynomials of degree
+$d$.
+
+The \textbf{monomial} basis $\iter{M_0}{M_d}$ is where
+$$
+  M_i(x)=x^i\with{(\forall i=\iter0d)}
+$$
+
+So we can write any degree-$d$ polynomial $p_d$ as
+\begin{align*}
+  p_d(x)        &=a_0+a_1x+\ldots+a_dx^d               \\
+                &=a_0M_0(x)+a_1M_1(x)+\ldots+a_dM_d(x) \\
+  \pre{\iff}p_d &=a_0M_0+a_1M_1+\ldots+a_dM_d
+\end{align*}
+
+and hence $\{\iter{M_0}{M_d}\}$ spans the space of polynomials of degree $\leq
+d$.
+
+Assembling this basis into a matrix, we obtain $X$ as in \autoref{a33bce0}.
+$$
+  X=\begin{pmat}
+    M_0(x_0) & M_1(x_0) & \ldots & M_d(x_0) \\
+    M_0(x_1) & M_1(x_1) & \ldots & M_d(x_1) \\
+    \vdots   & \vdots   & \ddots & \vdots   \\
+    M_0(x_n) & M_1(x_n) & \ldots & M_d(x_n) \\
+  \end{pmat}
+$$
+
+\Remark{Generalizing interpolation basis}\label{da296fb}
+
+Let $\iter{x_0}{x_n}$ be a list of $n+1$ interpolation nodes. Assume the
+polynomial functions $\iter{\psi_0}{\psi_n}$ satisfy.
+\begin{center}
+  \begin{tabular}{c c c c}
+    $\psi_0(x_0)=1$, & $\psi_0(x_1)=0$, & \ldots, & $\psi_0(x_n)=0$, \\[0.2em]
+    $\psi_1(x_0)=0$, & $\psi_1(x_1)=1$, & \ldots, & $\psi_1(x_n)=0$, \\
+    \vdots           & \vdots           &         & \vdots           \\
+    $\psi_n(x_0)=0$, & $\psi_n(x_1)=0$, & \ldots, & $\psi_n(x_n)=1$. \\
+  \end{tabular}
+\end{center}
+
+Then the function
+$$
+  I(x):=\sum_{k=0}^nf(x_k)\psi_k(x)
+$$
+
+is an interpolating polynomial for the data points $(x_k,f(x_k))$. In other
+words, $\{\iter{\psi_0}{\psi_n}\}$ is a basis for the space of polynomials of
+degree $\leq n$.
+
+\Remark{Basis functions to basis matrix}\label{fb04c0c}
+
+To convert a list of basis functions $\iter{\psi_0}{\psi_n}$ back to the
+$(n+1)\times (n+1)$ matrix $X$ in \autoref{a33bce0}, we make a grid using
+$\iter{\psi_0}{\psi_n}$ along one dimension, and $\iter{x_0}{x_n}$ along the
+other:
+$$
+  X=\begin{pmat}
+    \psi_0(x_0) & \psi_1(x_0) & \ldots & \psi_n(x_0) \\
+    \psi_0(x_1) & \psi_1(x_1) & \ldots & \psi_n(x_1) \\
+    \vdots      & \vdots      & \ddots & \vdots      \\
+    \psi_0(x_n) & \psi_1(x_n) & \ldots & \psi_n(x_n) \\
+  \end{pmat}
+$$
+
+\Remark{Lagrange basis functions}\label{dda7795}
+
+For interpolating nodes $x_0=1$, $x_1=2$, $x_2=3$, $x_3=4$, the following
+polynomials form a basis for the space of polynomials of degree $\leq 3$ (in
+that they can be used as the $\psi$'s in \autoref{fb04c0c}):
+\begin{align*}
+  L_0(x) &:=\frac{(x-2)(x-3)(x-4)}{(1-2)(1-3)(1-4)} \\
+  L_1(x) &:=\frac{(x-1)(x-3)(x-4)}{(2-1)(2-3)(2-4)} \\
+  L_2(x) &:=\frac{(x-1)(x-2)(x-4)}{(3-1)(3-2)(3-4)} \\
+  L_3(x) &:=\frac{(x-1)(x-2)(x-3)}{(4-1)(4-2)(4-3)}
+\end{align*}
+
+Using the Lagrange basis functions, we obtain an identity matrix for $X$ (as in
+\autoref{a33bce0}). This makes it trivially easy to solve for $a$ in $Xa=y$,
+and so we have
+$$
+  p_d(x)=y_0L_0(x)+\ldots+y_nL_n(x)
+$$
+
+The main difficulty, evidently, would be evaluating each $L_i$.
+
+\Remark{Newton interpolation}\label{f61c57c}
+
+For interpolating nodes $\iter{x_0}{x_n}$, the Newton basis functions are
+$$
+  N_i(x)=\prod_{k=0}^{i-1}(x-x_k)\with{(i=\iter0n)}
+$$
+
+So there are $n+1$ Newton basis functions, the first few of which are
+$$
+  N_0(x)=1,\quad N_1(x)=(x-x_0),\quad N_2(x)=(x-x_0)(x-x_1)
+$$
+
+The basis matrix $X$ (as in \autoref{a33bce0}) is formed by taking $\psi:=N$ in
+\autoref{fb04c0c}. When $n=2$, this gives
+$$
+  X=\begin{pmat}
+    1 & 0       & 0                  \\
+    1 & x_1-x_0 & 0                  \\
+    1 & x_2-x_0 & (x_2-x_0)(x_2-x_1) \\
+  \end{pmat}
+$$
+
+\Remark{Comparing interpolation methods}\label{fd5b9cb}
+
+Here we will compare \href{fd147c5}{Monomial interpolation},
+\href{dda7795}{Lagrange interpolation}, and \href{f61c57c}{Newton
+interpolation}.
+
+The Monomial basis functions are the most ``natural", but the monomial basis
+matrix grows increasingly ill-conditioned as the number of points grows.
+
+The Lagrange basis functions are difficult to derive, but finding the
+coefficients of the Lagrange polynomial is trivial. The Lagrange basis matrix
+is the identity, so the associated system is perfectly conditioned. Is
+computationally inefficient. Is theoretically useful.
+
+The Newton basis functions are easier to derive than the Lagrange basis
+functions, but not as easy as the monomial basis functions. The Newton basis
+matrix is lower-triangular, so the coefficients are relatively efficient to
+determine. No repeated computation is required when appending more
+interpolating nodes.
+
+\Remark{Deriving the Newton basis from the Lagrange basis}\label{a1bdb85}
+
+Let $P_{n-1}$ be the \href{dda7795}{Lagrange} interpolating polynomial of
+$f(x)$ with $n$ nodes $\iter{x_0}{x_{n-1}}$. Suppose we get one more data point
+$(x_n,f(x_n))$. How can we obtain $P(n)$ efficiently?
+
+We know that
+\begin{align*}
+  P_{n-1}(x) &=\sum_{k=0}^{n-1}f(x_k)\prod_{\substack{j=0 \\j\neq k}}^{n-1}\frac{x-x_j}{x_k-x_j}\\
+  P_{n}(x)   &=\sum_{k=0}^{n}f(x_k)\prod_{\substack{j=0   \\j\neq k}}^{n}\frac{x-x_j}{x_k-x_j}
+\end{align*}
+
+Note that $P_{n-1}$ is a degree-$(n-1)$ polynomial that satisfies
+$P_{n-1}(x_i)=f(x_i)$ for $i=\iter0{n-1}$, and $P_n$ is a degree-$n$ polynomial
+that satisfies $P_{n-1}(x_j)=f(x_j)$ for $j=\iter0n$.
+
+Let $Q_n:=P_n-P_{n-1}$. Then $Q_n$ is a degree $\leq n$ polynomial that
+satisfies
+\begin{align*}
+  Q_n(x_i) &=0,\with{(i=\iter0{n-1})}   \\
+  Q_n(x_n) &=f(x_n)-P_{n-1}(x_n)\Tag{*}
+\end{align*}
+
+The Lagrange interpolating polynomial of $Q_n$ is then
+\begin{equation*}
+  \sum_{k=0}^n[P_n(x)-P_{n-1}(x)]\prod_{\substack{j=0\\j\neq
+      k}}^n\frac{x-x_j}{x_k-x_j}\Tag{**}
+\end{equation*}
+
+But since this done with $n+1$ points, and the degree of $Q_n$ is at most $n$,
+by \href{d7dc069}{this result} we have that the Lagrange interpolating
+polynomial of $Q_n$ (in $(**)$) is exactly $Q_n$. Hence, continuing from $(**)$
+and using $(*)$, we have
+\begin{align*}
+  Q_n(x) &=[f(x_n)-P_{n-1}(x_n)]\prod_{j=0}^{n-1}\frac{x-x_j}{x_n-x_j}                                 \\
+         &=\biggl([f(x_n)-P_{n-1}(x_n)]\prod_{j=0}^{n-1}\frac1{x_n-x_j}\biggr)\prod_{j=0}^{n-1}(x-x_j)
+\end{align*}
+
+Note that the term in parentheses above is determined by $P_{n-1}$ and
+$\{\iter{x_0}{x_n}\}$. We'll call it $b_n$, so that $Q_n(x)$ can be written as
+\begin{align*}
+  Q_n(x) &=b_n\prod_{j=0}^{n-1}(x-x_j)                                                            \\
+         &=b_nN_n(x)\desc{where $N_n$ is the $n^\text{th}$ \href{f61c57c}{Newton basis function}}
+\end{align*}
+
+In conclusion, to get from $P_{n-1}$ to $P_n$, we can add a scaled Newton basis
+function. Hence, we can build up to any $P_n$ with just Newton basis functions.
+
+\Remark{Solving the Newton system}\label{d1f58fb}
+
+Suppose we're doing \href{f61c57c}{Newton interpolation}, and we're looking at
+the system \href{a33bce0}{$Xa=y$} of
+$$
+  \begin{pmat}
+    1 & 0       & 0                  \\
+    1 & x_1-x_0 & 0                  \\
+    1 & x_2-x_0 & (x_2-x_0)(x_2-x_1) \\
+  \end{pmat}
+  \begin{pmat}a_0\\a_1\\a_2\end{pmat}
+  =
+  \begin{pmat}y_0\\y_1\\y_2\end{pmat}
+$$
+
+Then what is an efficient way of obtaining the coefficients $\iter{a_0}{a_2}$?
+\begin{itemize}
+  \item For $a_0$, clearly we have $a_0=y_0$.
+  \item For $a_1$, we inspect the second row on both sides:
+        $$
+          a_0+a_1(x_1-x_0)=y_1\implies a_1=\frac{y_1-y_0}{x_1-x_0}
+        $$
+  \item For $a_2$, we inspect the third row on both sides:
+        \begin{align*}
+          y_2 &=a_0+a_1(x_2-x_0)+a_2(x_2-x_0)(x_2-x_1)                                       \\
+              &=y_0+\frac{y_1-y_0}{x_1-x_0}(x_2-x_0)+a_2(x_2-x_0)(x_2-x_1)                   \\
+          a_2 &=\frac1{x_2-x_1}\biggl(\frac{y_2-x_0}{x_2-x_0}-\frac{y_1-x_0}{x_1-x_0}\biggr)
+        \end{align*}
+\end{itemize}
+
+This is one way of doing it. The next algorithm will provide completely
+unrelated but more computationally efficient way of solving for the
+coefficients.
+
+\Algorithm{Divided differences to compute Newton interpolation coefficients}\label{fc663ab}
+
+Given $n+1$ interpolation nodes $\iter{x_0}{x_n}$, and their corresponding
+evaluated values $\iter{y_0}{y_n}$, we define the \textit{divided differences}
+function $f[\iter{x_a}{x_b}]$ by
+$$
+  f[\iter{x_a}{x_b}]:=\frac{f[\iter{x_{a+1}}{x_b}]-f[\iter{x_a}{x_{b-1}}]}{x_a-x_b}
+$$
+
+where $f[x_i]=y_i$ for each $i=\iter0n$. Then, the coefficients in $a$ of the
+Newton interpolating polynomial in the system \href{a33bce0}{$Xa=y$}, can be
+found using
+$$
+  a_i=f[\iter{x_0}{x_i}]\with{(i=\iter1n)}
+$$
+
+% [issue #9] Prove that this actually solves Newton interpolation
+
+\Problem{Choosing interpolation nodes}\label{c9f6104}
+
+When using evenly-spaced interpolation nodes, we get uneven errors even over
+the interpolating range.
+
+For example, consider the Runge fuction interpolated on $[-1,1]$ with 6, 11,
+16, or even 21 evenly-spaced interpolating nodes. The errors near $-1$ and $1$
+only get worse as we add more interpolating nodes.
+
+Instead of choosing evenly-spaced nodes, what is a better alternative? One
+possible fix is to use \href{f07584c}{Chebyshev nodes}.
+
+\Definition{Chebyshev nodes}\label{f07584c}
+
+On the interval $[-1,1]$, we will pick the interpolating nodes
+$\iter{x_0}{x_n}$ such that
+$$
+  x_k:=\cos\biggl(\frac{(k+\frac12)\pi}{n+1}\biggr)\with{(k=\iter0n)}
+$$
+
+\Remark{Chebyshev nodes on an arbitrary interval}\label{a17dbd6}
+
+Given an arbitrary interval $[a,b]$, the \href{f07584c}{Chebyshev nodes} are
+now at
+$$
+  x_k=\frac{a+b}2+\frac{b-a}2\cos\biggl(\frac{(k+\frac12)\pi}{n+1}\biggr)
+$$
+
+This is simply a result of a translation (send the midpoint to $\frac{a+b}2$)
+and a scaling (stretch by a factor of $\frac{b-a}2$).
+
+\Definition{Chebyshev polynomials}\label{a0c2aca}
+
+Let $T_n$ be a Chebyshev polynomial. That is,
+$$
+  T_n(x):=\cos(n\arccos x)
+$$
+
+Then it has the property that $2^{-n}T_n(x)=(x-x_0)\ldots(x-x_n)$.
+
+\begin{proof}
+  Note that $T_0(x)=\cos0=1$, and $T_1(x)=\cos(\arccos x)=x$, and hence $T_0$
+  and $T_1$ are polynomials. Then, we also have
+  \begin{align*}
+    T_{n+1}(x) &=\cos((n+1)\theta)\with{(\theta:=\arccos x)}                                                                             \\
+               &=\cos(n\theta)\cos\theta-\sin(n\theta)\sin\theta\desc{\href{c1fe42f}{expand} $\cos((n+1)\theta)$}                        \\
+               &=T_n(x)x-\sin((n-1)\theta+\theta)\sin\theta                                                                              \\
+               &=xT_n(x)-\bigl[\sin((n-1)\theta)\cos\theta+\cos((n-1)\theta)\sin\theta\bigr]\sin\theta\desc{\href{c1fe42f}{trig. again}} \\
+               &=xT_n(x)-\bigl[\sin((n-1)\theta)x+T_{n-1}(x)\sin\theta\bigr]\sin\theta                                                   \\
+               &=xT_n(x)-T_{n-1}(x)\sin^2\theta-x\sin((n-1)\theta)\sin\theta                                                             \\
+               &=xT_n(x)-T_{n-1}(x)\sin^2\theta+x[\cos(n\theta)-\cos((n-1)\theta)\cos\theta]\desc{\href{c1fe42f}{trig. again}}           \\
+               &=xT_n(x)-T_{n-1}(x)\sin^2\theta+xT_n(x)-T_{n-1}(x)\cos^2\theta                                                           \\
+               &=2xT_n(x)-T_{n-1}(x)
+  \end{align*}
+
+  So then inductively, all $T_n$ are polynomials, for $n\in\Z$. Moreover, it
+  can be shown by induction that the coefficient of the term with the highest
+  degree is $2^n$, and that the degree of $T_n$ is $n$. Now, let
+  $$
+    h_n(x):=(x-x_0)\ldots(x-x_n)-2^{-n}T_{n+1}(x)
+  $$
+
+  The degree of $h_n$ is $\leq n$, since we constructed it such that the
+  coefficient of $x^{n+1}$ is zero. Also, notice that $h_n(x_k)=0$ for all
+  $k=\iter0n$, so it has $n+1$ roots. \href{ea3fbed}{Hence}, $h_n\equiv0$, and
+  the proof is complete.
+\end{proof}

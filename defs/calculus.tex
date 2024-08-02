@@ -1,0 +1,184 @@
+\chapter{\texttt{defs::calculus}}\label{a882de0}
+
+\begin{toc}
+  \citem{a56304f} % Fundamentals
+\end{toc}
+
+\subsection{Fundamentals}\label{a56304f}
+
+\Definition{Differentiability}\label{c62315d}
+
+In single-variable calculus, $f:\R\to\R$ is differentiable if
+$$
+  \lim_{h\to0}\frac{f(a+h)-f(a)}h
+$$
+
+exists (and if so, is denoted as $f'(a)$).
+
+In multivariable calculus, $f:\R^n\to\R$ is differentiable if there exists a
+\textbf{linear map} $J:\R^n\to\R$ such that
+$$
+  \lim_{h\to0}\frac{f(a+h)-f(a)-J(h)}{\norm{h}}=0
+$$
+
+Then from this perspective, differentiability of single-variable complex
+functions can be written as: $f:\C\to\C$ is differentiable if there is a linear
+map $J:\C\to\C$ such that
+$$
+  \lim_{h\to0}\frac{|f(z+h)-f(z)-J(h)|}{|h|}=0
+$$
+
+\paragraph{Comment}
+
+All of these cases are equivalent to saying that there exists a $k\in\R$ such
+that.
+$$
+  \lim_{h\to0}\frac{f(a+h)-f(a)}h=k
+$$
+
+Essentially, that there exists a local \textbf{linearization} to the function.
+
+\Definition{Directional derivative}\label{dbbf530}
+
+Let $D\subset \R$ be open. $f:D\to\R$ is directionally differentiable at $\bar
+x\in\R^n$ in the direction $d\in\R^n$ if
+$$
+  \lim_{t\downarrow0}\frac{f(\bar x+td)-f(x)}t
+$$
+
+exists. This limit is denoted by $f'(x;d)$ and is called the directional
+derivative of $f$ at $\bar x$ in the direction $d$.
+
+If $f$ is directionally differentiable at $\bar x$ in every direction
+$d\in\R^n$, we call $f$ directionally differentiable at $\bar x$.
+
+If $f$ is directionally differentiable at every $\bar x\in\R^n$, we call it
+directionally differentiable.
+
+\Definition{Gradient}\label{d22f8c2}
+
+A gradient takes a function $f$ between two \href{fc83050}{vector spaces} $U$
+and $V$, and returns another function which, when evaluated at a point $x\in
+U$, gives a \href{d7d1925}{linear map} between $U$ and $V$.
+$$
+  \nabla: (U\to V)\to(U\to\href{ab1f2fb}{\mathcal L}(U,V))
+$$
+
+This linear map is the best local linear approximation of $f$ at the point $x$.
+
+\Definition{Gradient of a scalar-valued multivariable function}\label{ce48160}
+
+Let $f:\R^n\to\R$ (a scalar-valued function in several variables), and suppose
+all its first partial derivatives exist. We define the \textit{gradient} of $f$
+at point $\mathbf x:=(\iter{x_1}{x_n})$ to be $\nabla f:\R^n\to\R^n$, given by
+\begin{equation*}
+  \nabla f=\begin{bmat}\dfrac{\partial f}{\partial x_1}\\\vdots\\[0.2em]\dfrac{\partial f}{\partial x_n}\end{bmat}
+  \quad
+  \textcolor{slate400}{\equiv}
+  \quad
+  \nabla f(\mathbf x)=\begin{bmat}\dfrac{\partial f}{\partial x_1}(\mathbf x)\\\vdots\\[0.2em]\dfrac{\partial f}{\partial x_n}(\mathbf x)\end{bmat}\Tag{*}
+\end{equation*}
+
+But based on \autoref{d22f8c2}, shouldn't we have $\nabla f(\mathbf
+x)\in\mathcal L(\R^n,\R)$? To complete the link to this generalization, we rely
+on the naturally defined linear map of
+$$
+  u\mapsto [\nabla f(\mathbf x)]^Tu\with{(u\in\R^n)}
+$$
+
+$\nabla f(\mathbf x)\in\R^n$ gives the direction and rate of fastest increase of
+$f$ at the point $\mathbf x$.
+
+Equivalently, the gradient of $f$ is defined as the unique vector field whose
+dot product with any vector $d$ at each point $x$ is the directional derivative
+of $f$ along $d$. That is,
+$$
+  \nabla f(x)^Td=\href{dbbf530}{f'(x;d)}
+$$
+
+\Definition{Gradient of a vector-valued multivariable function}\label{fd680ed}
+
+Let $\mathbf f:\R^n\to\R^m$, and $f_i:\R^n\to\R$ such that
+$$
+  \mathbf f(\mathbf x)=\begin{bmat}
+    f_1(\mathbf x) \\
+    \vdots         \\
+    f_m(\mathbf x) \\
+  \end{bmat}
+$$
+
+and suppose that for all $f_i$, all its first partial derivatives exist. We
+define the gradient of $\mathbf f$ at point $\mathbf x:=(\iter{x_1}{x_n})$ to
+be $\nabla\mathbf f:\R^n\to\R^{n\times m}$, given by
+$$
+  \nabla\mathbf f=\begin{bmat}
+    \dfrac{\partial f_1}{\partial x_1} & \ldots & \dfrac{\partial f_m}{\partial x_1} \\
+    \vdots                             & \ddots & \vdots                             \\[0.2em]
+    \dfrac{\partial f_1}{\partial x_n} & \ldots & \dfrac{\partial f_m}{\partial x_n} \\
+  \end{bmat}
+  \quad
+  \textcolor{slate400}{\equiv}
+  \quad
+  \nabla\mathbf f(\mathbf x)=\begin{bmat}
+    \dfrac{\partial f_1}{\partial x_1}(\mathbf x) & \ldots & \dfrac{\partial f_m}{\partial x_1}(\mathbf x) \\
+    \vdots                                        & \ddots & \vdots                                        \\[0.2em]
+    \dfrac{\partial f_1}{\partial x_n}(\mathbf x) & \ldots & \dfrac{\partial f_m}{\partial x_n}(\mathbf x) \\
+  \end{bmat}
+$$
+
+Observe that this links to the definition of the \href{ce48160}{scalar-valued
+gradient} by
+$$
+  \nabla\mathbf f=\begin{bmat}\nabla f_1&\ldots&\nabla f_m\end{bmat}
+$$
+
+and also reconciles with the \href{d22f8c2}{general definition} of the gradient
+in almost the exact same way as with the \href{ce48160}{scalar-valued
+gradient}, since we can again define a linear map of
+$$
+  u\mapsto [\nabla\mathbf f(\mathbf x)]^Tu\with{(u\in\R^n)}
+$$
+
+Note that this time, this linear map is an element of $\mathcal L(\R^n,\R^m)$.
+
+\Definition{Jacobian matrix}\label{b648d41}
+
+Let $\mathbf f:\R^n\to\R^m$, and let $f_i:\R^n\to\R$ be function mapping the
+main input to the $i$-th element of the output vector:
+$$
+  \mathbf f(\mathbf x)=\begin{bmat}
+    f_1(\mathbf x) \\
+    \vdots         \\
+    f_m(\mathbf x) \\
+  \end{bmat}
+$$
+
+Then the Jacobian matrix of $\mathbf f$ is defined to be an $m\times n$ matrix,
+denoted by $\mathbf J$, whose $(i,j)$-th entry is $\mathbf
+J_{ij}:=\frac{\partial f_i}{\partial x_j}$, namely
+$$
+  \mathbf J
+  =\begin{bmat}\dfrac{\partial\mathbf f}{\partial x_1}&\ldots&\dfrac{\partial\mathbf f}{\partial x_n}\end{bmat}
+  =\begin{bmat}\nabla^Tf_1\\\vdots\\\nabla^Tf_m\end{bmat}
+  =\begin{bmat}
+    \dfrac{\partial f_1}{\partial x_1} & \ldots & \dfrac{\partial f_1}{\partial x_n} \\
+    \vdots                             & \ddots & \vdots                             \\
+    \dfrac{\partial f_m}{\partial x_1} & \ldots & \dfrac{\partial f_m}{\partial x_n} \\
+  \end{bmat}
+$$
+
+Note that the entire sequence above is an equality of operators and has no
+value until it is given an input $\mathbf x\in\R^n$:
+$$
+  \mathbf J\mathbf x
+  =\begin{bmat}\dfrac{\partial\mathbf f}{\partial x_1}(\mathbf x)&\ldots&\dfrac{\partial\mathbf f}{\partial x_n}(\mathbf x)\end{bmat}
+  =\begin{bmat}\nabla f_1(\mathbf x)^T\\\vdots\\\nabla f_m(\mathbf x)^T\end{bmat}
+  =\begin{bmat}
+    \dfrac{\partial f_1}{\partial x_1}(\mathbf x) & \ldots & \dfrac{\partial f_1}{\partial x_n}(\mathbf x) \\
+    \vdots                                        & \ddots & \vdots                                        \\
+    \dfrac{\partial f_m}{\partial x_1}(\mathbf x) & \ldots & \dfrac{\partial f_m}{\partial x_n}(\mathbf x) \\
+  \end{bmat}
+$$
+
+In particular, $\mathbf J$ behaves like $\mathbf f'$ by design, with $\mathbf
+f'(\mathbf x)\equiv\mathbf J\mathbf x$.

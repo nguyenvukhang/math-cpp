@@ -1,0 +1,181 @@
+\subsection{Inner Product Spaces}\label{cfb69c6}
+
+\Result{Dot product with one slot fixed is a linear map}\label{dcae040}
+
+Fix an element $v\in\mathcal F^n$. Then the function $\phi_v:\mathcal
+F^n\to\mathcal F$ defined by
+$$
+  \phi_v(u):=v\cdot u
+$$
+
+is a \href{d7d1925}{linear map}.
+
+\begin{proof}
+  For all $u,w\in\mathcal F^n$ and all $a\in\mathcal F$,
+  $$
+    \phi_v(u+w)
+    =v\cdot(u+w)
+    =v\cdot u +v\cdot w
+    =\phi_v(u)+\phi_v(w)
+  $$
+
+  and
+  $$
+    \phi_v(au)=v\cdot(au)=a(v\cdot u)=a\phi_v(u)
+  $$
+\end{proof}
+
+\Result{Inner product with second slot fixed is a linear map}\label{b636029}
+
+Fix an element $v\in V$, where $V$ is an \href{b9935c8}{inner product space}.
+Then the function
+$$
+  u\mapsto\inner uv
+$$
+
+that takes $u\in V$ to $\inner uv$ is \href{d7d1925}{linear}.
+
+\begin{proof}
+  This follows almost immediately from \href{cebd07a}{definition} by additivity
+  in the first slot and homogeneity in the first slot. It is left as an exercise
+  for the reader to find
+  $$
+    \inner{u+w}v=\inner uv+\inner wv\quad\text{ and }\quad
+    \inner{\lambda u}v=\lambda\inner uv
+  $$
+
+  in the definitions.
+\end{proof}
+
+\Proposition{Basic properties of an inner product}\label{fb218c8}
+
+\begin{enumerata}
+  \item $\inner0v=0$ for every $v\in V$.
+  \item $\inner v0=0$ for every $v\in V$.
+  \item $\inner u{v+w}=\inner uv+\inner uw$ for every $u,v,w\in V$.
+  \item $\inner u{\lambda v}=\overline\lambda\inner uv$ for all $\lambda\in\F$
+  and all $u,v\in V$.
+  \item $\inner vv=0$ if and only if $v=0$.
+\end{enumerata}
+
+\begin{proof}
+  (a) comes from \href{c5eb127}{linear maps sending 0 to 0}, and $u\mapsto
+  \inner uv$ is linear by \autoref{b636029}. (b) follows from the property of
+  \href{cebd07a}{conjugate symmetry} applied on (a).
+
+  Now, for (c) and (d):
+  \begin{align*}
+    \inner u{av+bw} &=\overline{\inner{av+bw}u}\desc{conjugate symmetry}          \\
+                    &=\overline{a\inner vu+b\inner wu}\desc{linearity in 1st arg} \\
+                    &=\overline{a\inner vu}+\overline{b\inner wu}                 \\
+                    &=\bar a\overline{\inner vu}+\bar b\overline{\inner wu}       \\
+                    &=\bar a\inner uv+\bar b\inner uw\desc{conjugate symmetry}
+  \end{align*}
+
+  (c) follows from using $a=b=1$, and (d) follows from $b=0$.
+
+  For (e): If $\inner vv=0$, then by the contrapositive of
+  \href{cebd07a}{positive definiteness}, we have $v=0$. And if $v=0$, by (a),
+  we have $\inner vv=0$.
+\end{proof}
+
+\Theorem{Pythagorean theorem on inner products}\label{c5e5d7d}
+
+Let $u,v\in V$ be \href{d9735e5}{orthogonal} vectors in an \href{b9935c8}{inner
+product space} $V$. Then
+\begin{align*}
+  \inner{u+v}{u+v}       &=\inner uu+\inner vv                                                          \\
+  \pre{\iff}\norm{u+v}^2 &=\norm u^2+\norm v^2\desc{see: \href{d828dac}{norms} of inner product spaces}
+\end{align*}
+
+This is called the Pythagorean theorem because of how it pans out when the
+inner product is the standard dot product.
+
+\begin{proof}
+  Since $u,v$ are orthogonal, then $\inner uv=0$. Note that by conjugate
+  symmetry, we also have $\inner vu=0$. Then
+  \begin{align*}
+    \inner{u+v}{u+v} &=\inner u{u+v}+\inner v{u+v}\desc{\href{cebd07a}{linearity in 1st arg}}  \\
+                     &=\inner uu+\inner uv+\inner vu+\inner vv\desc{from \href{fb218c8}{this}} \\
+                     &=\inner uu+\inner vv
+  \end{align*}
+\end{proof}
+
+\Remark{Orthogonal decomposition}\label{a7dfcb8}
+
+Let $V$ be an \href{b9935c8}{inner product space} and suppose $u,v\in V$ with
+$v\neq0$. Then we can decompose $u$ into the sum of a scaled $v$ and another
+vector $w\in V$ orthogonal to $v$ by setting
+$$
+  c:=\frac{\inner uv}{\inner vv}\quad\text{ and }\quad w:=u-\frac{\inner uv}{\inner vv}v
+$$
+
+Observe that we have $u=cv+w$ (clearly), and $\inner wv=0$:
+\begin{align*}
+  \inner wv &=\biggl\langle u-\frac{\inner uv}{\inner vv}v,v\biggr\rangle                                                    \\
+            &=\inner uv-\biggl\langle\frac{\inner uv}{\inner vv}v,v\biggr\rangle\desc{Recall: \href{cebd07a}{inner product}} \\
+            &=\inner uv-\frac{\inner uv}{\inner vv}\inner vv                                                                 \\
+            &=0
+\end{align*}
+
+Here, we call $cv$ the \href{fc332ef}{projection} of $u$ onto $v$.
+
+\Proposition{Triangle inequality for vectors}\label{f5f1056}
+
+Let $V$ be an \href{b9935c8}{inner product space}, and let $u,v\in V$. Then
+$$
+  \norm{u+v}\leq\norm u+\norm v
+$$
+
+where $\norm{\,\cdot\,}$ is the \href{d828dac}{induced norm} of $V$.
+
+This inequality holds with equality if and only if one of $u,v$ is a
+non-negative real multiple of the other.
+
+\begin{proof}
+  \begin{align*}
+    \norm{u+v}^2 &=\inner{u+v}{u+v}                                                                            \\
+                 &=\inner uu+\inner vv+\inner uv+\inner vu                                                     \\
+                 &=\inner uu+\inner vv+\inner uv+\overline{\inner uv}\desc{\href{cebd07a}{conjugate symmetry}} \\
+                 &=\norm u^2+\norm v^2+2\Re\inner uv                                                           \\
+                 &\leq\norm u^2+\norm v^2+2|\inner uv|                                                         \\
+                 &\leq\norm u^2+\norm v^2+2\norm u\norm v\desc{\href{f85ac46}{Cauchy-Schwarz}}                 \\
+                 &=(\norm u+\norm v)^2
+  \end{align*}
+
+  Taking square roots on both sides yield the first statement of the
+  proposition.
+
+  The proof above shows that the inequality holds with equality if and only if
+  the two lines with $\leq$ hold with equality. This happens if and only if
+  \begin{equation*}
+    \inner uv=\norm u\norm v\Tag{*}
+  \end{equation*}
+
+  Note that when this holds, then $\inner uv$ is real. Now, if one of $u,v$ is
+  a non-negative real multiple of the other, then $(*)$ holds, because
+  $$
+    \inner{cu}u=c\inner uu=c\norm u^2=\norm u\norm{cu}
+  $$
+
+  and conversely, if $(*)$ holds, then by \href{f012e25}{this remark}, one of
+  $u,v$ is a scalar multiple of the other. By inspection on $(*)$, this scalar
+  must be a non-negative real number. This proves the second claim.
+\end{proof}
+
+\Proposition{Parallelogram equality}\label{bfa1e24}
+
+Let $V$ be a vector space, and let $u,v\in V$. Then
+$$
+  \norm{u+v}^2+\norm{u-v}^2=2(\norm u^2+\norm v^2)
+$$
+
+\begin{proof}
+  Recall that by \href{d828dac}{definition}, $\norm x=\inner xx$ for all $x\in
+  V$.
+  \begin{align*}
+    \norm{u+v}^2+\norm{u-v}^2 &=\inner{u+v}{u+v}+\inner{u-v}{u-v}                                               \\
+                              &=\norm u^2+\norm v^2+\inner uv+\inner vu+\norm u^2+\norm v^2-\inner uv-\inner vu \\
+                              &=2(\norm u^2+\norm v^2)
+  \end{align*}
+\end{proof}

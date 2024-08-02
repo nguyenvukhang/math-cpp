@@ -1,0 +1,204 @@
+\subsection{Jointly distributed random variables}\label{a7bb0ce}
+
+\Definition{Joint cumulative distribution function}\label{ac796f3}
+
+Let $X,Y$ be \href{bdb1e15}{continuous random variables}. The joint
+\href{ad1290d}{c.d.f.} of $X$ and $Y$ is defined by
+$$
+  F(x,y):=P(X\leq x,Y\leq y)\with{(x,y\in\R)}
+$$
+
+The c.d.f. of $X$ can be obtained from the joint c.d.f. as
+$$
+  F_X(x)=\lim_{y\to\infty}F(x,y)
+$$
+
+The c.d.f. of $Y$ can be obtained similarly.
+
+\Definition{Joint probability mass function}\label{e00d4ea}
+
+The joint \href{bcef5f1}{p.m.f.} of two \href{f831030}{discrete random
+variables} $X$ and $Y$ is defined as
+$$
+  p(x,y):=P(X=x,Y=y)
+$$
+
+The p.m.f. of $X$ can be obtained from the joint p.m.f. by
+$$
+  P(X=x)=\sum_{y\in\R}P(X=x,Y=y)
+$$
+
+The p.m.f. of $Y$ can be obtained similarly.
+
+\Definition{Joint probability density function}\label{b62ce9b}
+
+The joint \href{cb9d3f0}{p.d.f.} of two \href{bdb1e15}{continuous random
+variables} $X$ and $Y$ is $f:\R^2\to\R$ such that for all $C\subset\R^2$,
+$$
+  P((X,Y)\in C)=\iint_Cf(x,y)\,dy\,dx
+$$
+
+This relates back to the \href{ac796f3}{joint c.d.f.} by
+$$
+  F(a,b)=P(X\leq a,Y\leq b)=\int_{-\infty}^a\int_{-\infty}^bf(x,y)\,dy\,dx
+$$
+
+which then means that
+$$
+  f(a,b)=\left.\frac{\partial^2}{\partial y\partial x}F(x,y)\right|_{x=a,y=b}
+$$
+
+\Definition{Jointly distributed random variables}\label{ab5a852}
+
+Two \href{b96960b}{random variables} $X_1$ and $X_2$ are said to be jointly
+distributed if the context considers their \href{ac796f3}{joint c.d.f.} or
+\href{b62ce9b}{joint p.d.f.} or \href{e00d4ea}{joint p.m.f.}.
+
+This usually involves considering the pair $(X_1,X_2)$ as a random variable
+itself. Let $Y:=(X_1,X_2)$, and let $S_i$ be the sample space of $X_i$,
+$i=1,2$. Then now $Y:S_1\times S_2\to\R^2$ (\href{b96960b}{recall} that
+$X_1:S_1\to\R$), and so
+$$
+  P[Y=(a_1,a_2)]=P(\Set{(s_1,s_2)\in S_1\times S_2}{Y(s_1,s_2)=(a_1,a_2)})
+$$
+
+and for all $U\subset\R^2$, we have
+$$
+  P(Y\in U)=P(\Set{(s_1,s_2)\in S_1\times S_2}{Y(s_1,s_2)\in U})
+$$
+
+\Definition{Independent random variables}\label{f0da4c0}
+
+The \href{b96960b}{random variables} $X$ and $Y$ are defined to be independent
+if for all $A,B\subset\R$,
+$$
+  P(X\in A,Y\in B)=P(X\in A)P(Y\in B)
+$$
+
+This relates back to \href{cb4d04c}{event independence} because it's saying
+that the events $\{X\in A\}$ and $\{Y\in B\}$ are independent.
+
+\Remark{Independent random variables (c.d.f.)}\label{b52c619}
+
+Let $X,Y$ be \href{b96960b}{random variables}. $X$ and $Y$ are
+\href{f0da4c0}{independent} if and only if for all $a,b\in\R$,
+$$
+  P(X\leq a,Y\leq b)=P(X\leq a)P(Y\leq b)
+$$
+
+or equivalently, $\href{ac796f3}{F(x,y)}=\href{ad1290d}{F_X}(a)F_Y(b)$.
+
+\Remark{Independent random variables (p.m.f./p.d.f.)}\label{d8adbf8}
+
+Let $X,Y$ be \href{b96960b}{random variables}. $X$ and $Y$ are
+\href{f0da4c0}{independent} if and only if their joint
+\href{bcef5f1}{p.m.f.}/\href{cb9d3f0}{p.d.f.} is a product of their marginal
+p.m.f./p.d.f..
+
+Formally, if $X,Y$ are discrete, independence is equivalent to
+$$
+  P(X=x,Y=y)=P(X=x)P(Y=y)
+$$
+
+and if $X,Y$ are continuous, then independence is equivalent to
+$$
+  \href{b62ce9b}{f(x,y)}=\href{cb9d3f0}{f_X}(x)f_Y(y)
+$$
+
+\Proposition{Condition for independent RV}\label{b90dd80}
+
+The \href{b96960b}{random variables} $X$ and $Y$ are
+\href{f0da4c0}{independent} if and only if their joint
+\href{e00d4ea}{p.m.f.}/\href{b62ce9b}{p.d.f.} can be expressed as
+$$
+  f(x,y)=h(x)g(y)
+$$
+
+where $f$ is a p.m.f. if $X,Y$ are discrete, and a p.d.f. if they are
+continuous.
+
+\begin{proof}
+  This proves only covers the case for when $X$ and $Y$ are continuous. The
+  discrete case is highly similar and only involves replacing the p.d.f.s with
+  p.m.f.s and integrals with sums.
+
+  ($\implies$) Suppose $X$ and $Y$ are independent. Then by \autoref{d8adbf8},
+  we have
+  $$
+    f(x,y)=f_X(x)f_Y(y)
+  $$
+
+  and hence we are done by taking $h=f_X$ and $g=f_Y$.
+
+  ($\impliedby$) Now suppose we can write $f(x,y)=h(x)g(y)$. Then
+  \begin{align*}
+    1 &=\int_\R\int_\R f(x,y)\,dy\,dx           \\
+      &=\int_\R\int_\R h(x)g(y)\,dy\,dx         \\
+      &=\int_\R h(x)\int_\R g(y)\,dy\,dx        \\
+      &=\int_\R g(y)\,dy\int_\R h(x)\,dx\Tag{*}
+  \end{align*}
+
+  Consider the marginal p.d.f. of $X$:
+  $$
+    f_X(x)
+    =\int_\R f(x,y)\,dy
+    =\int_\R h(x)g(y)\,dy
+    =h(x)\int_\R g(y)\,dy
+  $$
+
+  By symmetry we also have
+  $$
+    f_Y(y)=g(y)\int_\R h(x)\,dx
+  $$
+
+  Putting the results of $f_X(x)$ and $f_Y(y)$ with $(*)$, we have
+  \begin{align*}
+    f(x,y) &=h(x)g(y)\desc{by assumption}                            \\
+           &=h(x)g(y)\int_\R g(y)\,dy\int_\R h(x)\,dx\desc{by $(*)$} \\
+           &=f_X(x)f_Y(y)
+  \end{align*}
+\end{proof}
+
+\Result{Sum of independent random variables}\label{d671a9d}
+
+Let $X,Y$ be two continous independent random variables, with p.d.f.s $f_X$ and
+$f_Y$ respectively. Then we have
+\begin{align*}
+  \href{ad1290d}{F}_{X+Y}(a) &=\int_{-\infty}^\infty F_X(a-y)f_Y(y)\,dy \\
+  \href{cb9d3f0}{f}_{X+Y}(a) &=\int_{-\infty}^\infty f_X(a-y)f_Y(y)\,dy
+\end{align*}
+
+Note that by symmetry, we can swap the roles of $X$ and $Y$.
+
+\begin{proof}
+  First, we consider the \href{ad1290d}{c.d.f.} of $X+Y$.
+  \begin{align*}
+    F_{X+Y}(a) &=P(X+Y\leq a)                                                                            \\
+               &=\iint_{x+y\leq a}f(x,y)\,dx\,dy                                                         \\
+               &=\iint_{x+y\leq a}f_X(x)f_Y(y)\,dx\,dy\desc{$X$ and $Y$ are \href{d8adbf8}{independent}} \\
+               &=\int_{-\infty}^\infty\int_{-\infty}^{a-y}f_X(x)f_Y(y)\,dx\,dy                           \\
+               &=\int_{-\infty}^\infty f_Y(y)\int_{-\infty}^{a-y}f_X(x)\,dx\,dy                          \\
+               &=\int_{-\infty}^\infty f_Y(y)F_X(a-y)\,dy\desc{by \href{ad1290d}{definition}}
+  \end{align*}
+
+  This the \href{cb9d3f0}{p.d.f.} of $X+Y$ comes from \href{ad1290d}{taking the
+  derivative} of $F_{X+Y}$.
+  \begin{align*}
+    f_{X+Y}(a) &=\frac{d}{da}F_{X+Y}(a)                                                                           \\
+               &=\int_{-\infty}^\infty\frac{\partial}{\partial a}f_Y(y)F_X(a-y)\,dy\desc{by \href{f436430}{this}} \\
+               &\href{ad1290d}{=}\int_{-\infty}^\infty f_Y(y)f_X(a-y)\,dy
+  \end{align*}
+\end{proof}
+
+\Result{List of results of sum of random variables}\label{d21a6fd}
+
+For the results below, let $i$ be the iterating variable where $i=\iter1n$. Let
+$X_i$ be random variables and let all other symbols be elements of $\R$.
+\begin{itemize}
+  \item $X_i\sim\href{a4b5cdb}{\Gamma}(t_i,\lambda)\implies\sum X_i\sim\Gamma(\sum t_i, \lambda)$.
+  \item $X_i\sim\href{cad638e}{\mathrm{Exp}}(\lambda)\implies\sum X_i\sim\Gamma(n,\lambda)$.
+  \item $Z_i\sim\href{c41e979}{N}(0,1)\implies\sum Z_i\sim\Gamma(\frac n2,\frac12)=\chi_n^2$.
+  \item $X_i\sim N(\mu_i,\sigma_i^2)\implies\sum X_i\sim N(\sum\mu_i,\sum\sigma_i^2)$.
+  \item $X_i\sim\href{fc4dd45}{\mathrm{Poisson}}(\lambda_i)\implies\sum X_i\sim\mathrm{Poisson}(\sum\lambda_i)$.
+  \item $X_i\sim\href{bc8d330}{B}(n,p_i)\implies\sum X_i\sim B(n,\sum p_i)$.
+\end{itemize}

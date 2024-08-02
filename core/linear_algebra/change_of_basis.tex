@@ -1,0 +1,157 @@
+\subsection{Change of basis}\label{e05f938}
+
+\Proposition{Matrix of identity operator with respect to one basis}\label{a43a301}
+
+\texttt{\href{d76dfe6}{use notation};} Let $V$ be an $n$-dimensional vector
+space, and let $I\in\href{ab1f2fb}{\L(V)}$ be the identity
+\href{bd31d9c}{operator} on $V$. Then given a fixed basis $\iter{v_1}{v_n}$ of $V$,
+$$
+  \href{c70dad0}{\mathcal M(I,(\iter{v_1}{v_n}),(\iter{v_1}{v_n}))}=I
+$$
+
+where the second $I$ refers to the $n\times n$ \href{dcfd9cd}{identity matrix}.
+
+\begin{proof}
+  Let $\iter{v_1}{v_n}$ be the basis of $V$ that we will use with $\mathcal
+  M$.
+
+  By \href{c70dad0}{definition of matrix of a linear map}, letting $A:=\mathcal
+  M(I,(\iter{v_1}{v_n}),(\iter{v_1}{v_n}))$, we have
+  $$
+    I(v_k):=A_{1,k}v_1+\ldots+A_{m,k}v_n\with{(k=\iter1n)}
+  $$
+
+  Then since we want $I(v_k)=v_k$ for all $k=\iter1n$ (by definition of the
+  identity),
+  $$
+    A_{i,j}=\begin{cases}
+      1 & \text{if }i=j     \\
+      0 & \text{if }i\neq j \\
+    \end{cases}
+  $$
+
+  which makes $A$ the \href{dcfd9cd}{identity matrix}. Since $|B|=n$, $A$ will
+  be an $n\times n$ matrix.
+\end{proof}
+
+\Proposition{Matrix of product of linear maps*}\label{d17fea1}
+
+Suppose $T\in\L(U,V)$ and $S\in\L(V,W)$. If $\iter{u_1}{u_m}$ is a basis of
+$U$, and $\iter{v_1}{v_n}$ is a basis of $V$, and $\iter{w_1}{w_p}$ is a basis
+of $W$, then
+\begin{align*}
+   &\mathcal M(ST,(\iter{u_1}{u_m}),(\iter{w_1}{w_p})) \\
+   &=\mathcal M(S,(\iter{v_1}{v_n}),(\iter{w_1}{w_p}))
+  \mathcal M(T,(\iter{u_1}{u_m}),(\iter{v_1}{v_n}))
+\end{align*}
+
+\begin{proof}
+  This is a more verbose restatement of \autoref{d35daba}.
+\end{proof}
+
+\Proposition{Matrix of identity operator with respect to two bases}\label{f0a32c6}
+
+Suppose that $\iter{u_1}{u_n}$ and $\iter{v_1}{v_n}$ are bases of $V$. Then the
+matrices
+$$
+  \href{c70dad0}{\mathcal M(I,(\iter{u_1}{u_n}),(\iter{v_1}{v_n}))}
+  \quad\text{ and }\quad
+  \mathcal M(I,(\iter{v_1}{v_n}),(\iter{u_1}{u_n}))
+$$
+
+are invertible, and each is the inverse of the other.
+
+\begin{proof}
+  In \autoref{d17fea1}, use $V$ with basis $\iter{u_1}{u_n}$ in the place of $U$
+  and $W$, and use $I$ in the place of $S$ and $T$. This gets
+  \begin{align*}
+     &\mathcal M(I,(\iter{u_1}{u_n}),(\iter{u_1}{u_n}))  \\
+     &=\mathcal M(I,(\iter{v_1}{v_n}),(\iter{u_1}{u_n}))
+    \mathcal M(I,(\iter{u_1}{u_n}),(\iter{v_1}{v_n}))
+  \end{align*}
+
+  Now, use $V$ with basis $\iter{v_1}{v_n}$ in the place of $U$ and $W$ in
+  \autoref{d17fea1}, and again use $I$ in the place of $S$ and $T$:
+  \begin{align*}
+     &\mathcal M(I,(\iter{v_1}{v_n}),(\iter{v_1}{v_n}))  \\
+     &=\mathcal M(I,(\iter{u_1}{u_n}),(\iter{v_1}{v_n}))
+    \mathcal M(I,(\iter{v_1}{v_n}),(\iter{u_1}{u_n}))
+  \end{align*}
+
+  \href{a43a301}{Clearly}, $\mathcal M(I,(\iter{v_1}{v_n}),(\iter{v_1}{v_n}))$
+  is the \href{dcfd9cd}{identity matrix} $I$, and so is $\mathcal
+  M(I,(\iter{u_1}{u_n}),(\iter{u_1}{u_n}))$. So then both equations above are
+  equal and the proof is complete.
+\end{proof}
+
+\Proposition{Change-of-basis formula}\label{ded76d1}
+
+Let $V$ be a finite-dimensional vector space, and let
+$T\in\href{ab1f2fb}{\L(V)}$. Suppose $\iter{u_1}{u_n}$ and $\iter{v_1}{v_n}$
+are bases of $V$, and let
+\begin{align*}
+  A &:=\href{c70dad0}{\mathcal M(T,(\iter{u_1}{u_n}))} \\
+  B &:=\mathcal M(T,(\iter{v_1}{v_n}))
+\end{align*}
+
+and $C:=\mathcal M(I,(\iter{u_1}{u_n}),(\iter{v_1}{v_n}))$. Then
+$$
+  A=C^{-1}BC
+$$
+
+\begin{proof}
+  \def\u{u_{\ldots}}
+  \def\v{v_{\ldots}}
+  \def\M{\mathcal{M}}
+
+  For brevity I will use $u_{\ldots}$ to denote $\iter{u_1}{u_n}$ and likewise
+  with $v_{\ldots}$ and $\iter{v_1}{v_n}$.
+
+  First, by \autoref{f0a32c6}, we have that
+  $$
+    C^{-1}=\mathcal M(I,(\v),(\u)).
+  $$
+
+  In \autoref{d17fea1}, we replace the basis of $w$'s with the basis of $u$'s,
+  and replace $S$ with $I$, getting
+  \begin{align*}
+    \M(IT,(\u),(\u)) &=\M(I,(\v),(\u))\M(T,(\u),(\v)) \\
+    A                &=C^{-1}\M(T,(\u),(\v))\Tag{*}
+  \end{align*}
+
+  Again use \autoref{d17fea1}, this time replacing the basis of $w$'s with the
+  basis of $v$'s. Also, replace $T$ with $I$ and $S$ with $T$, getting
+  \begin{align*}
+    \M(TI,(\u),(\v)) &=\M(T,(\v),(\v))\M(I,(\u),(\v)) \\
+    \M(T,(\u),(\v))  &=BC\Tag{**}
+  \end{align*}
+
+  Putting $(*)$ and $(**)$ together, we have $A=C^{-1}BC$, completing the
+  proof.
+\end{proof}
+
+\Proposition{Matrix of inverse equals inverse of matrix}\label{b259e2d}
+
+Suppose that $\iter{v_1}{v_n}$ is a basis of vector space $V$, and
+$T\in\href{ab1f2fb}{\L(V)}$ is invertible. Then
+$$
+  \mathcal M(T^{-1})=[\href{c70dad0}{\mathcal M(T)}]^{-1},
+$$
+
+where both matrices are with respect to the basis $\iter{v_1}{v_n}$.
+
+\begin{proof}
+  \def\v{v_{\ldots}}
+  \def\M{\mathcal{M}}
+  For brevity I will use $v_{\ldots}$ to denote $\iter{v_1}{v_n}$.
+
+  In \autoref{d17fea1}, we replace $S$ with $T^{-1}$, and all their bases with
+  our basis of $v$'s. Then
+  \begin{align*}
+    \M(T^{-1}T,(\v),(\v)) &=\M(T^{-1},(\v),(\v))\M(T,(\v),(\v))                      \\
+    I                     &=\M(T^{-1})\M(T)\desc{\href{a43a301}{matrix of identity}}
+  \end{align*}
+
+  By \href{ce4daa8}{definition}, $\M(T^{-1})$ and $\M(T)$ are inverses of each
+  other, thus completing the proof.
+\end{proof}

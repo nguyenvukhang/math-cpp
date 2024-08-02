@@ -1,0 +1,133 @@
+\subsection{QR via Householder reflections}\label{e4faa2d}
+
+\Definition{Householder reflection}\label{d7e9a69}
+
+The reflection hyperplane can be defined by its normal vector, a unit vector
+$v$ that is \href{d9735e5}{orthogonal} to the hyperplane. The reflection $x$
+about this hyperplane is the linear transformation:
+$$
+  x\mapsto x-2vv^*x
+$$
+
+Observe that since $\norm v=1$, then $vv^*x$ is the \href{fc332ef}{projection}
+of $x$ onto $v$. Therefore, $-vv^*x$ takes $x$ \textbf{to} the hyperplane.
+Which then means that $-2vv^*x$ takes $x$ to its \textbf{reflection} about the
+hyperplane.
+
+\Definition{Householder matrix}\label{ae0f3b4}
+
+The matrix constructed from the \href{d7e9a69}{Householder reflection} can be
+expressed as
+$$
+  P=I-2vv^*
+$$
+
+where $v$ is the unit vector that decides the hyperplane, $v^*$ is its
+conjugate transpose, and $I\in\R^{n\times n}$ is the identity matrix.
+
+The Householder matrix has the following properties:
+\begin{enumerati}
+  \item it is \href{a633178}{Hermitian}: $P=P^*$. (Because
+        \href{dd38b0c}{$vv^*$ is Hermitian}, and the \href{a2ea95a}{sum of
+        Hermitian matrices is Hermitian})
+  \item it is \href{bb02509}{involutory}: $P=P^{-1}$. (Shown
+        \href{d6c51f2}{here})
+  \item it is \href{a32560c}{unitary}: $P^{-1}=P^*$. (Follows from it being
+        Hermitian and involutory)
+  \item $P$ has eigenvalues $\{-1,1\}$. To see this, notice that if $u$ is
+  \href{d9735e5}{orthogonal} to $v$ which was used to create the reflector,
+  then $Pu=u$. (i.e. $1$ is an eigenvalue of multiplicity $n-1$, since there
+  are \href{a0fa485}{$n-1$ linearly independent vectors orthogonal to $v$}).
+  Also, $Pv=-v$, and so $-1$ is an eigenvalue with multiplicity $1$.
+\end{enumerati}
+
+\Proposition{Householder matrix is involutory}\label{d6c51f2}
+
+Let $P$ be the \href{ae0f3b4}{Householder matrix}. Then $P$ is
+\href{bb02509}{involutory}, that is
+$$
+  P=P^{-1}
+$$
+
+\begin{proof}
+  \begin{align*}
+    PP &=(I-2vv^*)(I-2vv^*)                       \\
+       &=I^2-I(2vv^*)-2vv^*I+4(vv^*)(vv^*)        \\
+       &=I-4vv^*+4(vv^*)(vv^*)                    \\
+       &=I-4vv^*+4v(v^*v)v^*                      \\
+       &=I-4vv^*+4vv^* \desc{$v^*v=\norm{v}^2=1$} \\
+       &=I
+  \end{align*}
+\end{proof}
+
+\Remark{Using Householder reflections for QR factorization}\label{a77c7b1}
+
+Let $A\in\R^{m\times n}$, with $m\geq n$ as in \href{c465f7c}{QR
+factorization}. Our goal is to decompose it into
+$$
+  A=QR
+$$
+
+We want to reflect $a_1$, the first column vector of $A$, to
+$\norm{a_1}\href{c01037d}{e_1}$, since this preserves the length of $a_1$ (and
+hence is a reflection) and zeros-out the rest of the rows.
+
+So we pick $v_1:=\norm{a_1}e_1-a_1$. Observe that the hyperplane with $v_1$ as
+its normal vector bisects $a_1$ and $\norm{a_1}e_1$, so reflecting $a_1$ about
+this hyperplane sends it to $\norm{a_1}e_1$.
+
+Now we compute the first \href{ae0f3b4}{Householder matrix}, $P_1$:
+$$
+  P_1:=I-2\frac{v_1v_1^*}{v_1^*v_1}
+$$
+
+So far, our factorization looks like this:
+$$
+  P_1A=\begin{bmat}
+    \norm{a_1} & *      & \cdots & *      \\
+    0          & \vdots & \vdots & \vdots \\
+    \vdots     & \vdots & \vdots & \vdots \\
+  \end{bmat}
+$$
+
+On the next iteration to calculate $P_2$, we set $v_2=\norm{a'_2}e_2-a'_2$,
+where $a'_2$ is just $a_2$ but with the first element zero. So then $v_2$ will
+have the first element zero, and $P_2$ given by
+$$
+  P_2:=I-2\frac{v_2v_2^*}{v_2^*v_2}
+$$
+
+will have its first row and first column looking like the identity:
+$$
+  P_2=\begin{bmat}
+    1      & 0      & \cdots & 0      \\
+    0      & *      & \cdots & *      \\
+    \vdots & \vdots & \ddots & \vdots \\
+    0      & *      & \cdots & *      \\
+  \end{bmat}
+$$
+
+Multiplying this to $P_1A$ will zero-out the second column:
+$$
+  P_2P_1A=\begin{bmat}
+    \norm{a_1} & 0          & *      & \cdots & *      \\
+    0          & \norm{a_2} & \vdots & \vdots & \vdots \\
+    0          & 0          & \vdots & \vdots & \vdots \\
+    \vdots     & \vdots     & \vdots & \vdots & \vdots \\
+  \end{bmat}
+$$
+
+We continue until $P_n\ldots P_1A$ is \href{c39b6bf}{upper triangular}, and
+then we call it $R$. (Note that at each $P_k$, we ignore the first $k-1$ rows
+when calculating $v_k:=\norm{a'_k}e_k-a'_k$)
+$$
+  P_n\ldots P_1A=R
+$$
+
+So working backwards, since we want $A=QR$,
+$$
+  Q=(P_n\ldots P_1)^{-1}=P_1^{-1}\ldots P_n^{-1}=P_1\ldots P_n
+$$
+
+Note that the last equality holds because \href{ae0f3b4}{Householder matrices
+are involutions}.

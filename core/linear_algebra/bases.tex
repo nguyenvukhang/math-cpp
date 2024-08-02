@@ -1,0 +1,131 @@
+\subsection{Bases}\label{ccca984}
+
+\Proposition{Criterion for basis}\label{ed4c0d8}
+
+Let $V$ be a vector space. A list $\iter{z_1}{z_n}$ is a basis of $V$ if and
+only if every $v\in V$ can be written uniquely in the form
+\begin{equation*}
+  v=a_1z_1+\ldots+a_nz_n\Tag{*}
+\end{equation*}
+
+where $\iter{a_1}{a_n}\in\F$.
+
+\begin{proof}
+  Let $B:=\{\iter{z_1}{z_n}\}$ be a basis of $V$. Let $v\in V$. Because $B$
+  \href{ac574be}{spans} $V$, $(*)$ holds. Next, since $B$ is linearly
+  independent, by \autoref{dcafe9d}, $(*)$ is a unique representation of $v$ as
+  a linear combination of vectors in $B$.
+\end{proof}
+
+\Proposition{Every spanning list contains a basis}\label{cc16f54}
+
+Every spanning list in a vector space can be reduced to a basis of the vector
+space.
+
+\begin{proof}
+  Suppose $U:=\iter{u_1}{u_n}$ spans a vector space $V$. We want to remove some
+  vectors from $U$ so that the remaining vectors form a basis of $V$. We proceed
+  with the multistep process below.
+  Start with $B:=U$.
+
+  \textbf{Step 1} If $v_1=0$, then delete $v_1$ from $B$.
+
+  \textbf{Step k (for $k=\iter2n$)} If $v_k\in\Span\{\iter{v_1}{v_{k-1}}\}$,
+  then delete $v_k$ from the list $B$.
+
+  After this process terminates, the remaining list $B$ spans $V$ because our
+  original list spanned $V$ and we have discarded only vectors that were
+  already in the span of the previous vectors. By the contrapositive of the
+  \href{ba96a6f}{linear dependence lemma}, $B$ is linearly independent and
+  hence is a basis of $V$.
+\end{proof}
+
+\Proposition{Basis of finite-dimensional vector space}\label{e3f4034}
+
+Every finite-dimensional vector space has a basis.
+
+\begin{proof}
+  By \href{c4cd6dd}{definition},  a finite-dimensional vector space has a
+  spanning list. By \autoref{cc16f54}, we can reduce this list to a basis.
+\end{proof}
+
+\Proposition{Every linearly independent list extends to a basis}\label{f0fa1cd}
+
+Every linearly independent list of vectors in a finite-dimensional vector space
+can be extended to a basis of the vector space.
+
+\begin{proof}
+  Suppose $\iter{u_1}{u_m}$ is linearly independent in a finite-dimensional
+  vector space $V$, and let $\iter{w_1}{w_n}\in V$ be vectors that span $V$.
+  Clearly,
+  $$
+    \iter{u_1}{u_m},\iter{w_1}{w_n}
+  $$
+
+  span $V$. Applying the procedure in the proof of \autoref{cc16f54} to reduce
+  this list to a basis of $V$ produces a basis consisting of $\iter{u_1}{u_m}$
+  and some of the $w$'s. (None of the $u$'s get deleted because
+  $\iter{u_1}{u_m}$ is linearly independent)
+\end{proof}
+
+\Proposition{Basis length does not depend on basis}\label{c1f28cf}
+
+Any two \href{db2477b}{bases} of a \href{c4cd6dd}{finite-dimensional vector
+space} have the same length.
+
+\begin{proof}
+  Suppose $V$ is a finite-dimensional vector space. Let $B_1$ and $B_2$ be two
+  bases of $V$. Then as $B_1$ is linearly independent and $B_2$ spans $V$, by
+  \autoref{d8487b6} we have $|B_1|\leq|B_2|$. By symmetry we have
+  $|B_1|\geq|B_2|$. Thus, $|B_1|=|B_2|$.
+\end{proof}
+
+\Proposition{Dimension of a subspace}\label{bf6aad4}
+
+If $V$ is a finite-dimensional vector space, and $U$ is a subspace of $V$, then
+$$
+  \dim U\leq\dim V
+$$
+
+\begin{proof}
+  Think of a basis of $U$ as a linearly independent list in $V$, and think of a
+  basis of $V$ as a spanning list of $V$. Then by \autoref{d8487b6}, we have
+  $\dim U\leq\dim V$.
+\end{proof}
+
+\Proposition{Linearly independent list of the right length is a basis}\label{e3d5b2a}
+
+Let $V$ be a finite-dimensional vector space. Then every linearly independent
+list of vectors of $V$ of length $\dim V$ is a basis of $V$.
+
+\begin{proof}
+  Let $n:=\dim V$, and let $\iter{v_1}{v_n}$ be a linearly independent list of
+  vectors in $V$. This list can be extended to a basis of $V$ using
+  \autoref{f0fa1cd}. However, every basis of $V$ has length $n$ so no elements
+  are appended. Thus $\iter{v_1}{v_n}$ is a basis of $V$, as desired.
+\end{proof}
+
+\Proposition{Subspace of full dimension equals the whole space}\label{ed8951d}
+
+Let $V$ be a finite-dimensional vector space, and $U$ is a subspace of $V$ such
+that $\dim U=\dim V$. Then $U=V$.
+
+\begin{proof}
+  Let $\iter{u_1}{u_n}$ be a basis of $U$. Thus $n=\dim U$. By assumption we
+  have $n=\dim V$ too. Thus, $\iter{u_1}{u_n}$ is a linearly independent list of
+  vectors in $V$ of length $\dim V$. By \autoref{e3d5b2a}, $\iter{u_1}{u_n}$ is
+  a basis of $V$. In particular, if $v\in V$, then $v$ can be written as a
+  linear combination of $\iter{u_1}{u_n}$ and hence $v\in U$, which implies that
+  $V\subset U$. But by definition of a subspace, $U\subset V$. Thus $U=V$.
+\end{proof}
+
+\Proposition{Spanning list of the right length is a basis}\label{c1df707}
+
+Let $V$ be a finite-dimensional vector space. Then every spanning list of
+vectors in $V$ of length $\dim V$ is a basis of $V$.
+
+\begin{proof}
+  Let $n:=\dim V$ and $S:=\iter{v_1}{v_n}$ spans $V$. Then by \autoref{cc16f54},
+  $S$ can be reduced to a basis of $V$. But every basis of $V$ has length
+  $n=|S|$, so no elements are deleted. Hence $S$ is a basis of $V$, as desired.
+\end{proof}

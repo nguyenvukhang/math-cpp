@@ -1,0 +1,67 @@
+\subsection{Sequences and limits}\label{d9acddb}
+
+\Theorem{Uniqueness of limit}\label{e6b43e0}
+
+If the \href{b5fa0e4}{sequence} $\{x_n\}$ \href{de3e28a}{converges}, then it
+has exactly one \href{e565120}{limit}.
+
+\begin{proof}
+  Suppose $x$ and $x'$ are limits of $\{x_n\}$. Let $\epsilon>0$ be
+  arbitrarily given, and let $\bar\epsilon=\epsilon/2$.
+
+  Since $x_n\to x$, there exists $K_1\in\N$ such that
+  $$
+    n\geq K_1\implies |x_n-x|<\bar\epsilon
+  $$
+
+  Similarly since $x_n\to x'$, there exists $K_2\in\N$ such that
+  $$
+    n\geq K_2\implies |x_n-x'|<\bar\epsilon
+  $$
+
+  Then let $K:=\max\{K_1,K_2\}\in\N$. Then for all $n\geq K$,
+  \begin{align*}
+    |x-x'| &= |(x-x_n)-(x_n-x')|                                           \\
+           &\leq|x-x_n|-|x_n-x'|\desc{\href{f1288ad}{triangle inequality}} \\
+           &<\bar\epsilon+\bar\epsilon                                     \\
+           &=\epsilon
+  \end{align*}
+
+  Since $\epsilon>0$ is arbitrary, by \autoref{b069294} we have $|x-x'|=0$ and
+  hence $x=x'$.
+\end{proof}
+
+\Theorem{Convergent sequences are bounded}\label{d8148e6}
+
+Every \href{de3e28a}{convergent} sequence is \href{d5ed299}{bounded}.
+
+\begin{proof}
+  Let $\{x_n\}$ be a convergent sequence and $\lim_{n\to\infty}x_n=\bar x$. Put
+  $\epsilon:=1$. Then there exists $K\in\N$ such that
+  $$
+    |x_n-\bar x|<1,\with{\forall n\geq K}
+  $$
+
+  Thus when $n\geq K$,
+  \begin{align*}
+    |x_n| &= |(x_n-\bar x)+\bar x|                                             \\
+          &\leq|x_n-\bar x|+|\bar x|\desc{\href{f1288ad}{triangle inequality}} \\
+          &\leq1+|\bar x|
+  \end{align*}
+
+  Let $M=\max\{\iter{x_1}{x_{K-1}},1+|\bar x|\}$. Then
+  $$
+    |x_n|\leq M,\with{\forall n\in\N}
+  $$
+
+  So $\{x_n\}$ is bounded.
+\end{proof}
+
+\Corollary{Convergent sequences are bounded*}\label{a46c1d7}
+
+\begin{enumerati}
+  \item Every unbounded sequence is divergent (contrapositive of
+        \autoref{d8148e6})
+  \item Boundedness does not imply convergence. Consider the bounded sequence
+        $\{x_n\}$ defined by $x_n=(-1)^n$.
+\end{enumerati}

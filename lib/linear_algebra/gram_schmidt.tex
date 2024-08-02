@@ -1,0 +1,85 @@
+\subsection{Gram-Schmidt}\label{cd74649}
+
+\Lemma{Gram-Schmidt and linear combination of original basis}\label{eead63c}
+
+Let $V$ be an $n$-dimensional vector space, and let $\{\iter{v_1}{v_n}\}$ be a
+basis of $V$. Let $\{\iter{u_1}{u_n}\}$ be the result of applying the
+Gram-Schmidt process on $\{\iter{v_1}{v_n}\}$.
+
+Then $u_i$ is a linear combination of $\{\iter{v_1}{v_i}\}$, for each
+$i=\iter1n$.
+
+\begin{proof}
+  \def\proj{\mathrm{proj}}
+
+  We prove this statement by strong induction. Let $P(i)$ be the statement that
+  $u_i$ is a linear combination of $\{\iter{v_1}{v_i}\}$. Note that $P(1)$ is
+  trivially true, since $u_1:=v_1$.
+
+  Let $P(k)$ be true for some $k\in[1,n-1]$. Now by construction,
+  $$
+    u_{k+1}=v_{k+1}-\sum_{i=1}^k\proj_{u_i}(v_{k+1})
+  $$
+
+  where $\proj_a(b)$ is the \href{fc332ef}{vector projection} of $b$ onto $a$.
+  Therefore, $u_{k+1}$ is a linear combination of $v_{k+1}$ and
+  $\iter{u_1}{u_k}$. But by strong induction, for each $i=\iter1k$, $u_i$ is a
+  linear combination of $\iter{v_1}{v_i}$ and hence the linear combination of
+  $\iter{u_1}{u_k}$ is a linear combination of $\iter{v_1}{v_k}$.
+
+  Therefore, $u_{k+1}$ is a linear combination of $\iter{v_1}{v_{k+1}}$. This
+  completes the proof.
+\end{proof}
+
+\Lemma{Gram-Schmidt on a basis does not produce zeros}\label{c4f05ae}
+
+Let $V$ be an $n$-dimensional vector space, and let $\{\iter{v_1}{v_n}\}$ be a
+basis of $V$. Then applying the Gram-Schmidt process on $\{\iter{v_1}{v_n}\}$
+to obtain $\{\iter{u_1}{u_n}\}$ will not result in $u_i=0$ for any $i=\iter1n$.
+
+\begin{proof}
+  \def\proj{\mathrm{proj}}
+
+  Let $\proj_a(b)$ be the \href{fc332ef}{vector projection} of $b$ onto $a$.
+  Then by construction,
+  $$
+    u_k=v_k-\sum_{i=1}^{k-1}\proj_{u_i}(v_k)\with{(k=\iter1n)}
+  $$
+
+  Assume on the contrary that for some $k$, we have $u_k=0$. Then
+  $$
+    0=v_k-\sum_{i=1}^{k-1}\proj_{u_i}(v_k)
+  $$
+
+  This is simplying saying that there is a collection of scalars $a_i$ such
+  that
+  $$
+    0=v_k-\sum_{i=1}^{k-1}a_iu_i
+  $$
+
+  By \autoref{eead63c}, each $u_i$ is a linear combination of
+  $\iter{v_1}{v_i}$, and hence there is also a collection of scalars $b_i$ such
+  that
+  $$
+    0=v_k-\sum_{i=1}^{k-1}b_iv_i
+  $$
+
+  By \href{c133a44}{linear independence} of $\iter{v_1}{v_k}$, the RHS must be
+  the trivial linear combination of $\iter{v_1}{v_k}$, but this is a
+  contradiction as the coefficient of $v_k$ is $1$.
+\end{proof}
+
+\Lemma{Gram-Schmidt produces a basis that spans the same space}\label{c39f052}
+
+Let $V$ be an $n$-dimensional vector space, and let $\{\iter{v_1}{v_n}\}$ be a
+basis of $V$. Let $\{\iter{u_1}{u_n}\}$ be the result of applying the
+Gram-Schmidt process on $\{\iter{v_1}{v_n}\}$. Then $\{\iter{u_1}{u_n}\}$ is
+also a basis of $V$.
+
+\begin{proof}
+  By construction, $\{\iter{u_1}{u_n}\}$ are set of orthogonal vectors.
+  \autoref{c4f05ae} guarantees that none of them are zeros, and by
+  \href{c0eb6f5} this result, they are linearly independent.
+
+  By \autoref{c8f8fd3}, they span $V$.
+\end{proof}

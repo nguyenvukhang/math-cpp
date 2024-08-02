@@ -1,0 +1,143 @@
+\subsection{Eigenvalues and Eigenvectors}\label{bd04270}
+
+\Proposition{Equivalent conditions to be an eigenvalue}\label{a96a1a4}
+
+Suppose $V$ is finite-dimensional, $T\in\href{ab1f2fb}{\L(V)}$, and
+$\lambda\in\F$. Then the following are equivalent:
+\begin{enumerata}
+  \item $\lambda$ is an \href{e174ec3}{eigenvalue} of $T$.
+  \item $T-\lambda I$ is not injective.
+  \item $T-\lambda I$ is not surjective.
+  \item $T-\lambda I$ is not invertible.
+\end{enumerata}
+
+where $I\in\L(V)$ is the identity operator, thus $I(v)=v$ for all $v\in V$.
+
+\begin{proof}
+  Since
+  $$
+    T(v)=\lambda v\iff(T-\lambda I)v=0,
+  $$
+
+  by \autoref{f68db52}, conditions (a) and (b) are equivalent.
+
+  Conditions (b), (c), and (d) are equivalent by \autoref{bd0d827}.
+\end{proof}
+
+\Proposition{Linearly independent eigenvectors}\label{a272503}
+
+Let $V$ be a vector space, and let $T\in\href{ab1f2fb}{\L(V)}$. Then every list
+of \href{ac14802}{eigenvectors} of $T$ corresponding to distinct
+\href{e174ec3}{eigenvalues} of $T$ is \href{c133a44}{linearly independent}.
+
+\begin{proof}
+  When $\dim V=0$ or $\dim V=1$, the result is trivial. So we focus on the case
+  when $\dim V\geq2$.
+
+  Suppose the desired result is false. Then there exists a smallest positive
+  integer $m$ such that there exists a linearly dependent list
+  $\iter{v_1}{v_m}$ of eigenvectors of $T$ corresponding to distinct
+  eigenvalues $\iter{\lambda_1}{\lambda_m}$ of $T$ (note that $m\geq2$ because
+  \href{ac14802}{eigenvectors are non-zero}).
+
+  So there exist $\iter{a_1}{a_m}\in\F$, all non-zero because of the minimality
+  of $m$, such that
+  $$
+    a_1v_1+\ldots+a_mv_m=0
+  $$
+
+  Applying $T-\lambda_mI$ to both sides yields
+  $$
+    a_1(\lambda_1-\lambda_m)v_1+\ldots+a_{m-1}(\lambda_{m-1}-\lambda_m)v_{m-1}=0
+  $$
+
+  Because eigenvalues $\iter{\lambda_1}{\lambda_m}$ are distinct, none of the
+  coefficients above equal 0. Thus $\iter{v_1}{v_{m-1}}$ is a linearly
+  independent list of eigenvectors of $T$ corresponding to distinct
+  eigenvalues, contradicting the minimality of $m$. This contradiction
+  completes the proof.
+\end{proof}
+
+\Proposition{Operators can't have more eigenvalues than dimension of vector space}\label{a36bdd2}
+
+Suppose $V$ is a finite-dimensional vector space. Then each
+\href{bd31d9c}{operator} on $V$ has at most $\dim V$ distinct
+\href{e174ec3}{eigenvalues}.
+
+\begin{proof}
+  Let $T\in\href{ab1f2fb}{\L(V)}$. Suppose $\iter{\lambda_1}{\lambda_m}$ are
+  distinct eigenvalues of $T$. Let $\iter{v_1}{v_m}$ be corresponding
+  eigenvectors. Then \autoref{a272503} implies that the list $\iter{v_1}{v_m}$
+  is linearly independent. Thus by \autoref{d8487b6}, $m\leq\dim V$, as desired.
+\end{proof}
+
+\Proposition{Polynomial of a linear map is linear}\label{a3468aa}
+
+Let $p\in\mathcal P(\F)$ be the \href{df84c07}{polynomial function}. Let $V,W$
+be vector spaces, and let $T\in\href{ab1f2fb}{\L(V,W)}$. Then $p(T)\in\L(V)$.
+
+\begin{proof}
+  Let $u,v\in V$. Then
+  \begin{align*}
+    p(T)(u+v) &=a_0(u+v)+a_1T(u+v)+a_2T^2(u+v)+\ldots                       \\
+              &=[a_0u+a_1T(u)+a_2T(u)+\ldots]+[a_0v+a_1T(v)+a_2T(v)+\ldots] \\
+              &=p(T)(u)+p(T)(v)
+  \end{align*}
+
+  and for all $\lambda\in\F$, we have
+  \begin{align*}
+    p(T)(\lambda v) &=a_0(\lambda v)+a_1T(\lambda v)+a_2T^2(\lambda v)+\ldots \\
+                    &=\lambda[a_0v+a_1T(v)+a_2T(v)+\ldots]                    \\
+                    &=\lambda p(T)(v)
+  \end{align*}
+\end{proof}
+
+\Proposition{The polynomial function $p$ is linear}\label{e660331}
+
+Let $p\in\mathcal P(\F)$ be the \href{df84c07}{polynomial function}. Let $V,W$
+be vector spaces, and let $T\in\href{ab1f2fb}{\L(V,W)}$. Then the map $p\mapsto
+p(T)$ is linear.
+
+\begin{proof}
+  Here, we fix $T\in\L(V)$. Let $f:\mathcal P(\F)\to\L(V)$ be defined by
+  $f(p)=p(T)$. Our goal is to show that $f$ is \href{d7d1925}{linear}.
+
+  Let $p,q\in\mathcal P(\F)$, where $\iter{a_0}{a_m}$ are the coefficients of
+  $p$, and $\iter{b_1}{b_m}$ are the coefficients of $q$. Then
+  $$
+    f(p+q)=(p+q)(T)\href{df84c07}{=}p(T)+q(T)=f(p)+f(q)
+  $$
+
+  And then for all $\lambda\in\F$, we have
+  $$
+    f(\lambda p)=(\lambda p)(T)\href{df84c07}{=}\lambda(p(T))=\lambda f(p)
+  $$
+
+  Hence $f$ is linear, as desired.
+\end{proof}
+
+\Proposition{Kernel and range of $p(T)$ are invariant under $T$}\label{a22eafd}
+
+Let $p\in\mathcal P(\F)$ be a \href{df84c07}{polynomial}. Let $V$ be a vector
+space and let $T\in\href{ab1f2fb}{\L(V)}$. Then $\ker p(T)$ and $\range p(T)$
+are invariant under $T$.
+
+\begin{proof}
+  Suppose $u\in\ker p(T)$. Then $p(T)(u)=0$. Thus,
+  \begin{align*}
+    [p(T)][T(u)] &=T(p(T)(u))\desc{\href{b42b8cd}{associativity} of linear maps} \\
+                 &=T(0)                                                          \\
+                 &\href{c5eb127}{=}0
+  \end{align*}
+
+  Hence $T(u)\in\ker p(T)$, and thus $\ker p(T)$ is invariant under $T$.
+
+  Now suppose $u\in\range p(T)$. Then there exists $v\in V$ such that
+  $u=p(T)(v)$. Thus
+  \begin{align*}
+    T(u) &=T(p(T)(v))                                                    \\
+         &=p(T)(T(v))\desc{\href{b42b8cd}{associativity} of linear maps}
+  \end{align*}
+
+  Hence $T(u)\in\range T$, and so $\range p(T)$ is invariant under $T$.
+\end{proof}

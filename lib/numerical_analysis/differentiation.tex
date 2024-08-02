@@ -1,0 +1,51 @@
+\subsection{Numerical differentiation}\label{f694b5d}
+
+\Remark{First derivative approximations}\label{edddb46}
+
+By definition, we have
+$$
+  f'(x)=\lim_{h\to0}\frac{f(x+h)-f(x)}h
+$$
+
+and so we have the following approximations for $f'(x)$:
+\begin{enumerata}
+  \item \href{f1a21f2}{Forward difference formula}
+  \item \href{ab3c929}{Backward difference formula}
+  \item \href{e9d076b}{Central difference formula}
+\end{enumerata}
+
+\Definition{Forward difference formula}\label{f1a21f2}
+
+Let $f:\R\to\R$. Then $f'(x)$ is approximately
+$$
+  f'(x)\approx\frac{f(x+h)-f(x)}{h}
+$$
+
+\Definition{Backward difference formula}\label{ab3c929}
+
+Let $f:\R\to\R$. Then $f'(x)$ is approximately
+$$
+  f'(x)\approx\frac{f(x)-f(x-h)}{h}
+$$
+
+\Definition{Central difference formula}\label{e9d076b}
+
+Let $f:\R\to\R$. Then $f'(x)$ is approximately
+$$
+  f'(x)\approx\frac{f(x+h)-f(x-h)}{2h}
+$$
+
+\Remark{Central difference formula for 2nd derivatives}\label{d8ed9d2}
+
+Let $f:\R\to\R$. Then $f''(x)$ is approximately
+$$
+  f''(x)\approx\frac{f(x+h)-2f(x)+f(x-h)}{h^2}
+$$
+
+\begin{derive}
+  \begin{align*}
+    f''(x) &\approx\frac{f'(x)-f'(x-h)}{h}\desc{\href{ab3c929}{Backward difference formula}}                                         \\
+           &\approx\frac1h\biggl(\frac{f(x+h)-f(x)}{h}-\frac{f(x)-f(x-h)}{h}\biggr)\desc{\href{f1a21f2}{Forward difference formula}} \\
+           &=\frac{f(x+h)-2f(x)+f(x-h)}{h^2}
+  \end{align*}
+\end{derive}

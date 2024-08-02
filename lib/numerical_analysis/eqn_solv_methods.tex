@@ -1,0 +1,396 @@
+\subsection{Equation-solving methods}\label{b000a1e}
+
+\Algorithm{Bisection Method}\label{e13a0f6}
+
+Let $f:[a,b]\to\R$ be continuous on $[a,b]$ such that $f$ changes sign from $a$
+to $b$ (that is, $f(a)f(b)<0$). The \href{d8d9745}{Intermediate Value Theorem}
+assures us that there is a root $x^*$ such that $a\leq x^*\leq b$.
+
+Next, set the midpoint $p:=\frac{a+b}2$, and evaluate $f(a)f(p)$.
+\begin{itemize}
+  \item If $f(a)f(p)<0$, then the root is in $[a,p]$ (by the same
+        \href{d8d9745}{Intermediate Value Theorem}). Then, apply the Bisection
+        Method on $[a,p]$.
+  \item If $f(a)f(p)>0$, then the root is in $[p,b]$.
+  \item If $f(a)f(p)=0$ exactly, then $p$ is the root and we are done.
+\end{itemize}
+
+Observe that in each iteration, the interval in which the root is trapped in
+shrinks by a factor of 2.
+
+At the $k$-th step, define the point $x_k$ as the midpoint $p$ of the $k$-th
+interval trapping the root. Thus, after a total of $k$ iterations, we have
+$$
+  |x^*-x_k|\leq\frac{b-a}2\cdot2^{-k}
+$$
+
+Therefore, this algorithm is guaranteed to converge.
+
+\Algorithm{Fixed Point Iteration}\label{bb9fc33}
+
+let $f:\R\to\R$ be continuous. Select a function $g:\R\to\R$ such that $x$
+satisfies $f(x)=0$ if and only if $g(x)=x$. Then:
+\begin{itemize}
+  \item[(\textbf{S0})] Put $k:=0$ and initialize $x_0$ with an initial guess.
+  \item[(\textbf{S1})] If $x_k$ satisfies a termination criteria, STOP.
+  \item[(\textbf{S2})] Set $x_{k+1}:=g(x_k)$.
+  \item[(\textbf{S3})] Update $k\gets k+1$ and go to (\textbf{S1}).
+\end{itemize}
+
+\Theorem{Fixed Point Theorem}\label{df053ed}
+
+If $g:\R\to\R$ is continuous on $[a,b]$, and $a\leq g(x)\leq b$ for all
+$x\in[a,b]$, then there is a fixed point $x^*\in[a,b]$ (i.e. $g(x^*)=x^*$
+exactly).
+
+If, in addition, the derivative $g'$ exists and there is a constant $\rho<1$
+such that the derivative satisfies
+$$
+  |g'(x)|\leq\rho,\with{\forall x\in(a,b)}
+$$
+
+then the fixed point $x^*$ is unique on $[a,b]$.
+
+\begin{proof}
+  \proofp{Existence} Now, if $g(a)=a$ or $g(b)=b$, then we are done, so we
+  assume $a<g(a)$ and $g(b)<b$. Then, for the continuous function $\phi:\R\to\R$
+  given by
+  $$
+    \phi(x):=g(x)-x,
+  $$
+
+  we have $\phi(a)>0$ and $\phi(b)<0$. By the \href{d8d9745}{Intermediate Value
+  Theorem}, there is a root $x^*$ with $a\leq x^*\leq b$ (since $g(a)\neq a,\
+  g(b)\neq b$ by assumption, we must have $a<x^*<b$) such that $\phi(x^*)=0$.
+
+  Thus, $g(x^*)=x^*$, so $x^*$ is a fixed point of $g$. Hence we've found $x^*$
+  such that $f(x^*)=0$.
+
+  \proofp{Uniqueness on $[a,b]$} Let $y^*$ be such that $g(y^*)=y^*$. Then
+  \begin{align*}
+    |x^*-y^*| &=|g(x^*)-g(y^*)|                                              \\
+              &=|g'(\eta)(x^*-y^*)|\desc{\href{d37aa2b}{Mean Value Theorem}} \\
+              &\leq\rho|x^*-y^*|
+  \end{align*}
+
+  where $\eta\in(x^*,y^*)$ is guaranteed to exist (by \href{d37aa2b}{MVT}).
+  Clearly, this inequality holds with $\rho<1$ if and only if $y^*=x^*$, hence
+  $x^*$ is unique.
+\end{proof}
+
+\Theorem{Convergence of the Fixed Point Iteration}\label{a27ba27}
+
+Consider the context set up in \autoref{bb9fc33} for Fixed Point Iteration.
+
+We claim that it converges if there exists $\rho<1$ such that $g'$ satisfies
+$$
+  |g'(x)|\leq\rho
+$$
+
+\begin{proof}
+  Let $x^*$ be the fixed point. That is, $x^*=g(x^*)$. Combining this with the
+  iterative step that $x_{k+1}=g(x_k)$, we have
+  \begin{align*}
+    |x_{k+1}-x^*| &=|g(x_k)-g(x^*)|                                              \\
+                  &=|g'(\eta)(x_k-x^*)|\desc{\href{d37aa2b}{Mean Value Theorem}} \\
+                  &\leq\rho|x_k-x^*|
+  \end{align*}
+
+  where $\eta$ is some real number strictly in between $x^*$ and $x_k$, and is
+  guaranteed to exist by \href{d37aa2b}{MVT}.
+
+  Observe that this is a \href{d5c8fb8}{contraction} by a factor of $\rho$, and
+  \href{ac20bfc}{all contractive sequences are convergent}.
+\end{proof}
+
+\Remark{Newton's Method}\label{bfda7fb}
+
+Newton's method is the most basic fast method for root finding.
+
+Let $f:\R\to\R$ be twice continuously differentiable, and let $x_k$ be the
+current iterate. By \href{c980e4c}{Taylor's Theorem}, we can write
+$$
+  f(x)=f(x_k)+f'(x_k)(x-x_k)+\frac12f''(\eta)(x-x_k)^2
+$$
+
+for some (unknown) $\eta$ between $x$ and $x_k$ (exclusive). Our goal is to
+find $x^*$ such that $f(x^*)=0$.
+
+If $f$ is linear, $f''(\eta)$ is zero and we can obtain the root by solving for
+$x$ in
+$$
+  0=f(x_k)+f'(x_k)(x-x_k)
+$$
+
+But for nonlinear functions, we define the next iterate by
+$$
+  x_{k+1}:=x_k-\frac{f(x_k)}{f'(x_k)},
+$$
+
+effectively ignoring the $f''$ term. This is on the hope that if $x_k$ is
+already close to $x^*$, then $(x^*-x_k)^2$ is very small, so we would expect
+$x_{k+1}$ to be much closer to $x^*$ than $x_k$.
+
+\Algorithm{Newton's Method}\label{d1bf583}
+
+Let $f:\R\to\R$ be differentiable.
+\begin{itemize}
+  \item[(\textbf{S0})] Put $k:=0$ and initialize $x_0$ with an initial guess.
+  \item[(\textbf{S1})] If $x_k$ satisfies a termination criteria, STOP.
+  \item[(\textbf{S2})] Set
+        $$
+          x_{k+1}:=x_k-\frac{f(x_k)}{f'(x_k)},
+        $$
+  \item[(\textbf{S3})] Update $k\gets k+1$ and go to (\textbf{S1}).
+\end{itemize}
+
+\Remark{Speed of convergence}\label{e5c0766}
+
+% not to be crossed with Rate of convergence, which is how many iterations is
+% needed to reduce the error by an order of magnitude.
+%
+% This is to stay consistent with the language used in `A First Course in
+% Numerical Methods`
+
+How fast does a nonlinear iteration converge, if it does? Let us assume that
+the method indeed converges and that $x_k$ is already ``close enough" to the
+root $\bar x$. We define \textit{convergence orders} as follows. The method is
+said to be
+\begin{itemize}
+  \item \textbf{linearly convergent} if there is a constant $\rho<1$ such that
+        $$
+          |x_{k+1}-\bar x|\leq\rho|x_k-\bar x|
+        $$
+
+        for all $k$ sufficiently large.
+  \item \textbf{quadratically convergent} if there is a constant $M$ such that
+        $$
+          |x_{k+1}-\bar x|\leq M|x_k-\bar x|^2
+        $$
+
+        for all $k$ sufficiently large.
+  \item \textbf{superlinearly convergent} if there is a sequence of constant
+        $\rho_k\to0$ such that
+        $$
+          |x_{k+1}-\bar x|\leq\rho_k|x_k-\bar x|
+        $$
+
+        for all $k$ sufficiently large.
+\end{itemize}
+
+Note that for quadratic convergence we can set $\rho_k=M|x_k-\bar x|\to0$, and
+thus the quadratic order implies superlinear order.
+
+\Remark{quasi-Newton Method}\label{b542f18}
+
+Sometimes $f'$ is difficult to compute. In this case, we can approximate
+$f'(x_k)$ too.
+
+Assuming convergence, observe that near the root,
+$$
+  f'(x_k)\approx\frac{f(x_k)-f(x_{k-1})}{x_k-x_{k-1}}
+$$
+
+Substituting this form of $f'(x_k)$ into Newton's Method yields the
+\textit{quasi-Newton method}, also referred to as the \textit{Secant method}:
+$$
+  x_{k+1}:=x_k-\frac{f(x_k)(x_k-x_{k-1})}{f(x_k)-f(x_{k-1})}
+$$
+
+\Algorithm{quasi-Newton Method}\label{dc8c172}
+
+Let $f:\R\to\R$ be differentiable.
+\begin{itemize}
+  \item[(\textbf{S0})] Put $k:=0$ and initialize two initial guesses $x_0$ and $x_1$.
+  \item[(\textbf{S1})] If $x_k$ satisfies a termination criteria, STOP.
+  \item[(\textbf{S2})] Set
+        $$
+          x_{k+1}:=x_k-\frac{f(x_k)(x_k-x_{k-1})}{f(x_k)-f(x_{k-1})}
+        $$
+  \item[(\textbf{S3})] Update $k\gets k+1$ and go to (\textbf{S1}).
+\end{itemize}
+
+\Lemma{Banach Lemma for scalars}\label{aa9e48d}
+
+Let $c\in\R$ with $|c|<1$. Then $1+c\neq0$ and we have
+$$
+  \left|\frac1{1+c}\right|\leq\frac1{1-|c|}
+$$
+
+\begin{proof}
+  Observe that for all $|c|<1$, we have
+  \begin{align*}
+    \left|\sum_{i=0}^\infty(-c)^i\right|
+     &\leq\sum_{i=0}^\infty|c|^i\desc{\href{f1288ad}{triangle inequality}}\Tag{*} \\
+     &=\frac{1}{1-|c|}\desc{\href{fca26f6}{geometric series}}
+  \end{align*}
+
+  Let $\{a_n\}$ be a sequence defined by $a_n:=\sum_{i=0}^n(-c)^i$. Observe
+  that by the above, $\{a_n\}$ is bounded and has a limit $a$. Now,
+  \begin{align*}
+    a_n(1+c) &=\sum_{i=0}^n\bigl[(-c)^i-(-c)^{i+1}\bigr]            \\
+             &=(-c)^0-(-c)^1+(-c)^1-(-c)^2+\ldots+(-c)^n-(-c)^{n+1} \\
+             &=1-(-c)^{n+1}                                         \\
+             &=1+(-1)^nc^{n+1}
+  \end{align*}
+
+  Hence,
+  \begin{align*}
+    a(1+c) &=\lim_{n\to\infty}a_n(1+c)        \\
+           &=\lim_{n\to\infty}1+(-1)^nc^{n+1} \\
+           &=1
+  \end{align*}
+
+  Therefore, $a=1/(1+c)$, and by $(*)$ we have
+  $$
+    \left|\frac1{1+c}\right|\leq\frac1{1-|c|}
+  $$
+\end{proof}
+
+\Lemma{Bounding the inverse derivative}\label{ceb0475}
+
+Let $f:\R\to\R$ be continuously differentiable. Let $\bar x\in\R$ such that
+$f'(\bar x)\neq0$. Then there exists $\epsilon>0$ such that then $f'(x)\neq0$
+for all $x\in B_\epsilon(\bar x)$. Moreover, there exists $c>0$ such that
+$$
+  |1/f'(x)|\leq c,\with{\forall x\in B_\epsilon(\bar x)}
+$$
+
+\begin{proof}
+  \def\A{f'(\bar x)}\def\B{f'(x)}
+
+  By the \href{aa9e48d}{Banach Lemma}, for all $a$ and $b$ such that
+  $|1-ab|<1$, then we have
+  \begin{align*}
+    \frac1{|1+ab-1|} &\leq\frac1{1-|1-ab|}            \\
+    \frac1{|ab|}     &\leq\frac1{1-|1-ab|}            \\
+    \frac1{|b|}      &\leq\frac{|a|}{1-|1-ab|}\Tag{*}
+  \end{align*}
+
+  % Since $f'(\bar x)\neq0$, $1/f'(\bar x)$ is well-defined.
+
+  Since $f'$ is continuous at $\bar x$, there exists $\epsilon$ such that
+  \begin{equation*}
+    |f'(\bar x)-f'(x)|\leq\frac12|f'(\bar x)|,
+    \with{\forall x\in\href{ba35f12}{B_\epsilon(\bar x)}}\Tag{**}
+  \end{equation*}
+
+  where $\frac12|f'(\bar x)|$ is a strategically chosen constant. So then
+  \begin{align*}
+    \left|1-\frac\B\A\right| &=\left|\frac1\A\Bigl(\A-\B\Bigr)\right|     \\
+                             &=\bigg|\frac1\A\bigg|\cdot\bigg|\A-\B\bigg| \\
+                             &\leq\frac12\desc{from $(**)$}\Tag{*{*}*}
+  \end{align*}
+
+  Note that at this point we have shown that $f'(x)\neq0$, since otherwise LHS
+  will be 1 exactly, breaking the inequality.
+
+  Then, using $(*)$ with $a:=1/f'(\bar x)$ and $b:=f'(x)$, we have
+  $$
+    \frac{1}{|\B|}\leq\frac{|1/\A|}{1-|1-\B/\A|}
+  $$
+
+  But from $(*{*}*)$, we can see that $1-|1-\B/\A|\geq\frac12\geq|1-\B/\A|$,
+  and hence we continue with
+  $$
+    \frac{1}{|\B|}\leq\frac{|1/\A|}{|1-\B/\A|}\leq\frac2{|\A|}
+  $$
+
+  Hence $1/\B$ is bounded, in particular with $c=2/|f'(\bar x)|$
+\end{proof}
+
+\Lemma{}\label{ca54400}
+
+Let $f:\R\to\R$ be continuously differentiable and $\{x_k\}$ such that
+$x_k\to\bar x$. Then (using \href{ab54b3a}{Landau notation}) we have
+$$
+  |f(x_k)-f(\bar x)-f'(x_k)(x_k-\bar x)|=o(|x_k-\bar x|)
+$$
+
+In particular, given any $\epsilon>0$, we have
+$$
+  |f(x_k)-f(\bar x)-f'(x_k)(x_k-\bar x)|\leq\epsilon|x_k-\bar x|
+$$
+
+for all $k$ sufficiently large.
+
+\begin{proof}
+  Observe that we can express the fact that $f$ is
+  \href{c62315d}{differentiable} at $\bar x\in\R$ if and only if
+  $$
+    |f(x_k)-f(\bar x)-f'(\bar x)(x_k-\bar x)|=o(|x_k-\bar x|)
+  $$
+
+  Then,
+  \begin{align*}
+     &|f(x_k)-f(\bar x)-f'(x_k)(x_k-\bar x)|                                                                                               \\
+     &\leq|f(x_k)-f(\bar x)-f'(\bar x)(x_k-\bar x)|+|f'(x_k)(x_k-\bar x)-f'(\bar x)(x_k-\bar x)|\desc{\href{f1288ad}{triangle inequality}} \\
+     &\leq|f(x_k)-f(\bar x)-f'(\bar x)(x_k-\bar x)|+|f'(x_k)-f'(\bar x)|\cdot|x_k-\bar x|
+  \end{align*}
+
+  The first summand is $o(|x_k-\bar x|)$ because $f$ is differentiable at $\bar
+  x$. The second follows from the continuity of $f'$. Since $x_k\to\bar x$ and
+  $f'$ is continuous, then $f'(x_k)\to f'(\bar x)$. Since the sum of
+  $o(|x_k-\bar x|)$ terms is clearly $o(|x_k-\bar x|)$, the proof is complete.
+\end{proof}
+
+\Theorem{Convergence of Newton's Method}\label{e0895e9}
+
+Let $f:\R\to\R$ be twice continuously differentiable, and let $\bar x\in\R$
+such that $f(\bar x)=0$, and $f'(\bar x)\neq0$. Then there exists a
+$\epsilon>0$ such that, starting with any $x_0\in\href{ba35f12}{B_\epsilon(\bar
+x)}$, Newton's Method converges quadratically to $\bar x$.
+
+\begin{proof}
+  % refer to Nonlinear Optimizations Proof
+  By \autoref{ceb0475} there exists $\epsilon_1>0$ and $c>0$ such that
+  $f'(x)\neq0$ and
+  \begin{equation*}
+    |1/f'(x)|\leq c,\with{\forall x\in B_{\epsilon_1}(\bar x)}\Tag{*}
+  \end{equation*}
+
+  Fix $C:=\frac{1}{2c}$. Assume on the contrary that there is no such
+  $\delta>0$ such that
+  $$
+    |f(x)-f(\bar x)-f'(x)(x-\bar x)|\leq C|x-\bar x|,
+    \with{\forall x\in B_\delta(\bar x)}
+  $$
+
+  Then this means that for all $\delta>0$, we have
+  $$
+    |f(x)-f(\bar x)-f'(x)(x-\bar x)|>C|x-\bar x|,
+    \with{\forall x\in B_\delta(\bar x)}
+  $$
+
+  So then we can form a sequence $\{\delta_k\}$ where $\delta_k:=1/k$, and
+  derive a sequence $\{x_k\}$ such that
+  $$
+    |f(x_k)-f(\bar x)-f'(x_k)(x_k-\bar x)|>C|x_k-\bar x|,
+    \with{x_k\in B_{\delta_k}(\bar x)}
+  $$
+
+  But as since $\delta_k\to0$, $B_{\delta_k}(\bar x)$ only shrinks and we have
+  $x_k\to\bar x$. But this contradicts \autoref{ca54400}. Hence the original
+  assumption is wrong and there exists an $\epsilon_2>0$ (in the place of
+  $\delta$) such that
+  \begin{equation*}
+    |f(x)-f(\bar x)-f'(x)(x-\bar x)|\leq\frac{1}{2c}|x-\bar x|,
+    \with{\forall x\in B_{\epsilon_2}(\bar x)}\Tag{**}
+  \end{equation*}
+
+  So then we set $\epsilon:=\min\{\epsilon_1,\epsilon_2\}$. By $(*)$ and
+  $(**)$. Then for an arbitrary $x_0\in B_\epsilon(\bar x)$, we have
+  \begin{align*}
+    |x_1-\bar x| &=\left|x_0-\bar x-\frac{f(x_0)}{f'(x_0)}\right|                                     \\
+                 &\leq|1/{f'(x_0)}|\cdot|f'(x_0)(x_0-\bar x)-f(x_0)|                                  \\
+                 &=|1/{f'(x_0)}|\cdot|f(x_0)-f(\bar x)-f'(x_0)(x_0-\bar x)|\desc{since $f(\bar x)=0$} \\
+                 &\leq\frac12|x_0-\bar x|\desc{by $(*)$ and $(**)$}
+  \end{align*}
+
+  Hence $x_1\in B_\epsilon(\bar x)$. Inductively we obtain
+  $$
+    |x_k-\bar x|\leq\left(\frac12\right)^k|x_0-\bar x|,\with{\forall k\in\N}
+  $$
+
+  Thus $x_k\to\bar x$.
+\end{proof}

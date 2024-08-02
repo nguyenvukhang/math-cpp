@@ -1,0 +1,35 @@
+\chapter{Errors in trial and error}\label{ca9f28e}
+
+\begin{toc}
+  \citem{b889457} % Linear Algebra
+\end{toc}
+
+\subsection{Linear Algebra}\label{b889457}
+
+\Remark{Error: Alternative definition of vector projection}\label{ddad872}
+
+Consider the alternative definition where we swap the order of $v,x$ in the
+inner product in the numerator:
+
+Let $V$ be an \href{b9935c8}{inner product space}, and let $v,x\in V$. To
+\textbf{project} $x$ onto $v$, we do
+$$
+  x_v=\frac{\inner vx}{\inner vv}v\desc{recall: \href{cebd07a}{inner product}}
+$$
+
+This does not work because
+\begin{align*}
+  \inner{x_v}v
+   &=\Inner{\frac{\inner vx}{\inner vv}v}v \\
+   &=\frac{\inner vx}{\inner vv}\inner vv  \\
+   &=\inner vx\Tag{*}
+\end{align*}
+
+and so there is no way to obtain zero from $\inner{x-x_v}v$.
+\begin{align*}
+  \inner{x-x_v}v
+   &=\inner xv-\inner{x_v}v \\
+   &=\inner xv-\inner vx    \\
+   &=2\Im{\inner xv}        \\
+   &\neq0
+\end{align*}

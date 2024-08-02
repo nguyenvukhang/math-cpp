@@ -1,0 +1,205 @@
+\subsection{Applied expectation}\label{c7b30a3}
+
+\Proposition{Expectation of jointly distributed RVs}\label{f80b9e4}
+
+Suppose $\iter{X_1}{X_n}$ are \href{ab5a852}{jointly distributed random
+variables}, and $Y=g(\iter{X_1}{X_n})$
+\begin{itemize}
+  \item If $\iter{X_1}{X_n}$ are discrete with \href{e00d4ea}{joint p.m.f.}
+        $p(\iter{x_1}{x_n})$, then
+        $$
+          E[Y]=E[g(\iter{X_1}{X_n})]=\sum_{\iter{x_1}{x_n}}g(\iter{x_1}{x_n})p(\iter{x_1}{x_n})
+        $$
+
+        Where RHS is summing over all combinations of $\iter{x_1}{x_n}$.
+  \item If $\iter{X_1}{X_n}$ are continuous with \href{b62ce9b}{joint p.d.f.}
+        $f(\iter{x_1}{x_n})$, then
+        $$
+          E[Y]=E[g(\iter{X_1}{X_n})]=\int\ldots\int g(\iter{x_1}{x_n})f(\iter{x_1}{x_n})\,dx_1\ldots dx_n
+        $$
+\end{itemize}
+
+\Proposition{Expectation of 2 jointly distributed RVs}\label{aad7054}
+
+This is a specialization of \autoref{f80b9e4}. Suppose $X$ and $Y$ are jointly
+distributed random variables.
+\begin{itemize}
+  \item If $X$ and $Y$ are discrete with \href{e00d4ea}{joint p.m.f.} $p(x,y)$,
+        then
+        $$
+          E[g(X,Y)]=\sum_x\sum_yg(x,y)p(x,y)
+        $$
+  \item If $X$ and $Y$ are continuous with \href{b62ce9b}{joint p.d.f.}
+        $f(x,y)$, then
+        $$
+          E[g(X,Y)]=\iint g(x,y)f(x,y)\,dx\,dy
+        $$
+\end{itemize}
+
+\Corollary{Expectation of 2 jointly distributed RVs*}\label{b284980}
+
+If $X$ and $Y$ are \href{f0da4c0}{independent random variables} and $g$ and $h$
+are fixed functions, then
+$$
+  E[g(X)h(Y)]=E[g(X)]E[h(Y)],
+$$
+
+provided that the expectations on the right-hand side exist. In particular, if
+$g,h$ are both the identity, this reduces to $E[XY]=E[X]E[Y]$.
+
+\Theorem{Expection of sum is the sum of expectations}\label{ba000ee}
+
+Let $\iter{X_1}{X_n}$ be \href{b96960b}{random variables}. Then
+$$
+  E[X_1+\ldots+X_n]=E[X_1]+\ldots+E[X_n]
+$$
+
+\Theorem{Expectation is a linear operator}\label{e1bddba}
+
+Let $X,Y$ be random variables, and let $a,b\in\R$. Then
+$$
+  E[aX+bY]=aE[X]+bE[Y]
+$$
+
+\Definition{Covariance}\label{d43f610}
+
+For two jointly distributed real-valued \href{b96960b}{random variables} $X,Y$,
+the covariance is defined as the expected value of the product of their
+deviations from their individual expected values:
+$$
+  \Cov(X,Y):=E[(X-E[X])(Y-E[Y])]
+$$
+
+This can be shown to be equivalent to $E[XY]-E[X]E[Y]$.
+
+\Proposition{Properties of covariance}\label{fedfd56}
+
+Let $X,Y,Z$ be random variables and let $a,b\in\R$. Then
+\begin{enumerata}
+  \item $\Cov(X,X)=\href{ddd95d5}{\Var}(X)$
+  \item $\Cov(X,Y)=\Cov(Y,X)$
+  \item $\Cov(X+a,Y+b)=\Cov(X,Y)$
+  \item $\Cov(aX,bY)=ab\Cov(X,Y)$
+  \item $\Cov(X+Y,Z)=\Cov(X,Z)+\Cov(Y,Z)$
+\end{enumerata}
+
+\Proposition{Covariance and independence}\label{f7c7611}
+
+Let $X,Y$ be random variables. If $X$ and $Y$ are independent, then
+$\Cov(X,Y)=0$. But the converse is not true in general.
+
+\Result{Variance of random sample}\label{feea370}
+
+Let $\iter{X_1}{X_n}$ be independent and identically distributed random
+variables with \href{d13ac42}{mean} $\mu$ and \href{ddd95d5}{variance}
+$\sigma^2$.
+
+Let $\bar X:=\frac1n\sum X_i$ and $S^2:=\frac1{n-1}\sum(X_i-\bar X)^2$. Then we
+have
+$$
+  \Var(\bar X)=\sigma^2/n,\quad E[S^2]=\sigma^2
+$$
+
+This result shows that the statistic $\frac1{n-1}\sum(X_i-\bar X)^2$ is better
+than $\frac1n\sum(X_i-\bar X)^2$ because it is an unbiased estimator of
+$\sigma^2$.
+
+\begin{proof}
+  Firstly, we show the result for $\Var(\bar X)$.
+  \begin{align*}
+    \Var(\bar X) &=\Var\biggl(\frac1n\sum_{i=1}^nX_i\biggr)                                             \\
+                 &=\frac1{n^2}\Var\biggl(\sum_{i=1}^nX_i\biggr)                                         \\
+                 &\href{c9586b8}{=}\frac1{n^2}\sum_{i=1}^n\Var(X_i)\desc{since $X_i$'s are independent} \\
+                 &=\frac1{n^2}\sum_{i=1}^n\sigma^2\desc{by assumption}                                  \\
+                 &=\sigma^2/n
+  \end{align*}
+
+  Next, we go after $E[S^2]$.
+  \begin{align*}
+    (n-1)S^2 &=\sum_{i=1}^n(X_i-\bar X)^2                                                            \\
+             &=\sum_{i=1}^n\bigl[(X_i-\mu)-(\bar X-\mu)\bigr]^2                                      \\
+             &=\sum_{i=1}^n(X_i-\mu)^2+(\bar X-\mu)^2-2(X_i-\mu)(\bar X-\mu)                         \\
+             &=\sum_{i=1}^n(X_i-\mu)^2+\sum_{i=1}^n(\bar X-\mu)^2-2\sum_{i=1}^n(X_i-\mu)(\bar X-\mu) \\
+             &=\sum_{i=1}^n(X_i-\mu)^2+n(\bar X-\mu)^2-2(\bar X-\mu)\sum_{i=1}^n(X_i-\mu)            \\
+             &=\sum_{i=1}^n(X_i-\mu)^2+n(\bar X-\mu)^2-2(\bar X-\mu)(n\bar X-n\mu)                   \\
+             &=\sum_{i=1}^n(X_i-\mu)^2-n(\bar X-\mu)^2
+  \end{align*}
+
+  Taking expectation of both sides, and recalling that
+  \href{e1bddba}{expectation is a linear operator}, we have
+  \begin{align*}
+    E[(n-1)S^2]         &=\biggl(\sum_{i=1}^nE[(X_i-\mu)^2]\biggr)-nE[(\bar X-\mu)^2]       \\
+                        &\href{ddd95d5}{=}\biggl(\sum_{i=1}^n\Var(X_i)\biggr)-n\Var(\bar X) \\
+                        &=\biggl(\sum_{i=1}^n\sigma^2\biggr)-n\sigma^2/n\desc{from above}   \\
+                        &=n\sigma^2-\sigma^2                                                \\
+    \pre\implies E[S^2] &=\sigma^2
+  \end{align*}
+\end{proof}
+
+\Definition{Correlation}\label{a34f96d}
+
+If $X$ and $Y$ are jointly distributed random variables, and the variances and
+covariances of both $X$ and $Y$ exist as non-zero values, then the
+\textit{correlation} of $X$ and $Y$, denoted by $\rho(X,Y)$, is
+$$
+  \rho(X,Y)=\frac{\Cov(X,Y)}{\sqrt{\Var(X)\Var(Y)}}
+$$
+
+Note that for all $X,Y$, we always have $\rho(X,Y)\in[-1,1]$. Furthermore,
+$\rho(X,Y)=\pm1$ if and only if $P(Y=a+bX)=1$ for some $a,b\in\R$.
+
+\Definition{Conditional expectation (continuous)}\label{f63e8d8}
+
+Suppose that $X$ and $Y$ are \href{bdb1e15}{continuous random variables}, and
+that the \href{be663f1}{conditional p.d.f.} of $X$ given $Y=y$ is
+$f_{X|Y}(x|y)$. Then the \textit{conditional expectation} of $X$ given $Y=y$ is
+$$
+  E[X|Y=y]=\int_\R xf_{X|Y}(x|y)\,dx
+$$
+
+It can be shown that the conditional expectation of a function of $X$ given
+$Y=y$ is
+$$
+  E[g(X)|Y=y]=\int_\R g(x)f_{X|Y}(x|y)\,dx
+$$
+
+\Definition{Conditional variance}\label{b773615}
+
+Suppose that $X$ and $Y$ are \href{bdb1e15}{continuous random variables}. Then
+the \textit{conditional variance} of $X$ given $Y=y$ is
+\begin{align*}
+  \Var(X|Y=y) &:=E[(X-E[X])^2|Y=y]                                                         \\
+              &=E[X^2|Y=y]-(E[X|Y=y])^2\desc{similar to \href{f178eb7}{$E[X^2]-(E[X])^2$}}
+\end{align*}
+
+And also
+\begin{align*}
+  \Var(X|Y) &:=E[(X-E[X])^2|Y]    \\
+            &=E[X^2|Y]-(E[X|Y])^2
+\end{align*}
+
+\Proposition{Law of total expectation}\label{f021fea}
+
+Let $X,Y$ be \href{b96960b}{random variables}. Then
+$$
+  E[X]=E[E[X|Y]]
+$$
+
+Note that $E[X|Y]$ is a random variable itself. Equivalently,
+\begin{itemize}
+  \item If $X,Y$ are \href{f831030}{discrete}, then
+        $$
+          E[X]=\sum_yE[X|Y=y]p_Y(y)\href{f63e8d8}{=}\sum_y\biggl[\sum_xxp_{X|Y}(x|y)\biggr]p_Y(y)
+        $$
+  \item If $X,Y$ are \href{bdb1e15}{continuous}, then
+        $$
+          E[X]=\int_yE[X|Y=y]f_Y(y)\,dy\href{f63e8d8}{=}\int_y\biggl[\int_xxf_{X|Y}(x|y)\,dx\biggr]f_Y(y)\,dy
+        $$
+\end{itemize}
+
+\Proposition{Computing variance through a condition}\label{cd3954e}
+
+Let $X,Y$ be \href{b96960b}{random variables}. Then
+$$
+  \Var(Y)=\Var(E[Y|X])+E[\Var(Y|X)]
+$$

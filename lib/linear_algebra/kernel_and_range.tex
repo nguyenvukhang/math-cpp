@@ -1,0 +1,213 @@
+\subsection{Kernel and Range}\label{f4d2050}
+
+\Lemma{Range of $A^T$ and kernel of $A$ are orthogonal complements}\label{a9e34ed}
+
+Let $A\in\R^{m\times n}$. Then
+$$
+  \range A^T=(\ker A)^\perp
+$$
+
+Where the choice of inner product for orthogonality is the standard dot
+product.
+
+Formally, for all $u\in\range A^T$ and $v\in\ker A$, we have $u\cdot v=0$.
+
+\begin{proof}
+  Let $u\in\range A^T$. Then there exists $x$ such that $u=A^Tx$. Next, let
+  $v\in\ker A$. Then $Av=0$
+  \begin{align*}
+    u\cdot v
+     &=A^Tx\cdot v \\
+     &=(A^Tx)^Tv   \\
+     &=x^TAv       \\
+     &=x^T0        \\
+     &=0
+  \end{align*}
+\end{proof}
+
+\Theorem{Range of $Aᵀ$, kernel of $A$, and orthogonality}\label{b25bc43}
+
+Let $A\in\R^{m\times n}$. Then the following hold (using the standard dot
+product as the inner product for orthogonality):
+
+\begin{enumerati}
+  \item If $u$ is orthogonal to $\range A^T$, then $u\in\ker A$.
+  \item If $v$ is orthogonal to $\ker A$, then $v\in\range A^T$.
+\end{enumerati}
+
+\begin{proof}
+  Since $\range A^T$ \href{d0afc28}{is a subspace} of $\R^n$, we
+  \href{e77e5ea}{can decompose} $\R^n$ into
+  $$
+    \R^n=\range A^T\oplus(\range A^T)^\perp\desc{recall: \href{c67c961}{direct sum}}
+  $$
+
+  But by \autoref{a9e34ed}, we have
+  $$
+    \R^n=\range A^T\oplus\ker A
+  $$
+
+  So every vector $v\in\R^n$ can be written (in a \href{ab66b9d}{unique way})
+  as the sum $v=u+w$, where $u\in\range A^T$ and $w\in\ker A$.
+
+  If $v$ is orthogonal to $\range A^T$, in particular it is orthogonal to $u$,
+  and so
+  \begin{equation*}
+    0=\inner vu=\inner{u+w}u=\inner uu+\inner wu
+  \end{equation*}
+
+  so we must have $u=0$, giving $v=w\in\ker A$.
+
+  Next, if $v$ is orthogonal $\ker A$, in particular it is orthogonal to $w$,
+  and so
+  \begin{equation*}
+    0=\inner vw=\inner{u+w}w=\inner uw+\inner ww
+  \end{equation*}
+
+  so we must have $w=0$, giving $v=u\in\range A^T$.
+\end{proof}
+
+\Lemma{Vectors orthogonal to $\range A^T$ are in $\ker A$}\label{b2520ce}
+
+Let $A\in\R^{m\times n}$. Let $v\in\R^n$ such that
+$$
+  \forall u\in\range A^T,\ u\cdot v=0
+$$
+
+Then $v\in\ker A$.
+
+\begin{proof}
+  Since $u\in\range A^T$, there exists $x$ such that $u=A^Tx$. So then
+  \begin{align*}
+    0 &=u\cdot v    \\
+      &=A^Tx\cdot v \\
+      &=(A^Tx)^Tv   \\
+      &=x^TAv
+  \end{align*}
+
+  So we pick $u$ as the first column of $A^T$, so that setting $u\cdot v=0$, we
+  now get $\href{c01037d}{e_1}^TAv=0$, which fixes the first element of $Av$ as
+  zero.
+
+  Doing this for the rest of the canonical basis vectors, we have that $Av=0$,
+  and hence $v\in\ker A$.
+\end{proof}
+
+\Lemma{Kernel of $A$ and $A^TA$ are the same}\label{cb4b152}
+
+Let $A\in\R^{m\times n}$. Then
+$$
+  \ker A=\ker A^TA
+$$
+
+\begin{proof}
+  Let $x\in\ker A$. Then $Ax=0$. Then clearly $A^TAx=0$ too, and $x\in\ker
+  A^TA$.
+
+  Now if $x\in\ker A^TA$, then $x^TA^TAx=0$, which gives $\norm{Ax}^2=0$, and
+  hence $Ax=0$ and we have $x\in\ker A$.
+
+  Since $\ker A$ and $\ker A^TA$ are subsets of each other, they are the same.
+\end{proof}
+
+\Lemma{Range of $A^T$ and $A^TA$ are the same}\label{a1227c1}
+
+Let $A\in\R^{m\times n}$. Then
+$$
+  \range A^T=\range A^TA
+$$
+
+\begin{proof}
+  \begin{align*}
+    \range A^T &=(\ker A)^\perp\desc{by \autoref{a9e34ed}}    \\
+               &=(\ker A^TA)^\perp\desc{by \autoref{cb4b152}} \\
+               &=\range A^TA\desc{by \autoref{a9e34ed}}
+  \end{align*}
+\end{proof}
+
+\Lemma{Full rank ↔︎ trivial kernel}\label{a2a08ab}
+
+Let $A\in\R^{m\times n}$. $A$ has full column rank if and only if it has a
+trivial kernel (i.e. if $Ax=0$, then $x=0$).
+
+\begin{proof}
+  ($\implies$) Let $\{\iter{a_1}{a_n}\}$ be the column vectors of $A$. Since $A$
+  has full column rank, these vectors are \href{c133a44}{linearly independent}.
+
+  Observe that $Ax$ is simply a linear combination of the vectors
+  $\iter{a_1}{a_n}$.
+  $$
+    Ax=\sum_{i=1}^na_ix_i
+  $$
+
+  By definition of linear independence, $Ax=0$ implies that $x_i=0$ for each
+  $i=\iter1n$, which then implies that $x=0$.
+
+  ($\impliedby$) Assume that $A$ does not have full column rank. Then its column
+  vectors are linearly dependent. That is, there exists a non-trivial linear
+  combination of its columns that equals zero. Which then directly
+  \href{c3efdcc}{translates} to a non-zero $x$ such that $Ax=0$. This implies a
+  non-trivial kernel.
+\end{proof}
+
+\Result{Full rank $A$ ↔︎ invertible $A^TA$}\label{d4f72eb}
+
+Let $A\in\R^{m\times n}$. $A$ has full column rank if and only if $A^TA$ is
+invertible.
+
+\begin{proof}
+  ($\implies$) It suffices to show that the null space of $A^TA$ is trivial.
+
+  Let $x\in\R^n$ be arbitrary, with $A^TAx=0$. Then
+  \begin{align*}
+    A^TAx       &=0 \\
+    x^TA^TAx    &=0 \\
+    (Ax)^T(Ax)  &=0 \\
+    \norm{Ax}^2 &=0
+  \end{align*}
+
+  But since $A$ has full column rank, by \autoref{a2a08ab} we have that $x=0$.
+  Hence shown that if $x$ is in the null space of $A^TA$, $x$ can only be zero.
+  Hence $A^TA$ is invertible.
+
+  ($\impliedby$) Assume that $A$ does not have full column rank. Then also by
+  \autoref{a2a08ab} there exists a non-zero $x$ such that $Ax=0$. This same $x$
+  also satisfies $A^TAx=0$, proving that the kernel of $A^TA$ is non-trivial.
+  Hence $A^TA$ is singular.
+\end{proof}
+
+\Lemma{Full rank $A$ → positive definite $A^TA$}\label{fd1f53e}
+
+If a matrix $A\in\R^{m\times n}$ has full column rank, then $A^TA$ is
+\href{e25e722}{positive definite}.
+
+\begin{proof}
+  Let $x\in\R^n\sans0$. By \autoref{a2a08ab}, we have $Ax\neq0$, which then
+  implies $\norm{Ax}\neq0$. So then $\norm{Ax}^2>0$ and hence
+  $$
+    (Ax)^T(Ax)>0\implies x^T(A^TA)x>0
+  $$
+
+  here, we use the \href{e8b98fd}{transpose identity} and the
+  \href{a7d4369}{associativity of matrix multiplication}.
+\end{proof}
+
+\Lemma{Invertible matrix multiplication preserves kernel}\label{f7bb4dd}
+
+Let $A\in\R^{m\times m}$ and $B\in\R^{m\times n}$, where $A$ is invertible.
+Then
+$$
+  \href{d6bf553}{\ker}(AB)=\ker(B)
+$$
+
+and hence we also have
+$$
+  \href{bd8d6b4}{\Null}(AB)=\Null(B)
+$$
+
+\begin{proof}
+  Let $x\in\ker(AB)$. Then $ABx=0$, but since $A^{-1}$ exists, we can multiply
+  both sides on the left by $A^{-1}$ and have $Bx=0$, thus $x\in\ker B$.
+
+  If $x\in\ker B$, then clearly $ABx=0$ so $x\in\ker AB$.
+\end{proof}

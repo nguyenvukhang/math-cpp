@@ -1,0 +1,167 @@
+\subsection{QR via Givens rotations}\label{dfa3a95}
+
+\Remark{Motivation for QR with Givens rotations}\label{dfc4864}
+
+Apart from reflections used in Householder matrices, the other operation that
+preserve norms is \textbf{rotations}. Here, instead of reflecting each column
+vector to their respective \href{c01037d}{canonical basis vector}, the idea now
+is to rotate them.
+
+\Remark{Helloworlding Givens rotations}\label{e0785d9}
+
+Let's say we have a column vector (which could be one in many in a matrix) that
+we want to operate on using a Givens rotation:
+$$
+  \begin{pmat}x_1\\x_2\end{pmat},
+$$
+
+and we want to end up with
+$$
+  \begin{pmat}y\\0\end{pmat}
+$$
+
+such that $y^2=x_1^2+x_2^2$ (to preserve $\ell_2$ norm).
+
+We can apply a rotation matrix to it:
+\begin{equation*}
+  \begin{pmat}
+    \cos\theta  & \sin\theta \\
+    -\sin\theta & \cos\theta \\
+  \end{pmat}
+  \begin{pmat}x_1\\x_2\end{pmat}
+  =\begin{pmat}y\\0\end{pmat},\Tag{*}
+\end{equation*}
+
+where $\theta$ is the angle of rotation. We can use $x_1$ and $x_2$ to find
+$y$, then use them to find $\theta$ with
+$$
+  \begin{pmat}
+    x_1 & x_2  \\
+    x_2 & -x_1 \\
+  \end{pmat}
+  \begin{pmat}
+    \cos\theta \\
+    \sin\theta \\
+  \end{pmat}
+  =\begin{pmat}y\\0\end{pmat}.\desc{equivalent to $(*)$}
+$$
+
+\href{b1c3071}{Elimination} and \href{a0fa0a9}{back substitution} yield
+$$
+  \cos\theta=\frac{x_1y}{x_1^2+x_2^2},\quad
+  \sin\theta=\frac{x_2y}{x_1^2+x_2^2}
+$$
+
+and through some manipulation we have
+$$
+  \cos\theta=\frac{x_1}{\sqrt{x_1^2+x_2^2}},\quad
+  \sin\theta=\frac{x_2}{\sqrt{x_1^2+x_2^2}}
+$$
+
+\Remark{Extending Givens rotations to higher dimensions}\label{b80ae20}
+
+Instead of $\R^2$ in \autoref{e0785d9}, let's deal with $\R^5$. This example
+easily extends to $\R^n$ once understood generally.
+
+To make the move
+$$
+  \begin{pmat}x_1\\x_2\\x_3\\x_4\\x_5\end{pmat}\to
+  \begin{pmat}x_1\\y\\x_3\\0\\x_5\end{pmat},
+$$
+
+we apply the Givens rotation matrix of the following shape:
+\begin{equation*}
+  \def\z{\textcolor{slate300}{0}}
+  \begin{pmat}
+    1  & \z          & \z & \z         & \z \\
+    \z & \cos\theta  & \z & \sin\theta & \z \\
+    \z & \z          & 1  & \z         & \z \\
+    \z & -\sin\theta & \z & \cos\theta & \z \\
+    \z & \z          & \z & \z         & 1  \\
+  \end{pmat}
+  \begin{pmat}
+    x_1 \\x_2\\x_3\\x_4\\x_5\\
+  \end{pmat}=
+  \begin{pmat}
+    x_1 \\y\\x_3\\0\\x_5\\
+  \end{pmat}
+\end{equation*}
+
+\Remark{Applying Givens rotations to QR factorization}\label{e51b996}
+
+Again, we will be working on a fix-sized example of $A\in\R^{3\times2}$, and
+this easily extends to $\R^{m\times n}$ once understood generally.
+
+Let $A\in\R^{3\times2}$ be given by
+$$
+  \begin{pmat}
+    a_{11} & a_{12} \\
+    a_{21} & a_{22} \\
+    a_{31} & a_{32} \\
+  \end{pmat}
+$$
+
+First, we focus on the first column of $A$ and generate a \href{b80ae20}{Givens
+rotation matrix} $G_1$ such that
+$$
+  G_1\begin{pmat}
+    a_{11} \\
+    a_{21} \\
+    a_{31} \\
+  \end{pmat}=\begin{pmat}
+    a'_{11} \\
+    0       \\
+    a_{31}  \\
+  \end{pmat}
+$$
+
+Applying $G_1$ to $A$ we obtain
+$$
+  G_1A=\begin{pmat}
+    a'_{11} & a'_{12} \\
+    0       & a'_{22} \\
+    a_{31}  & a'_{32} \\
+  \end{pmat}
+$$
+
+Note the effect on the rest of the matrix. The only real change is that we've
+used $a_{11}$ to zero-out $a_{21}$.
+
+By this same pattern, we generate $G_2$ to use $a'_{11}$ to zero-out $a_{31}$:
+$$
+  G_2G_1A=\begin{pmat}
+    a''_{11} & a''_{12} \\
+    0        & a''_{22} \\
+    0        & a''_{32} \\
+  \end{pmat}
+$$
+
+and the last step here will be to generate a final $G_3$ to use $a''_{22}$ to
+zero-out $a''_{32}$:
+$$
+  G_3G_2G_1A=\begin{pmat}
+    a'''_{11} & a'''_{12} \\
+    0         & a'''_{22} \\
+    0         & 0         \\
+  \end{pmat}
+$$
+
+\Remark{Extracting $QR$ from Givens rotations}\label{cd43082}
+
+Consider \autoref{e51b996} on a general matrix $A\in\R^{m\times n}$. At the end
+of the factorization of $k$ steps, for some $k\in\N$, we have
+$$
+  G_k\ldots G_1A=R
+$$
+
+where $R$ has the same dimensions as $A$ and is \href{c39b6bf}{upper
+triangular}. But we want to find the $A=QR$ \href{c465f7c}{factorization}, and
+$Q$ is still missing.
+
+To obtain $Q$, we need to find
+$$
+  Q=(G_k\ldots G_1)^{-1}=G_1^{-1}\ldots G_k^{-1}
+$$
+
+Each $G_i$ can be obtained by negating the value of $\theta$ used to generate
+it, since the rotation by $-\theta$ is the inverse of the rotation by $\theta$.

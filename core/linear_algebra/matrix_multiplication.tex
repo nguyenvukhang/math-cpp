@@ -1,0 +1,132 @@
+\subsection{Matrix multiplication}\label{f41e26f}
+
+\Proposition{Entry of a matrix product equals row times column}\label{bfd6f3c}
+
+\texttt{\href{d76dfe6}{use notation};} Suppose $A\in\F^{m\times n}$ and
+$B\in\F^{n\times p}$. Then
+$$
+  (AB)_{i,j}=A_{i,\cdot}B_{\cdot,j}\with{(i=\iter1m;\ j=\iter1p)}
+$$
+
+\begin{proof}
+  Let $1\leq i\leq m$ and $1\leq j\leq p$. The \href{d786633}{definition of
+  matrix multiplication} states that
+  \begin{equation*}
+    (AB)_{i,j}=A_{i,1}B_{1,j}+\ldots+A_{i,n}B_{n,j}\Tag{*}
+  \end{equation*}
+
+  But the same definition also implies that the product of the $1\times n$
+  matrix $A_{i,\cdot}$ and the $n\times 1$ matrix $B_{\cdot,j}$ is the $1\times
+  1$ matrix whose entry is the number on the RHS of $(*)$.
+\end{proof}
+
+\Proposition{Column of matrix product equals matrix times column}\label{a27f96a}
+
+\texttt{\href{d76dfe6}{use notation};} Suppose $A\in\F^{m\times n}$ and
+$B\in\F^{n\times p}$. Then
+$$
+  (AB)_{\cdot,j}=AB_{\cdot,j}\with{(j=\iter1p)}
+$$
+
+\begin{proof}
+  Let $1\leq i\leq m$ and $1\leq j\leq p$. The \href{d786633}{definition of
+  matrix multiplication} states that
+  \begin{equation*}
+    (AB)_{i,j}=A_{i,1}B_{1,j}+\ldots+A_{i,n}B_{n,j}\Tag{*}
+  \end{equation*}
+
+  Note that both $(AB)_{\cdot,j}$ and $AB_{\cdot,j}$ are $m\times 1$ matrices.
+  For $i=\iter1m$, the entry on row $i$ of $(AB)_{\cdot,j}$ is the LHS of
+  $(*)$, and the entry on row $i$ of $AB_{\cdot,j}$ is the RHS of $(*)$. Hence
+  the matrices are equal and we have $(AB)_{\cdot,j}=AB_{\cdot,j}$.
+\end{proof}
+
+\Proposition{Linear combination of columns}\label{be0cc53}
+
+\texttt{\href{d76dfe6}{use notation};} Let $A\in\F^{m\times n}$ and $x\in\F^n$.
+Then
+$$
+  Ax=x_1A_{\cdot,1}+\ldots+x_nA_{\cdot,n}
+$$
+
+In other words, $Ax$ is a linear combination of the columns of $A$, with the
+coefficients coming from $x$.
+
+\begin{proof}
+  If $k\in\{\iter1m\}$, then the definition of \href{d786633}{matrix
+  multiplication} implies that the entry in row $k$ of $Ax\in\F^m$ is
+  $$
+    A_{k,1}x_1+\ldots+A_{k,n}x_n
+  $$
+
+  But this is equal to the entry in row $k$ of
+  $x_1A_{\cdot,1}+\ldots+x_nA_{\cdot,n}$. Since these lists of $\F^m$ agree on
+  every entry, they are the same.
+\end{proof}
+
+\Proposition{Matrix multiplication as linear combinations of columns}\label{a9e7369}
+
+\texttt{\href{d76dfe6}{use notation};} Suppose $C\in\F^{m\times p}$ and
+$R\in\F^{p\times n}$. Then
+\begin{enumerata}
+  \item if $i\in\{\iter1n\}$, then column $i$ of $CR$ is a linear combination
+        of the columns of $C$, with coefficients coming from column $i$ of $R$.
+  \item if $j\in\{\iter1m\}$, then row $j$ of $CR$ is a linear combination of
+        the rows of $R$, with coefficients coming from row $j$ of $C$.
+\end{enumerata}
+
+\begin{proof}
+  Suppose $i\in\{\iter1n\}$. Then by \autoref{a27f96a}, column $i$ of $CR$ is
+  $CR_{\cdot,i}$. By \autoref{be0cc53}, $CR_{\cdot,i}$ is the linear combination
+  of columns of $C$ with coefficients coming from $R_{\cdot,i}$ (the $i$-th
+  column of R). Thus (a) holds.
+
+  For (b), consider \href{e8b98fd}{$(CR)^T=R^TC^T$}. (a) now states that if
+  $j\in\{\iter1m\}$, then the column $j$ of $R^TC^T$ is a linear combination of
+  the columns of $R^T$, with coefficients coming from column $i$ of $C^T$. But
+  by definition of tranpose, the $i$-th column of of $C^T$ is the $i$-th row of
+  $C$, and this statement can be rewritten as:
+
+  ``The row $j$ of $CR$ is a linear combination of the rows of $R$,
+  with coefficients coming from row $i$ of $C$", exactly as (b) claims.
+\end{proof}
+
+\Proposition{Column-row factorization}\label{e75a67d}
+
+\texttt{\href{d76dfe6}{use notation};} Let $A\in\F^{m\times n}$ be a matrix with
+\href{bc27a95}{column rank} $c\geq1$. Then there exists $C\in\F^{m\times c}$ and
+$R\in\F^{c\times n}$ such that $A=CR$.
+
+\begin{proof}
+  Each column of $A$ is in $\F^m$. The list
+  $\{\iter{A_{\cdot,1}}{A_{\cdot,n}}\}$ can be reduced to a basis (of length
+  $c$, by definition of the column rank) of $\F^{m\times 1}$. The $c$ columns in
+  this basis can be put together to form $C\in\F^{m\times c}$.
+
+  If $k\in\{\iter1n\}$, then the column $k$ of $A$ is a linear combination of
+  the columns of $C$. Make the coefficients of this linear combination into the
+  $k$-th column of $R\in\F^{c\times n}$. Then from \autoref{a9e7369}, we have
+  $A=CR$.
+\end{proof}
+
+\Proposition{Column rank equals row rank}\label{a8e348c}
+
+Let $A\in\F^{m\times n}$. Then the \href{bc27a95}{column rank} of $A$ equals
+the \href{bae7bca}{row rank} of $A$.
+
+\begin{proof}
+  Let $c$ denote the column rank of $A$. Let $A=CR$ be the
+  \href{e75a67d}{column-row factorization} of $A$, where $C\in\F^{m\times c}$
+  and $R\in\F^{c\times n}$. By \autoref{a9e7369}, every row of $A$ is a linear
+  combination of the rows of $R$. Since $R$ has $c$ rows, this implies that the
+  row rank of $A$ is less than or equal to the column rank $c$ of $A$.
+
+  Now, we apply a similar argument to $A^T$:
+  \begin{align*}
+    \text{column rank of }A &=\text{row rank of }A^T\desc{by transposing}               \\
+                            &\leq\text{column rank of }A^T\desc{by the paragraph above} \\
+                            &=\text{row rank of }A\desc{by transposing}
+  \end{align*}
+
+  Thus, the column rank of $A$ equals the row rank of $A$.
+\end{proof}

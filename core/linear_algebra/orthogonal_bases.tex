@@ -1,0 +1,318 @@
+\subsection{Orthogonal bases}\label{b926854}
+
+\Proposition{Norm of an orthogonal linear combination}\label{aa48329}
+
+Let $\iter{v_1}{v_m}$ be an \href{d9735e5}{orthogonal} list of vectors in
+vector space $V$. Then
+$$
+  \norm{a_1v_1+\ldots+a_mv_m}^2=|a_1|^2\norm{v_1}^2+\ldots+|a_m|^2\norm{v_m}^2
+$$
+
+for all $\iter{a_1}{a_m}\in\F$.
+
+\begin{proof}
+  Applying the \href{c5e5d7d}{Pythagorean theorem} once, we have
+  \begin{align*}
+    \norm{a_1v_1+\ldots+a_mv_m}^2 &=\norm{a_1v_1+\ldots+a_{m-1}v_{m-1}}^2+\norm{a_mv_m}^2     \\
+                                  &=\norm{a_1v_1+\ldots+a_{m-1}v_{m-1}}^2+|a_m|^2\norm{v_m}^2
+  \end{align*}
+
+  So then applying it repeatedly, we have
+  $$
+    \norm{a_1v_1+\ldots+a_mv_m}^2=|a_1|^2\norm{v_1}^2+\ldots+|a_m|^2\norm{v_m}^2
+  $$
+\end{proof}
+
+\Proposition{Norm of an orthonormal linear combination}\label{a3a166f}
+
+Let $\iter{e_1}{e_m}$ be an \href{d90fcb1}{orthonormal} list of vectors in
+vector space $V$. Then
+$$
+  \norm{a_1e_1+\ldots+a_me_m}^2=|a_1|^2+\ldots+|a_m|^2
+$$
+
+for all $\iter{a_1}{a_m}\in\F$.
+
+\begin{proof}
+  This is a specialization of \autoref{aa48329}, with the norms set to 1.
+\end{proof}
+
+\Proposition{Orthogonal vectors are linearly independent}\label{c0eb6f5}
+
+Let $\iter{v_1}{v_m}$ be an \href{d9735e5}{orthogonal} list of vectors in
+vector space $V$. Then $\iter{v_1}{v_m}$ are \href{c133a44}{linearly
+independent}.
+
+\begin{proof}
+  Let $\iter{v_1}{v_m}$ be \href{d9735e5}{orthogonal vectors}. Let
+  $\iter{a_1}{a_m}\in\F$ such that
+  $$
+    a_1v_1+\ldots+a_mv_m=0
+  $$
+
+  Then $\norm{a_1v_1+\ldots+a_mv_m}^2=0$, and by \autoref{aa48329}, we have
+  $$
+    |a_1|^2\norm{v_1}^2+\ldots+|a_m|^2\norm{v_m}^2=0
+  $$
+
+  By the \href{e0fff96}{non-negativity} of norms, and the fact that all real
+  squares are non-negative, we must have $a_k=0$ for all $k=\iter1m$. Hence
+  $\iter{v_1}{v_m}$ are linearly independent.
+\end{proof}
+
+\Proposition{Projection onto span of orthonormal list}\label{ac79275}
+
+Let $V$ be an inner product space, and let $\iter{e_1}{e_m}$ be an
+\href{d90fcb1}{orthonormal} list of vectors. Then for all $v\in V$, the
+\href{e06bd2f}{projection} of $v$ onto the span of $\iter{e_1}{e_m}$ is
+$$
+  \inner v{e_1}e_1+\ldots+\inner v{e_m}e_m
+$$
+
+and if we let this vector be called $u$, then $\inner{v-u}u=0$ always.
+Moreover,
+$$
+  \inner{v-u}{e_k}=0\with{(k=\iter1m)}
+$$
+
+\begin{proof}
+  By definition of \href{e06bd2f}{vector projection onto the span of an
+  orthogonal list}, the expression
+  \begin{equation*}
+    \inner v{e_1}e_1+\ldots+\inner v{e_m}e_m
+  \end{equation*}
+
+  comes from seeing that $\norm{e_k}=1$ for all $k$ due to the fact that each
+  $e_k$ is a unit vector.
+
+  Now, we want show that if $u:=\inner v{e_1}e_1+\ldots+\inner v{e_m}e_m$, then
+  $\inner{v-u}u=0$. To do this, consider $\inner{v-u}{e_k}$, for each
+  $k=\iter1m$:
+  \begin{align*}
+    \inner{v-u}{e_k} &=\inner v{e_k}-\inner u{e_k}                                                                         \\
+                     &=\inner v{e_k}-\inner{\inner v{e_k}e_k}{e_k}\desc{\href{d9735e5}{$\inner{e_i}{e_j}=0$ if $i\neq j$}} \\
+                     &=\inner v{e_k}-\inner v{e_k}\inner{e_k}{e_k}                                                         \\
+                     &=0
+  \end{align*}
+
+  Since $u$ is just a linear combination of $\iter{e_1}{e_m}$, this
+  \href{fb218c8}{implies}
+  $$
+    \inner{v-u}{u}=0.
+  $$
+
+  This completes the proof.
+\end{proof}
+
+\Theorem{Bessel's inequality}\label{d845284}
+
+Let $V$ be an \href{b9935c8}{inner product space}, and suppose
+$\iter{e_1}{e_m}$ is an \href{d90fcb1}{orthonormal} list of vectors in $V$.
+Then
+$$
+  |\inner v{e_1}|^2+\ldots+|\inner v{e_m}|^2\leq\norm{v}^2.
+$$
+
+In other words, when \href{e06bd2f}{projecting} a vector $v$ onto an
+orthonormal list of vectors to obtain a new vector $u$, we have $\norm
+u\leq\norm v$. (This becomes clear upon finishing the proof)
+
+\begin{proof}
+  Suppose $v\in V$. Then we can define $u,w\in V$ such that
+  $$
+    u:=\inner v{e_1}e_1+\ldots\inner v{e_m}e_m
+  $$
+
+  and $w:=v-u$. By \autoref{ac79275}, we have $\inner wu=0$. The
+  \href{c5e5d7d}{Pythagorean theorem} now implies that
+  \begin{align*}
+    \norm v^2 &=\norm u^2+\norm w^2                                                   \\
+              &\geq\norm u^2                                                          \\
+              &=|\inner v{e_1}|^2+\ldots+|\inner v{e_m}|^2\desc{by \autoref{a3a166f}}
+  \end{align*}
+\end{proof}
+
+\Proposition{Orthonormal lists of the right length are orthonormal bases}\label{aaecd1d}
+
+Suppose $V$ is a finite-dimensional \href{b9935c8}{inner product space}. Then
+every \href{d90fcb1}{orthonormal} list of vectors in $V$ of length
+\href{cd4284b}{$\dim V$} is an \href{e112aa0}{orthonormal basis} of $V$.
+
+\begin{proof}
+  By \autoref{c0eb6f5}, every orthonormal list of vectors in $V$ is linearly
+  independent. Then since also has length $\dim V$, by \autoref{e3d5b2a}, it is
+  a basis of $V$.
+\end{proof}
+
+\Proposition{Writing a vector as a linear combination of an orthonormal basis}\label{b762d27}
+
+Suppose $\iter{e_1}{e_n}$ is an \href{e112aa0}{orthonormal basis} of
+\href{b9935c8}{inner product space} $V$, and $u,v\in V$. Then
+\begin{enumerata}
+  \item $v=\inner v{e_1}e_1+\ldots+\inner v{e_n}e_n$
+  \item $\norm{v}^2=|\inner v{e_1}|^2+\ldots+|\inner v{e_n}|^2$
+  \item $\inner uv=\inner u{e_1}\overline{\inner v{e_1}}+\ldots+\inner u{e_n}\overline{\inner v{e_n}}$
+\end{enumerata}
+
+\begin{proof}
+  \def\i#1{\inner v{e_{#1}}}
+  Because $\iter{e_1}{e_n}$ is a basis of $V$, there exist scalars
+  $\iter{a_1}{a_n}$ such that
+  $$
+    v=a_1e_1+\ldots+a_ne_n
+  $$
+
+  Because $\iter{e_1}{e_n}$ is orthonormal, taking the inner product on both
+  sides with $e_k$ gives
+  $$
+    \inner v{e_k}=\inner{a_ke_k}{e_k}=a_k
+  $$
+
+  and thus (a) holds. (b) follows from (a) by \autoref{a3a166f}.
+
+  Take the inner product of $u$ on each side of (a), we have
+  \begin{align*}
+    \inner uv &=\big\langle u,\i1e_1+\ldots+\i ne_n\big\rangle                                                    \\
+              &=\overline{\big\langle\i1e_1+\ldots+\i ne_n,u\big\rangle}\desc{\href{cebd07a}{conjugate symmetry}} \\
+              &=\overline{\inner{\i1e_1}{u}+\ldots+\inner{\i ne_n}{u}}                                            \\
+              &=\overline{\inner{\i1e_1}{u}}+\ldots+\overline{\inner{\i ne_n}{u}}                                 \\
+              &=\overline{\i1\inner{e_1}{u}}+\ldots+\overline{\i n\inner{e_n}{u}}                                 \\
+              &=\overline{\i1}\cdot\overline{\inner{e_1}{u}}+\ldots+\overline{\i n}\cdot\overline{\inner{e_n}{u}} \\
+              &=\inner{u}{e_1}\overline{\i1}+\ldots+\inner{u}{e_n}\overline{\i n}
+  \end{align*}
+\end{proof}
+
+\Algorithm{Gram-Schmidt procedure}\label{ee6ac50}
+
+Suppose $\iter{v_1}{v_m}$ is a \href{c133a44}{linearly independent} list of
+vectors in an \href{b9935c8}{inner product space} $V$. Let $u_1:=v_1$ and for
+$k=\iter2m$, define $u_k$ inductively by
+$$
+  u_k:=v_k-\sum_{i=1}^{k-1}\frac{\inner{v_k}{u_i}}{\norm{u_i}^2}u_i
+$$
+
+Then, for each $k=\iter1m$, let $e_k:=u_k/\norm{u_k}$ so that $\iter{e_1}{e_m}$
+(the output of the algorithm) is an \href{d90fcb1}{orthonormal} list of vectors
+in $V$ such that
+$$
+  \Span(\iter{v_1}{v_k})=\Span(\iter{e_1}{e_k})\with{(k=\iter1m)}
+$$
+
+\begin{proof}
+  We will show by induction on $k$ that the desired conclusion holds. To get
+  started with $k=1$, note that because $e_1=u_1/\norm{u_1}$, we have
+  $\norm{e_1}=1$. Also, $\Span(v_1)=\Span(e_1)$ because $e_1$ is a non-zero
+  multiple of $v_1$ (by linear independence, we must have $v_1\neq0$,
+  \href{e0fff96}{and so} $\norm{v_1}\neq0$).
+
+  Now suppose $1<k\leq m$ and that the inductive hypothesis holds: the list
+  $\iter{e_1}{e_{k-1}}$ generated by the Gram-Schmidt process is an orthonormal
+  list such that
+  $$
+    \Span(\iter{v_1}{v_{k-1}})=\Span(\iter{e_1}{e_{k-1}})
+  $$
+
+  Because $\iter{v_1}{v_m}$ is linearly independent, we have
+  $v_k\notin\Span(\iter{v_1}{v_{k-1}})$. Thus
+  $v_k\notin\Span(\iter{e_1}{e_{k-1}})$, which implies that $u_k\neq0$. Hence
+  we are not dividing by zero when calculating $e_k$. Again, dividing a vector
+  by its norm produced a new vector with norm 1, and thus $\norm{e_k}=1$.
+
+  Next, we prove orthogonality. Let $j=\iter1{k-1}$. Then
+  \begin{align*}
+    \inner{e_k}{e_j} &=\frac1{\norm{u_k}\norm{u_j}}\inner{u_k}{u_j}                                                                    \\
+                     &=\frac1{\norm{u_k}\norm{u_j}}\Inner{v_k-\sum_{i=1}^{k-1}\frac{\inner{v_k}{u_i}}{\norm{u_i}^2}u_i}{u_j}           \\
+                     &=\frac1{\norm{u_k}\norm{u_j}}\left(\inner{v_k}{u_j}-\Inner{\frac{\inner{v_k}{u_j}}{\norm{u_j}^2}u_j}{u_j}\right) \\
+                     &=\frac1{\norm{u_k}\norm{u_j}}(\inner{v_k}{u_j}-\inner{v_k}{u_j})                                                 \\
+                     &=0
+  \end{align*}
+
+  thus $\iter{e_1}{e_k}$ is an \href{d90fcb1}{orthonormal list}.
+
+  From the definition of $u_k$, we see that $v_k\in\Span(\iter{u_1}{u_k})$, and
+  since each $e_j$ is a non-zero multiple of each $u_j$ for $j=\iter1k$, we
+  have $v_k\in\Span(\iter{e_1}{e_k})$. This shows that
+  $$
+    \Span(\iter{v_1}{v_k})\subset\Span(\iter{e_1}{e_k})
+  $$
+
+  Both lists are linearly independent (the $v$'s by hypothesis, the $e$'s by
+  \href{c0eb6f5}{orthogonality}), and thus both subspaces above have
+  \href{cd4284b}{dimension} $k$, and \href{ed8951d}{hence} they are equal. This
+  shows that
+  $$
+    \Span(\iter{v_1}{v_k})=\Span(\iter{e_1}{e_k})
+  $$
+
+  and thus completes the proof.
+\end{proof}
+
+\Proposition{Existence of orthonormal basis}\label{b0c9a08}
+
+Every finite-dimensional inner product space has an orthonormal basis.
+
+\begin{proof}
+  Suppose $V$ is finite-dimensional. \href{c4cd6dd}{Then} $V$ is spanned by some
+  list of vectors in it. \href{cc16f54}{Reduce} this list of vectors to form a
+  basis. Apply the \href{ee6ac50}{Gram-Schmidt procedure} to it, producing an
+  orthonormal list of length $\dim V$. By \autoref{aaecd1d}, this orthonormal
+  list is an orthonormal basis of $V$.
+\end{proof}
+
+\Proposition{Every orthonormal list extends to an orthonormal basis}\label{de56b1f}
+
+Suppose $V$ is finite-dimensional. Then every \href{d90fcb1}{orthonormal list}
+of vectors in $V$ can be extended to an \href{e112aa0}{orthonormal basis} of
+$V$.
+
+\begin{proof}
+  Starting with the orthonormal list of vectors of length $m$, since
+  \href{c0eb6f5}{it is linearly independent}, we \href{f0fa1cd}{can extend} it
+  to form a basis of $V$. Now apply the \href{ee6ac50}{Gram-Schmidt procedure}
+  to this extended list. The first $m$ vectors are left unchanged as they are
+  already orthogonal (inspect the Gram-Schmidt procedure to see that the inner
+  products vanish). Hence, the final list is an extension of the original list
+  and an orthonormal basis of $V$.
+\end{proof}
+
+\Theorem{Riesz representation theorem}\label{ec6fa79}
+
+Suppose $V$ is a finite-dimensional \href{b9935c8}{inner product space} and
+$\alpha$ is a \href{b0b1db8}{linear functional} on $V$. Then there is a unique
+vector $v\in V$ such that
+$$
+  \alpha(u)=\inner uv
+$$
+
+for every $u\in V$.
+
+\begin{proof}
+  First, we show existence; that there exists $v\in V$ such that
+  $\alpha(u)=\inner uv$ for every $u\in V$. Let $\iter{e_1}{e_n}$ be an
+  orthonormal basis of $V$ (which exists by \autoref{b0c9a08}). Then
+  \begin{align*}
+    \alpha(u) &=\alpha(\inner u{e_1}e_1+\ldots+\inner u{e_n}e_n)\desc{by \autoref{b762d27}}                               \\
+              &=\inner u{e_1}\alpha(e_1)+\ldots+\inner u{e_n}\alpha(e_n)                                                  \\
+              &=\inner u{\overline{\alpha(e_1)}e_1}+\ldots+\inner u{\overline{\alpha(e_n)}e_n}\desc{by \autoref{fb218c8}}
+  \end{align*}
+
+  Thus, by setting
+  $$
+    v:=\overline{\alpha(e_1)}e_1+\ldots+\overline{\alpha(e_n)}e_n,
+  $$
+
+  we have $\alpha(u)=\inner uv$ for every $u\in V$, as desired.
+
+  Next, we show uniqueness; suppose $v_1,v_2\in V$ are such that
+  $$
+    \alpha(u)=\inner u{v_1}=\inner u{v_2}
+  $$
+
+  for every $u\in V$. Then
+  $$
+    0=\inner u{v_1}-\inner u{v_2}=\inner u{v_1-v_2}\with{(\forall u\in V)}
+  $$
+
+  Setting $u$ to $v_1-v_2$ \href{fb218c8}{shows that} $v_1-v_2=0$. Thus
+  $v_1=v_2$, completing the proof for uniqueness part of the result.
+\end{proof}
